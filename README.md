@@ -20,6 +20,14 @@ clack --zen --private
 clack --once --json > result.json
 ```
 
+Press **Ctrl-T** (or **F6**) for test setup. The current length is selected:
+use **Left/Right**, then **Enter** to apply. Press **w** for Words or **t** for
+Time; each mode remembers its last applied length. The screen shows common
+presets, accepts custom durations and word counts, and includes quote lengths,
+source files, punctuation and numbers. **Tab/Up/Down** moves between rows;
+**Esc** discards pending changes. Opening setup during a test ends that run.
+The clock starts only when you return to the test and begin typing.
+
 Use `Esc` or `Ctrl-P` for commands, `Ctrl-R` for a new test, `F5` to confirm exact
 text or finish Zen, and `Ctrl-C` to quit. The command palette exposes settings,
 presets, history, result review, mistake practice and alternate actions when a

@@ -728,6 +728,7 @@ impl Edit {
 #[serde(rename_all = "snake_case")]
 pub enum CommandAction {
     Palette,
+    TestSetup,
     NewSample,
     RepeatSample,
     NextSample,
@@ -748,6 +749,7 @@ pub enum CommandAction {
 impl CommandAction {
     pub const ALL: &'static [Self] = &[
         Self::Palette,
+        Self::TestSetup,
         Self::NewSample,
         Self::RepeatSample,
         Self::NextSample,
@@ -768,6 +770,7 @@ impl CommandAction {
     pub fn name(self) -> &'static str {
         match self {
             Self::Palette => "palette",
+            Self::TestSetup => "test_setup",
             Self::NewSample => "new_sample",
             Self::RepeatSample => "repeat_sample",
             Self::NextSample => "next_sample",
@@ -891,6 +894,8 @@ impl Default for Bindings {
         for (text, action) in [
             ("esc", Palette),
             ("ctrl+p", Palette),
+            ("ctrl+t", TestSetup),
+            ("f6", TestSetup),
             ("ctrl+r", NewSample),
             ("f2", RepeatSample),
             ("f3", Practice),
@@ -950,4 +955,18 @@ impl Bindings {
             .find(|(chord, action)| action.allowed(context) && chord.matches(key))
             .map(|(_, action)| *action)
     }
+}
+
+/// Mode transitions are atomic across the scoring settings they require.
+pub fn mode_edits(value: &str) -> Result<Vec<Edit>, String> {
+    let mut edits = vec![Edit::parse("test.mode", value)?];
+    if value == "code" {
+        edits.push(Edit::parse("test.policy", "exact")?);
+        edits.push(Edit::parse("test.completion", "confirm")?);
+    } else if matches!(value, "time" | "words" | "quote" | "zen") {
+        edits.push(Edit::parse("test.policy", "prose")?);
+        edits.push(Edit::parse("practice.auto_indent", "false")?);
+        edits.push(Edit::parse("test.normalize_exact", "false")?);
+    }
+    Ok(edits)
 }

@@ -39,6 +39,7 @@ pub struct Editor {
     pub replace_on_type: bool,
 }
 pub struct Palette {
+    pub setup: Option<super::setup::Setup>,
     pub query: String,
     pub selected: usize,
     pub return_ready: bool,
@@ -50,6 +51,7 @@ pub struct Palette {
 impl Palette {
     pub fn new(config: &Config, return_ready: bool) -> Self {
         let mut palette = Self {
+            setup: None,
             query: String::new(),
             selected: 0,
             return_ready,
@@ -65,6 +67,11 @@ impl Palette {
         use CommandAction::*;
         self.entries.clear();
         for (action, label, help) in [
+            (
+                TestSetup,
+                "Test setup",
+                "Ctrl-T / F6: choose mode, duration, word count and modifiers together.",
+            ),
             (
                 NewSample,
                 "New sample",
@@ -352,6 +359,10 @@ fn display_value(value: &toml::Value) -> String {
 }
 
 pub fn render(frame: &mut Frame, palette: &Palette, appearance: &Appearance) {
+    if let Some(setup) = &palette.setup {
+        super::setup::render(frame, setup, appearance, palette.message.as_deref());
+        return;
+    }
     let theme = Theme::from_preferences(appearance, ColorDepth::detect(appearance.color));
     let area = frame.area();
     frame.buffer_mut().set_style(area, theme.background);

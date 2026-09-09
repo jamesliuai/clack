@@ -4,6 +4,7 @@ pub mod palette;
 pub mod panel;
 mod preferences;
 pub mod review;
+pub mod setup;
 mod theme;
 mod viewport;
 pub use preferences::*;
@@ -97,7 +98,7 @@ pub fn render(
     let ready = engine.state() == State::Ready;
     if appearance.focus != Focus::Always && (ready || appearance.focus == Focus::Off) {
         let mode = match engine.spec().mode {
-            Mode::Time => format!("time {}", engine.spec().seconds),
+            Mode::Time => format!("time {}s", engine.spec().seconds),
             Mode::Words => format!("words {}", engine.spec().words),
             Mode::Quote => "quote".into(),
             Mode::Custom => "custom".into(),
@@ -123,8 +124,10 @@ pub fn render(
             geometry.text.x,
             geometry.hint_y,
             geometry.text.width,
-            if ready {
-                "start typing                 esc commands"
+            if ready && geometry.text.width >= 44 {
+                "type to start · ctrl-t setup · esc commands"
+            } else if ready {
+                "type to start · ctrl-t setup"
             } else {
                 "esc commands                 ctrl-r new sample"
             },
@@ -384,9 +387,11 @@ fn render_results(
         (y + 5).min(frame.area().height - 1),
         width,
         if geometry.compact {
-            "enter next   esc commands"
+            "enter next · ctrl-t setup"
+        } else if width >= 65 {
+            "enter next · ctrl-t setup · f2 repeat · f3 practice · f4 details"
         } else {
-            "enter next   f2 repeat   f3 practice   f4 details"
+            "enter next · ctrl-t setup · f4 details"
         },
         theme.muted,
     );

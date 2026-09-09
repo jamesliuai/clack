@@ -140,6 +140,32 @@ exact text. A multi-field edit is validated as a whole: changing mode to code an
 policy to exact succeeds together without committing an invalid intermediate
 configuration.
 
+## Quick test setup
+
+Open **Ctrl-T**, **F6**, or **Test setup** in the command palette. The ready and
+results screens show the shortcut. Settings are staged together; **Enter** saves
+only the changed fields and prepares a ready test, and **Esc** discards the draft.
+Opening setup during a running test aborts that run, as opening commands does.
+Cancel then returns a fresh test with the original settings.
+
+- **15s → 30s:** Ctrl-T, Right, Enter.
+- **Time → Words:** Ctrl-T, w, Enter. Use Left/Right first to choose a word count.
+- **Custom length:** type the number on the Time or Words row, then Enter.
+- **Rows:** Tab/Shift-Tab or Up/Down; **choices:** Left/Right. Space toggles modifiers.
+- **Mode shortcuts:** t = Time, w = Words, q = Quote, c = Custom, d = Code, z = Zen.
+  In the File row, these letters are ordinary path input; move to Mode to use shortcuts.
+
+Timed presets are 15/30/60/120 seconds; word presets are 10/25/50/100 words.
+Other supported values remain visible and editable. Time and Words retain their
+own last applied lengths. Quotes show short/medium/long/extended; changing the
+category clears an explicitly pinned quote ID. Custom and Code expose a source
+file field; empty uses the initial source, or bundled content for Code. Invalid
+values, unavailable sources, and failed saves leave setup open for correction.
+Punctuation and numbers appear only for generated Time/Words tests.
+
+The full command palette still provides language packs, scoring rules, appearance,
+presets, and advanced settings. `workflow.bindings.test_setup` can add a safe alias.
+
 ## Data presets
 
 Three names are built in and reserved:
@@ -180,7 +206,7 @@ commandeered from typing. Ctrl-H/I/J/M are rejected because baseline terminals
 can report them identically to Backspace/Tab/Enter. Duplicate modifiers, unknown
 commands, and collisions with other baseline/custom actions are rejected.
 
-Command names are `palette`, `new_sample`, `repeat_sample`, `next_sample`,
+Command names are `palette`, `test_setup`, `new_sample`, `repeat_sample`, `next_sample`,
 `finish`, `delete_word`, `quit`, `details`, `practice`, `practice_missed`,
 `practice_slow`, `history`, `help`, `config`, `save_default`, `export`, and
 `retry_save`. Every command can also be exposed by the palette, which avoids

@@ -3,6 +3,7 @@ use crate::settings::{self, CommandAction, Edit};
 
 pub(super) enum Deferred {
     Edits(Vec<Edit>),
+    Setup(Vec<Edit>),
     Preset(String),
     SavePreset(String),
     SaveDefaults,
@@ -76,17 +77,11 @@ impl App {
                             return Ok(());
                         }
                     };
-                    let mut edits = vec![edit];
-                    if setting.path == "test.mode" {
-                        if value == "code" {
-                            edits.push(Edit::parse("test.policy", "exact")?);
-                            edits.push(Edit::parse("test.completion", "confirm")?);
-                        } else if matches!(value.as_str(), "time" | "words" | "quote" | "zen") {
-                            edits.push(Edit::parse("test.policy", "prose")?);
-                            edits.push(Edit::parse("practice.auto_indent", "false")?);
-                            edits.push(Edit::parse("test.normalize_exact", "false")?);
-                        }
-                    }
+                    let edits = if setting.path == "test.mode" {
+                        settings::mode_edits(&value)?
+                    } else {
+                        vec![edit]
+                    };
                     Deferred::Edits(edits)
                 }
                 EditPurpose::SavePreset => Deferred::SavePreset(value),
@@ -165,7 +160,31 @@ impl App {
             return Ok(());
         };
         self.restore_preview();
+        if let Deferred::Setup(edits) = &job {
+            let outcome = if edits.is_empty() {
+                Ok(String::new())
+            } else {
+                self.apply_setting_edits(edits, reader, session, now)
+            };
+            match outcome {
+                Ok(_) => {
+                    // A successful Apply always returns to a ready test, including
+                    // when setup was opened from completed results or history.
+                    self.history = None;
+                    if self.sample.engine.state() == State::Results {
+                        self.restart(reader, false, now)?;
+                    } else {
+                        self.close_palette(reader, now)?;
+                    }
+                    self.notice = None;
+                }
+                Err(error) => self.report(error),
+            }
+            self.dirty = true;
+            return Ok(());
+        }
         let outcome = match job {
+            Deferred::Setup(_) => unreachable!(),
             Deferred::Edits(edits) => self.apply_setting_edits(&edits, reader, session, now),
             Deferred::Preset(name) => match self.config.preset_edits(&name) {
                 Ok(edits) => self.apply_setting_edits(&edits, reader, session, now),
@@ -326,6 +345,9 @@ impl App {
             [
                 "Type the displayed text. The first eligible key starts immediately.",
                 "Esc / Ctrl-P: commands; opening commands aborts an active test.",
+                "Ctrl-T / F6: test setup. Arrows choose mode and length; Enter applies.",
+                "Setup: t/w/q/c/d/z selects a mode; type a custom duration or word count.",
+                "Opening setup ends an active test. Esc cancels unapplied choices.",
                 "Ctrl-R: new sample. F2: repeat the exact sample as practice.",
                 "Enter on Results: next. F3: practice. F4: detailed review.",
                 "F5: finish zen or confirm exact text. Ctrl-C: quit.",

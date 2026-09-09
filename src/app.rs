@@ -362,6 +362,23 @@ impl App {
                     self.open_palette(reader, now)?;
                 }
             }
+            TestSetup => {
+                if self
+                    .palette
+                    .as_ref()
+                    .is_some_and(|palette| palette.setup.is_some())
+                {
+                    self.close_palette(reader, now)?;
+                } else {
+                    self.restore_preview();
+                    self.open_palette(reader, now)?;
+                    let palette = self.palette.as_mut().expect("palette");
+                    palette.setup = Some(ui::setup::Setup::new(&self.config));
+                    if self.sample.engine.outcome() == Outcome::Aborted {
+                        palette.message = Some("Active test ended; apply or cancel setup.".into());
+                    }
+                }
+            }
             NewSample | NextSample => self.restart(reader, false, now)?,
             RepeatSample => self.restart(reader, true, now)?,
             Finish => {
@@ -492,6 +509,30 @@ impl App {
                 return Ok(());
             }
             return self.dispatch(action, reader, received);
+        }
+        if let Some(palette) = &mut self.palette
+            && let Some(setup) = &mut palette.setup
+        {
+            if key.code == KeyCode::Enter {
+                match setup.edits() {
+                    Ok(edits) => self.deferred = Some(Deferred::Setup(edits)),
+                    Err(error) => palette.message = Some(error),
+                }
+            } else if let Some(text) = text {
+                setup.insert(&text);
+                palette.message = None;
+            } else if !key.modifiers.intersects(
+                KeyModifiers::CONTROL
+                    | KeyModifiers::ALT
+                    | KeyModifiers::SUPER
+                    | KeyModifiers::META
+                    | KeyModifiers::HYPER,
+            ) {
+                setup.key(key.code);
+                palette.message = None;
+            }
+            self.dirty = true;
+            return Ok(());
         }
         if let Some(text) = text {
             if let Some(palette) = &mut self.palette {

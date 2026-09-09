@@ -12,7 +12,7 @@
     time 30s · #e9018ef6
 
 
-    enter next   f2 repeat   f3 practice   f4 details
+    enter next · ctrl-t setup · f2 repeat · f3 practice · f4 details
 
 
 

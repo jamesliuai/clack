@@ -7,5 +7,5 @@
     time 30s · #e9018ef6
 
 
-    enter next   esc commands
+    enter next · ctrl-t setup
 

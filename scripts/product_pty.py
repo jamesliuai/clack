@@ -885,7 +885,127 @@ def case_overload_verdict_survives_storage_ack_and_review(ctx: Context) -> None:
         quit_cleanly(p)
 
 
+
+def setup_open(process: PtyProcess) -> None:
+    process.send(b"\x14")  # Ctrl-T
+    seen(process, "Test setup")
+    seen(process, "enter apply")
+
+
+def setup_apply(process: PtyProcess) -> None:
+    process.send(ENTER)
+    wait_for(process, lambda: not screen_has(process, "Test setup") and frame_state(process) == "ready", "setup applied and fresh test ready")
+    check(counts(process)["attempts_total"] == 0, "setup input leaked into the typing test")
+
+
+def case_quick_setup_switch_cancel_and_persist(ctx: Context) -> None:
+    ctx.configure('# keep this comment\nschema_version = 1\n[test]\nseconds = 15\n')
+    with ctx.launch("--private", cols=40, rows=10) as p:
+        ready(p, True)
+        seen(p, "ctrl-t setup")
+        setup_open(p)
+        seen(p, "[15s]")
+        p.send(b"\x1b[C")
+        seen(p, "[30s]")
+        check(ctx.disk()["test"]["seconds"] == 15, "draft duration persisted early")
+        setup_apply(p)
+        seen(p, "time 30s")
+        check(ctx.disk()["test"]["seconds"] == 30, "duration was not persisted")
+        setup_open(p)
+        p.send(b"w")
+        seen(p, "[words]")
+        seen(p, "[50]")
+        p.send(b"\x1b[D")
+        seen(p, "[25]")
+        setup_apply(p)
+        seen(p, "words 25")
+        check(ctx.disk()["test"]["mode"] == "words", "mode was not saved")
+        before = ctx.config.read_bytes()
+        setup_open(p)
+        p.send(b"t")
+        seen(p, "[30s]")
+        p.send(ESC)
+        seen(p, "words 25")
+        check(ctx.config.read_bytes() == before, "cancel persisted draft choices")
+        # The alias must remain reachable when a terminal intercepts Ctrl-T.
+        p.send(b"\x1b[17~")  # F6
+        seen(p, "Test setup")
+        p.send(ESC)
+        seen(p, "words 25")
+        check("# keep this comment" in ctx.config.read_text(), "setup lost config comments")
+        quit_cleanly(p)
+    with ctx.launch("--private") as p:
+        ready(p, True)
+        seen(p, "words 25")
+        quit_cleanly(p)
+
+
+def case_quick_setup_validation_sources_and_palette(ctx: Context) -> None:
+    ctx.configure()
+    with ctx.launch("--private") as p:
+        ready(p, True)
+        choose(p, "test setup")
+        seen(p, "Test setup")
+        p.send(b"0")
+        p.send(ENTER)
+        seen(p, "Duration must be 1-3600")
+        check(counts(p)["attempts_total"] == 0, "invalid setup started typing")
+        p.send(b"\x7f45")
+        setup_apply(p)
+        seen(p, "time 45s")
+        setup_open(p)
+        p.send(b"c")
+        p.send(ENTER)
+        seen(p, "custom mode needs a source")
+        check(ctx.disk()["test"].get("mode", "time") == "time", "failed source changed saved mode")
+        source = ctx.directory / "my words.txt"
+        source.write_text("alpha beta gamma", encoding="utf-8")
+        p.send(str(source).encode())
+        setup_apply(p)
+        seen(p, "alpha beta gamma")
+        check(ctx.disk()["test"]["file"] == str(source), "file path did not persist")
+        setup_open(p)
+        p.send(b"d")
+        setup_apply(p)
+        seen(p, "code")
+        check(ctx.disk()["test"]["policy"] == "exact", "code switch did not set exact policy")
+        setup_open(p)
+        p.send(b"w")
+        setup_apply(p)
+        seen(p, "words 50")
+        check(ctx.disk()["test"]["policy"] == "prose", "leaving code did not restore prose policy")
+        quit_cleanly(p)
+
+
+def case_quick_setup_running_abort_results_and_noop(ctx: Context) -> None:
+    ctx.configure()
+    with ctx.launch("--text", "cat", "--private") as p:
+        ready(p, True)
+        p.send(b"c")
+        wait_for(p, lambda: frame_state(p) == "running", "test started")
+        setup_open(p)
+        seen(p, "Active test ended")
+        before = counts(p)["attempts_total"]
+        p.send(b"w25")
+        seen(p, "[25]")
+        check(counts(p)["attempts_total"] == before, "setup hotkeys were scored")
+        p.send(ESC)
+        wait_for(p, lambda: frame_state(p) == "ready", "cancel returns a fresh test after abort")
+        p.send(b"cat")
+        wait_for(p, lambda: frame_state(p) == "results", "completed test")
+        setup_open(p)
+        before = ctx.config.read_bytes()
+        setup_apply(p)
+        check(ctx.config.read_bytes() == before, "no-op setup rewrote config")
+        p.send(b"c")
+        wait_for(p, lambda: frame_state(p) == "running", "typing starts after setup")
+        check(counts(p)["attempts_total"] == 1, "first eligible key was lost or duplicated")
+        quit_cleanly(p)
+
 CASES: dict[str, Callable[[Context], None]] = {
+    "quick_setup_switch_cancel_persist": case_quick_setup_switch_cancel_and_persist,
+    "quick_setup_validation_sources": case_quick_setup_validation_sources_and_palette,
+    "quick_setup_running_results": case_quick_setup_running_abort_results_and_noop,
     "palette_compact_abort": case_palette_aborts_active_and_compact_selection_stays_visible,
     "theme_preview_field_persistence": case_theme_preview_cancel_and_field_only_persistence,
     "invalid_setting_recovery": case_invalid_setting_stays_editable_and_does_not_start_timer,

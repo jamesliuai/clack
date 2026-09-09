@@ -14,7 +14,7 @@
 
 
 
-                        time 30  ·  english 200
+                        time 30s  ·  english 200
 
                         the world can change when small things become part of the way we work
 style                         Uddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
@@ -22,7 +22,7 @@ style                         Uddddddddddddddddddddddddddddddddddddddddddddddddd
 style                         dddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 
 
-                        start typing                 esc commands
+                        type to start · ctrl-t setup · esc commands
 
 
 
