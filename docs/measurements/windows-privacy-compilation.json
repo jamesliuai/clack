@@ -1,0 +1,49 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-tools/bin/cargo-zigbuild",
+        "clippy",
+        "--locked",
+        "--offline",
+        "--all-targets",
+        "--all-features",
+        "--target",
+        "x86_64-pc-windows-gnu",
+        "-j",
+        "2",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "toolchain": "stable",
+      "target": "x86_64-pc-windows-gnu",
+      "exit_code": 0,
+      "log": "docs/measurements/windows-privacy-clippy-stable.txt",
+      "log_sha256": "6fe7bc449b38f396c6bb27ae7fe970dba9d776a7dfeb25588001e5ca9f1981b6",
+      "recorded_at_utc": "2026-09-07T04:15:03.635272+00:00",
+      "scope": "Windows target compilation on macOS; no Windows runtime execution"
+    },
+    {
+      "command": [
+        "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-tools/bin/cargo-zigbuild",
+        "check",
+        "--locked",
+        "--offline",
+        "--all-targets",
+        "--all-features",
+        "--target",
+        "x86_64-pc-windows-gnu",
+        "-j",
+        "2"
+      ],
+      "toolchain": "1.88.0",
+      "target": "x86_64-pc-windows-gnu",
+      "exit_code": 0,
+      "log": "docs/measurements/windows-privacy-check-1.88.0.txt",
+      "log_sha256": "573284175e269af6e5770a7a2a7d36b94479e70bf497e8921f60defd76ea1da5",
+      "recorded_at_utc": "2026-09-07T04:15:27.242373+00:00",
+      "scope": "Windows target compilation on macOS; no Windows runtime execution"
+    }
+  ]
+}

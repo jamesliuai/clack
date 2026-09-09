@@ -1,0 +1,33 @@
+[graph]
+targets = [
+    "x86_64-unknown-linux-gnu",
+    "aarch64-unknown-linux-gnu",
+    "x86_64-apple-darwin",
+    "aarch64-apple-darwin",
+    "x86_64-pc-windows-msvc",
+    "x86_64-pc-windows-gnu",
+]
+all-features = false
+
+[advisories]
+db-path = "target/advisory-dbs"
+unmaintained = "workspace"
+yanked = "deny"
+ignore = []
+
+[licenses]
+allow = ["MIT", "Apache-2.0", "Zlib", "MPL-2.0", "Unicode-3.0"]
+confidence-threshold = 0.93
+
+[bans]
+# Distinct upstream major/minor constraints are reviewed in the lockfile inventory.
+multiple-versions = "allow"
+wildcards = "deny"
+deny = [
+    { name = "tokio", reason = "The application uses dedicated bounded workers; no async runtime is required." },
+]
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]

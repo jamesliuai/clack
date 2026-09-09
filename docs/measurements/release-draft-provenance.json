@@ -1,0 +1,19 @@
+{
+  "source_identity_sha256": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+  "complete_source_package_inputs_sha256": "46fb0f2c0db6899d225ebeee2ce6071780a4184e5694244af58a4baba5a91e35",
+  "archives": [
+    "target/release-preview-permissions/typ-1.0.0-x86_64-apple-darwin.tar.gz",
+    "target/release-preview-permissions/typ-1.0.0-x86_64-unknown-linux-gnu.tar.gz",
+    "target/release-preview-permissions/typ-1.0.0-aarch64-unknown-linux-gnu.tar.gz",
+    "target/release-preview-permissions/typ-1.0.0-x86_64-pc-windows-gnu.zip",
+    "target/release-preview-permissions/typ-1.0.0-aarch64-apple-darwin.tar.gz",
+    "target/release-preview-permissions/typ-1.0.0-source.tar.gz"
+  ],
+  "verification_command": [
+    "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+    "/Users/james/Desktop/u/typing_test_gpt6astra/scripts/verify_release.py",
+    "--directory",
+    "target/release-preview-permissions"
+  ],
+  "recorded_at_utc": "2026-09-07T04:44:11.898101+00:00"
+}

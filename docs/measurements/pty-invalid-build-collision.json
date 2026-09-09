@@ -1,0 +1,143 @@
+{
+  "report_version": 1,
+  "kind": "unix_pty_integration",
+  "binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/debug/typ",
+  "test_hooks": true,
+  "platform": "darwin",
+  "python": "3.12.5",
+  "created_at_utc": "2026-09-05T05:11:04Z",
+  "terminal_policy": "synthetic xterm-256color PTY; baseline80x24 unless case resizes",
+  "limitations": [
+    "No actual emulator, font/IME, Windows console, tmux/SSH, system-suspend, or physical key-to-photon claim.",
+    "Exact receipt-at-deadline exclusion belongs to deterministic reader/reducer fixtures, not PTY write wall times.",
+    "Fault/epoch observations use an explicitly instrumented build and are not production performance measurements."
+  ],
+  "results": [
+    {
+      "case": "ctrl_c_cleanup",
+      "status": "fail",
+      "seconds": 3.066895,
+      "detail": "did not observe post-flush Ready observer frame (build --features test-hooks); exit=None; screen='\\n\\n\\n\\n\\n\\n\\n    time 30  \u00b7  english 200\\n\\n    many mister when begin every in follow people church try point i mister\\n    american between may these but follow war about than so new you is try\\n    like area know little every since give find any line room such in to you\\n\\n    start typing                 esc commands'; stderr=b''"
+    },
+    {
+      "case": "invalid_source_before_raw",
+      "status": "pass",
+      "seconds": 0.734045,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "no_controlling_terminal",
+      "status": "pass",
+      "seconds": 0.006567,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "first_key_focus_json",
+      "status": "fail",
+      "seconds": 3.068597,
+      "detail": "did not observe post-flush Ready observer frame (build --features test-hooks); exit=None; screen='\\n\\n\\n\\n\\n\\n\\n    custom  \u00b7  custom\\n\\n    cat dog\\n\\n\\n\\n    start typing                 esc commands'; stderr=b''"
+    },
+    {
+      "case": "first_input_without_ready_wait",
+      "status": "pass",
+      "seconds": 0.43909,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "exact_confirm",
+      "status": "fail",
+      "seconds": 3.093979,
+      "detail": "did not observe post-flush Ready observer frame (build --features test-hooks); exit=None; screen='\\n\\n\\n\\n\\n\\n\\n    custom  \u00b7  custom\\n\\n    a\u2192  b\u21b5\\n    c\\n\\n\\n    start typing                 esc commands'; stderr=b''"
+    },
+    {
+      "case": "stdin_keyboard_separation",
+      "status": "fail",
+      "seconds": 3.091237,
+      "detail": "did not observe post-flush Ready observer frame (build --features test-hooks); exit=None; screen='\\n\\n\\n\\n\\n\\n\\n    custom  \u00b7  custom\\n\\n    a\u2192  b\u21b5\\n    c\\n\\n\\n    start typing                 esc commands'; stderr=b''"
+    },
+    {
+      "case": "paste_atomic",
+      "status": "fail",
+      "seconds": 3.066236,
+      "detail": "did not observe post-flush Ready observer frame (build --features test-hooks); exit=None; screen='\\n\\n\\n\\n\\n\\n\\n    custom  \u00b7  custom\\n\\n    cat dog\\n\\n\\n\\n    start typing                 esc commands'; stderr=b''"
+    },
+    {
+      "case": "deadline_duration",
+      "status": "fail",
+      "seconds": 3.076141,
+      "detail": "did not observe post-flush Ready observer frame (build --features test-hooks); exit=None; screen='\\n\\n\\n\\n\\n\\n\\n    time 1  \u00b7  english 200\\n\\n    stand go would how be those state last want way end state american begin\\n     war tell way before unite boy three from need with word like another\\n    before war both church tell of not away time case so at these against\\n\\n    start typing                 esc commands'; stderr=b''"
+    },
+    {
+      "case": "resize_preserves_run",
+      "status": "fail",
+      "seconds": 3.079081,
+      "detail": "did not observe post-flush Ready observer frame (build --features test-hooks); exit=None; screen='\\n\\n\\n\\n\\n\\n\\n    time 1  \u00b7  english 200\\n\\n    on before end way both without might own end even off keep himself\\n    always at down number turn country day all but point too have at after\\n    see do have one system night leave see other down line down never would\\n\\n    start typing                 esc commands'; stderr=b''"
+    },
+    {
+      "case": "too_small_interrupt",
+      "status": "fail",
+      "seconds": 3.063128,
+      "detail": "did not observe post-flush Ready observer frame (build --features test-hooks); exit=None; screen='\\n\\n\\n\\n\\n\\n\\n    time 30  \u00b7  english 200\\n\\n    could seem write they go but high will american want way seem would for\\n    place begin is on come off get under come back with ask need make out\\n    never after man they go old class for line begin own there room about\\n\\n    start typing                 esc commands'; stderr=b''"
+    },
+    {
+      "case": "restart_epoch",
+      "status": "fail",
+      "seconds": 3.090523,
+      "detail": "did not observe post-flush Ready observer frame (build --features test-hooks); exit=None; screen='\\n\\n\\n\\n\\n\\n\\n    custom  \u00b7  custom\\n\\n    cat\\n\\n\\n\\n    start typing                 esc commands'; stderr=b''"
+    },
+    {
+      "case": "repeat_practice",
+      "status": "fail",
+      "seconds": 3.096558,
+      "detail": "did not observe post-flush Ready observer frame (build --features test-hooks); exit=None; screen='\\n\\n\\n\\n\\n\\n\\n    custom  \u00b7  custom\\n\\n    cat\\n\\n\\n\\n    start typing                 esc commands'; stderr=b''"
+    },
+    {
+      "case": "associated_text",
+      "status": "fail",
+      "seconds": 3.087791,
+      "detail": "did not observe post-flush Ready observer frame (build --features test-hooks); exit=None; screen='\\n\\n\\n\\n\\n\\n\\n    custom  \u00b7  custom\\n\\n    abc\\n\\n\\n\\n    start typing                 esc commands'; stderr=b''"
+    },
+    {
+      "case": "malformed_associated_text",
+      "status": "fail",
+      "seconds": 3.083346,
+      "detail": "did not observe post-flush Ready observer frame (build --features test-hooks); exit=None; screen='\\n\\n\\n\\n\\n\\n\\n    time 30  \u00b7  english 200\\n\\n    like have an way she first off can even up never for again most put time\\n     though which where program no out system an however same without world\\n    number off think of leave by or something a make know since mister write\\n\\n    start typing                 esc commands'; stderr=b''"
+    },
+    {
+      "case": "sigint_cleanup",
+      "status": "fail",
+      "seconds": 3.097071,
+      "detail": "did not observe post-flush Ready observer frame (build --features test-hooks); exit=None; screen='\\n\\n\\n\\n\\n\\n\\n    time 30  \u00b7  english 200\\n\\n    between know than himself may as after thing from first each against\\n    never show must we some or make with good city own one three away think\\n    when work much program number also with night just away city room house\\n\\n    start typing                 esc commands'; stderr=b''"
+    },
+    {
+      "case": "sigterm_cleanup",
+      "status": "fail",
+      "seconds": 3.086387,
+      "detail": "did not observe post-flush Ready observer frame (build --features test-hooks); exit=None; screen='\\n\\n\\n\\n\\n\\n\\n    time 30  \u00b7  english 200\\n\\n    head some want it no long can all hold be other world come every no off\\n    of class live great last too might i point state those however write\\n    only group unite if very long if use little system write part know feel\\n\\n    start typing                 esc commands'; stderr=b''"
+    },
+    {
+      "case": "sighup_cleanup",
+      "status": "fail",
+      "seconds": 3.086468,
+      "detail": "did not observe post-flush Ready observer frame (build --features test-hooks); exit=None; screen='\\n\\n\\n\\n\\n\\n\\n    time 30  \u00b7  english 200\\n\\n    provide problem if would course out they never country follow before\\n    hold very might line who government day little because you another again\\n     here off need how hold call it live war it when such group leave seem\\n\\n    start typing                 esc commands'; stderr=b''"
+    },
+    {
+      "case": "sigtstp_cleanup",
+      "status": "fail",
+      "seconds": 3.092828,
+      "detail": "did not observe post-flush Ready observer frame (build --features test-hooks); exit=None; screen='\\n\\n\\n\\n\\n\\n\\n    time 30  \u00b7  english 200\\n\\n    through from few never off take at feel keep much house write new boy\\n    american would because can or call class few since into himself need\\n    write or have on will area year off there way boy people up you hear own\\n\\n    start typing                 esc commands'; stderr=b''"
+    },
+    {
+      "case": "panic_cleanup",
+      "status": "fail",
+      "seconds": 5.085788,
+      "detail": "process did not exit within 5.0s"
+    },
+    {
+      "case": "error_cleanup",
+      "status": "fail",
+      "seconds": 5.088259,
+      "detail": "process did not exit within 5.0s"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-07T04:16:52.275731+00:00",
+  "command": [
+    "target/release-tools/bin/cargo-deny",
+    "--locked",
+    "--offline",
+    "check"
+  ],
+  "config_path": "deny.toml",
+  "config_sha256": "e47bdfecfb2714852a0811a6c9f4b32a6e2fa5da587ec0e6fdedbdbcff84d6b0",
+  "cargo_lock_sha256": "eb7f81f39fe4ba6ccfb6f86e7e2610fe55800edd42ee93297d97fcbaa351e464",
+  "checks": {
+    "advisories": "pass",
+    "bans": "pass",
+    "licenses": "pass",
+    "sources": "pass"
+  },
+  "scope": "Current 188-package lockfile including reviewed local Windows privacy adapter; same previously refreshed public RustSec database; no ignored advisories. Known-advisory checks do not prove absence of undiscovered defects.",
+  "database": {
+    "path": "target/advisory-dbs/advisory-db-3157b0e258782691",
+    "commit": "5a0ebedfe8bdd2e295b171f4162f8c977bcad9a5",
+    "committed_at": "2026-09-02T11:13:32+02:00",
+    "url": "https://github.com/rustsec/advisory-db",
+    "refresh_command": [
+      "target/release-tools/bin/cargo-deny",
+      "--locked",
+      "fetch",
+      "db"
+    ],
+    "refresh_exit_code": 0,
+    "current_check_uses_existing_refreshed_database": true
+  },
+  "ci_definition_verification": {
+    "yaml": "parsed with PyYAML",
+    "jobs": [
+      "quality",
+      "msrv",
+      "native (five target matrix)",
+      "source"
+    ],
+    "remote_execution": "not run",
+    "action_pins": {
+      "actions/checkout": "3d3c42e5aac5ba805825da76410c181273ba90b1",
+      "actions/setup-python": "ece7cb06caefa5fff74198d8649806c4678c61a1",
+      "actions/upload-artifact": "043fb46d1a93c77aae656e7c1c64a875d1fc6a0a"
+    },
+    "pin_verification": "Full SHA values resolved through official GitHub release commit links during audit",
+    "runners": [
+      "ubuntu-22.04",
+      "ubuntu-22.04-arm",
+      "macos-15-intel",
+      "macos-14",
+      "windows-2022"
+    ],
+    "runner_reference": "https://docs.github.com/en/actions/reference/runners/github-hosted-runners"
+  },
+  "exit_code": 0,
+  "log": "docs/measurements/release-permissions-dependencies.txt",
+  "log_sha256": "f1a0fca39d4280363937aabd77783990ea6480bd9ca257816de3b68fc8efa845",
+  "inventory_dependencies": 187,
+  "inventory_notice_source_files": 363
+}

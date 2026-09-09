@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-07T04:19:07.958765+00:00",
+  "source_identity": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+  "source_identity_before_and_after_matches": true,
+  "host": {
+    "system": "Darwin",
+    "machine": "arm64",
+    "release": "25.6.0"
+  },
+  "cargo_lock_sha256": "eb7f81f39fe4ba6ccfb6f86e7e2610fe55800edd42ee93297d97fcbaa351e464",
+  "test_file_sha256": {
+    "tests/blind_acceptance.rs": "e7d4fef3151eb38c7d5586d3c0eb178c83e53ce06990634b2a76cfb073ba59dc",
+    "tests/cli_acceptance.rs": "51985ae089c618781860cd789e23793809d93b185d92b23d9ad102397c4f4d71",
+    "tests/content_adversarial.rs": "76cc2e6a2569d597c38c7361a66c6ec62f9acf368b7199f88a9894a23c8a1b45",
+    "tests/kernel_acceptance.rs": "a6caea798f3d38082516f526b5e36228ab0b7b5ac71906413d5d36da0d99141e",
+    "tests/kernel_performance.rs": "9a7d78a524268be528c6dc2eaa43c7e7d62586a93d845f82146c0ac50ebc0feb",
+    "tests/keyboard_protocol.rs": "8dba6d7b48209c4835256c84783d16f1f27b22527870b2c072a08298ef3467bf",
+    "tests/pace_acceptance.rs": "56791f08afe6057e6d8fadd093530d9b29a328fe3ce42faf34925236738b3847",
+    "tests/sample_acceptance.rs": "a9402fe37b0c020eb659f2b1f9831717c1105a204c7cd70c0342d6bb0cd74455",
+    "tests/settings_acceptance.rs": "c358b261f2e89d337c5948eca43894435691db05a75e330b72244a640006744d",
+    "tests/snapshots/product-120x40-color.txt": "63da2651b25d57f84d523a3442f4fe41fc99f014931403d38310a381f40e0084",
+    "tests/snapshots/product-120x40-mono.txt": "30d1cf78cc0ab94593c0204ee1c59184cf096eb3f5d1655bab9ab75586b5c080",
+    "tests/snapshots/product-40x10-color.txt": "7aa00792e4482cc26734c135f7e5f3d35f4f462e830d88d2d6b570b0a1ee27fe",
+    "tests/snapshots/product-40x10-mono.txt": "3c6f2e0cb59765d659925e545bf6e57ddd7af81adeac5bb79982d6b8a276e964",
+    "tests/snapshots/product-80x24-color.txt": "d6dedd9efb49b3ddd8d2b92acad58d65fbec7d6966d3fde72295a8d12d641889",
+    "tests/snapshots/product-80x24-mono.txt": "9223005c08b2d51255ebe152ac4e46e28272e003009349985f155078da77f966",
+    "tests/snapshots/ready-120x40-color.txt": "86c4d5292a1a4395461a3e0675272d46c75b33434a9f89a5ade70f94c1bbe8ba",
+    "tests/snapshots/ready-120x40-mono.txt": "86c4d5292a1a4395461a3e0675272d46c75b33434a9f89a5ade70f94c1bbe8ba",
+    "tests/snapshots/ready-40x10-color.txt": "e01768e4840beafe2571bdf0919d602080fc771b2300a4b693dffee04ff50690",
+    "tests/snapshots/ready-40x10-mono.txt": "e01768e4840beafe2571bdf0919d602080fc771b2300a4b693dffee04ff50690",
+    "tests/snapshots/ready-80x24-color.txt": "132a66199dabba37e2844a824da709ba8246c2b7c55e50e22fbbae8da0a66d1d",
+    "tests/snapshots/ready-80x24-mono.txt": "132a66199dabba37e2844a824da709ba8246c2b7c55e50e22fbbae8da0a66d1d",
+    "tests/snapshots/results-120x40-color.txt": "1c82d8cbcc336f16966d9e0f1466c814bb452f3134c5c7f8760abc5efe3a0715",
+    "tests/snapshots/results-120x40-mono.txt": "1c82d8cbcc336f16966d9e0f1466c814bb452f3134c5c7f8760abc5efe3a0715",
+    "tests/snapshots/results-40x10-color.txt": "2645e757210c87e96f96383a6825cfca8688966bd504817b075659239cb01d7b",
+    "tests/snapshots/results-40x10-mono.txt": "2645e757210c87e96f96383a6825cfca8688966bd504817b075659239cb01d7b",
+    "tests/snapshots/results-80x24-color.txt": "67d9b61bcd6829c166518d355cb9c9f50feed6799090eae18806118ea929e7a8",
+    "tests/snapshots/results-80x24-mono.txt": "67d9b61bcd6829c166518d355cb9c9f50feed6799090eae18806118ea929e7a8",
+    "tests/snapshots/running-120x40-color.txt": "f8eb536cb25f15096dfe0eedd99eb36c22cd242b62e8df172e040c66bb7e2b81",
+    "tests/snapshots/running-120x40-mono.txt": "f8eb536cb25f15096dfe0eedd99eb36c22cd242b62e8df172e040c66bb7e2b81",
+    "tests/snapshots/running-40x10-color.txt": "8cf48006d535c91fca631fc1cd847388d767ed0c0baca6d68dfc54c8a4f21a68",
+    "tests/snapshots/running-40x10-mono.txt": "8cf48006d535c91fca631fc1cd847388d767ed0c0baca6d68dfc54c8a4f21a68",
+    "tests/snapshots/running-80x24-color.txt": "579a6582d50374397ddb91bbfe8ab865d0ff82b815e7681c3f42e6379138c8e0",
+    "tests/snapshots/running-80x24-mono.txt": "579a6582d50374397ddb91bbfe8ab865d0ff82b815e7681c3f42e6379138c8e0",
+    "tests/storage_acceptance.rs": "492d84b191286b4740bc2c5a5c0b743010c97522ffb187c97585881ae5c6bc5b",
+    "tests/ui_acceptance.rs": "f83c61b0759241af7892c6a3cff51dc0b93249b03143923889f4e4a20666acd6",
+    "tests/ui_product_snapshots.rs": "aa46ea62156efc68e1dd0f83b4b763cd955cb1c7b921258c35ccabec5f758ac1",
+    "tests/zen_bounds_acceptance.rs": "cd79bc3b475b7aa06a4f34c741298523299ffe9225ab5991f865278b2725f70b"
+  },
+  "checks": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-targets",
+        "--all-features"
+      ],
+      "compiler": "rustc 1.95.0 (59807616e 2026-04-14)\nbinary: rustc\ncommit-hash: 59807616e1fa2540724bfbac14d7976d7e4a3860\ncommit-date: 2026-04-14\nhost: aarch64-apple-darwin\nrelease: 1.95.0\nLLVM version: 22.1.2",
+      "exit_code": 0,
+      "test_executables": 18,
+      "passed": 253,
+      "failed": 0,
+      "ignored": 1,
+      "ignored_reason": "Explicit release-mode 100000-row query benchmark measured separately",
+      "log": "docs/measurements/stage-d-frozen-all-tests.txt",
+      "log_sha256": "ef94c3c8bc621ee7cedb01fc59dd3d670f6c4f02643ee2d474c092ff41cd8607",
+      "scope": "Native macOS tests, including approved isolated controlling-terminal fixtures. Windows-only tests are not counted as executed."
+    },
+    {
+      "command": [
+        "env",
+        "CARGO_TARGET_DIR=target/msrv",
+        "cargo",
+        "+1.88.0",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-targets",
+        "--all-features"
+      ],
+      "compiler": "rustc 1.88.0 (6b00bc388 2025-06-23)\nbinary: rustc\ncommit-hash: 6b00bc3880198600130e1cf62b8f8a93494488cc\ncommit-date: 2025-06-23\nhost: aarch64-apple-darwin\nrelease: 1.88.0\nLLVM version: 20.1.5",
+      "exit_code": 0,
+      "test_executables": 18,
+      "passed": 253,
+      "failed": 0,
+      "ignored": 1,
+      "ignored_reason": "Explicit release-mode 100000-row query benchmark measured separately",
+      "log": "docs/measurements/stage-d-frozen-msrv-all-tests.txt",
+      "log_sha256": "65626078674b85c9fe22a91ac7e9544d0cc38befb76f0bcf5d5b79cc1a495db1",
+      "scope": "Native macOS tests, including approved isolated controlling-terminal fixtures. Windows-only tests are not counted as executed."
+    },
+    {
+      "command": [
+        "env",
+        "CARGO_TARGET_DIR=target/final-host-lint",
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-targets",
+        "--all-features",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log": "docs/measurements/stage-d-permissions-host-clippy.txt",
+      "log_sha256": "a1f32c8cbebf24029573027cc4b7c0df7ed0ead1a41fabfd599e2614f453d067",
+      "scope": "Native ARM64 macOS target lint; no Windows runtime claim"
+    },
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--check"
+      ],
+      "exit_code": 0,
+      "output": "empty"
+    }
+  ],
+  "prior_attempts": "Permissions integration runs and prior default-sandbox /dev/tty failures are retained separately in stage-d-permissions-*.txt; final frozen tests use approved isolated PTY access."
+}

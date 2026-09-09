@@ -1,0 +1,23 @@
+test_archive_verifier_checks_both_outer_and_payload_checksums_before_extraction (__main__.ReleaseTests.test_archive_verifier_checks_both_outer_and_payload_checksums_before_extraction) ... ok
+test_archives_are_deterministic_and_preserve_original_manifest (__main__.ReleaseTests.test_archives_are_deterministic_and_preserve_original_manifest) ... ok
+test_checksum_failure_precedes_any_installation (__main__.ReleaseTests.test_checksum_failure_precedes_any_installation) ... ok
+test_distribution_rejects_global_and_target_specific_cpu_flags (__main__.ReleaseTests.test_distribution_rejects_global_and_target_specific_cpu_flags) ... ok
+test_failed_publication_rolls_back_only_new_owned_files (__main__.ReleaseTests.test_failed_publication_rolls_back_only_new_owned_files) ... ok
+test_foreign_os_package_is_not_installed (__main__.ReleaseTests.test_foreign_os_package_is_not_installed) ... ok
+test_install_idempotence_and_uninstall_preserve_user_data (__main__.ReleaseTests.test_install_idempotence_and_uninstall_preserve_user_data) ... ok
+test_macos_arm_host_keeps_explicit_rosetta_install_compatibility (__main__.ReleaseTests.test_macos_arm_host_keeps_explicit_rosetta_install_compatibility) ... ok
+test_manifest_paths_reject_traversal_aliases_and_duplicates (__main__.ReleaseTests.test_manifest_paths_reject_traversal_aliases_and_duplicates) ... ok
+test_modified_and_unregistered_bundle_files_survive_uninstall (__main__.ReleaseTests.test_modified_and_unregistered_bundle_files_survive_uninstall) ... ok
+test_modified_installed_binary_is_not_removed (__main__.ReleaseTests.test_modified_installed_binary_is_not_removed) ... ok
+test_native_headers_identify_os_and_architecture (__main__.ReleaseTests.test_native_headers_identify_os_and_architecture) ... ok
+test_native_windows_junction_uninstall_preserves_matching_external_files (__main__.ReleaseTests.test_native_windows_junction_uninstall_preserves_matching_external_files) ... skipped 'requires a native Windows directory junction'
+test_processor_mismatch_is_refused_before_prefix_writes (__main__.ReleaseTests.test_processor_mismatch_is_refused_before_prefix_writes) ... ok
+test_refuses_existing_unowned_binary (__main__.ReleaseTests.test_refuses_existing_unowned_binary) ... ok
+test_symlink_package_file_and_destination_parent_are_refused (__main__.ReleaseTests.test_symlink_package_file_and_destination_parent_are_refused) ... ok
+test_uninstall_never_follows_replaced_bundle_parent (__main__.ReleaseTests.test_uninstall_never_follows_replaced_bundle_parent) ... ok
+test_windows_reparse_attributes_block_traversal_and_preserve_bundle_children (__main__.ReleaseTests.test_windows_reparse_attributes_block_traversal_and_preserve_bundle_children) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.050s
+
+OK (skipped=1)

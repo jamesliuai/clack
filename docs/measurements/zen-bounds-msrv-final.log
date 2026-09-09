@@ -1,0 +1,16 @@
+   Compiling typ-local v1.0.0 (/Users/james/Desktop/u/typing_test_gpt6astra)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.03s
+     Running tests/zen_bounds_acceptance.rs (target/msrv/debug/deps/zen_bounds_acceptance-01c05d550b055458)
+
+running 1 test
+Injected 26207 full seconds plus 375000 us; 6 cycles after saturation; 118460 readonly output units; warm live bytes 1211594; full lifetime released
+cycle 0: AllocationInfo { count_total: 0, count_current: 0, count_max: 0, bytes_total: 0, bytes_current: 0, bytes_max: 0 }
+cycle 1: AllocationInfo { count_total: 0, count_current: 0, count_max: 0, bytes_total: 0, bytes_current: 0, bytes_max: 0 }
+cycle 2: AllocationInfo { count_total: 0, count_current: 0, count_max: 0, bytes_total: 0, bytes_current: 0, bytes_max: 0 }
+cycle 3: AllocationInfo { count_total: 0, count_current: 0, count_max: 0, bytes_total: 0, bytes_current: 0, bytes_max: 0 }
+cycle 4: AllocationInfo { count_total: 0, count_current: 0, count_max: 0, bytes_total: 0, bytes_current: 0, bytes_max: 0 }
+cycle 5: AllocationInfo { count_total: 0, count_current: 0, count_max: 0, bytes_total: 0, bytes_current: 0, bytes_max: 0 }
+test zen_text_and_chart_cycle_repeatedly_with_flat_live_allocation_and_exact_history ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+

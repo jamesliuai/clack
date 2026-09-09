@@ -1,0 +1,149 @@
+{
+  "report_version": 1,
+  "kind": "stage_c_product_unix_pty",
+  "binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/pty/typ-product-integrated-v2",
+  "binary_sha256": "c00a34d14f752165c8d37abcd31056bfaaa07477dcd57904fa61928fd90c9461",
+  "test_hooks": true,
+  "platform": "darwin",
+  "python": "3.12.5",
+  "created_at_utc": "2026-09-05T06:36:04Z",
+  "terminal_policy": "synthetic xterm-256color PTY; isolated config/data for each case",
+  "limitations": [
+    "No actual emulator, physical display, font/IME, native Windows, tmux, or SSH validation is claimed.",
+    "Observer frames are test instrumentation, not production performance measurements."
+  ],
+  "results": [
+    {
+      "case": "palette_compact_abort",
+      "status": "pass",
+      "seconds": 0.664006,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "theme_preview_field_persistence",
+      "status": "pass",
+      "seconds": 0.216923,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "invalid_setting_recovery",
+      "status": "pass",
+      "seconds": 1.290128,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "missing_source_apply",
+      "status": "pass",
+      "seconds": 0.164871,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "external_config_error_recovery",
+      "status": "pass",
+      "seconds": 0.134053,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "named_presets",
+      "status": "pass",
+      "seconds": 0.219941,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "shipped_presets_save_defaults",
+      "status": "pass",
+      "seconds": 0.256151,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "dynamic_binding_reader_timer",
+      "status": "pass",
+      "seconds": 1.244965,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "exact_controls_palette",
+      "status": "pass",
+      "seconds": 0.140148,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "missed_practice_return",
+      "status": "pass",
+      "seconds": 0.192352,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "practice_ineligible_reason",
+      "status": "pass",
+      "seconds": 0.135235,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "current_private_review",
+      "status": "pass",
+      "seconds": 0.150467,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "private_preset_lock",
+      "status": "pass",
+      "seconds": 0.179891,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "historical_custom_privacy",
+      "status": "pass",
+      "seconds": 0.309371,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "history_filters_enhanced_original",
+      "status": "pass",
+      "seconds": 0.39969,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "storage_recovery_retry",
+      "status": "pass",
+      "seconds": 1.020039,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "practice_later_privacy_theme",
+      "status": "pass",
+      "seconds": 0.382049,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "personal_best_pace",
+      "status": "fail",
+      "seconds": 0.4397,
+      "detail": "pace-assisted run entered the standard record category"
+    },
+    {
+      "case": "unsaved_across_results_and_quit",
+      "status": "pass",
+      "seconds": 0.734308,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "historical_explicit_trace_diff",
+      "status": "fail",
+      "seconds": 3.228852,
+      "detail": "did not observe Original text was not retained; exit=None; screen='                     wpm  \u2588\\n                        raw  \u2588\\n                        err  \u2588\\n                        1 retained buckets \u00b7 cumulative speed / bucket errors\\n\\n                        Typing: 8 attempts \u00b7 1 mistaken attempts\\n                        1 deletions \u00b7 7 retained output units\\n                        Final: 7 correct \u00b7 0 incorrect\\n                        0 extra \u00b7 0 missed \u00b7 7 credited units\\n                        Consistency \u2014 / 100\\n\\n                        No retained mistaken-token labels\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n                        tab summary/text  \u2191\u2193 scroll  esc results'; stderr=b''"
+    },
+    {
+      "case": "result_details_slow_selection",
+      "status": "pass",
+      "seconds": 0.406219,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "private_trace_opt_in_suppression",
+      "status": "pass",
+      "seconds": 0.115721,
+      "detail": "assertions satisfied"
+    }
+  ]
+}

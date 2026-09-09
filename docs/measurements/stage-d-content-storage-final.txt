@@ -1,0 +1,245 @@
+$ cargo test --offline --lib content::
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.26s
+     Running unittests src/lib.rs (target/debug/deps/typ-efd07b81867de1d5)
+
+running 23 tests
+test content::generator::tests::splitmix_reference_vector ... ok
+test content::generator::tests::uniform_range_sanity_and_invalid_parameters ... ok
+test content::case::tests::pinned_unicode_tables_do_not_follow_the_compiler_version ... ok
+test content::packs::tests::import_checks_hash_direction_policy_and_unknown_fields ... ok
+test content::packs::tests::import_normalizes_tokens_and_rejects_ambiguities ... ok
+test content::generator::tests::shared_pack_outlives_its_application_cache_reference ... ok
+test content::practice::tests::exact_token_labels_trim_separators_and_skip_empty_segments ... ok
+test content::packs::tests::metadata_rejects_display_injection_and_allocation_bombs ... ok
+test content::practice::tests::slow_selection_uses_ratio_excludes_first_and_corrections ... ok
+test content::practice::tests::repaired_mistakes_and_omissions_use_original_tokens_once ... ok
+test content::generator::tests::independent_portable_golden_vectors ... ok
+test content::generator::tests::sentence_and_number_rules_are_explicit ... ok
+test content::quotes::tests::boundaries_and_code_are_literal ... ok
+test content::validation::tests::prose_and_exact_preserve_their_distinct_contracts ... ok
+test content::validation::tests::reject_bytes_empty_and_terminal_controls ... ok
+test content::validation::tests::reject_before_normalizing_pathological_clusters ... ok
+test content::validation::tests::validation_never_echoes_private_text ... ok
+test content::generator::tests::replay_rejects_a_seed_without_the_original_identity ... ok
+test content::generator::tests::stream_is_independent_of_chunk_request_boundaries ... ok
+test content::generator::tests::no_adjacent_source_duplicates_and_finite_count ... ok
+test content::quotes::tests::all_length_categories_have_attributed_choices_and_never_repeat ... ok
+test content::validation::tests::arbitrary_unicode_validation_is_bounded_and_spans_are_sound ... ok
+test content::packs::tests::all_bundled_packs_match_declared_count_and_hash ... ok
+
+test result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 18 filtered out; finished in 0.14s
+
+$ cargo test --offline --lib storage::
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.06s
+     Running unittests src/lib.rs (target/debug/deps/typ-efd07b81867de1d5)
+
+running 5 tests
+test storage::dates::tests::utc_dates_are_strict_and_round_trip_calendar_edges ... ok
+test storage::database::tests::acknowledged_connection_uses_full_durability_and_patched_sqlite ... ok
+test storage::database::tests::sqlite_read_only_rejects_transaction_without_partial_save ... ok
+test storage::database::tests::overflowing_aggregate_never_rounds_to_real_and_never_acknowledges_partial_result ... ok
+test storage::database::tests::sqlite_full_rolls_back_result_children_stats_and_can_retry_same_record ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 36 filtered out; finished in 0.65s
+
+$ cargo test --offline --test kernel_acceptance --test kernel_performance --test sample_acceptance --test content_adversarial --test storage_acceptance
+    Blocking waiting for file lock on artifact directory
+   Compiling typ-local v1.0.0 (/Users/james/Desktop/u/typing_test_gpt6astra)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.57s
+     Running tests/content_adversarial.rs (target/debug/deps/content_adversarial-a68c02b8295f48a2)
+
+running 7 tests
+test capitalized_metadata_tracks_multiple_graphemes_without_changing_source_identity ... ok
+test unicode_17_capitalization_goldens_match_on_msrv_and_current_rust ... ok
+test full_case_expansion_preserves_cluster_limits_after_normalization ... ok
+test imported_token_byte_and_grapheme_limits_apply_after_canonical_normalization ... ok
+test pinned_unicode_canonical_expansion_has_a_conservative_storage_ceiling ... ok
+test prepared_practice_validates_original_tokens_and_has_its_own_derived_bound ... ok
+test nfc_expansion_does_not_turn_the_raw_input_limit_into_a_prepared_target_limit ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.84s
+
+     Running tests/kernel_acceptance.rs (target/debug/deps/kernel_acceptance-db4d2896e250b868)
+
+running 61 tests
+test an_empty_run_has_no_valid_speed_even_with_positive_elapsed_time ... ok
+test challenge_thresholds_must_be_finite_and_meaningful ... ok
+test active_prefix_credit_has_no_phantom_suffix_or_separator ... ok
+test backspace_removes_whole_combining_and_zwj_graphemes ... ok
+test canonical_mark_reordering_stays_provisional_until_the_cluster_is_complete ... ok
+test assisted_indentation_is_visible_but_never_credited_as_manual_input ... ok
+test consistency_requires_five_full_buckets_and_a_nonzero_attempt_mean ... ok
+test consistency_uses_population_rates_and_excludes_a_busy_fractional_tail ... ok
+test contradictory_correction_rules_are_rejected ... ok
+test correct_final_word_completes_without_trailing_space ... ok
+test a_maximum_size_grapheme_can_be_followed_by_a_distinct_non_ascii_unit ... ok
+test current_and_none_correction_policies_obey_their_boundaries ... ok
+test corrected_cat_matches_the_complete_published_golden_vector ... ok
+test deadline_is_exclusive_and_late_finalization_keeps_configured_duration ... ok
+test decomposed_accent_is_one_revised_prose_attempt_without_false_master_failure ... ok
+test early_space_creates_missed_units_without_inventing_typed_output ... ok
+test exact_auto_completion_retains_the_entire_wrong_associated_cluster ... ok
+test exact_expert_commits_at_literal_boundary_and_final_confirmation ... ok
+test exact_policy_preserves_code_points_and_wide_units_are_not_two_attempts ... ok
+test effective_rules_and_content_versions_split_record_categories ... ok
+test exact_whitespace_is_literal_and_final_confirmation_allows_repair ... ok
+test exact_word_stop_also_blocks_wrong_final_confirmation_and_auto_completion ... ok
+test extra_letters_remain_extra_and_invalidate_token_credit ... ok
+test exact_wrong_space_occupies_one_position_and_early_finish_is_incomplete ... ok
+test final_correct_character_cannot_bypass_minimum_accuracy_failure ... ok
+test final_associated_grapheme_is_whole_before_completion_and_difficulty_checks ... ok
+test finalized_incomplete_canonical_prefix_is_wrong_even_when_deleted ... ok
+test finalizing_pending_cluster_on_deletion_enforces_accuracy ... ok
+test first_wrong_character_starts_at_receipt_and_appears_once ... ok
+test fixed_passage_identity_and_exact_completion_are_effective_parameters ... ok
+test full_backtracking_reverses_each_contribution_once ... ok
+test master_and_expert_fail_at_different_observable_boundaries ... ok
+test idle_samples_and_fractional_tail_do_not_depend_on_render_frequency ... ok
+test interruption_flags_and_repeat_prevent_standard_records ... ok
+test master_rejects_prefixes_that_cannot_be_repaired_by_appending_scalars ... ok
+test minimum_accuracy_starts_with_twentieth_scored_attempt ... ok
+test minimum_wpm_respects_grace_and_unrounded_boundary_value ... ok
+test mistakes_backtracking_reopens_errors_but_stops_at_correct_tokens ... ok
+test numeric_pace_assistance_cannot_enter_standard_personal_bests ... ok
+test one_unit_zero_duration_completion_has_no_speed_or_record ... ok
+test paste_is_atomic_and_active_attempt_disqualifies_a_record ... ok
+test profile_ignores_random_seed_and_inactive_limits ... ok
+test published_scoring_formula_fixture ... ok
+test prose_normalization_and_blind_styling_do_not_split_effectively_equal_profiles ... ok
+test inserting_and_deleting_ascii_restores_output_but_keeps_the_attempt ... ok
+test metric_domain_is_finite_and_output_is_bounded ... ok
+test regional_indicator_boundary_uses_context_from_prior_associated_events ... ok
+test reopening_an_omitted_suffix_retracts_missed_count ... ok
+test separator_does_not_penalize_an_existing_letter_error_twice ... ok
+test slow_practice_requires_eight_eligible_tokens_and_selects_slowest_quartile ... ok
+test whole_token_wpm_is_not_raw_speed_times_accuracy ... ok
+test stop_letter_records_rejected_attempts_and_stop_word_prevents_commit ... ok
+test timed_pending_attempt_is_included_in_final_bucket_and_never_extends_duration ... ok
+test wrong_final_word_is_repairable_and_normal_submission_is_allowed ... ok
+test zen_reports_only_output_speed ... ok
+test zero_time_and_early_live_speeds_are_unavailable ... ok
+test zen_cycles_bounded_window_and_keeps_cumulative_output ... ok
+test exact_full_correction_retracts_inserted_output_at_any_boundary ... ok
+test arbitrary_exact_edits_preserve_positional_counts_and_clock_independence ... ok
+test arbitrary_edits_preserve_bounds_and_replay_is_clock_origin_independent ... ok
+test finalized_results_are_immutable_under_residual_input ... ok
+
+test result: ok. 61 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.22s
+
+     Running tests/kernel_performance.rs (target/debug/deps/kernel_performance-042683f817183c50)
+
+running 6 tests
+test generator_parameters_roundtrip_and_only_effective_parameters_split_profiles ... ok
+test zen_correction_respects_submitted_word_barriers_and_full_window ... ok
+test warmed_ascii_reducer_has_no_heap_allocations ... ok
+test zen_scroll_window_cycles_without_losing_cumulative_counts ... ok
+test successive_runs_release_all_engine_allocations ... ok
+test large_practice_words_share_target_metadata_and_allocate_correction_on_demand ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.49s
+
+     Running tests/sample_acceptance.rs (target/debug/deps/sample_acceptance-3fd5c21f6f528cfd)
+
+running 21 tests
+test bounded_reader_does_not_overflow_for_the_largest_usize_limit ... ok
+test bounded_reader_accepts_the_limit_and_reads_only_one_extra_byte_to_reject ... ok
+test exact_custom_preserves_literal_units_and_opt_in_nfc_changes_identity ... ok
+test code_preset_uses_exact_custom_file_when_supplied_and_bundled_source_otherwise ... ok
+test cli_rejects_incompatible_sources_bounds_and_policies_before_source_preparation ... ok
+test changing_custom_file_reconfigures_the_prepared_source_and_hash ... ok
+test imported_pack_loading_rejects_traversal_mismatched_identity_and_oversized_files ... ok
+test invalid_custom_content_is_rejected_before_a_session_and_never_echoed ... ok
+test changing_custom_policy_reprepares_the_original_bytes ... ok
+test oversized_file_and_literal_sources_are_rejected_before_preparing_a_session ... ok
+test explicit_quote_id_is_stable_and_unknown_id_diagnostics_are_neutral ... ok
+test preset_parameters_survive_cli_overrides_and_are_effective_in_generated_text ... ok
+test private_custom_file_and_literal_share_neutral_identity_and_normalized_hash ... ok
+test cli_pack_seed_and_effective_defaults_match_independent_golden_replays ... ok
+test seeded_new_samples_form_a_replayable_sequence_without_repeating_the_first_sample ... ok
+test imported_pack_is_prepared_once_owned_by_samples_and_released_by_generator ... ok
+test timed_lookahead_is_independent_of_requested_chunk_sizes ... ok
+test timed_repeat_preserves_prepared_text_and_the_future_generator_state_once ... ok
+test quote_categories_never_immediately_repeat_and_keep_catalog_identity ... ok
+test word_count_boundaries_are_exact_and_punctuation_closes_the_final_sentence ... ok
+test missed_practice_expands_a_legal_large_custom_token_to_all_25_original_words ... ok
+
+test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.70s
+
+     Running tests/storage_acceptance.rs (target/debug/deps/storage_acceptance-6ae434a1e232ed44)
+
+running 29 tests
+test history_100000_rows_reports_first_page_and_summary_p95 ... ignored, run explicitly in release mode; records a 100,000-row history benchmark
+test hostile_trace_bounds_order_and_nonfinite_metrics_are_rejected ... ok
+test corrupt_and_unknown_schema_databases_are_preserved_and_report_unsaved ... ok
+test async_queries_correlate_request_ids_and_do_not_announce_unloaded_bests ... ok
+test an_oversized_opted_in_word_diagnostic_is_explicitly_omitted_without_losing_the_result ... ok
+test an_existing_read_only_worker_observes_history_created_by_another_process ... ok
+test missing_read_only_history_is_empty_and_creates_nothing ... ok
+test caller_and_worker_release_owned_pending_records_after_commit_or_shutdown ... ok
+test migration_acknowledgement_precedes_saved_result_samples_and_stats ... ok
+test new_storage_files_are_private_and_final_symlinks_are_refused ... ok
+test malformed_review_requests_and_tampered_best_ids_are_rejected_without_echoing_text ... ok
+test entered_orphan_continuations_round_trip_without_relaxing_control_or_grapheme_limits ... ok
+test private_and_default_custom_records_have_no_text_path_or_diagnostics ... ok
+test read_only_worker_queries_missing_or_existing_history_without_creating_or_saving ... ok
+test profile_and_filter_isolation_and_weighted_statistics_are_exact ... ok
+test reconfiguration_reuses_the_worker_and_preserves_save_then_read_only_order ... ok
+test replaying_a_save_id_is_idempotent_for_rows_stats_samples_and_bests ... ok
+test retained_zen_text_has_an_explicit_scope_and_accepts_visible_input_continuations ... ok
+test reducing_pending_capacity_preserves_owned_snapshots_and_later_retry ... ok
+test locked_database_retains_bounded_pending_records_without_blocking_submission ... ok
+test stored_custom_review_requires_the_same_normalized_source_and_honest_missing_input ... ok
+test saturated_worker_reconfiguration_leaves_the_previous_frontend_policy_intact ... ok
+test text_and_event_trace_opt_ins_are_independent_and_exports_require_text_opt_in ... ok
+test local_best_uses_exact_ratios_and_excludes_every_ineligible_outcome ... ok
+test zen_and_zero_duration_do_not_invent_target_speed_or_accuracy ... ok
+test paginated_export_holds_a_consistent_snapshot_while_another_writer_commits ... ok
+test a_maximum_legal_custom_token_and_body_can_be_saved_and_read_with_matching_identity ... ok
+test nfc_expanded_legal_custom_body_and_diagnostics_round_trip_and_original_matches ... ok
+test serialized_diagnostic_budget_is_bounded_and_omissions_are_explicit ... ok
+
+test result: ok. 28 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 8.57s
+
+$ cargo +1.88.0 test --offline --test content_adversarial --test sample_acceptance
+   Compiling typ-local v1.0.0 (/Users/james/Desktop/u/typing_test_gpt6astra)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.46s
+     Running tests/content_adversarial.rs (target/debug/deps/content_adversarial-3290e001a972e0fc)
+
+running 7 tests
+test capitalized_metadata_tracks_multiple_graphemes_without_changing_source_identity ... ok
+test full_case_expansion_preserves_cluster_limits_after_normalization ... ok
+test unicode_17_capitalization_goldens_match_on_msrv_and_current_rust ... ok
+test imported_token_byte_and_grapheme_limits_apply_after_canonical_normalization ... ok
+test prepared_practice_validates_original_tokens_and_has_its_own_derived_bound ... ok
+test pinned_unicode_canonical_expansion_has_a_conservative_storage_ceiling ... ok
+test nfc_expansion_does_not_turn_the_raw_input_limit_into_a_prepared_target_limit ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.82s
+
+     Running tests/sample_acceptance.rs (target/debug/deps/sample_acceptance-4aa9b62dd7f0d4ff)
+
+running 21 tests
+test bounded_reader_does_not_overflow_for_the_largest_usize_limit ... ok
+test bounded_reader_accepts_the_limit_and_reads_only_one_extra_byte_to_reject ... ok
+test exact_custom_preserves_literal_units_and_opt_in_nfc_changes_identity ... ok
+test changing_custom_policy_reprepares_the_original_bytes ... ok
+test changing_custom_file_reconfigures_the_prepared_source_and_hash ... ok
+test code_preset_uses_exact_custom_file_when_supplied_and_bundled_source_otherwise ... ok
+test oversized_file_and_literal_sources_are_rejected_before_preparing_a_session ... ok
+test invalid_custom_content_is_rejected_before_a_session_and_never_echoed ... ok
+test preset_parameters_survive_cli_overrides_and_are_effective_in_generated_text ... ok
+test imported_pack_loading_rejects_traversal_mismatched_identity_and_oversized_files ... ok
+test explicit_quote_id_is_stable_and_unknown_id_diagnostics_are_neutral ... ok
+test cli_rejects_incompatible_sources_bounds_and_policies_before_source_preparation ... ok
+test private_custom_file_and_literal_share_neutral_identity_and_normalized_hash ... ok
+test seeded_new_samples_form_a_replayable_sequence_without_repeating_the_first_sample ... ok
+test cli_pack_seed_and_effective_defaults_match_independent_golden_replays ... ok
+test imported_pack_is_prepared_once_owned_by_samples_and_released_by_generator ... ok
+test timed_lookahead_is_independent_of_requested_chunk_sizes ... ok
+test timed_repeat_preserves_prepared_text_and_the_future_generator_state_once ... ok
+test quote_categories_never_immediately_repeat_and_keep_catalog_identity ... ok
+test word_count_boundaries_are_exact_and_punctuation_closes_the_final_sentence ... ok
+test missed_practice_expands_a_legal_large_custom_token_to_all_25_original_words ... ok
+
+test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.68s
+

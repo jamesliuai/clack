@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "started_at_utc": "2026-09-07T03:28:21.311882+00:00",
+  "completed_at_utc": "2026-09-07T03:28:29.395796+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--release",
+    "--locked",
+    "--offline",
+    "--no-default-features",
+    "--test",
+    "storage_acceptance",
+    "--no-run",
+    "--jobs",
+    "2",
+    "--message-format=json-render-diagnostics"
+  ],
+  "profile": {
+    "CARGO_PROFILE_RELEASE_LTO": "thin",
+    "CARGO_PROFILE_RELEASE_CODEGEN_UNITS": "1",
+    "CARGO_PROFILE_RELEASE_STRIP": "symbols",
+    "CARGO_PROFILE_RELEASE_OPT_LEVEL": "3",
+    "CARGO_PROFILE_RELEASE_PANIC": "unwind",
+    "CARGO_PROFILE_RELEASE_DEBUG_ASSERTIONS": "false"
+  },
+  "cargo_encoded_rustflags": "",
+  "macos_deployment_target": "11.0",
+  "target_directory": "/Users/james/Desktop/u/typing_test_gpt6astra/target/storage-final-build",
+  "application_source_identity_sha256": "a3c58706a5ba1de96232ad4d49ab7f734ffea6d4c8dfbfd26bab2b8cd71a1545",
+  "application_source_manifest": {
+    "path": "/Users/james/Desktop/u/typing_test_gpt6astra/target/benchmarks/stage-d/build-manifest.json",
+    "sha256": "28ed2b78110f2dc3bb2da3de6942a1287aaa96ce067ec4e2afbd88dc50231114"
+  },
+  "source_inputs_verified_unchanged_before_and_after_build": true,
+  "test_source": {
+    "path": "/Users/james/Desktop/u/typing_test_gpt6astra/tests/storage_acceptance.rs",
+    "sha256": "bc3dc23781fb4ec44771335fe317a53aa1691ef8edd618f54a6ccf5784980b10"
+  },
+  "artifact": {
+    "path": "/Users/james/Desktop/u/typing_test_gpt6astra/target/benchmarks/stage-d/storage-acceptance-release-v2",
+    "sha256": "759d12dec3f86b6894b0ef126f67d63a82f215a2e33ba151a5a9cc50a0a960d1",
+    "bytes": 3614976
+  },
+  "rustc": "rustc 1.95.0 (59807616e 2026-04-14)\nbinary: rustc\ncommit-hash: 59807616e1fa2540724bfbac14d7976d7e4a3860\ncommit-date: 2026-04-14\nhost: aarch64-apple-darwin\nrelease: 1.95.0\nLLVM version: 22.1.2\n",
+  "cargo": "cargo 1.95.0 (f2d3ce0bd 2026-03-21)\n",
+  "build_log": {
+    "path": "/Users/james/Desktop/u/typing_test_gpt6astra/docs/measurements/stage-d-storage-benchmark-build-v2.jsonl",
+    "sha256": "af67042bc9d889e92cfb00814fdfd0eceff84e41356002e69cbdcdc9f9521b37"
+  },
+  "rebuild_reason": "Windows Clippy fixture-only TempDir retention field renamed _directory; benchmark algorithm and frozen production source are unchanged."
+}

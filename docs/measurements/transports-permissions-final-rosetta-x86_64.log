@@ -1,0 +1,10 @@
+PASS  tmux/normal_completion: {'outer_exit': 0, 'inner_exit': 0, 'inner_termios_restored': True, 'outer_modes_restored': True, 'outer_cursor_reset': 2, 'inner_cleanup_protocol_checked': True}
+PASS  tmux/restart_resize: {'outer_exit': 0, 'inner_exit': 0, 'inner_termios_restored': True, 'outer_modes_restored': True, 'outer_cursor_reset': 2, 'inner_cleanup_protocol_checked': True}
+PASS  tmux/exact_unicode_controls: {'outer_exit': 0, 'inner_exit': 0, 'inner_termios_restored': True, 'outer_modes_restored': True, 'outer_cursor_reset': 2, 'inner_cleanup_protocol_checked': True}
+PASS  tmux/paste_integrity: {'outer_exit': 0, 'inner_exit': 0, 'inner_termios_restored': True, 'outer_modes_restored': True, 'outer_cursor_reset': 2, 'inner_cleanup_protocol_checked': True}
+PASS  tmux/ctrl_c_cleanup: {'outer_exit': 0, 'inner_exit': 130, 'inner_termios_restored': True, 'outer_modes_restored': True, 'outer_cursor_reset': 2, 'inner_cleanup_protocol_checked': True}
+PASS  ssh/normal_completion: {'outer_exit': 0, 'inner_exit': 0, 'inner_termios_restored': True, 'outer_modes_restored': True, 'outer_cursor_reset': 0, 'inner_cleanup_protocol_checked': False}
+PASS  ssh/restart_resize: {'outer_exit': 0, 'inner_exit': 0, 'inner_termios_restored': True, 'outer_modes_restored': True, 'outer_cursor_reset': 0, 'inner_cleanup_protocol_checked': False}
+PASS  ssh/exact_unicode_controls: {'outer_exit': 0, 'inner_exit': 0, 'inner_termios_restored': True, 'outer_modes_restored': True, 'outer_cursor_reset': 0, 'inner_cleanup_protocol_checked': False}
+PASS  ssh/paste_integrity: {'outer_exit': 0, 'inner_exit': 0, 'inner_termios_restored': True, 'outer_modes_restored': True, 'outer_cursor_reset': 0, 'inner_cleanup_protocol_checked': False}
+PASS  ssh/ctrl_c_cleanup: {'outer_exit': 130, 'inner_exit': 130, 'inner_termios_restored': True, 'outer_modes_restored': True, 'outer_cursor_reset': 0, 'inner_cleanup_protocol_checked': False}

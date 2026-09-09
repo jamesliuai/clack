@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-05T06:40:26.097731+00:00",
+  "tool": "cargo-audit 0.22.2",
+  "command": "target/tools/bin/cargo-audit audit --file Cargo.lock --db target/advisory-db --no-fetch --json",
+  "exit_code": 0,
+  "cargo_lock_sha256": "fff67a3b330fa906946bd7b56a3cc284040fce8fe17a81aa62d97f6faa7e96b2",
+  "raw_report": {
+    "path": "cargo-audit.json",
+    "bytes": 314,
+    "sha256": "efcfaf77dcdb6f6d6ef2bd97264a6918d506b296236499fb55f453485cb13c0c"
+  },
+  "database": {
+    "advisory-count": 1239,
+    "last-commit": null,
+    "last-updated": null
+  },
+  "scope": "All locked packages; no OS or architecture filter and no ignored advisories. Offline repeat uses the RustSec database fetched earlier in this validation session. Vendored changes require separate source review.",
+  "result": {
+    "known_vulnerabilities": 0,
+    "warnings": {}
+  },
+  "limitations": [
+    "This checks known RustSec advisories, not the absence of undiscovered vulnerabilities.",
+    "Registry integrity and bundled SQLite patch status are checked separately.",
+    "The final release artifact must retain this Cargo.lock or repeat the audit."
+  ],
+  "database_checkout": {
+    "commit": "5a0ebedfe8bdd2e295b171f4162f8c977bcad9a5",
+    "committed_at": "2026-09-02T11:13:32+02:00",
+    "url": "https://github.com/RustSec/advisory-db.git"
+  }
+}

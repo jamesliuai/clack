@@ -1,0 +1,3 @@
+   Compiling typ-private-fs v1.0.0 (/Users/james/Desktop/u/typing_test_gpt6astra/vendor/typ-private-fs)
+   Compiling typ-local v1.0.0 (/Users/james/Desktop/u/typing_test_gpt6astra)
+    Finished `release` profile [optimized] target(s) in 31.54s

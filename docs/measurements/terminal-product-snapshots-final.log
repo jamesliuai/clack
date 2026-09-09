@@ -1,0 +1,24 @@
+   Compiling typ-local v1.0.0 (/Users/james/Desktop/u/typing_test_gpt6astra)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.41s
+     Running tests/ui_product_snapshots.rs (target/debug/deps/ui_product_snapshots-d98e2dba1e6c81b0)
+
+running 16 tests
+test every_theme_degrades_without_unsupported_color_sequences_and_keeps_error_cues ... ok
+test palette_search_and_editor_handle_unicode_without_partial_deletion_or_controls ... ok
+test every_overlay_survives_zero_or_unsafe_geometry ... ok
+test historical_private_review_shows_hash_requirement_without_invented_text ... ok
+test effective_result_verdict_and_unsaved_state_survive_compact_rendering ... ok
+test review_summary_scroll_endpoint_never_leaves_an_empty_content_view ... ok
+test sparklines_obey_requested_width_ascii_and_finite_fallback ... ok
+test review_distinguishes_repaired_attempts_from_final_missed_and_wrong_output ... ok
+test result_identity_distinguishes_effective_rules_and_limit_even_in_compact_mode ... ok
+test history_selection_empty_loading_and_failure_states_remain_usable ... ok
+test zen_review_labels_output_and_does_not_invent_target_accuracy ... ok
+test verified_single_line_original_can_scroll_to_its_last_displayed_word ... ok
+test large_valid_live_speed_cannot_move_the_following_accuracy_column ... ok
+test rapid_input_frames_keep_live_metrics_sampled_while_text_and_counts_advance ... ok
+test every_selected_palette_match_stays_visible_and_list_is_bounded ... ok
+test product_overlay_snapshot_matrix ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+

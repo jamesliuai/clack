@@ -1,0 +1,193 @@
+{
+  "report_version": 1,
+  "kind": "unix_pty_integration",
+  "binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-permissions/typ-x86_64-apple-darwin-hooks",
+  "binary_sha256": "ddc715e73af7ebd84c313ab091a43bd902e39978348864ad9dc9c06687517a10",
+  "execution_label": "macOS x86-64 under Rosetta on ARM64; source freeze 31586c3b",
+  "test_hooks": true,
+  "platform": "darwin",
+  "python": "3.12.5",
+  "environment": {
+    "operating_system": "Darwin",
+    "operating_system_version": "26.6.2",
+    "operating_system_build": "25G83",
+    "kernel_release": "25.6.0",
+    "architecture": "arm64",
+    "terminal_environment": {
+      "TERM": "xterm-256color",
+      "COLORTERM": "truecolor",
+      "NO_COLOR_nonempty": true
+    }
+  },
+  "created_at_utc": "2026-09-07T04:19:46Z",
+  "terminal_policy": "synthetic xterm-256color PTY; baseline80x24 unless case resizes",
+  "limitations": [
+    "No actual emulator, font/IME, Windows console, tmux/SSH, system-suspend, or physical key-to-photon claim.",
+    "Exact receipt-at-deadline exclusion belongs to deterministic reader/reducer fixtures, not PTY write wall times.",
+    "Fault/epoch observations use an explicitly instrumented build and are not production performance measurements."
+  ],
+  "results": [
+    {
+      "case": "ctrl_c_cleanup",
+      "status": "pass",
+      "seconds": 1.894779,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "invalid_source_before_raw",
+      "status": "pass",
+      "seconds": 0.735921,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "invalid_config_before_raw",
+      "status": "pass",
+      "seconds": 0.433969,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "invalid_arguments_before_raw",
+      "status": "pass",
+      "seconds": 0.473651,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "no_controlling_terminal",
+      "status": "pass",
+      "seconds": 0.014545,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "first_key_focus_json",
+      "status": "pass",
+      "seconds": 0.091601,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "first_input_without_ready_wait",
+      "status": "pass",
+      "seconds": 0.42492,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "exact_confirm",
+      "status": "pass",
+      "seconds": 0.258635,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "stdin_keyboard_separation",
+      "status": "pass",
+      "seconds": 0.125753,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "paste_atomic",
+      "status": "pass",
+      "seconds": 0.289471,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "deadline_duration",
+      "status": "pass",
+      "seconds": 1.114682,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "challenge_failure_once",
+      "status": "pass",
+      "seconds": 0.286715,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "resize_preserves_run",
+      "status": "pass",
+      "seconds": 1.102439,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "too_small_interrupt",
+      "status": "pass",
+      "seconds": 0.147457,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "small_ready_focus_mouse",
+      "status": "pass",
+      "seconds": 1.266661,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "ignored_ready_no_redraw",
+      "status": "pass",
+      "seconds": 0.605843,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "restart_epoch",
+      "status": "pass",
+      "seconds": 0.474142,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "repeat_practice",
+      "status": "pass",
+      "seconds": 0.120491,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "associated_text",
+      "status": "pass",
+      "seconds": 0.32022,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "malformed_associated_text",
+      "status": "pass",
+      "seconds": 0.142925,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "sigint_cleanup",
+      "status": "pass",
+      "seconds": 0.141211,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "sigterm_cleanup",
+      "status": "pass",
+      "seconds": 0.137527,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "sighup_cleanup",
+      "status": "pass",
+      "seconds": 0.138162,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "sigtstp_cleanup",
+      "status": "pass",
+      "seconds": 0.128796,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "panic_cleanup",
+      "status": "pass",
+      "seconds": 0.084915,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "error_cleanup",
+      "status": "pass",
+      "seconds": 0.082073,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "overload_after_completion",
+      "status": "pass",
+      "seconds": 0.233482,
+      "detail": "assertions satisfied"
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "report_version": 1,
+  "kind": "stage_c_product_unix_pty",
+  "binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-permissions/typ-x86_64-apple-darwin-hooks",
+  "binary_sha256": "ddc715e73af7ebd84c313ab091a43bd902e39978348864ad9dc9c06687517a10",
+  "execution_label": "macOS x86-64 under Rosetta on ARM64; source freeze 31586c3b",
+  "test_hooks": true,
+  "platform": "darwin",
+  "python": "3.12.5",
+  "environment": {
+    "operating_system": "Darwin",
+    "operating_system_version": "26.6.2",
+    "operating_system_build": "25G83",
+    "kernel_release": "25.6.0",
+    "architecture": "arm64",
+    "terminal_environment": {
+      "TERM": "xterm-256color",
+      "COLORTERM": "truecolor",
+      "NO_COLOR_nonempty": true
+    }
+  },
+  "created_at_utc": "2026-09-07T04:20:31Z",
+  "terminal_policy": "synthetic xterm-256color PTY; isolated config/data for each case",
+  "limitations": [
+    "No actual emulator, physical display, font/IME, native Windows, tmux, or SSH validation is claimed.",
+    "Observer frames are test instrumentation, not production performance measurements."
+  ],
+  "results": [
+    {
+      "case": "palette_compact_abort",
+      "status": "pass",
+      "seconds": 0.35632,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "theme_preview_field_persistence",
+      "status": "pass",
+      "seconds": 0.242714,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "invalid_setting_recovery",
+      "status": "pass",
+      "seconds": 1.319194,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "missing_source_apply",
+      "status": "pass",
+      "seconds": 0.167476,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "external_config_error_recovery",
+      "status": "pass",
+      "seconds": 0.146948,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "named_presets",
+      "status": "pass",
+      "seconds": 0.23373,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "shipped_presets_save_defaults",
+      "status": "pass",
+      "seconds": 0.279919,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "dynamic_binding_reader_timer",
+      "status": "pass",
+      "seconds": 1.262563,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "exact_controls_palette",
+      "status": "pass",
+      "seconds": 0.166959,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "missed_practice_return",
+      "status": "pass",
+      "seconds": 0.203983,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "practice_ineligible_reason",
+      "status": "pass",
+      "seconds": 0.138745,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "current_private_review",
+      "status": "pass",
+      "seconds": 0.15989,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "private_preset_lock",
+      "status": "pass",
+      "seconds": 0.200065,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "historical_custom_privacy",
+      "status": "pass",
+      "seconds": 0.328173,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "history_filters_enhanced_original",
+      "status": "pass",
+      "seconds": 0.42261,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "storage_recovery_retry",
+      "status": "pass",
+      "seconds": 1.007686,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "history_classification_filters",
+      "status": "pass",
+      "seconds": 1.038787,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "practice_later_privacy_theme",
+      "status": "pass",
+      "seconds": 0.403457,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "personal_best_pace",
+      "status": "pass",
+      "seconds": 0.451469,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "unsaved_across_results_and_quit",
+      "status": "pass",
+      "seconds": 0.755701,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "historical_explicit_trace_diff",
+      "status": "pass",
+      "seconds": 0.35756,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "result_details_slow_selection",
+      "status": "pass",
+      "seconds": 0.426112,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "private_trace_opt_in_suppression",
+      "status": "pass",
+      "seconds": 0.130136,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "doctor_explicit_probe",
+      "status": "pass",
+      "seconds": 0.783842,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "overload_verdict_after_storage_ack",
+      "status": "pass",
+      "seconds": 0.381985,
+      "detail": "assertions satisfied"
+    }
+  ]
+}

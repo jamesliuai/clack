@@ -1,0 +1,2916 @@
+{
+  "schema_version": 1,
+  "scope": "Ledger structure and individual audit coverage only; behavioral evidence remains in the referenced reports.",
+  "specification_sha256": "6598170acd19ce38c166cd2dd2b44587002ca0d9a8acff8bad107057203c3134",
+  "ledger_sha256": "bfdc9945558156a58eb1b437ac3ca2c125e8934917456aedd076610e593efa3b",
+  "required_count": 312,
+  "observed_count": 312,
+  "implementation_counts": {
+    "Done": 304,
+    "Partial": 8
+  },
+  "validation_counts": {
+    "Pass": 277,
+    "Pending external": 35
+  },
+  "pending_local": [],
+  "pending_external": [
+    "GATE-B",
+    "GATE-D",
+    "P-005",
+    "P-007",
+    "UI-023",
+    "DATA-006",
+    "TIME-002",
+    "TIME-006",
+    "UNI-006",
+    "PERF-001",
+    "PERF-002",
+    "PERF-003",
+    "PERF-013",
+    "PERF-014",
+    "PERF-015",
+    "PERF-021",
+    "PRIV-005",
+    "CLI-007",
+    "CLI-012",
+    "TERM-001",
+    "TERM-002",
+    "TERM-003",
+    "TERM-006",
+    "TERM-011",
+    "AT-014",
+    "AT-018",
+    "AT-019",
+    "TEST-005",
+    "CI-002",
+    "CI-004",
+    "CI-006",
+    "SHIP-006",
+    "SHIP-007",
+    "DOD-001",
+    "DOD-003"
+  ],
+  "errors": [],
+  "requirements": [
+    {
+      "id": "GATE-A",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "GATE-B",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "GATE-C",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "GATE-D",
+      "stage": "D",
+      "implementation": "Partial",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "GATE-FINAL",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "P-001",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "P-002",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "P-003",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "P-004",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "P-005",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "P-006",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "P-007",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "P-008",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "P-009",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "P-010",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "UI-001",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-002",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-003",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-004",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-005",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-006",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-007",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-008",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-009",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-010",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-011",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-012",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-013",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-014",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-015",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-016",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-017",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-018",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-019",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-020",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-021",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-022",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-023",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-024",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-025",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-026",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-027",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-028",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-029",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UI-030",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "KEY-001",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "KEY-002",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "KEY-003",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "KEY-004",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "KEY-005",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "KEY-006",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "KEY-007",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "KEY-008",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "KEY-009",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "KEY-010",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "KEY-011",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "MODE-001",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "MODE-002",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "MODE-003",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "MODE-004",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "MODE-005",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "MODE-006",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "MODE-007",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "MODE-008",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "MODE-009",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "MODE-010",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "MODE-011",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "MODE-012",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "MODE-013",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "DATA-001",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "DATA-002",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "DATA-003",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "DATA-004",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "DATA-005",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "DATA-006",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "DATA-007",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "DATA-008",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "DATA-009",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "DATA-010",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "DATA-011",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "DATA-012",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "DATA-013",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "DATA-014",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "DATA-015",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "ENG-001",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "ENG-002",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "ENG-003",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "ENG-004",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "ENG-005",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "ENG-006",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "ENG-007",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "ENG-008",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "ENG-009",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "ENG-010",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "ENG-011",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "ENG-012",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "ENG-013",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "RULE-001",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "RULE-002",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "RULE-003",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "RULE-004",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "RULE-005",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "RULE-006",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "RULE-007",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "RULE-008",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "RULE-009",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "TIME-001",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "TIME-002",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "TIME-003",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "TIME-004",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "TIME-005",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "TIME-006",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "INPUT-001",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "INPUT-002",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "INPUT-003",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "INPUT-004",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "SCORE-001",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "SCORE-002",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "SCORE-003",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "SCORE-004",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "SCORE-005",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "SCORE-006",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "SCORE-007",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "SCORE-008",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "SCORE-009",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "SCORE-010",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "SCORE-011",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "SCORE-012",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "SCORE-013",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "SCORE-014",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "SCORE-015",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "SAMPLE-001",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "SAMPLE-002",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "SAMPLE-003",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "SAMPLE-004",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "UNI-001",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UNI-002",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UNI-003",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UNI-004",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UNI-005",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "UNI-006",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "CFG-001",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CFG-002",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CFG-003",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CFG-004",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CFG-005",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CFG-006",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CFG-007",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CFG-008",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CFG-009",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CFG-010",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CFG-011",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CFG-012",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CFG-013",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CFG-014",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CFG-015",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CFG-016",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CFG-017",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CFG-018",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "PRACT-001",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PRACT-002",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PRACT-003",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PRACT-004",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PRACT-005",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PACE-001",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "PACE-002",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "REVIEW-001",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "REVIEW-002",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "REVIEW-003",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "REC-001",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "REC-002",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "REC-003",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "REC-004",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "REC-005",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "REC-006",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "REC-007",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "REC-008",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "REC-009",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-001",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-002",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-003",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-004",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-005",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-006",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-007",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-008",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-009",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-010",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-011",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-012",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-013",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-014",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-015",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-016",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-017",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-018",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-019",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-020",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-021",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-022",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-023",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "ARCH-024",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "PERF-001",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PERF-002",
+      "stage": "D",
+      "implementation": "Partial",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PERF-003",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PERF-004",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PERF-005",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PERF-006",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PERF-007",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PERF-008",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PERF-009",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PERF-010",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PERF-011",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "PERF-012",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PERF-013",
+      "stage": "D",
+      "implementation": "Partial",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PERF-014",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PERF-015",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PERF-016",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PERF-017",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PERF-018",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PERF-019",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PERF-020",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PERF-021",
+      "stage": "D",
+      "implementation": "Partial",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "STORE-001",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "STORE-002",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "STORE-003",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "STORE-004",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "STORE-005",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "STORE-006",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "STORE-007",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "STORE-008",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "STORE-009",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "STORE-010",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "STORE-011",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "STORE-012",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "STORE-013",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PRIV-001",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PRIV-002",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PRIV-003",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PRIV-004",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PRIV-005",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PRIV-006",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "PRIV-007",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md"
+      ]
+    },
+    {
+      "id": "CLI-001",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CLI-002",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CLI-003",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CLI-004",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CLI-005",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CLI-006",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CLI-007",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CLI-008",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CLI-009",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CLI-010",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CLI-011",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CLI-012",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CLI-013",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CLI-014",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "TERM-001",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "TERM-002",
+      "stage": "D",
+      "implementation": "Partial",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "TERM-003",
+      "stage": "D",
+      "implementation": "Partial",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "TERM-004",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "TERM-005",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "TERM-006",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "TERM-007",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "TERM-008",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "TERM-009",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "TERM-010",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "TERM-011",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "TERM-012",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "AT-001",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "AT-002",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "AT-003",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "AT-004",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "AT-005",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "AT-006",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "AT-007",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "AT-008",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "AT-009",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "AT-010",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "AT-011",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "AT-012",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "AT-013",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "AT-014",
+      "stage": "B",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "AT-015",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "AT-016",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "AT-017",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "AT-018",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "AT-019",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "AT-020",
+      "stage": "C",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "AT-021",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-primary-final.md"
+      ]
+    },
+    {
+      "id": "TEST-001",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "TEST-002",
+      "stage": "A",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "TEST-003",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "TEST-004",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "TEST-005",
+      "stage": "D",
+      "implementation": "Partial",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "CI-001",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CI-002",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CI-003",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CI-004",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CI-005",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "CI-006",
+      "stage": "D",
+      "implementation": "Partial",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "SHIP-001",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "SHIP-002",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "SHIP-003",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "SHIP-004",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "SHIP-005",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-content-final.md",
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "SHIP-006",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "SHIP-007",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "DOD-001",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "DOD-002",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    },
+    {
+      "id": "DOD-003",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pending external",
+      "audits": [
+        "docs/audit-release-final.md",
+        "docs/audit-terminal-final.md"
+      ]
+    },
+    {
+      "id": "DOD-004",
+      "stage": "D",
+      "implementation": "Done",
+      "validation": "Pass",
+      "audits": [
+        "docs/audit-release-final.md"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+name: validate-and-package
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validation-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: "1"
+  RUSTFLAGS: ""
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  quality:
+    runs-on: ubuntu-22.04
+    env:
+      RUSTUP_TOOLCHAIN: 1.95.0
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.12"
+      - run: rustup toolchain install 1.95.0 --profile minimal --component rustfmt --component clippy
+      - run: cargo +1.95.0 fmt --all -- --check
+      - run: cargo +1.95.0 clippy --locked --all-targets --all-features -- -D warnings
+      - run: cargo +1.95.0 fetch --locked
+      - run: python scripts/licenses.py --check
+      - run: python scripts/release_test.py
+      - run: python scripts/benchmark.py --self-test
+      - run: python scripts/audit_coverage.py --require-local-complete
+      - run: cargo +1.95.0 install cargo-deny --version 0.20.2 --locked
+      - run: cargo deny --locked check
+
+  msrv:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: rustup toolchain install 1.88.0 --profile minimal
+      - run: cargo +1.88.0 check --locked --all-targets --all-features
+      - run: cargo +1.88.0 test --locked --lib --tests
+
+  native:
+    needs: [quality, msrv]
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+          - os: ubuntu-22.04-arm
+            target: aarch64-unknown-linux-gnu
+          - os: macos-15-intel
+            target: x86_64-apple-darwin
+          - os: macos-14
+            target: aarch64-apple-darwin
+          - os: windows-2022
+            target: x86_64-pc-windows-msvc
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.12"
+      - run: rustup toolchain install 1.95.0 --profile minimal --component clippy --target ${{ matrix.target }}
+      - run: cargo +1.95.0 clippy --locked --all-targets --all-features --target ${{ matrix.target }} -- -D warnings
+      - run: cargo +1.95.0 test --locked --all-targets --all-features --target ${{ matrix.target }}
+      - name: Windows minimum-compiler configuration including private ACL tests
+        if: runner.os == 'Windows'
+        run: |
+          rustup toolchain install 1.88.0 --profile minimal --target ${{ matrix.target }}
+          cargo +1.88.0 check --locked --all-targets --all-features --target ${{ matrix.target }}
+      - run: python scripts/release_test.py
+      - name: Unix controlling-PTY lifecycle and workflows
+        if: runner.os != 'Windows'
+        run: |
+          cargo +1.95.0 build --locked --features test-hooks --target ${{ matrix.target }}
+          mkdir -p target/pty
+          cp target/${{ matrix.target }}/debug/clack target/pty/clack-instrumented
+          python scripts/pty_test.py --binary target/pty/clack-instrumented --hooks --require-all --report target/pty/lifecycle.json
+          python scripts/product_pty.py --binary target/pty/clack-instrumented --report target/pty/product.json
+      - run: python scripts/package.py --target ${{ matrix.target }} --toolchain 1.95.0 --output dist
+      - run: python scripts/verify_release.py --directory dist --single-artifact
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: clack-${{ matrix.target }}
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 30
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always() && runner.os != 'Windows'
+        with:
+          name: terminal-evidence-${{ matrix.target }}
+          path: target/pty/*.json
+          if-no-files-found: warn
+
+  source:
+    needs: [quality, msrv]
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.12"
+      - run: python scripts/package.py --source --output dist
+      - run: python scripts/verify_release.py --directory dist --single-artifact
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: clack-source
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 30

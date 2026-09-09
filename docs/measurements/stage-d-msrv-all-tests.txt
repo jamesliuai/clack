@@ -1,0 +1,339 @@
+UTC: 2026-09-07T03:21:24.556442+00:00
+Command: cargo +1.88.0 test --locked --offline --all-targets --all-features --jobs 2
+   Compiling typ-local v1.0.0 (/Users/james/Desktop/u/typing_test_gpt6astra)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 8.69s
+     Running unittests src/lib.rs (target/msrv/debug/deps/typ-f914d1095126a579)
+
+running 42 tests
+test content::case::tests::pinned_unicode_tables_do_not_follow_the_compiler_version ... ok
+test app::presentation::tests::periodic_checks_follow_display_precision_and_pace_in_full_focus ... ok
+test app::presentation::tests::provisional_unicode_and_visible_accuracy_changes_request_a_frame ... ok
+test app::presentation::tests::ignored_input_and_rejected_hidden_errors_do_not_change_the_view ... ok
+test content::generator::tests::splitmix_reference_vector ... ok
+test app::storage_flow::tests::retained_trace_and_verified_original_replay_through_the_real_engine ... ok
+test app::storage_flow::tests::partial_or_inconsistent_trace_never_invents_a_historical_diff ... ok
+test content::generator::tests::uniform_range_sanity_and_invalid_parameters ... ok
+test content::packs::tests::import_checks_hash_direction_policy_and_unknown_fields ... ok
+test content::generator::tests::shared_pack_outlives_its_application_cache_reference ... ok
+test content::packs::tests::metadata_rejects_display_injection_and_allocation_bombs ... ok
+test content::packs::tests::import_normalizes_tokens_and_rejects_ambiguities ... ok
+test content::practice::tests::exact_token_labels_trim_separators_and_skip_empty_segments ... ok
+test content::practice::tests::slow_selection_uses_ratio_excludes_first_and_corrections ... ok
+test content::practice::tests::repaired_mistakes_and_omissions_use_original_tokens_once ... ok
+test content::quotes::tests::boundaries_and_code_are_literal ... ok
+test content::generator::tests::sentence_and_number_rules_are_explicit ... ok
+test content::validation::tests::prose_and_exact_preserve_their_distinct_contracts ... ok
+test content::validation::tests::reject_before_normalizing_pathological_clusters ... ok
+test content::validation::tests::reject_bytes_empty_and_terminal_controls ... ok
+test content::validation::tests::validation_never_echoes_private_text ... ok
+test content::generator::tests::independent_portable_golden_vectors ... ok
+test content::quotes::tests::all_length_categories_have_attributed_choices_and_never_repeat ... ok
+test content::generator::tests::replay_rejects_a_seed_without_the_original_identity ... ok
+test content::generator::tests::stream_is_independent_of_chunk_request_boundaries ... ok
+test storage::dates::tests::utc_dates_are_strict_and_round_trip_calendar_edges ... ok
+test content::generator::tests::no_adjacent_source_duplicates_and_finite_count ... ok
+test terminal::reader::tests::backwards_receipt_clock_interrupts_instead_of_clamping_elapsed_time ... ok
+test terminal::reader::tests::a_full_queue_cannot_hide_an_epoch_closure_or_claim_a_valid_verdict ... ok
+test terminal::reader::tests::epoch_barrier_removes_old_text_but_preserves_global_process_signals ... ok
+test terminal::reader::tests::reader_schedules_buckets_and_deadline_in_order_then_stops_ticking ... ok
+test terminal::reader::tests::ready_and_disarmed_states_have_no_periodic_watermarks ... ok
+test terminal::reader::tests::resize_coalescing_preserves_text_order_and_small_geometry_transitions ... ok
+test terminal::reader::tests::event_queue_has_a_hard_bound_and_explicit_sticky_overload ... ok
+test ui::review::tests::charts_are_bounded_and_ignore_nonfinite_inputs ... ok
+test ui::live::tests::rapid_text_frames_preserve_four_hertz_statistics_and_ten_hertz_pace ... ok
+test storage::database::tests::acknowledged_connection_uses_full_durability_and_patched_sqlite ... ok
+test content::validation::tests::arbitrary_unicode_validation_is_bounded_and_spans_are_sound ... ok
+test storage::database::tests::sqlite_read_only_rejects_transaction_without_partial_save ... ok
+test storage::database::tests::overflowing_aggregate_never_rounds_to_real_and_never_acknowledges_partial_result ... ok
+test content::packs::tests::all_bundled_packs_match_declared_count_and_hash ... ok
+test storage::database::tests::sqlite_full_rolls_back_result_children_stats_and_can_retry_same_record ... ok
+
+test result: ok. 42 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.66s
+
+     Running unittests src/main.rs (target/msrv/debug/deps/typ-8de71f538d55cddd)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli_acceptance.rs (target/msrv/debug/deps/cli_acceptance-10ffb20230a5843c)
+
+running 23 tests
+test command_stdin_is_never_consumed_as_source ... ok
+test closed_output_streams_return_handled_exit_codes_without_panicking ... ok
+test config_commands_preserve_cli_override_precedence_and_files ... ok
+test doctor_reports_observed_limits_without_terminal_or_protocol_claims ... ok
+test conflicting_language_id_and_bundled_shadow_do_not_overwrite ... ok
+test broken_explicit_config_fails_without_rewrite_but_help_stays_available ... ok
+test configuration_independent_commands_reject_interactive_only_options ... ok
+test corrupt_history_is_preserved_with_neutral_runtime_failure ... ok
+test export_files_are_new_only_private_and_reserved_stdout_stays_empty ... ok
+test all_profile_queries_do_not_require_a_missing_configured_source ... ok
+test date_profile_and_query_validation_return_argument_errors ... ok
+test invalid_language_import_never_publishes_or_executes_pack_files ... ok
+test missing_history_commands_are_empty_and_do_not_create_data ... ok
+test source_flags_and_literal_policy_are_validated_before_interactive_setup ... ok
+test export_never_invents_text_that_was_not_saved ... ok
+test fixed_source_current_profile_matches_without_recording_source_paths ... ok
+test unknown_quote_or_unresolved_current_quote_is_neutral_and_all_scope_works ... ok
+test export_privacy_defaults_and_explicit_available_text_are_consistent ... ok
+test personal_best_pace_current_profile_uses_only_the_matching_indexed_best ... ok
+test classification_filters_are_independent_of_outcome_across_history_stats_and_exports ... ok
+test statistics_are_weighted_and_show_sample_counts ... ok
+test history_current_uses_prepared_pack_identity_and_paginates_with_filters ... ok
+test language_import_is_validated_atomic_idempotent_and_user_only ... ok
+
+test result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.77s
+
+     Running tests/content_adversarial.rs (target/msrv/debug/deps/content_adversarial-3a9602a15b56a416)
+
+running 7 tests
+test capitalized_metadata_tracks_multiple_graphemes_without_changing_source_identity ... ok
+test full_case_expansion_preserves_cluster_limits_after_normalization ... ok
+test unicode_17_capitalization_goldens_match_on_msrv_and_current_rust ... ok
+test imported_token_byte_and_grapheme_limits_apply_after_canonical_normalization ... ok
+test pinned_unicode_canonical_expansion_has_a_conservative_storage_ceiling ... ok
+test prepared_practice_validates_original_tokens_and_has_its_own_derived_bound ... ok
+test nfc_expansion_does_not_turn_the_raw_input_limit_into_a_prepared_target_limit ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.84s
+
+     Running tests/kernel_acceptance.rs (target/msrv/debug/deps/kernel_acceptance-745e8ce8ffa11277)
+
+running 61 tests
+test an_empty_run_has_no_valid_speed_even_with_positive_elapsed_time ... ok
+test active_prefix_credit_has_no_phantom_suffix_or_separator ... ok
+test challenge_thresholds_must_be_finite_and_meaningful ... ok
+test canonical_mark_reordering_stays_provisional_until_the_cluster_is_complete ... ok
+test assisted_indentation_is_visible_but_never_credited_as_manual_input ... ok
+test backspace_removes_whole_combining_and_zwj_graphemes ... ok
+test consistency_requires_five_full_buckets_and_a_nonzero_attempt_mean ... ok
+test contradictory_correction_rules_are_rejected ... ok
+test consistency_uses_population_rates_and_excludes_a_busy_fractional_tail ... ok
+test correct_final_word_completes_without_trailing_space ... ok
+test corrected_cat_matches_the_complete_published_golden_vector ... ok
+test current_and_none_correction_policies_obey_their_boundaries ... ok
+test decomposed_accent_is_one_revised_prose_attempt_without_false_master_failure ... ok
+test deadline_is_exclusive_and_late_finalization_keeps_configured_duration ... ok
+test early_space_creates_missed_units_without_inventing_typed_output ... ok
+test exact_auto_completion_retains_the_entire_wrong_associated_cluster ... ok
+test exact_expert_commits_at_literal_boundary_and_final_confirmation ... ok
+test exact_policy_preserves_code_points_and_wide_units_are_not_two_attempts ... ok
+test exact_whitespace_is_literal_and_final_confirmation_allows_repair ... ok
+test exact_word_stop_also_blocks_wrong_final_confirmation_and_auto_completion ... ok
+test extra_letters_remain_extra_and_invalidate_token_credit ... ok
+test exact_wrong_space_occupies_one_position_and_early_finish_is_incomplete ... ok
+test finalized_incomplete_canonical_prefix_is_wrong_even_when_deleted ... ok
+test final_associated_grapheme_is_whole_before_completion_and_difficulty_checks ... ok
+test final_correct_character_cannot_bypass_minimum_accuracy_failure ... ok
+test first_wrong_character_starts_at_receipt_and_appears_once ... ok
+test finalizing_pending_cluster_on_deletion_enforces_accuracy ... ok
+test full_backtracking_reverses_each_contribution_once ... ok
+test a_maximum_size_grapheme_can_be_followed_by_a_distinct_non_ascii_unit ... ok
+test idle_samples_and_fractional_tail_do_not_depend_on_render_frequency ... ok
+test fixed_passage_identity_and_exact_completion_are_effective_parameters ... ok
+test master_and_expert_fail_at_different_observable_boundaries ... ok
+test interruption_flags_and_repeat_prevent_standard_records ... ok
+test master_rejects_prefixes_that_cannot_be_repaired_by_appending_scalars ... ok
+test effective_rules_and_content_versions_split_record_categories ... ok
+test minimum_wpm_respects_grace_and_unrounded_boundary_value ... ok
+test minimum_accuracy_starts_with_twentieth_scored_attempt ... ok
+test mistakes_backtracking_reopens_errors_but_stops_at_correct_tokens ... ok
+test one_unit_zero_duration_completion_has_no_speed_or_record ... ok
+test paste_is_atomic_and_active_attempt_disqualifies_a_record ... ok
+test numeric_pace_assistance_cannot_enter_standard_personal_bests ... ok
+test prose_normalization_and_blind_styling_do_not_split_effectively_equal_profiles ... ok
+test published_scoring_formula_fixture ... ok
+test profile_ignores_random_seed_and_inactive_limits ... ok
+test regional_indicator_boundary_uses_context_from_prior_associated_events ... ok
+test reopening_an_omitted_suffix_retracts_missed_count ... ok
+test separator_does_not_penalize_an_existing_letter_error_twice ... ok
+test stop_letter_records_rejected_attempts_and_stop_word_prevents_commit ... ok
+test slow_practice_requires_eight_eligible_tokens_and_selects_slowest_quartile ... ok
+test whole_token_wpm_is_not_raw_speed_times_accuracy ... ok
+test timed_pending_attempt_is_included_in_final_bucket_and_never_extends_duration ... ok
+test wrong_final_word_is_repairable_and_normal_submission_is_allowed ... ok
+test zen_reports_only_output_speed ... ok
+test zero_time_and_early_live_speeds_are_unavailable ... ok
+test metric_domain_is_finite_and_output_is_bounded ... ok
+test zen_cycles_bounded_window_and_keeps_cumulative_output ... ok
+test inserting_and_deleting_ascii_restores_output_but_keeps_the_attempt ... ok
+test exact_full_correction_retracts_inserted_output_at_any_boundary ... ok
+test arbitrary_exact_edits_preserve_positional_counts_and_clock_independence ... ok
+test arbitrary_edits_preserve_bounds_and_replay_is_clock_origin_independent ... ok
+test finalized_results_are_immutable_under_residual_input ... ok
+
+test result: ok. 61 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.21s
+
+     Running tests/kernel_performance.rs (target/msrv/debug/deps/kernel_performance-9aebd8a1c415420c)
+
+running 6 tests
+test zen_correction_respects_submitted_word_barriers_and_full_window ... ok
+test generator_parameters_roundtrip_and_only_effective_parameters_split_profiles ... ok
+test warmed_ascii_reducer_has_no_heap_allocations ... ok
+test zen_scroll_window_cycles_without_losing_cumulative_counts ... ok
+test successive_runs_release_all_engine_allocations ... ok
+test large_practice_words_share_target_metadata_and_allocate_correction_on_demand ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.53s
+
+     Running tests/keyboard_protocol.rs (target/msrv/debug/deps/keyboard_protocol-45135b99012a7782)
+
+running 15 tests
+test associated_text_flag_is_the_protocol_defined_bit ... ok
+test capability_probe_child ... ok
+test baseline_key_events_keep_their_existing_helpers ... ok
+test associated_text_preserves_metadata_and_key_helpers ... ok
+test adapter_preserves_associated_text_once_and_rejects_release ... ok
+test atomic_paste_and_commands_never_arm_ready ... ok
+test exact_tab_and_newline_arm_at_the_same_eligibility_boundary_as_the_engine ... ok
+test associated_text_bounds_and_unsafe_controls_are_atomic_errors ... ok
+test configured_commands_share_ready_eligibility_with_enhanced_text_dispatch ... ok
+test enhanced_control_commands_do_not_arm_but_altgr_text_does ... ok
+test terminal_lifecycle_child ... ok
+test supported_scalar_continuations_are_admitted_before_a_grapheme_is_complete ... ok
+test unsupported_shaping_and_invisible_input_are_rejected_before_zen_or_wrong_targets ... ok
+test explicit_capability_probe_is_bounded_isolated_and_restores_modes ... ok
+test pseudo_terminal_lifecycle_protocol_epoch_and_pipe_separation ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.43s
+
+     Running tests/sample_acceptance.rs (target/msrv/debug/deps/sample_acceptance-f25677dee918ac7b)
+
+running 21 tests
+test bounded_reader_does_not_overflow_for_the_largest_usize_limit ... ok
+test bounded_reader_accepts_the_limit_and_reads_only_one_extra_byte_to_reject ... ok
+test code_preset_uses_exact_custom_file_when_supplied_and_bundled_source_otherwise ... ok
+test changing_custom_policy_reprepares_the_original_bytes ... ok
+test exact_custom_preserves_literal_units_and_opt_in_nfc_changes_identity ... ok
+test changing_custom_file_reconfigures_the_prepared_source_and_hash ... ok
+test invalid_custom_content_is_rejected_before_a_session_and_never_echoed ... ok
+test oversized_file_and_literal_sources_are_rejected_before_preparing_a_session ... ok
+test preset_parameters_survive_cli_overrides_and_are_effective_in_generated_text ... ok
+test cli_rejects_incompatible_sources_bounds_and_policies_before_source_preparation ... ok
+test imported_pack_loading_rejects_traversal_mismatched_identity_and_oversized_files ... ok
+test private_custom_file_and_literal_share_neutral_identity_and_normalized_hash ... ok
+test explicit_quote_id_is_stable_and_unknown_id_diagnostics_are_neutral ... ok
+test seeded_new_samples_form_a_replayable_sequence_without_repeating_the_first_sample ... ok
+test imported_pack_is_prepared_once_owned_by_samples_and_released_by_generator ... ok
+test cli_pack_seed_and_effective_defaults_match_independent_golden_replays ... ok
+test timed_lookahead_is_independent_of_requested_chunk_sizes ... ok
+test timed_repeat_preserves_prepared_text_and_the_future_generator_state_once ... ok
+test quote_categories_never_immediately_repeat_and_keep_catalog_identity ... ok
+test word_count_boundaries_are_exact_and_punctuation_closes_the_final_sentence ... ok
+test missed_practice_expands_a_legal_large_custom_token_to_all_25_original_words ... ok
+
+test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.68s
+
+     Running tests/settings_acceptance.rs (target/msrv/debug/deps/settings_acceptance-cd1bf6cef988abd1)
+
+running 20 tests
+test baseline_bindings_work_by_context_and_releases_never_execute ... ok
+test cli_enumerations_cannot_drift_from_the_shared_registry ... ok
+test all_generator_and_advanced_fields_validate_even_when_inactive ... ok
+test configured_private_mode_and_cli_private_are_explicit_session_flags ... ok
+test canonical_spec_configuration_loads_and_unknown_paths_are_precise ... ok
+test builtin_presets_are_data_and_failed_custom_presets_leave_session_unchanged ... ok
+test combined_edits_are_transactional_and_allow_valid_cross_field_changes ... ok
+test custom_bindings_add_safe_aliases_and_reject_ambiguity_and_collisions ... ok
+test parsing_rejects_unknown_fields_and_toml_value_injection ... ok
+test precedence_is_defaults_then_file_then_preset_then_cli_then_ui ... ok
+test registry_covers_every_serialized_setting_and_canonical_default ... ok
+test oversized_configuration_is_rejected_without_modifying_bytes ... ok
+test atomic_configuration_files_and_new_directories_are_user_only ... ok
+test applying_preset_persists_explicit_fields_even_if_cli_already_matches ... ok
+test failed_io_and_broken_config_are_not_repaired_or_applied ... ok
+test edited_fields_persist_without_cli_overrides_and_preserve_comments ... ok
+test symbolic_link_configuration_edits_are_refused_without_touching_target ... ok
+test inline_table_edits_preserve_neighbor_values_and_comments ... ok
+test invalid_effective_or_disk_combination_never_partially_commits ... ok
+test saving_named_preset_and_explicit_defaults_preserves_existing_metadata ... ok
+
+test result: ok. 20 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+     Running tests/storage_acceptance.rs (target/msrv/debug/deps/storage_acceptance-ad69ed44be703f1d)
+
+running 30 tests
+test corrupt_and_unknown_schema_databases_are_preserved_and_report_unsaved ... ok
+test history_100000_rows_reports_first_page_and_summary_p95 ... ignored, run explicitly in release mode; records a 100,000-row history benchmark
+test hostile_trace_bounds_order_and_nonfinite_metrics_are_rejected ... ok
+test an_existing_read_only_worker_observes_history_created_by_another_process ... ok
+test an_oversized_opted_in_word_diagnostic_is_explicitly_omitted_without_losing_the_result ... ok
+test async_queries_correlate_request_ids_and_do_not_announce_unloaded_bests ... ok
+test caller_and_worker_release_owned_pending_records_after_commit_or_shutdown ... ok
+test missing_read_only_history_is_empty_and_creates_nothing ... ok
+test malformed_review_requests_and_tampered_best_ids_are_rejected_without_echoing_text ... ok
+test migration_acknowledgement_precedes_saved_result_samples_and_stats ... ok
+test new_storage_files_are_private_and_final_symlinks_are_refused ... ok
+test entered_orphan_continuations_round_trip_without_relaxing_control_or_grapheme_limits ... ok
+test private_and_default_custom_records_have_no_text_path_or_diagnostics ... ok
+test profile_and_filter_isolation_and_weighted_statistics_are_exact ... ok
+test read_only_worker_queries_missing_or_existing_history_without_creating_or_saving ... ok
+test reconfiguration_reuses_the_worker_and_preserves_save_then_read_only_order ... ok
+test classification_filters_preserve_overlapping_assistance_and_independent_outcomes ... ok
+test replaying_a_save_id_is_idempotent_for_rows_stats_samples_and_bests ... ok
+test reducing_pending_capacity_preserves_owned_snapshots_and_later_retry ... ok
+test locked_database_retains_bounded_pending_records_without_blocking_submission ... ok
+test local_best_uses_exact_ratios_and_excludes_every_ineligible_outcome ... ok
+test retained_zen_text_has_an_explicit_scope_and_accepts_visible_input_continuations ... ok
+test stored_custom_review_requires_the_same_normalized_source_and_honest_missing_input ... ok
+test zen_and_zero_duration_do_not_invent_target_speed_or_accuracy ... ok
+test text_and_event_trace_opt_ins_are_independent_and_exports_require_text_opt_in ... ok
+test saturated_worker_reconfiguration_leaves_the_previous_frontend_policy_intact ... ok
+test paginated_export_holds_a_consistent_snapshot_while_another_writer_commits ... ok
+test a_maximum_legal_custom_token_and_body_can_be_saved_and_read_with_matching_identity ... ok
+test nfc_expanded_legal_custom_body_and_diagnostics_round_trip_and_original_matches ... ok
+test serialized_diagnostic_budget_is_bounded_and_omissions_are_explicit ... ok
+
+test result: ok. 29 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 8.53s
+
+     Running tests/ui_acceptance.rs (target/msrv/debug/deps/ui_acceptance-d85bb87d87d62379)
+
+running 10 tests
+test exact_tabs_and_newlines_use_display_cells_without_changing_scoring ... ok
+test full_focus_contains_only_text_and_caret_while_running ... ok
+test an_epoch_interruption_stays_visible_after_the_save_notice_is_cleared ... ok
+test incorrect_and_extra_input_have_visible_non_color_cues ... ok
+test first_input_keeps_target_coordinates_and_correct_typing_reuses_layout ... ok
+test wide_and_combining_units_have_correct_cells_and_logical_cursor ... ok
+test status_switches_are_independent_of_focus_and_zen_uses_output_cpm ... ok
+test current_review_can_reach_long_token_errors_without_disk_persistence ... ok
+test ready_running_results_snapshots_at_required_sizes_in_color_and_monochrome ... ok
+test geometry_and_all_states_are_safe_across_small_and_extreme_preferences ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s
+
+     Running tests/ui_product_snapshots.rs (target/msrv/debug/deps/ui_product_snapshots-2643728b67b08069)
+
+running 16 tests
+test every_theme_degrades_without_unsupported_color_sequences_and_keeps_error_cues ... ok
+test every_overlay_survives_zero_or_unsafe_geometry ... ok
+test historical_private_review_shows_hash_requirement_without_invented_text ... ok
+test palette_search_and_editor_handle_unicode_without_partial_deletion_or_controls ... ok
+test effective_result_verdict_and_unsaved_state_survive_compact_rendering ... ok
+test history_selection_empty_loading_and_failure_states_remain_usable ... ok
+test review_distinguishes_repaired_attempts_from_final_missed_and_wrong_output ... ok
+test sparklines_obey_requested_width_ascii_and_finite_fallback ... ok
+test review_summary_scroll_endpoint_never_leaves_an_empty_content_view ... ok
+test zen_review_labels_output_and_does_not_invent_target_accuracy ... ok
+test result_identity_distinguishes_effective_rules_and_limit_even_in_compact_mode ... ok
+test verified_single_line_original_can_scroll_to_its_last_displayed_word ... ok
+test large_valid_live_speed_cannot_move_the_following_accuracy_column ... ok
+test rapid_input_frames_keep_live_metrics_sampled_while_text_and_counts_advance ... ok
+test every_selected_palette_match_stays_visible_and_list_is_bounded ... ok
+test product_overlay_snapshot_matrix ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+     Running unittests examples/kernel_bench.rs (target/msrv/debug/examples/kernel_bench-abc22c7e34107631)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests examples/render_bench.rs (target/msrv/debug/examples/render_bench-561f38b8263b076c)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

@@ -1,0 +1,106 @@
+{
+  "rustc": "rustc 1.95.0 (59807616e 2026-04-14)\nbinary: rustc\ncommit-hash: 59807616e1fa2540724bfbac14d7976d7e4a3860\ncommit-date: 2026-04-14\nhost: aarch64-apple-darwin\nrelease: 1.95.0\nLLVM version: 22.1.2\n",
+  "checks": [
+    {
+      "target": "x86_64-apple-darwin",
+      "command": [
+        "cargo",
+        "+stable",
+        "clippy",
+        "--locked",
+        "--offline",
+        "--all-targets",
+        "--all-features",
+        "--target",
+        "x86_64-apple-darwin",
+        "-j",
+        "2",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "warning_lines": [],
+      "source_identity_sha256": "a3c58706a5ba1de96232ad4d49ab7f734ffea6d4c8dfbfd26bab2b8cd71a1545",
+      "log": "docs/measurements/release-clippy-x86_64-apple-darwin.log",
+      "elapsed_seconds": 12.377265290997457,
+      "recorded_at_utc": "2026-09-07T03:25:09.946199+00:00",
+      "scope": "Host-executed Clippy against foreign compilation configuration; no foreign target execution."
+    },
+    {
+      "target": "x86_64-unknown-linux-gnu",
+      "command": [
+        "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-tools/bin/cargo-zigbuild",
+        "clippy",
+        "--locked",
+        "--offline",
+        "--all-targets",
+        "--all-features",
+        "--target",
+        "x86_64-unknown-linux-gnu.2.17",
+        "-j",
+        "2",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "warning_lines": [],
+      "source_identity_sha256": "a3c58706a5ba1de96232ad4d49ab7f734ffea6d4c8dfbfd26bab2b8cd71a1545",
+      "log": "docs/measurements/release-clippy-x86_64-unknown-linux-gnu.log",
+      "elapsed_seconds": 30.473406541001168,
+      "recorded_at_utc": "2026-09-07T03:25:40.645267+00:00",
+      "scope": "Host-executed Clippy against foreign compilation configuration; no foreign target execution."
+    },
+    {
+      "target": "aarch64-unknown-linux-gnu",
+      "command": [
+        "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-tools/bin/cargo-zigbuild",
+        "clippy",
+        "--locked",
+        "--offline",
+        "--all-targets",
+        "--all-features",
+        "--target",
+        "aarch64-unknown-linux-gnu.2.17",
+        "-j",
+        "2",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "warning_lines": [],
+      "source_identity_sha256": "a3c58706a5ba1de96232ad4d49ab7f734ffea6d4c8dfbfd26bab2b8cd71a1545",
+      "log": "docs/measurements/release-clippy-aarch64-unknown-linux-gnu.log",
+      "elapsed_seconds": 15.195880625004065,
+      "recorded_at_utc": "2026-09-07T03:25:56.064412+00:00",
+      "scope": "Host-executed Clippy against foreign compilation configuration; no foreign target execution."
+    },
+    {
+      "target": "x86_64-pc-windows-gnu",
+      "command": [
+        "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-tools/bin/cargo-zigbuild",
+        "clippy",
+        "--locked",
+        "--offline",
+        "--all-targets",
+        "--all-features",
+        "--target",
+        "x86_64-pc-windows-gnu",
+        "-j",
+        "2",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "warning_lines": [],
+      "source_identity_sha256": "a3c58706a5ba1de96232ad4d49ab7f734ffea6d4c8dfbfd26bab2b8cd71a1545",
+      "log": "docs/measurements/release-clippy-x86_64-pc-windows-gnu.log",
+      "elapsed_seconds": 1.5505790839961264,
+      "recorded_at_utc": "2026-09-07T03:28:14.431877+00:00",
+      "scope": "Host-executed Clippy against foreign compilation configuration; no foreign target execution."
+    }
+  ]
+}

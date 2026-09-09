@@ -1,0 +1,659 @@
+{
+  "status": "pass",
+  "recorded_at_utc": "2026-09-07T04:50:54.460644+00:00",
+  "command": [
+    "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+    "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/inspect_collection.py",
+    "target/release-preview-permissions",
+    "--output",
+    "target/release-preview-permissions/independent-archive-review.json"
+  ],
+  "auditor_script_sha256": "b230eb8cd99a8b4e87f76063bcd09efcff6ba541e83d9b3f9c671a4794a274ec",
+  "script_sha256": {
+    "package.py": "2cfc5f29b762278f0561f9f9f356cc3ecc850a70999077ad2650479666d60e3d",
+    "verify_release.py": "8276d4e27dbf55963e1db94161000d0e69dbfe063ce552b5303b749fcd40d27b",
+    "install.py": "470c4d983c635d842b892d607b97a707680d1b3e4580cf9fa3419f096caf5624",
+    "release_test.py": "c112fcd14227da363dd42dbcc7f55235b43d42a09dc14397a88c456bfdf60111"
+  },
+  "source_identity_sha256": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+  "complete_source_inputs_sha256": "46fb0f2c0db6899d225ebeee2ce6071780a4184e5694244af58a4baba5a91e35",
+  "workspace_match_required": false,
+  "post_packaging_workspace_documentation_changes": {
+    "added_to_workspace_since_packaging": [
+      "docs/measurements/release-draft-provenance.json",
+      "docs/measurements/release-draft-validation.json"
+    ],
+    "missing_from_workspace": [],
+    "changed_since_packaging": [
+      {
+        "path": "docs/audit-release-final.md",
+        "archived_sha256": "7b7a6accdba05b9f012556f2ae1b0c7c54f295a567f0566d8fbb088542009023",
+        "workspace_sha256": "0076655ae29e20d50e00184de89ae56b2b73cc3f4463be1177133c55423202dc"
+      },
+      {
+        "path": "docs/coverage.md",
+        "archived_sha256": "26faebdcf1dea6db49a53961f2be218adad521e1467bdb0092afe6e3a5af53b3",
+        "workspace_sha256": "c858d1f40322e6ae1b212d1a7efb8fd9064c3108d33700890d276c7ffe2fb200"
+      },
+      {
+        "path": "docs/release.md",
+        "archived_sha256": "df0f02438de8d3c0a5100aa585d5eb972e0ffde82e0d881305cf4024d09ac5a5",
+        "workspace_sha256": "d9c112019216895c615f258c9ce9327fcec7c28424cd447bdb3de5aa201898b8"
+      }
+    ]
+  },
+  "installer_test_report_sha256": "25be191abd1f4c2815fa66a8567f8bdaafb7cdd53073e378fa770588ba3e1b4f",
+  "installer_tests": {
+    "passed": 17,
+    "skipped": [
+      {
+        "test": "test_native_windows_junction_uninstall_preserves_matching_external_files",
+        "reason": "requires native Windows directory junction"
+      }
+    ]
+  },
+  "build_report_sha256": "a7bad2001a4a9e6ce399918a62b19ece4f259da39cfc7517badc87baa7fb146c",
+  "performance_report_sha256": "23d8fa0161c80c9760999137aa606d827513ae11256c277dbd6143fd1e9dbae9",
+  "performance_measurements": 22,
+  "performance_failures": 0,
+  "collection_provenance_sha256": "f580b9e568d6f27aa5be2d4670f4dcfefbe25a6ba40e1e5a89db729b7f25d7a4",
+  "owner_verification_report_sha256": "63fa3213e47dcb6443d7631b4b185e434e43e64965801f0635594742f9a13894",
+  "host": "macOS-26.6.2-arm64-arm-64bit",
+  "host_machine": "arm64",
+  "archives": [
+    {
+      "archive": "typ-1.0.0-aarch64-apple-darwin.tar.gz",
+      "archive_sha256": "c5d73cbf2f0a739a9410d8e311bf41902832e273def1023f5c288033db89dc1c",
+      "archive_bytes": 3122599,
+      "manifest_sha256": "76f8109f7fbcea24cf62ef96a0dc9e4d6c4f7ad9ac778246c66987209a61ab12",
+      "payload_files": 587,
+      "kind": "native",
+      "regular_sorted_entries_fixed_metadata_and_all_manifest_hashes": "pass",
+      "relative_markdown_link_destinations_checked": 425,
+      "missing_relative_markdown_destinations": [],
+      "exact_measured_production_binary": "pass: matches the 22-case final performance report",
+      "target": "aarch64-apple-darwin",
+      "binary_sha256": "4e50a20121623d2634fbdbda9aa1bdf8c066cc2e6623f0b071c1e9d9125c5807",
+      "binary_bytes": 5047968,
+      "source_identity_sha256": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+      "approved_immutable_snapshot_byte_equality": "pass",
+      "packaged_installer_cli": {
+        "status": "pass",
+        "execution": "native macOS ARM64",
+        "checked": [
+          "archived installer default --package entrypoint",
+          "installed binary identity",
+          "version and production doctor",
+          "read-only empty history and no data-directory creation",
+          "generated man and all five completions byte equality",
+          "idempotent archived CLI reinstall",
+          "archived CLI uninstall",
+          "unrelated history preserved",
+          "user-added bundle file and modified README preserved",
+          "unchanged registered manual removed"
+        ],
+        "doctor_build": {
+          "debug_assertions": false,
+          "rust_version_minimum": "1.88",
+          "target_arch": "aarch64",
+          "target_os": "macos",
+          "test_hooks_enabled": false
+        },
+        "commands": [
+          {
+            "arguments": [
+              "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/typ-1.0.0-aarch64-apple-darwin/install.py",
+              "--prefix",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/prefix"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 471,
+            "stdout_sha256": "da9c3f3eb5857d2d2e83a4ee03083ce4477656a797e56ebbf1eba9c86ac92841",
+            "stderr": "",
+            "stdout_excerpt": "Installed /Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/prefix/bin/typ; add /Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/prefix/bin to PATH if needed.\nDocumentation, completions, ma"
+          },
+          {
+            "arguments": [
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/prefix/bin/typ",
+              "--config",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/fixture.toml",
+              "--data-dir",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/readonly-data",
+              "--version"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 10,
+            "stdout_sha256": "ada61fdcb19a9b8c39d9f28b652f0f8872d9f1e8b9bd53e8577339dd404a2aca",
+            "stderr": "",
+            "stdout_excerpt": "typ 1.0.0\n"
+          },
+          {
+            "arguments": [
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/prefix/bin/typ",
+              "--config",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/fixture.toml",
+              "--data-dir",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/readonly-data",
+              "doctor",
+              "--json"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 1327,
+            "stdout_sha256": "b430427dac0636c59a72ab1df8599ad5a36d2f06d37d520509944e80602eba93",
+            "stderr": "",
+            "stdout_excerpt": "{\"app_version\":\"1.0.0\",\"build\":{\"debug_assertions\":false,\"rust_version_minimum\":\"1.88\",\"target_arch\":\"aarch64\",\"target_os\":\"macos\",\"test_hooks_enabled\":false},\"capabilities\":{\"active_probe\":null,\"associated_text_decoder\":true,\"bracketed_paste_requested\":true,\"controlling_tty\":true,\"focus_reporting_r"
+          },
+          {
+            "arguments": [
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/prefix/bin/typ",
+              "--config",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/fixture.toml",
+              "--data-dir",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/readonly-data",
+              "history",
+              "--profile",
+              "all",
+              "--json"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 184,
+            "stdout_sha256": "907c35a5872a50352f0406f57acc204d894ec67908e75d2d5ecd29acb21dad54",
+            "stderr": "",
+            "stdout_excerpt": "{\"export_version\":1,\"filter\":{\"classification\":null,\"from_utc_ms\":null,\"language\":null,\"mode\":null,\"outcome\":null,\"profile_key\":null,\"to_utc_ms\":null},\"next_offset\":null,\"results\":[]}\n"
+          },
+          {
+            "arguments": [
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/prefix/bin/typ",
+              "--config",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/fixture.toml",
+              "--data-dir",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/readonly-data",
+              "man"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 5347,
+            "stdout_sha256": "404aa51b181093d30d3e3a1ed6881bb15c46a971433090aa0c4b32a1acaa5362",
+            "stderr": "",
+            "stdout_excerpt": ".ie \\n(.g .ds Aq \\(aq\n.el .ds Aq '\n.TH typ 1  \"typ 1.0.0\" \n.SH NAME\ntyp \\- A local\\-first terminal typing test\n.SH SYNOPSIS\n\\fBtyp\\fR [\\fB\\-\\-config\\fR] [\\fB\\-\\-data\\-dir\\fR] [\\fB\\-\\-json\\fR] [\\fB\\-\\-time\\fR] [\\fB\\-\\-words\\fR] [\\fB\\-\\-quote\\fR] [\\fB\\-\\-quote\\-id\\fR] [\\fB\\-\\-length\\fR] [\\fB\\-\\-file\\f"
+          },
+          {
+            "arguments": [
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/prefix/bin/typ",
+              "--config",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/fixture.toml",
+              "--data-dir",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/readonly-data",
+              "completions",
+              "bash"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 41170,
+            "stdout_sha256": "227cbd091d0e0f0dd3cc62c15590ec218bd258cea64e11336c1af840a512b5e9",
+            "stderr": "",
+            "stdout_excerpt": "_typ() {\n    local i cur prev opts cmd\n    COMPREPLY=()\n    if [[ \"${BASH_VERSINFO[0]}\" -ge 4 ]]; then\n        cur=\"$2\"\n    else\n        cur=\"${COMP_WORDS[COMP_CWORD]}\"\n    fi\n    prev=\"$3\"\n    cmd=\"\"\n    opts=\"\"\n\n    for i in \"${COMP_WORDS[@]:0:COMP_CWORD}\"\n    do\n        case \"${cmd},${i}\" in\n    "
+          },
+          {
+            "arguments": [
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/prefix/bin/typ",
+              "--config",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/fixture.toml",
+              "--data-dir",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/readonly-data",
+              "completions",
+              "fish"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 20873,
+            "stdout_sha256": "2315935fdfb7da84756be5cd3d398d8caa172f5f01e928f10a051451d0f754b1",
+            "stderr": "",
+            "stdout_excerpt": "# Print an optspec for argparse to handle cmd's options that are independent of any subcommand.\nfunction __fish_typ_global_optspecs\n    string join \\n config= data-dir= json time= words= quote quote-id= length= file= text= stdin code zen exact normalize-exact completion= language= punctuation= numbe"
+          },
+          {
+            "arguments": [
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/prefix/bin/typ",
+              "--config",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/fixture.toml",
+              "--data-dir",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/readonly-data",
+              "completions",
+              "zsh"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 23795,
+            "stdout_sha256": "fca0dcc36a8d3ca0d8d58b356ca1507ccc8a9f5d96264ec5dd8a24a1805f1f44",
+            "stderr": "",
+            "stdout_excerpt": "#compdef typ\n\nautoload -U is-at-least\n\n_typ() {\n    typeset -A opt_args\n    typeset -a _arguments_options\n    local ret=1\n\n    if is-at-least 5.2; then\n        _arguments_options=(-s -S -C)\n    else\n        _arguments_options=(-s -C)\n    fi\n\n    local context curcontext=\"$curcontext\" state line\n    "
+          },
+          {
+            "arguments": [
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/prefix/bin/typ",
+              "--config",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/fixture.toml",
+              "--data-dir",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/readonly-data",
+              "completions",
+              "elvish"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 11241,
+            "stdout_sha256": "65fc59240e223fd86f35b8aa64b0f9e09c44414907744c6b7bca03cb39c6bfa5",
+            "stderr": "",
+            "stdout_excerpt": "\nuse builtin;\nuse str;\n\nset edit:completion:arg-completer[typ] = {|@words|\n    fn spaces {|n|\n        builtin:repeat $n ' ' | str:join ''\n    }\n    fn cand {|text desc|\n        edit:complex-candidate $text &display=$text' '(spaces (- 14 (wcswidth $text)))$desc\n    }\n    var command = 'typ'\n    for w"
+          },
+          {
+            "arguments": [
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/prefix/bin/typ",
+              "--config",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/fixture.toml",
+              "--data-dir",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/readonly-data",
+              "completions",
+              "powershell"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 27005,
+            "stdout_sha256": "93debf1b75794c67406c965e24d3107a0b7d19e78f842abefb48e805bedcb2ad",
+            "stderr": "",
+            "stdout_excerpt": "\nusing namespace System.Management.Automation\nusing namespace System.Management.Automation.Language\n\nRegister-ArgumentCompleter -Native -CommandName 'typ' -ScriptBlock {\n    param($wordToComplete, $commandAst, $cursorPosition)\n\n    $commandElements = $commandAst.CommandElements\n    $command = @(\n   "
+          },
+          {
+            "arguments": [
+              "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/typ-1.0.0-aarch64-apple-darwin/install.py",
+              "--prefix",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/prefix"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 139,
+            "stdout_sha256": "a430ea5eb84d0f7e0e288533bdec5946d417d974d96de3f589d407d51da9cf25",
+            "stderr": "",
+            "stdout_excerpt": "Already installed: /Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/prefix/bin/typ\n"
+          },
+          {
+            "arguments": [
+              "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/typ-1.0.0-aarch64-apple-darwin/install.py",
+              "--prefix",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/prefix",
+              "--uninstall"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 309,
+            "stdout_sha256": "6894c846368526a50439fa38ba2e8ecb27e75a041c7e84f99496da85276f05dd",
+            "stderr": "",
+            "stdout_excerpt": "Removed the registered binary and unchanged package files. Configuration and history were preserved.\nModified or unregistered package files were preserved in /Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-ruin5qhd/prefix/share/typ/package-76f8109f7fbc"
+          }
+        ]
+      }
+    },
+    {
+      "archive": "typ-1.0.0-aarch64-unknown-linux-gnu.tar.gz",
+      "archive_sha256": "a974693d05ac414fc547ace2df0ade138b2a6b498766fe7bc82d491224bf8719",
+      "archive_bytes": 3106842,
+      "manifest_sha256": "54cdd2bd7c1c8c60b4821999e8bbf44d6ff65b3a7ac38b4547a4cabed92c96ed",
+      "payload_files": 587,
+      "kind": "native",
+      "regular_sorted_entries_fixed_metadata_and_all_manifest_hashes": "pass",
+      "relative_markdown_link_destinations_checked": 425,
+      "missing_relative_markdown_destinations": [],
+      "target": "aarch64-unknown-linux-gnu",
+      "binary_sha256": "eccaf7162f0f2a776db42572fbc55c0d2e54ec815b169fb7e154b87a4b4811d7",
+      "binary_bytes": 5007184,
+      "source_identity_sha256": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+      "approved_immutable_snapshot_byte_equality": "pass",
+      "packaged_installer_cli": {
+        "status": "pass: packaged installer refuses foreign OS before prefix writes",
+        "foreign_binary_execution": "not attempted",
+        "commands": [
+          {
+            "arguments": [
+              "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-_hw8cnvc/typ-1.0.0-aarch64-unknown-linux-gnu/install.py",
+              "--prefix",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-_hw8cnvc/prefix"
+            ],
+            "exit_code": 1,
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderr": "installation failed: package operating system does not match this installation host\n",
+            "stdout_excerpt": ""
+          }
+        ]
+      }
+    },
+    {
+      "archive": "typ-1.0.0-source.tar.gz",
+      "archive_sha256": "9fbdeef989a6df66fbbd8f2feac3dbcc7b2d16ecb6d845da608ac3543396b49f",
+      "archive_bytes": 1108392,
+      "manifest_sha256": "ab01cf1974a79a6741f35cd43620a403a62f173ecca01d5bc4fa3b1fb4cedd9b",
+      "payload_files": 758,
+      "kind": "source",
+      "regular_sorted_entries_fixed_metadata_and_all_manifest_hashes": "pass",
+      "relative_markdown_link_destinations_checked": 431,
+      "missing_relative_markdown_destinations": [
+        {
+          "document": "vendor/crossterm/CHANGELOG.md",
+          "destination": "UPGRADE%20Manual.md",
+          "resolved": "vendor/crossterm/UPGRADE Manual.md"
+        },
+        {
+          "document": "vendor/crossterm/examples/README.md",
+          "destination": "LICENSE",
+          "resolved": "vendor/crossterm/examples/LICENSE"
+        },
+        {
+          "document": "vendor/crossterm/examples/README.md",
+          "destination": "LICENSE",
+          "resolved": "vendor/crossterm/examples/LICENSE"
+        }
+      ],
+      "inherited_vendor_documentation_link_limitations": "The unchanged upstream snapshot lacks its historical upgrade manual and examples/LICENSE alias; the actual vendor/crossterm/LICENSE is present. Product and native package documentation destinations all resolve.",
+      "complete_source_payload_matches_workspace": "draft source matches its immutable provenance; later documentation changes listed separately",
+      "complete_source_inputs_sha256": "46fb0f2c0db6899d225ebeee2ce6071780a4184e5694244af58a4baba5a91e35"
+    },
+    {
+      "archive": "typ-1.0.0-x86_64-apple-darwin.tar.gz",
+      "archive_sha256": "a49e925c350b5a9b93156527e46e12e907837aeaf90e7966237eb87596363699",
+      "archive_bytes": 3268020,
+      "manifest_sha256": "24060bddaaeb8eb477dd582304d4e0245e3990803da4ce5abb6b508e11031d90",
+      "payload_files": 587,
+      "kind": "native",
+      "regular_sorted_entries_fixed_metadata_and_all_manifest_hashes": "pass",
+      "relative_markdown_link_destinations_checked": 425,
+      "missing_relative_markdown_destinations": [],
+      "target": "x86_64-apple-darwin",
+      "binary_sha256": "7b3b795660c3a27b2e93235383f888bce3d797b3fa467c0a6bdec4c5e050361d",
+      "binary_bytes": 5401632,
+      "source_identity_sha256": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+      "approved_immutable_snapshot_byte_equality": "pass",
+      "packaged_installer_cli": {
+        "status": "pass",
+        "execution": "macOS x86-64 under Rosetta on ARM64; no native Intel hardware claim",
+        "checked": [
+          "archived installer default --package entrypoint",
+          "installed binary identity",
+          "version and production doctor",
+          "read-only empty history and no data-directory creation",
+          "generated man and all five completions byte equality",
+          "idempotent archived CLI reinstall",
+          "archived CLI uninstall",
+          "unrelated history preserved",
+          "user-added bundle file and modified README preserved",
+          "unchanged registered manual removed"
+        ],
+        "doctor_build": {
+          "debug_assertions": false,
+          "rust_version_minimum": "1.88",
+          "target_arch": "x86_64",
+          "target_os": "macos",
+          "test_hooks_enabled": false
+        },
+        "commands": [
+          {
+            "arguments": [
+              "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/typ-1.0.0-x86_64-apple-darwin/install.py",
+              "--prefix",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/prefix"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 471,
+            "stdout_sha256": "9d5e0b87e1a00d3a1d7dea0841a72125c20b087c99cecd261908008d6d1a1f3c",
+            "stderr": "",
+            "stdout_excerpt": "Installed /Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/prefix/bin/typ; add /Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/prefix/bin to PATH if needed.\nDocumentation, completions, ma"
+          },
+          {
+            "arguments": [
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/prefix/bin/typ",
+              "--config",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/fixture.toml",
+              "--data-dir",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/readonly-data",
+              "--version"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 10,
+            "stdout_sha256": "ada61fdcb19a9b8c39d9f28b652f0f8872d9f1e8b9bd53e8577339dd404a2aca",
+            "stderr": "",
+            "stdout_excerpt": "typ 1.0.0\n"
+          },
+          {
+            "arguments": [
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/prefix/bin/typ",
+              "--config",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/fixture.toml",
+              "--data-dir",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/readonly-data",
+              "doctor",
+              "--json"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 1326,
+            "stdout_sha256": "043b0d72b2d604fd512b7a77b2f53d0b591c02c5253e244596fe5ef5aa51bad2",
+            "stderr": "",
+            "stdout_excerpt": "{\"app_version\":\"1.0.0\",\"build\":{\"debug_assertions\":false,\"rust_version_minimum\":\"1.88\",\"target_arch\":\"x86_64\",\"target_os\":\"macos\",\"test_hooks_enabled\":false},\"capabilities\":{\"active_probe\":null,\"associated_text_decoder\":true,\"bracketed_paste_requested\":true,\"controlling_tty\":true,\"focus_reporting_re"
+          },
+          {
+            "arguments": [
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/prefix/bin/typ",
+              "--config",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/fixture.toml",
+              "--data-dir",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/readonly-data",
+              "history",
+              "--profile",
+              "all",
+              "--json"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 184,
+            "stdout_sha256": "907c35a5872a50352f0406f57acc204d894ec67908e75d2d5ecd29acb21dad54",
+            "stderr": "",
+            "stdout_excerpt": "{\"export_version\":1,\"filter\":{\"classification\":null,\"from_utc_ms\":null,\"language\":null,\"mode\":null,\"outcome\":null,\"profile_key\":null,\"to_utc_ms\":null},\"next_offset\":null,\"results\":[]}\n"
+          },
+          {
+            "arguments": [
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/prefix/bin/typ",
+              "--config",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/fixture.toml",
+              "--data-dir",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/readonly-data",
+              "man"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 5347,
+            "stdout_sha256": "404aa51b181093d30d3e3a1ed6881bb15c46a971433090aa0c4b32a1acaa5362",
+            "stderr": "",
+            "stdout_excerpt": ".ie \\n(.g .ds Aq \\(aq\n.el .ds Aq '\n.TH typ 1  \"typ 1.0.0\" \n.SH NAME\ntyp \\- A local\\-first terminal typing test\n.SH SYNOPSIS\n\\fBtyp\\fR [\\fB\\-\\-config\\fR] [\\fB\\-\\-data\\-dir\\fR] [\\fB\\-\\-json\\fR] [\\fB\\-\\-time\\fR] [\\fB\\-\\-words\\fR] [\\fB\\-\\-quote\\fR] [\\fB\\-\\-quote\\-id\\fR] [\\fB\\-\\-length\\fR] [\\fB\\-\\-file\\f"
+          },
+          {
+            "arguments": [
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/prefix/bin/typ",
+              "--config",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/fixture.toml",
+              "--data-dir",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/readonly-data",
+              "completions",
+              "bash"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 41170,
+            "stdout_sha256": "227cbd091d0e0f0dd3cc62c15590ec218bd258cea64e11336c1af840a512b5e9",
+            "stderr": "",
+            "stdout_excerpt": "_typ() {\n    local i cur prev opts cmd\n    COMPREPLY=()\n    if [[ \"${BASH_VERSINFO[0]}\" -ge 4 ]]; then\n        cur=\"$2\"\n    else\n        cur=\"${COMP_WORDS[COMP_CWORD]}\"\n    fi\n    prev=\"$3\"\n    cmd=\"\"\n    opts=\"\"\n\n    for i in \"${COMP_WORDS[@]:0:COMP_CWORD}\"\n    do\n        case \"${cmd},${i}\" in\n    "
+          },
+          {
+            "arguments": [
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/prefix/bin/typ",
+              "--config",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/fixture.toml",
+              "--data-dir",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/readonly-data",
+              "completions",
+              "fish"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 20873,
+            "stdout_sha256": "2315935fdfb7da84756be5cd3d398d8caa172f5f01e928f10a051451d0f754b1",
+            "stderr": "",
+            "stdout_excerpt": "# Print an optspec for argparse to handle cmd's options that are independent of any subcommand.\nfunction __fish_typ_global_optspecs\n    string join \\n config= data-dir= json time= words= quote quote-id= length= file= text= stdin code zen exact normalize-exact completion= language= punctuation= numbe"
+          },
+          {
+            "arguments": [
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/prefix/bin/typ",
+              "--config",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/fixture.toml",
+              "--data-dir",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/readonly-data",
+              "completions",
+              "zsh"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 23795,
+            "stdout_sha256": "fca0dcc36a8d3ca0d8d58b356ca1507ccc8a9f5d96264ec5dd8a24a1805f1f44",
+            "stderr": "",
+            "stdout_excerpt": "#compdef typ\n\nautoload -U is-at-least\n\n_typ() {\n    typeset -A opt_args\n    typeset -a _arguments_options\n    local ret=1\n\n    if is-at-least 5.2; then\n        _arguments_options=(-s -S -C)\n    else\n        _arguments_options=(-s -C)\n    fi\n\n    local context curcontext=\"$curcontext\" state line\n    "
+          },
+          {
+            "arguments": [
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/prefix/bin/typ",
+              "--config",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/fixture.toml",
+              "--data-dir",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/readonly-data",
+              "completions",
+              "elvish"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 11241,
+            "stdout_sha256": "65fc59240e223fd86f35b8aa64b0f9e09c44414907744c6b7bca03cb39c6bfa5",
+            "stderr": "",
+            "stdout_excerpt": "\nuse builtin;\nuse str;\n\nset edit:completion:arg-completer[typ] = {|@words|\n    fn spaces {|n|\n        builtin:repeat $n ' ' | str:join ''\n    }\n    fn cand {|text desc|\n        edit:complex-candidate $text &display=$text' '(spaces (- 14 (wcswidth $text)))$desc\n    }\n    var command = 'typ'\n    for w"
+          },
+          {
+            "arguments": [
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/prefix/bin/typ",
+              "--config",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/fixture.toml",
+              "--data-dir",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/readonly-data",
+              "completions",
+              "powershell"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 27005,
+            "stdout_sha256": "93debf1b75794c67406c965e24d3107a0b7d19e78f842abefb48e805bedcb2ad",
+            "stderr": "",
+            "stdout_excerpt": "\nusing namespace System.Management.Automation\nusing namespace System.Management.Automation.Language\n\nRegister-ArgumentCompleter -Native -CommandName 'typ' -ScriptBlock {\n    param($wordToComplete, $commandAst, $cursorPosition)\n\n    $commandElements = $commandAst.CommandElements\n    $command = @(\n   "
+          },
+          {
+            "arguments": [
+              "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/typ-1.0.0-x86_64-apple-darwin/install.py",
+              "--prefix",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/prefix"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 139,
+            "stdout_sha256": "b9618e669ca2b9fb46bf549b8e5c8817b625af4e7ea133ae92861bdb3c5f9391",
+            "stderr": "",
+            "stdout_excerpt": "Already installed: /Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/prefix/bin/typ\n"
+          },
+          {
+            "arguments": [
+              "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/typ-1.0.0-x86_64-apple-darwin/install.py",
+              "--prefix",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/prefix",
+              "--uninstall"
+            ],
+            "exit_code": 0,
+            "stdout_bytes": 309,
+            "stdout_sha256": "747811532f63eebeb92dbbb8a8bde4cf84e5fba5021147035c86d192fadab5fb",
+            "stderr": "",
+            "stdout_excerpt": "Removed the registered binary and unchanged package files. Configuration and history were preserved.\nModified or unregistered package files were preserved in /Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-5t0hftib/prefix/share/typ/package-24060bddaaeb"
+          }
+        ]
+      }
+    },
+    {
+      "archive": "typ-1.0.0-x86_64-pc-windows-gnu.zip",
+      "archive_sha256": "e9f1259973c8614e828bde5c3c3df7686e5af2d608b4cee76a4bbe0bd69cc284",
+      "archive_bytes": 4056185,
+      "manifest_sha256": "78e21e056dba4259d3379022f8093b119fa7811abeaf6ab8b346b6f8b8243ca7",
+      "payload_files": 587,
+      "kind": "native",
+      "regular_sorted_entries_fixed_metadata_and_all_manifest_hashes": "pass",
+      "relative_markdown_link_destinations_checked": 425,
+      "missing_relative_markdown_destinations": [],
+      "target": "x86_64-pc-windows-gnu",
+      "binary_sha256": "bf3aaa1729ecddf0368e10e521ef096bf2909dcc8ca98fb7f5a8a97170b652b3",
+      "binary_bytes": 5273088,
+      "source_identity_sha256": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+      "approved_immutable_snapshot_byte_equality": "pass",
+      "packaged_installer_cli": {
+        "status": "pass: packaged installer refuses foreign OS before prefix writes",
+        "foreign_binary_execution": "not attempted",
+        "commands": [
+          {
+            "arguments": [
+              "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-k3qqq08x/typ-1.0.0-x86_64-pc-windows-gnu/install.py",
+              "--prefix",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-k3qqq08x/prefix"
+            ],
+            "exit_code": 1,
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderr": "installation failed: package operating system does not match this installation host\n",
+            "stdout_excerpt": ""
+          }
+        ]
+      }
+    },
+    {
+      "archive": "typ-1.0.0-x86_64-unknown-linux-gnu.tar.gz",
+      "archive_sha256": "1af903f35fc8de95b34a284b863fc747482f06ef0733e30fc6b69cd3c9b443c8",
+      "archive_bytes": 3258535,
+      "manifest_sha256": "8d147c4ff24e0f91f89bf5f26f4894e96947ed2215934fb59a04ac0142be3032",
+      "payload_files": 587,
+      "kind": "native",
+      "regular_sorted_entries_fixed_metadata_and_all_manifest_hashes": "pass",
+      "relative_markdown_link_destinations_checked": 425,
+      "missing_relative_markdown_destinations": [],
+      "target": "x86_64-unknown-linux-gnu",
+      "binary_sha256": "838057d5830f0fe474b2535a4e6504853f781cce397ae98116387a20ec04821f",
+      "binary_bytes": 5600552,
+      "source_identity_sha256": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+      "approved_immutable_snapshot_byte_equality": "pass",
+      "packaged_installer_cli": {
+        "status": "pass: packaged installer refuses foreign OS before prefix writes",
+        "foreign_binary_execution": "not attempted",
+        "commands": [
+          {
+            "arguments": [
+              "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-1bb058ts/typ-1.0.0-x86_64-unknown-linux-gnu/install.py",
+              "--prefix",
+              "/Users/james/Desktop/u/typing_test_gpt6astra/target/terminal-audit-packaging/archived-installer-1bb058ts/prefix"
+            ],
+            "exit_code": 1,
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderr": "installation failed: package operating system does not match this installation host\n",
+            "stdout_excerpt": ""
+          }
+        ]
+      }
+    }
+  ],
+  "scope_note": "Artifact identity, complete source/native payloads, checksums, and available archived installer CLI checks passed; two inherited upstream documentation destinations in the source archive remain recorded limitations.",
+  "limitations": [
+    "The independent auditor did not import package.py, verify_release.py or install.py; only the archived installer was executed as a child process.",
+    "Markdown check validates inline and reference-style relative file/directory destinations, not remote URLs or heading fragments.",
+    "Linux and Windows binaries were inspected as bytes and never executed; their archived installer was only tested for macOS-host refusal.",
+    "macOS x86-64 commands ran under Rosetta on Apple Silicon; native Intel, foreign OS, actual terminal emulators, controlled hardware, native Windows junction behavior and power-loss validation remain external.",
+    "Deterministic archive metadata and exact payload identity do not establish independent compiler reproducibility across hosts."
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "generator_version": 1,
+  "provenance": "Original independent Python integer reference implementation of docs/content.md, clack contributors; CC0-1.0",
+  "cases": [
+    {
+      "seed": 0,
+      "pack_id": "english_200",
+      "pack_revision": "moby-clack-1",
+      "pack_content_hash": "12e81e1c77f89bd4772d8586de0237be74c0610ba1d7446fb251db3573595d2e",
+      "punctuation": false,
+      "numbers": false,
+      "word_count": 24,
+      "text": "few class number take most an over bring know a too into give high during for government give good work two but or want"
+    },
+    {
+      "seed": 0,
+      "pack_id": "english_200",
+      "pack_revision": "moby-clack-1",
+      "pack_content_hash": "12e81e1c77f89bd4772d8586de0237be74c0610ba1d7446fb251db3573595d2e",
+      "punctuation": true,
+      "numbers": false,
+      "word_count": 24,
+      "text": "Few take an bring. Know, into high for now work. Two want always such other call number keep, life through. Some without, try an."
+    },
+    {
+      "seed": 0,
+      "pack_id": "english_200",
+      "pack_revision": "moby-clack-1",
+      "pack_content_hash": "12e81e1c77f89bd4772d8586de0237be74c0610ba1d7446fb251db3573595d2e",
+      "punctuation": false,
+      "numbers": true,
+      "word_count": 24,
+      "text": "5444 show those know too state 42 life two or give case need no or about mister should some class only year a bring"
+    },
+    {
+      "seed": 0,
+      "pack_id": "english_200",
+      "pack_revision": "moby-clack-1",
+      "pack_content_hash": "12e81e1c77f89bd4772d8586de0237be74c0610ba1d7446fb251db3573595d2e",
+      "punctuation": true,
+      "numbers": true,
+      "word_count": 24,
+      "text": "5444 those 883 42 down or always need. No about, life some 5021 a bring can, 7699 feel. Some to think something church, into."
+    },
+    {
+      "seed": 42,
+      "pack_id": "english_200",
+      "pack_revision": "moby-clack-1",
+      "pack_content_hash": "12e81e1c77f89bd4772d8586de0237be74c0610ba1d7446fb251db3573595d2e",
+      "punctuation": false,
+      "numbers": false,
+      "word_count": 24,
+      "text": "they many house line bring small hand time make room class though feel off we put i down what live that just city and"
+    },
+    {
+      "seed": 42,
+      "pack_id": "english_200",
+      "pack_revision": "moby-clack-1",
+      "pack_content_hash": "12e81e1c77f89bd4772d8586de0237be74c0610ba1d7446fb251db3573595d2e",
+      "punctuation": true,
+      "numbers": false,
+      "word_count": 24,
+      "text": "They line small time, room. Class case put how live where and more which same, over. Most in life when fact american during house."
+    },
+    {
+      "seed": 42,
+      "pack_id": "english_200",
+      "pack_revision": "moby-clack-1",
+      "pack_content_hash": "12e81e1c77f89bd4772d8586de0237be74c0610ba1d7446fb251db3573595d2e",
+      "punctuation": false,
+      "numbers": true,
+      "word_count": 24,
+      "text": "they house bring 84 class feel we i 5 city tell all two much show put during 537 always find an must country word"
+    },
+    {
+      "seed": 42,
+      "pack_id": "english_200",
+      "pack_revision": "moby-clack-1",
+      "pack_content_hash": "12e81e1c77f89bd4772d8586de0237be74c0610ba1d7446fb251db3573595d2e",
+      "punctuation": true,
+      "numbers": true,
+      "word_count": 24,
+      "text": "They bring 207 part. We 5 and one 393 put seem, mister american. During good live so program 522 world day. Find system where."
+    },
+    {
+      "seed": 18446744073709551615,
+      "pack_id": "english_200",
+      "pack_revision": "moby-clack-1",
+      "pack_content_hash": "12e81e1c77f89bd4772d8586de0237be74c0610ba1d7446fb251db3573595d2e",
+      "punctuation": false,
+      "numbers": false,
+      "word_count": 24,
+      "text": "about not keep year good hand every only state into over you good boy same three seem year also know time group state night"
+    },
+    {
+      "seed": 18446744073709551615,
+      "pack_id": "english_200",
+      "pack_revision": "moby-clack-1",
+      "pack_content_hash": "12e81e1c77f89bd4772d8586de0237be74c0610ba1d7446fb251db3573595d2e",
+      "punctuation": true,
+      "numbers": false,
+      "word_count": 24,
+      "text": "About, year, hand only into you boy want year these. Time night get little but since by, say those before. Just much room while."
+    },
+    {
+      "seed": 18446744073709551615,
+      "pack_id": "english_200",
+      "pack_revision": "moby-clack-1",
+      "pack_content_hash": "12e81e1c77f89bd4772d8586de0237be74c0610ba1d7446fb251db3573595d2e",
+      "punctuation": false,
+      "numbers": true,
+      "word_count": 24,
+      "text": "about keep life every any over 86 seem 97 state high tell line way war as end little just then for long in place"
+    },
+    {
+      "seed": 18446744073709551615,
+      "pack_id": "english_200",
+      "pack_revision": "moby-clack-1",
+      "pack_content_hash": "12e81e1c77f89bd4772d8586de0237be74c0610ba1d7446fb251db3573595d2e",
+      "punctuation": true,
+      "numbers": true,
+      "word_count": 24,
+      "text": "About life only over boy seem know, give. High off since as those seem. Then long way night with as get 11 life turn."
+    },
+    {
+      "seed": 42,
+      "pack_id": "french_200",
+      "pack_revision": "moby-clack-1",
+      "pack_content_hash": "ab8a8388bb051c87a9572c5db9a4e81e2c8298a10f030d8ef6353197d2ae4bb3",
+      "punctuation": false,
+      "numbers": false,
+      "word_count": 24,
+      "text": "car jouer vendre ici devant décider chercher vos sa pour par mal poser bientôt tu ailleurs donc tenir votre voyager qui boire hier les"
+    },
+    {
+      "seed": 42,
+      "pack_id": "french_200",
+      "pack_revision": "moby-clack-1",
+      "pack_content_hash": "ab8a8388bb051c87a9572c5db9a4e81e2c8298a10f030d8ef6353197d2ae4bb3",
+      "punctuation": true,
+      "numbers": false,
+      "word_count": 24,
+      "text": "Car ici décider vos, pour. Par déjà ailleurs revenir voyager manger les appeler me gagner, écrire. Rappeler des marcher mes mois avec inviter vendre."
+    },
+    {
+      "seed": 42,
+      "pack_id": "french_200",
+      "pack_revision": "moby-clack-1",
+      "pack_content_hash": "ab8a8388bb051c87a9572c5db9a4e81e2c8298a10f030d8ef6353197d2ae4bb3",
+      "punctuation": false,
+      "numbers": true,
+      "word_count": 24,
+      "text": "car vendre devant 84 par poser tu donc 5 hier partir mon devoir jamais oublier ailleurs inviter 537 sur comprendre ils vivre aujourd'hui partager"
+    },
+    {
+      "seed": 42,
+      "pack_id": "french_200",
+      "pack_revision": "moby-clack-1",
+      "pack_content_hash": "ab8a8388bb051c87a9572c5db9a4e81e2c8298a10f030d8ef6353197d2ae4bb3",
+      "punctuation": true,
+      "numbers": true,
+      "word_count": 24,
+      "text": "Car devant 207 lever. Tu 5 les ton 393 ailleurs dormir, semaine avec. Inviter courir voyager sentir heure 522 choisir rester. Comprendre histoire manger."
+    }
+  ]
+}

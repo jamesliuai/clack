@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-tools/bin/cargo-zigbuild",
+    "test",
+    "--no-run",
+    "--locked",
+    "--offline",
+    "-p",
+    "typ-private-fs",
+    "--all-targets",
+    "--target",
+    "x86_64-pc-windows-gnu",
+    "-j",
+    "2"
+  ],
+  "exit_code": 0,
+  "source_identity_sha256": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+  "log": "docs/measurements/windows-privacy-test-link.txt",
+  "log_sha256": "83d0058e7b9a923b136b7a1540fd381ec3525b78556526aed42ab92102c2352c",
+  "recorded_at_utc": "2026-09-07T04:33:05.485367+00:00",
+  "scope": "Linked Windows-only native test executable on macOS; Windows tests were not executed."
+}

@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-09-07T03:31:44Z",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "architecture": "arm64",
+  "profile": "Rust1.95 opt3 no LTO,16 codegen units, portable CPU, strip symbols",
+  "rustc": "rustc 1.95.0 (59807616e 2026-04-14)\nbinary: rustc\ncommit-hash: 59807616e1fa2540724bfbac14d7976d7e4a3860\ncommit-date: 2026-04-14\nhost: aarch64-apple-darwin\nrelease: 1.95.0\nLLVM version: 22.1.2",
+  "cargo_lock_sha256": "fff67a3b330fa906946bd7b56a3cc284040fce8fe17a81aa62d97f6faa7e96b2",
+  "scope": "Actual compute measurements on this host; not a controlled-reference, terminal-latency, or physical-keyboard result.",
+  "measurements": [
+    {
+      "kind": "kernel",
+      "binary": "target/benchmarks/stage-d-no-lto/kernel_bench",
+      "sha256": "8ba6d67fc281bc42f729b929c6ec3ea87117d717a121161b99bdbb322fef58b2",
+      "binary_bytes": 660720,
+      "process_wall_seconds": 0.5330125410109758,
+      "process_user_cpu_seconds": 0.025956999999999997,
+      "process_system_cpu_seconds": 0.023781999999999998,
+      "result": {
+        "allocated_bytes": 0,
+        "allocations": 0,
+        "benchmark": "warm_ascii_reducer_v1",
+        "events": 50000,
+        "final_counts": {
+          "attempts_correct": 40001,
+          "attempts_total": 45001,
+          "credited_units": 40001,
+          "deletion_count": 5000,
+          "final_correct": 40001,
+          "final_extra": 0,
+          "final_incorrect": 0,
+          "final_missed": 0,
+          "retained_units": 40001
+        },
+        "p50_ns": 125,
+        "p95_ns": 958,
+        "p99_ns": 1750,
+        "timer_instrumentation": "Instant around each apply; no terminal I/O; no established controlled-machine baseline"
+      }
+    },
+    {
+      "kind": "render",
+      "binary": "target/benchmarks/stage-d-no-lto/render_bench",
+      "sha256": "a46355e771c6210386ab651f663f730c6e1f2716b3f8c9c51c2c0f745e2a6d9a",
+      "binary_bytes": 899696,
+      "process_wall_seconds": 5.323584583005868,
+      "process_user_cpu_seconds": 5.09748,
+      "process_system_cpu_seconds": 0.010651,
+      "result": {
+        "backend": "Ratatui TestBackend; complete frame+diff+in-memory flush; excludes engine apply and preparation from per-frame timings",
+        "benchmark": "in_memory_full_frame_v1",
+        "measurements": [
+          {
+            "frame_p50_ns": 27334,
+            "frame_p95_ns": 36500,
+            "frame_p99_ns": 47166,
+            "frames": 11310,
+            "geometry": [
+              80,
+              24
+            ],
+            "input": "ascii",
+            "layout_rebuilds": 30,
+            "runs": 30,
+            "total_measured_render_ns": 322667755,
+            "warmup_runs_excluded": 1
+          },
+          {
+            "frame_p50_ns": 29667,
+            "frame_p95_ns": 31375,
+            "frame_p99_ns": 35667,
+            "frames": 11310,
+            "geometry": [
+              80,
+              24
+            ],
+            "input": "mixed_width",
+            "layout_rebuilds": 30,
+            "runs": 30,
+            "total_measured_render_ns": 339169260,
+            "warmup_runs_excluded": 1
+          },
+          {
+            "frame_p50_ns": 56041,
+            "frame_p95_ns": 59750,
+            "frame_p99_ns": 62542,
+            "frames": 11310,
+            "geometry": [
+              120,
+              40
+            ],
+            "input": "ascii",
+            "layout_rebuilds": 30,
+            "runs": 30,
+            "total_measured_render_ns": 641047024,
+            "warmup_runs_excluded": 1
+          },
+          {
+            "frame_p50_ns": 58500,
+            "frame_p95_ns": 62416,
+            "frame_p99_ns": 65667,
+            "frames": 11310,
+            "geometry": [
+              120,
+              40
+            ],
+            "input": "mixed_width",
+            "layout_rebuilds": 30,
+            "runs": 30,
+            "total_measured_render_ns": 675248350,
+            "warmup_runs_excluded": 1
+          },
+          {
+            "frame_p50_ns": 126791,
+            "frame_p95_ns": 129250,
+            "frame_p99_ns": 136042,
+            "frames": 11310,
+            "geometry": [
+              200,
+              60
+            ],
+            "input": "ascii",
+            "layout_rebuilds": 30,
+            "runs": 30,
+            "total_measured_render_ns": 1437656287,
+            "warmup_runs_excluded": 1
+          },
+          {
+            "frame_p50_ns": 129291,
+            "frame_p95_ns": 132625,
+            "frame_p99_ns": 138625,
+            "frames": 11310,
+            "geometry": [
+              200,
+              60
+            ],
+            "input": "mixed_width",
+            "layout_rebuilds": 30,
+            "runs": 30,
+            "total_measured_render_ns": 1467201970,
+            "warmup_runs_excluded": 1
+          }
+        ],
+        "profile": "release, explicit artifact/compiler metadata in enclosing report",
+        "trace": "375 grapheme events at simulated80ms receipt intervals, Ready and timed Results; no wall-clock replay delay"
+      }
+    }
+  ]
+}

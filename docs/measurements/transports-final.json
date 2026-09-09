@@ -1,0 +1,171 @@
+{
+  "report_version": 1,
+  "kind": "actual_local_transport_synthetic_outer_pty",
+  "binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/benchmarks/stage-d-hooks/typ",
+  "binary_sha256": "08ba507053e733d6b8cc668c32572ad13572aa5192af861eaf242d0f9f535390",
+  "platform": "darwin",
+  "created_at_utc": "2026-09-07T03:26:34Z",
+  "tmux_version": "tmux 3.7c",
+  "ssh_version": "OpenSSH_10.3p1, LibreSSL 3.3.6",
+  "ssh_server_log": "BSM audit: bsm_audit_session_setup: setaudit_addr failed: Operation not permitted\nBSM audit: bsm_audit_session_setup: setaudit_addr failed: Operation not permitted\nBSM audit: bsm_audit_session_setup: setaudit_addr failed: Operation not permitted\nBSM audit: bsm_audit_session_setup: setaudit_addr failed: Operation not permitted\nBSM audit: bsm_audit_session_setup: setaudit_addr failed: Operation not permitted\n",
+  "limitations": [
+    "Outer terminal is synthetic xterm-256color PTY, not a graphical emulator or physical display.",
+    "SSH is an actual authenticated encrypted loopback transport; no remote network latency or remote OS is simulated.",
+    "Separate inner and outer terminal attributes and modes are checked; no system service, user authentication file, or existing tmux session is modified."
+  ],
+  "results": [
+    {
+      "transport": "tmux",
+      "case": "normal_completion",
+      "status": "pass",
+      "seconds": 0.149197,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 0,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 2,
+        "inner_cleanup_protocol_checked": true
+      }
+    },
+    {
+      "transport": "tmux",
+      "case": "restart_resize",
+      "status": "pass",
+      "seconds": 0.278108,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 0,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 2,
+        "inner_cleanup_protocol_checked": true
+      }
+    },
+    {
+      "transport": "tmux",
+      "case": "exact_unicode_controls",
+      "status": "pass",
+      "seconds": 0.175253,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 0,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 2,
+        "inner_cleanup_protocol_checked": true
+      }
+    },
+    {
+      "transport": "tmux",
+      "case": "paste_integrity",
+      "status": "pass",
+      "seconds": 0.176226,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 0,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 2,
+        "inner_cleanup_protocol_checked": true
+      }
+    },
+    {
+      "transport": "tmux",
+      "case": "ctrl_c_cleanup",
+      "status": "pass",
+      "seconds": 0.147811,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 130,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 2,
+        "inner_cleanup_protocol_checked": true
+      }
+    },
+    {
+      "transport": "ssh",
+      "case": "normal_completion",
+      "status": "pass",
+      "seconds": 0.223495,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 0,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 0,
+        "inner_cleanup_protocol_checked": false
+      }
+    },
+    {
+      "transport": "ssh",
+      "case": "restart_resize",
+      "status": "pass",
+      "seconds": 0.321652,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 0,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 0,
+        "inner_cleanup_protocol_checked": false
+      }
+    },
+    {
+      "transport": "ssh",
+      "case": "exact_unicode_controls",
+      "status": "pass",
+      "seconds": 0.243131,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 0,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 0,
+        "inner_cleanup_protocol_checked": false
+      }
+    },
+    {
+      "transport": "ssh",
+      "case": "paste_integrity",
+      "status": "pass",
+      "seconds": 0.234824,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 0,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 0,
+        "inner_cleanup_protocol_checked": false
+      }
+    },
+    {
+      "transport": "ssh",
+      "case": "ctrl_c_cleanup",
+      "status": "pass",
+      "seconds": 0.224562,
+      "detail": {
+        "outer_exit": 130,
+        "inner_exit": 130,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 0,
+        "inner_cleanup_protocol_checked": false
+      }
+    }
+  ],
+  "environment": {
+    "operating_system": "Darwin",
+    "operating_system_version": "26.6.2",
+    "operating_system_build": "25G83",
+    "kernel_release": "25.6.0",
+    "architecture": "arm64",
+    "terminal_environment": {
+      "TERM": "xterm-256color",
+      "COLORTERM": "truecolor",
+      "NO_COLOR_nonempty": true
+    }
+  },
+  "execution_label": "native_macOS_arm64"
+}

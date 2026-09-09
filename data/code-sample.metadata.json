@@ -1,0 +1,9 @@
+{
+  "id": "clack-code-average-v1",
+  "author": "clack contributors",
+  "source": "Original Rust practice example written for this application",
+  "license": "CC0-1.0",
+  "revision": "1",
+  "input_policy": "exact",
+  "content_hash": "9b586885d6ba6befaf96ec5d4305897642485c4df6c98d3e17e56ed1bd819c01"
+}

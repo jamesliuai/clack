@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-05T06:42:12.303278+00:00",
+  "table_rebuild": {
+    "unicode_version": "17.0.0",
+    "mappings": 1580,
+    "bytes": 47934,
+    "sha256": "5a5233de5df2271e24c41a90db85c80ecfcc2ed99311dc5406c94d979e8e9cca",
+    "check": true
+  },
+  "source_manifest_sha256": "f8ff5a73589944bd76e8e0aacdc791b82865cb8c03f1dca65cb28c77003510f4",
+  "tables": {
+    "uppercase": "Unicode 17.0.0, generated and pinned",
+    "normalization": "unicode-normalization 0.1.25, Unicode17.0.0",
+    "segmentation": "unicode-segmentation1.13.3, Unicode17.0.0",
+    "width": "unicode-width0.2.2, Unicode17.0.0"
+  },
+  "executed_compilers": [
+    "rustc 1.88.0 (6b00bc388 2025-06-23)",
+    "rustc 1.95.0 (59807616e 2026-04-14)"
+  ],
+  "executed_edge_tests": 3,
+  "msrv_content_library_tests": 23,
+  "scope": "Compiler-independent Unicode case mapping, expansion, NFC, bounded graphemes, stable source identity; operating-system and terminal glyph behavior are separate checks.",
+  "compiler_property_comparison": {
+    "properties": [
+      "char::is_whitespace",
+      "char::is_control"
+    ],
+    "scalar_range": "U+0000..U+10FFFF excluding surrogates",
+    "identical_between_recorded_compilers": true,
+    "output_sha256": "02382efd31de7e8816f409ebd328d06c76821abadbe1b4f65b9ab2e349d50eac",
+    "qualification": "Only the two recorded compiler versions were compared; future compiler/table changes require replay audit."
+  }
+}

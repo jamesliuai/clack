@@ -1,0 +1,272 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-09-07T04:23:33.649146+00:00",
+  "runtime_source_sha256": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+  "result": "all available scoped terminal/transport runs passed",
+  "total_case_rows": 124,
+  "case_counts": {
+    "native_arm64": 62,
+    "rosetta_x86_64": 62,
+    "fail": 0,
+    "skip": 0
+  },
+  "suites": [
+    {
+      "kind": "pty",
+      "target": "aarch64-apple-darwin",
+      "execution_label": "native macOS ARM64; source freeze 31586c3b",
+      "command": [
+        "python3",
+        "scripts/pty_test.py",
+        "--binary",
+        "target/release-permissions/typ-aarch64-apple-darwin-hooks",
+        "--hooks",
+        "--require-all",
+        "--execution-label",
+        "native macOS ARM64; source freeze 31586c3b",
+        "--report",
+        "docs/measurements/pty-permissions-final.json"
+      ],
+      "report": "docs/measurements/pty-permissions-final.json",
+      "report_sha256": "345cc6513ddf681f8c8cca42b6f06877154d4cc870829e4cd0e38eab539e9836",
+      "log": "docs/measurements/pty-permissions-final.log",
+      "log_sha256": "de55de0cd65ac82a6db84d78cf7e724f7f5fb187d042f649964d8a1aa4e2cc84",
+      "binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-permissions/typ-aarch64-apple-darwin-hooks",
+      "binary_sha256": "9a4640265a6d863f3ac3107c8d16e5418cdb4a3a55953a292468716ca7e65600",
+      "build_manifest": "target/release-permissions/aarch64-apple-darwin-hooks.json",
+      "build_manifest_sha256": "46cea1175073217b66b4f83c83ef0cf83a1cef9d212d123e4d8adac0c0c8e8db",
+      "counts": {
+        "pass": 27
+      },
+      "observed_environment": {
+        "operating_system": "Darwin",
+        "operating_system_version": "26.6.2",
+        "operating_system_build": "25G83",
+        "kernel_release": "25.6.0",
+        "architecture": "arm64",
+        "terminal_environment": {
+          "TERM": "xterm-256color",
+          "COLORTERM": "truecolor",
+          "NO_COLOR_nonempty": true
+        }
+      }
+    },
+    {
+      "kind": "product",
+      "target": "aarch64-apple-darwin",
+      "execution_label": "native macOS ARM64; source freeze 31586c3b",
+      "command": [
+        "python3",
+        "scripts/product_pty.py",
+        "--binary",
+        "target/release-permissions/typ-aarch64-apple-darwin-hooks",
+        "--execution-label",
+        "native macOS ARM64; source freeze 31586c3b",
+        "--report",
+        "docs/measurements/product-permissions-final.json"
+      ],
+      "report": "docs/measurements/product-permissions-final.json",
+      "report_sha256": "73f6fa688d884a1f5fd4027d3a0a04fcd54352bcc8ec82b8cc958a08ff28102f",
+      "log": "docs/measurements/product-permissions-final.log",
+      "log_sha256": "9a798ab53fdb41169b22877a81de5d90276e81e6fe27447ddd6ed785dca72b26",
+      "binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-permissions/typ-aarch64-apple-darwin-hooks",
+      "binary_sha256": "9a4640265a6d863f3ac3107c8d16e5418cdb4a3a55953a292468716ca7e65600",
+      "build_manifest": "target/release-permissions/aarch64-apple-darwin-hooks.json",
+      "build_manifest_sha256": "46cea1175073217b66b4f83c83ef0cf83a1cef9d212d123e4d8adac0c0c8e8db",
+      "counts": {
+        "pass": 25
+      },
+      "observed_environment": {
+        "operating_system": "Darwin",
+        "operating_system_version": "26.6.2",
+        "operating_system_build": "25G83",
+        "kernel_release": "25.6.0",
+        "architecture": "arm64",
+        "terminal_environment": {
+          "TERM": "xterm-256color",
+          "COLORTERM": "truecolor",
+          "NO_COLOR_nonempty": true
+        }
+      }
+    },
+    {
+      "kind": "transports",
+      "target": "aarch64-apple-darwin",
+      "execution_label": "native macOS ARM64; source freeze 31586c3b",
+      "command": [
+        "python3",
+        "scripts/transport_pty.py",
+        "--binary",
+        "target/release-permissions/typ-aarch64-apple-darwin-hooks",
+        "--tmux",
+        "target/transport/tmux-3.7c/tmux",
+        "--execution-label",
+        "native macOS ARM64; source freeze 31586c3b",
+        "--report",
+        "docs/measurements/transports-permissions-final.json"
+      ],
+      "report": "docs/measurements/transports-permissions-final.json",
+      "report_sha256": "de177aa2181080ef130e00acd5860d11e84c11d0c111f4177d5d947f803a70b3",
+      "log": "docs/measurements/transports-permissions-final.log",
+      "log_sha256": "0ee4c8910d8a4f12048ee229ba7c23094bac0e7346f5b99a146775d238806f8b",
+      "binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-permissions/typ-aarch64-apple-darwin-hooks",
+      "binary_sha256": "9a4640265a6d863f3ac3107c8d16e5418cdb4a3a55953a292468716ca7e65600",
+      "build_manifest": "target/release-permissions/aarch64-apple-darwin-hooks.json",
+      "build_manifest_sha256": "46cea1175073217b66b4f83c83ef0cf83a1cef9d212d123e4d8adac0c0c8e8db",
+      "counts": {
+        "pass": 10
+      },
+      "observed_environment": {
+        "operating_system": "Darwin",
+        "operating_system_version": "26.6.2",
+        "operating_system_build": "25G83",
+        "kernel_release": "25.6.0",
+        "architecture": "arm64",
+        "terminal_environment": {
+          "TERM": "xterm-256color",
+          "COLORTERM": "truecolor",
+          "NO_COLOR_nonempty": true
+        }
+      }
+    },
+    {
+      "kind": "pty",
+      "target": "x86_64-apple-darwin",
+      "execution_label": "macOS x86-64 under Rosetta on ARM64; source freeze 31586c3b",
+      "command": [
+        "python3",
+        "scripts/pty_test.py",
+        "--binary",
+        "target/release-permissions/typ-x86_64-apple-darwin-hooks",
+        "--hooks",
+        "--require-all",
+        "--execution-label",
+        "macOS x86-64 under Rosetta on ARM64; source freeze 31586c3b",
+        "--report",
+        "docs/measurements/pty-permissions-final-rosetta-x86_64.json"
+      ],
+      "report": "docs/measurements/pty-permissions-final-rosetta-x86_64.json",
+      "report_sha256": "2f7e9a310a5bb86611736061808a5adcb227db48a4ed40983d036bb1c11bb5a0",
+      "log": "docs/measurements/pty-permissions-final-rosetta-x86_64.log",
+      "log_sha256": "de55de0cd65ac82a6db84d78cf7e724f7f5fb187d042f649964d8a1aa4e2cc84",
+      "binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-permissions/typ-x86_64-apple-darwin-hooks",
+      "binary_sha256": "ddc715e73af7ebd84c313ab091a43bd902e39978348864ad9dc9c06687517a10",
+      "build_manifest": "target/release-permissions/x86_64-apple-darwin-hooks.json",
+      "build_manifest_sha256": "19665b7a55aee7b148626c89b31da8bafff73ab4765418f20d6e9080a43bfe6b",
+      "counts": {
+        "pass": 27
+      },
+      "observed_environment": {
+        "operating_system": "Darwin",
+        "operating_system_version": "26.6.2",
+        "operating_system_build": "25G83",
+        "kernel_release": "25.6.0",
+        "architecture": "arm64",
+        "terminal_environment": {
+          "TERM": "xterm-256color",
+          "COLORTERM": "truecolor",
+          "NO_COLOR_nonempty": true
+        }
+      }
+    },
+    {
+      "kind": "product",
+      "target": "x86_64-apple-darwin",
+      "execution_label": "macOS x86-64 under Rosetta on ARM64; source freeze 31586c3b",
+      "command": [
+        "python3",
+        "scripts/product_pty.py",
+        "--binary",
+        "target/release-permissions/typ-x86_64-apple-darwin-hooks",
+        "--execution-label",
+        "macOS x86-64 under Rosetta on ARM64; source freeze 31586c3b",
+        "--report",
+        "docs/measurements/product-permissions-final-rosetta-x86_64.json"
+      ],
+      "report": "docs/measurements/product-permissions-final-rosetta-x86_64.json",
+      "report_sha256": "08e7325113de44a30c793476fda33c7534170e35dd608f1ccc5dd1cb14d5d156",
+      "log": "docs/measurements/product-permissions-final-rosetta-x86_64.log",
+      "log_sha256": "9a798ab53fdb41169b22877a81de5d90276e81e6fe27447ddd6ed785dca72b26",
+      "binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-permissions/typ-x86_64-apple-darwin-hooks",
+      "binary_sha256": "ddc715e73af7ebd84c313ab091a43bd902e39978348864ad9dc9c06687517a10",
+      "build_manifest": "target/release-permissions/x86_64-apple-darwin-hooks.json",
+      "build_manifest_sha256": "19665b7a55aee7b148626c89b31da8bafff73ab4765418f20d6e9080a43bfe6b",
+      "counts": {
+        "pass": 25
+      },
+      "observed_environment": {
+        "operating_system": "Darwin",
+        "operating_system_version": "26.6.2",
+        "operating_system_build": "25G83",
+        "kernel_release": "25.6.0",
+        "architecture": "arm64",
+        "terminal_environment": {
+          "TERM": "xterm-256color",
+          "COLORTERM": "truecolor",
+          "NO_COLOR_nonempty": true
+        }
+      }
+    },
+    {
+      "kind": "transports",
+      "target": "x86_64-apple-darwin",
+      "execution_label": "macOS x86-64 under Rosetta on ARM64; source freeze 31586c3b",
+      "command": [
+        "python3",
+        "scripts/transport_pty.py",
+        "--binary",
+        "target/release-permissions/typ-x86_64-apple-darwin-hooks",
+        "--tmux",
+        "target/transport/tmux-3.7c/tmux",
+        "--execution-label",
+        "macOS x86-64 under Rosetta on ARM64; source freeze 31586c3b",
+        "--report",
+        "docs/measurements/transports-permissions-final-rosetta-x86_64.json"
+      ],
+      "report": "docs/measurements/transports-permissions-final-rosetta-x86_64.json",
+      "report_sha256": "cd618ad85f8eb83cc8d23878b374dc1108d506c166d27804d7dc7b709a0c885a",
+      "log": "docs/measurements/transports-permissions-final-rosetta-x86_64.log",
+      "log_sha256": "0ee4c8910d8a4f12048ee229ba7c23094bac0e7346f5b99a146775d238806f8b",
+      "binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-permissions/typ-x86_64-apple-darwin-hooks",
+      "binary_sha256": "ddc715e73af7ebd84c313ab091a43bd902e39978348864ad9dc9c06687517a10",
+      "build_manifest": "target/release-permissions/x86_64-apple-darwin-hooks.json",
+      "build_manifest_sha256": "19665b7a55aee7b148626c89b31da8bafff73ab4765418f20d6e9080a43bfe6b",
+      "counts": {
+        "pass": 10
+      },
+      "observed_environment": {
+        "operating_system": "Darwin",
+        "operating_system_version": "26.6.2",
+        "operating_system_build": "25G83",
+        "kernel_release": "25.6.0",
+        "architecture": "arm64",
+        "terminal_environment": {
+          "TERM": "xterm-256color",
+          "COLORTERM": "truecolor",
+          "NO_COLOR_nonempty": true
+        }
+      }
+    }
+  ],
+  "network_denied_production": {
+    "report": "docs/measurements/network-denied-permissions-final.json",
+    "report_sha256": "5bda0ed59c6f920e69fa3c8fc7fa7e70b9540850c231cc7eb52ede70f8ac6066",
+    "binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-permissions/typ-aarch64-apple-darwin-production",
+    "binary_sha256": "4e50a20121623d2634fbdbda9aa1bdf8c066cc2e6623f0b071c1e9d9125c5807",
+    "status": "pass",
+    "scope": "operation under process-local IP network denial with fresh positive and negative controls; not packet capture"
+  },
+  "harness_sources": {
+    "scripts/pty_test.py": "5cb1b463a944e1b3ecd7110819cadc0c663a86059fc46c10fb52038681d2b7ef",
+    "scripts/product_pty.py": "5c96e7f3ed229df6afdc363826be64b0eded36402d5190edeb76fc906447cc26",
+    "scripts/transport_pty.py": "664d029e615727b6eea33feb9cd959e609db3a21e6a788dfb86a645f00c0c9bd",
+    "scripts/network_denied_pty.py": "18194528a3a0cd8f98092975ad2420f52b51c6046e0c9160f2f891d95c36bb33"
+  },
+  "limitations": [
+    "Synthetic outer PTYs do not validate graphical emulators or physical displays",
+    "Rosetta is translated macOS execution, not native Intel hardware",
+    "SSH authenticates/encrypts on loopback and does not model another OS or network latency",
+    "Windows ACL helper has source/cross-compiler evidence only; native Windows remains external"
+  ],
+  "prior_reports_preserved": true
+}

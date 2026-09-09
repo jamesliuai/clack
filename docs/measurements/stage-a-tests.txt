@@ -1,0 +1,117 @@
+   Compiling crossterm v0.29.0 (/Users/james/Desktop/u/typing_test_gpt6astra/vendor/crossterm)
+   Compiling ratatui-crossterm v0.1.2
+   Compiling ratatui v0.30.2
+   Compiling typ-local v1.0.0 (/Users/james/Desktop/u/typing_test_gpt6astra)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.17s
+     Running unittests src/lib.rs (target/debug/deps/typ-a168d19ce07be72a)
+
+running 19 tests
+test content::generator::tests::splitmix_reference_vector ... ok
+test content::packs::tests::import_checks_hash_direction_policy_and_unknown_fields ... ok
+test content::generator::tests::uniform_range_sanity_and_invalid_parameters ... ok
+test content::practice::tests::repaired_mistakes_and_omissions_use_original_tokens_once ... ok
+test content::practice::tests::slow_selection_uses_ratio_excludes_first_and_corrections ... ok
+test content::packs::tests::import_normalizes_tokens_and_rejects_ambiguities ... ok
+test content::quotes::tests::boundaries_and_code_are_literal ... ok
+test content::generator::tests::independent_portable_golden_vectors ... ok
+test content::validation::tests::prose_and_exact_preserve_their_distinct_contracts ... ok
+test content::generator::tests::sentence_and_number_rules_are_explicit ... ok
+test content::validation::tests::reject_before_normalizing_pathological_clusters ... ok
+test content::validation::tests::validation_never_echoes_private_text ... ok
+test content::validation::tests::reject_bytes_empty_and_terminal_controls ... ok
+test content::quotes::tests::all_length_categories_have_attributed_choices_and_never_repeat ... ok
+test content::generator::tests::replay_rejects_a_seed_without_the_original_identity ... ok
+test content::generator::tests::stream_is_independent_of_chunk_request_boundaries ... ok
+test content::generator::tests::no_adjacent_source_duplicates_and_finite_count ... ok
+test content::validation::tests::arbitrary_unicode_validation_is_bounded_and_spans_are_sound ... ok
+test content::packs::tests::all_bundled_packs_match_declared_count_and_hash ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+     Running unittests src/main.rs (target/debug/deps/typ-f0ec5e09e55d76f7)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/kernel_acceptance.rs (target/debug/deps/kernel_acceptance-da3aabc82179bb6f)
+
+running 55 tests
+test an_empty_run_has_no_valid_speed_even_with_positive_elapsed_time ... ok
+test challenge_thresholds_must_be_finite_and_meaningful ... ok
+test canonical_mark_reordering_stays_provisional_until_the_cluster_is_complete ... ok
+test active_prefix_credit_has_no_phantom_suffix_or_separator ... ok
+test backspace_removes_whole_combining_and_zwj_graphemes ... ok
+test assisted_indentation_is_visible_but_never_credited_as_manual_input ... ok
+test contradictory_correction_rules_are_rejected ... ok
+test correct_final_word_completes_without_trailing_space ... ok
+test corrected_cat_matches_the_complete_published_golden_vector ... ok
+test current_and_none_correction_policies_obey_their_boundaries ... ok
+test deadline_is_exclusive_and_late_finalization_keeps_configured_duration ... ok
+test decomposed_accent_is_one_revised_prose_attempt_without_false_master_failure ... ok
+test early_space_creates_missed_units_without_inventing_typed_output ... ok
+test exact_expert_commits_at_literal_boundary_and_final_confirmation ... ok
+test a_maximum_size_grapheme_can_be_followed_by_a_distinct_non_ascii_unit ... ok
+test effective_rules_and_content_versions_split_record_categories ... ok
+test exact_policy_preserves_code_points_and_wide_units_are_not_two_attempts ... ok
+test exact_whitespace_is_literal_and_final_confirmation_allows_repair ... ok
+test exact_word_stop_also_blocks_wrong_final_confirmation_and_auto_completion ... ok
+test exact_wrong_space_occupies_one_position_and_early_finish_is_incomplete ... ok
+test extra_letters_remain_extra_and_invalidate_token_credit ... ok
+test finalized_incomplete_canonical_prefix_is_wrong_even_when_deleted ... ok
+test final_correct_character_cannot_bypass_minimum_accuracy_failure ... ok
+test finalizing_pending_cluster_on_deletion_enforces_accuracy ... ok
+test first_wrong_character_starts_at_receipt_and_appears_once ... ok
+test idle_samples_and_fractional_tail_do_not_depend_on_render_frequency ... ok
+test full_backtracking_reverses_each_contribution_once ... ok
+test master_and_expert_fail_at_different_observable_boundaries ... ok
+test fixed_passage_identity_and_exact_completion_are_effective_parameters ... ok
+test interruption_flags_and_repeat_prevent_standard_records ... ok
+test master_rejects_prefixes_that_cannot_be_repaired_by_appending_scalars ... ok
+test minimum_wpm_respects_grace_and_unrounded_boundary_value ... ok
+test mistakes_backtracking_reopens_errors_but_stops_at_correct_tokens ... ok
+test one_unit_zero_duration_completion_has_no_speed_or_record ... ok
+test paste_is_atomic_and_active_attempt_disqualifies_a_record ... ok
+test minimum_accuracy_starts_with_twentieth_scored_attempt ... ok
+test profile_ignores_random_seed_and_inactive_limits ... ok
+test prose_normalization_and_blind_styling_do_not_split_effectively_equal_profiles ... ok
+test published_scoring_formula_fixture ... ok
+test reopening_an_omitted_suffix_retracts_missed_count ... ok
+test separator_does_not_penalize_an_existing_letter_error_twice ... ok
+test slow_practice_requires_eight_eligible_tokens_and_selects_slowest_quartile ... ok
+test stop_letter_records_rejected_attempts_and_stop_word_prevents_commit ... ok
+test timed_pending_attempt_is_included_in_final_bucket_and_never_extends_duration ... ok
+test whole_token_wpm_is_not_raw_speed_times_accuracy ... ok
+test wrong_final_word_is_repairable_and_normal_submission_is_allowed ... ok
+test zen_reports_only_output_speed ... ok
+test zero_time_and_early_live_speeds_are_unavailable ... ok
+test metric_domain_is_finite_and_output_is_bounded ... ok
+test inserting_and_deleting_ascii_restores_output_but_keeps_the_attempt ... ok
+test zen_cycles_bounded_window_and_keeps_cumulative_output ... ok
+test exact_full_correction_retracts_inserted_output_at_any_boundary ... ok
+test arbitrary_exact_edits_preserve_positional_counts_and_clock_independence ... ok
+test arbitrary_edits_preserve_bounds_and_replay_is_clock_origin_independent ... ok
+test finalized_results_are_immutable_under_residual_input ... ok
+
+test result: ok. 55 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.22s
+
+     Running tests/kernel_performance.rs (target/debug/deps/kernel_performance-bbaa01cfda1c2a34)
+
+running 5 tests
+test zen_correction_respects_submitted_word_barriers_and_full_window ... ok
+test generator_parameters_roundtrip_and_only_effective_parameters_split_profiles ... ok
+test warmed_ascii_reducer_has_no_heap_allocations ... ok
+test zen_scroll_window_cycles_without_losing_cumulative_counts ... ok
+test successive_runs_release_all_engine_allocations ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+     Running tests/keyboard_protocol.rs (target/debug/deps/keyboard_protocol-5b266538fb34005c)
+
+running 3 tests
+test associated_text_flag_is_the_protocol_defined_bit ... ok
+test baseline_key_events_keep_their_existing_helpers ... ok
+test associated_text_preserves_metadata_and_key_helpers ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

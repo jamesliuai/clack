@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-09-05",
+  "sources": [
+    {
+      "id": "moby-freq",
+      "url": "https://www.gutenberg.org/files/3201/files/freq.txt",
+      "filename": "clack-moby-freq.txt",
+      "sha256": "ace4ecc06acf0d3df397cf4d680d0d9c7a308e4860c10eb9b9edf2f4e31076c9",
+      "license": "LicenseRef-Moby-Public-Domain"
+    },
+    {
+      "id": "moby-freq-int",
+      "url": "https://www.gutenberg.org/files/3201/files/freq-int.txt",
+      "filename": "clack-moby-freq-int.txt",
+      "sha256": "179f741bbedba1aec01c134a2f399518d46372acb79995ed19ead76a8c55410b",
+      "license": "LicenseRef-Moby-Public-Domain"
+    },
+    {
+      "id": "moby-common",
+      "url": "https://www.gutenberg.org/files/3201/files/common.txt",
+      "filename": "clack-moby-common.txt",
+      "sha256": "c7aa03c522e9e28bba1db692372119f21c73c646671af24b53a840e2d6f84fa7",
+      "license": "LicenseRef-Moby-Public-Domain"
+    },
+    {
+      "id": "moby-french",
+      "url": "https://www.gutenberg.org/files/3206/files/french.txt",
+      "filename": "clack-moby-french.txt",
+      "sha256": "6e3e583a24c90e041648fbf328726d68d7a34c5568d8a9bfdbb44dd45ec20798",
+      "license": "LicenseRef-Moby-Public-Domain"
+    },
+    {
+      "id": "moby-german",
+      "url": "https://www.gutenberg.org/files/3206/files/german.txt",
+      "filename": "clack-moby-german.txt",
+      "sha256": "21067baa4a18ddadf560930e776101da007f4e29671a38969ac8b47aca73bbc3",
+      "license": "LicenseRef-Moby-Public-Domain"
+    },
+    {
+      "id": "moby-spanish",
+      "url": "https://www.gutenberg.org/files/3206/files/spanish.txt",
+      "filename": "clack-moby-spanish.txt",
+      "sha256": "9b97c2d8cff3a9c06818dde3a8e5ba130145fa1debe55550b3173d15a0208021",
+      "license": "LicenseRef-Moby-Public-Domain"
+    },
+    {
+      "id": "alice",
+      "url": "https://www.gutenberg.org/ebooks/11.txt.utf-8",
+      "filename": "clack-alice.txt",
+      "sha256": "01b38ea4c710a84bc18d0bd41271a5a1a92b94e97b2812f4dece97d4a694725e",
+      "license": "LicenseRef-Public-Domain-Literature"
+    },
+    {
+      "id": "pride",
+      "url": "https://www.gutenberg.org/ebooks/1342.txt.utf-8",
+      "filename": "clack-pride.txt",
+      "sha256": "3f6bb9d6f78e0293b56acd4714dd68cb7d6d1d293402031ce9d5a216bcaf9d75",
+      "license": "LicenseRef-Public-Domain-Literature"
+    },
+    {
+      "id": "tale",
+      "url": "https://www.gutenberg.org/ebooks/98.txt.utf-8",
+      "filename": "clack-tale.txt",
+      "sha256": "d54c2b80d40a40b982cd88852c6180bb944d95acdb028af3d0e01a1750681784",
+      "license": "LicenseRef-Public-Domain-Literature"
+    }
+  ]
+}

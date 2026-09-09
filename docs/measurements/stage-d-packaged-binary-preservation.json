@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "copied_at_utc": "2026-09-07T03:53:12.643856+00:00",
+  "measured_source_path": "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-final/typ-aarch64-apple-darwin-production",
+  "preserved_binary_path": "/Users/james/Desktop/u/typing_test_gpt6astra/target/benchmarks/stage-d/typ-packaged-arm64-measured",
+  "binary_sha256": "1f9c13ef3283460d586cca173d9ef6e6873d4db764271c95591f538219ced590",
+  "binary_bytes": 5047968,
+  "reason": "Preserve the exact packaged ARM64 executable measured by stage-d-full.json before the Windows-only privacy integration causes any new release build."
+}

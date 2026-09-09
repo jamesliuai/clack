@@ -1,0 +1,203 @@
+{
+  "recorded_at_utc": "2026-09-07T03:29:49.433189+00:00",
+  "targets": [
+    {
+      "target": "aarch64-apple-darwin",
+      "binary": "target/release-final/typ-aarch64-apple-darwin-production",
+      "binary_sha256": "1f9c13ef3283460d586cca173d9ef6e6873d4db764271c95591f538219ced590",
+      "execution": "native ARM64",
+      "checks": [
+        {
+          "arguments": [
+            "--version"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 10,
+          "stdout_sha256": "ada61fdcb19a9b8c39d9f28b652f0f8872d9f1e8b9bd53e8577339dd404a2aca"
+        },
+        {
+          "arguments": [
+            "doctor",
+            "--json"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 1183,
+          "stdout_sha256": "6ba2f5c48219654e84a840353049ec519744304e3e9f0ed34c73c06112712ee7"
+        },
+        {
+          "arguments": [
+            "history",
+            "--profile",
+            "all",
+            "--classification",
+            "practice",
+            "--json"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 190,
+          "stdout_sha256": "2bc1084531fd5cf0edd20a81e05129bceda6d21f4d05d9293bc44657f62f59e1"
+        },
+        {
+          "arguments": [
+            "man"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 5347,
+          "stdout_sha256": "404aa51b181093d30d3e3a1ed6881bb15c46a971433090aa0c4b32a1acaa5362"
+        },
+        {
+          "arguments": [
+            "completions",
+            "bash"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 41170,
+          "stdout_sha256": "227cbd091d0e0f0dd3cc62c15590ec218bd258cea64e11336c1af840a512b5e9"
+        },
+        {
+          "arguments": [
+            "completions",
+            "fish"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 20873,
+          "stdout_sha256": "2315935fdfb7da84756be5cd3d398d8caa172f5f01e928f10a051451d0f754b1"
+        },
+        {
+          "arguments": [
+            "completions",
+            "zsh"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 23795,
+          "stdout_sha256": "fca0dcc36a8d3ca0d8d58b356ca1507ccc8a9f5d96264ec5dd8a24a1805f1f44"
+        },
+        {
+          "arguments": [
+            "completions",
+            "elvish"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 11241,
+          "stdout_sha256": "65fc59240e223fd86f35b8aa64b0f9e09c44414907744c6b7bca03cb39c6bfa5"
+        },
+        {
+          "arguments": [
+            "completions",
+            "powershell"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 27005,
+          "stdout_sha256": "93debf1b75794c67406c965e24d3107a0b7d19e78f842abefb48e805bedcb2ad"
+        }
+      ],
+      "doctor_build": {
+        "debug_assertions": false,
+        "rust_version_minimum": "1.88",
+        "target_arch": "aarch64",
+        "target_os": "macos",
+        "test_hooks_enabled": false
+      },
+      "read_only_commands_created_no_data": true
+    },
+    {
+      "target": "x86_64-apple-darwin",
+      "binary": "target/release-final/typ-x86_64-apple-darwin-production",
+      "binary_sha256": "68e36a47b03097d7088c2daebb9d4fdca118358a9c7344aa406e75a90d439ca2",
+      "execution": "Rosetta translation on ARM64, not native Intel hardware",
+      "checks": [
+        {
+          "arguments": [
+            "--version"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 10,
+          "stdout_sha256": "ada61fdcb19a9b8c39d9f28b652f0f8872d9f1e8b9bd53e8577339dd404a2aca"
+        },
+        {
+          "arguments": [
+            "doctor",
+            "--json"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 1182,
+          "stdout_sha256": "34996e3762a73bdaa1e7905071f8c498084484cd490cc9cd19d94e1cd643337e"
+        },
+        {
+          "arguments": [
+            "history",
+            "--profile",
+            "all",
+            "--classification",
+            "practice",
+            "--json"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 190,
+          "stdout_sha256": "2bc1084531fd5cf0edd20a81e05129bceda6d21f4d05d9293bc44657f62f59e1"
+        },
+        {
+          "arguments": [
+            "man"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 5347,
+          "stdout_sha256": "404aa51b181093d30d3e3a1ed6881bb15c46a971433090aa0c4b32a1acaa5362"
+        },
+        {
+          "arguments": [
+            "completions",
+            "bash"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 41170,
+          "stdout_sha256": "227cbd091d0e0f0dd3cc62c15590ec218bd258cea64e11336c1af840a512b5e9"
+        },
+        {
+          "arguments": [
+            "completions",
+            "fish"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 20873,
+          "stdout_sha256": "2315935fdfb7da84756be5cd3d398d8caa172f5f01e928f10a051451d0f754b1"
+        },
+        {
+          "arguments": [
+            "completions",
+            "zsh"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 23795,
+          "stdout_sha256": "fca0dcc36a8d3ca0d8d58b356ca1507ccc8a9f5d96264ec5dd8a24a1805f1f44"
+        },
+        {
+          "arguments": [
+            "completions",
+            "elvish"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 11241,
+          "stdout_sha256": "65fc59240e223fd86f35b8aa64b0f9e09c44414907744c6b7bca03cb39c6bfa5"
+        },
+        {
+          "arguments": [
+            "completions",
+            "powershell"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 27005,
+          "stdout_sha256": "93debf1b75794c67406c965e24d3107a0b7d19e78f842abefb48e805bedcb2ad"
+        }
+      ],
+      "doctor_build": {
+        "debug_assertions": false,
+        "rust_version_minimum": "1.88",
+        "target_arch": "x86_64",
+        "target_os": "macos",
+        "test_hooks_enabled": false
+      },
+      "read_only_commands_created_no_data": true
+    }
+  ]
+}

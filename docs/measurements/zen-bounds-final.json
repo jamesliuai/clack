@@ -1,0 +1,155 @@
+{
+  "report_version": 1,
+  "kind": "deterministic_zen_engine_lifetime_and_history",
+  "test_source": "tests/zen_bounds_acceptance.rs",
+  "test_source_sha256": "cd79bc3b475b7aa06a4f34c741298523299ffe9225ab5991f865278b2725f70b",
+  "results": [
+    {
+      "compiler": "rustc 1.95.0 (59807616e 2026-04-14)",
+      "command": "cargo test --offline --locked --test zen_bounds_acceptance -- --nocapture",
+      "log": "docs/measurements/zen-bounds-current-final.log",
+      "status": "pass",
+      "injected_full_seconds": 26207,
+      "fractional_tail_us": 375000,
+      "warm_live_engine_bytes": 1211594,
+      "noneditable_output_units": 118460,
+      "cycles": [
+        {
+          "cycle": 0,
+          "count_total": 0,
+          "count_current": 0,
+          "count_max": 0,
+          "bytes_total": 0,
+          "bytes_current": 0,
+          "bytes_max": 0
+        },
+        {
+          "cycle": 1,
+          "count_total": 0,
+          "count_current": 0,
+          "count_max": 0,
+          "bytes_total": 0,
+          "bytes_current": 0,
+          "bytes_max": 0
+        },
+        {
+          "cycle": 2,
+          "count_total": 0,
+          "count_current": 0,
+          "count_max": 0,
+          "bytes_total": 0,
+          "bytes_current": 0,
+          "bytes_max": 0
+        },
+        {
+          "cycle": 3,
+          "count_total": 0,
+          "count_current": 0,
+          "count_max": 0,
+          "bytes_total": 0,
+          "bytes_current": 0,
+          "bytes_max": 0
+        },
+        {
+          "cycle": 4,
+          "count_total": 0,
+          "count_current": 0,
+          "count_max": 0,
+          "bytes_total": 0,
+          "bytes_current": 0,
+          "bytes_max": 0
+        },
+        {
+          "cycle": 5,
+          "count_total": 0,
+          "count_current": 0,
+          "count_max": 0,
+          "bytes_total": 0,
+          "bytes_current": 0,
+          "bytes_max": 0
+        }
+      ],
+      "engine_and_snapshot_lifetime_bytes_remaining": 0,
+      "engine_and_snapshot_lifetime_allocations_remaining": 0
+    },
+    {
+      "compiler": "rustc 1.88.0 (6b00bc388 2025-06-23)",
+      "command": "CARGO_TARGET_DIR=target/msrv cargo +1.88.0 test --offline --locked --all-features --test zen_bounds_acceptance -- --nocapture",
+      "log": "docs/measurements/zen-bounds-msrv-final.log",
+      "status": "pass",
+      "injected_full_seconds": 26207,
+      "fractional_tail_us": 375000,
+      "warm_live_engine_bytes": 1211594,
+      "noneditable_output_units": 118460,
+      "cycles": [
+        {
+          "cycle": 0,
+          "count_total": 0,
+          "count_current": 0,
+          "count_max": 0,
+          "bytes_total": 0,
+          "bytes_current": 0,
+          "bytes_max": 0
+        },
+        {
+          "cycle": 1,
+          "count_total": 0,
+          "count_current": 0,
+          "count_max": 0,
+          "bytes_total": 0,
+          "bytes_current": 0,
+          "bytes_max": 0
+        },
+        {
+          "cycle": 2,
+          "count_total": 0,
+          "count_current": 0,
+          "count_max": 0,
+          "bytes_total": 0,
+          "bytes_current": 0,
+          "bytes_max": 0
+        },
+        {
+          "cycle": 3,
+          "count_total": 0,
+          "count_current": 0,
+          "count_max": 0,
+          "bytes_total": 0,
+          "bytes_current": 0,
+          "bytes_max": 0
+        },
+        {
+          "cycle": 4,
+          "count_total": 0,
+          "count_current": 0,
+          "count_max": 0,
+          "bytes_total": 0,
+          "bytes_current": 0,
+          "bytes_max": 0
+        },
+        {
+          "cycle": 5,
+          "count_total": 0,
+          "count_current": 0,
+          "count_max": 0,
+          "bytes_total": 0,
+          "bytes_current": 0,
+          "bytes_max": 0
+        }
+      ],
+      "engine_and_snapshot_lifetime_bytes_remaining": 0,
+      "engine_and_snapshot_lifetime_allocations_remaining": 0
+    }
+  ],
+  "assertions": [
+    "Full-transcript oracle checks cumulative counts every injected second and every retained sample at each cycle boundary.",
+    "Chart bucket indices, durations, raw speed and the fractional endpoint remain correct after repeated eviction.",
+    "Literal grapheme window matches the oracle; six full-window drains cannot edit the immutable prefix, and later typing refills the window.",
+    "Lifetime consistency includes complete buckets already evicted from the chart and excludes the fractional tail."
+  ],
+  "limitations": [
+    "Injected receipt times are not real elapsed runtime.",
+    "Measured allocation covers the engine and final snapshot on the test thread; the reference transcript is built before measurement.",
+    "This fixture does not measure UI, input worker, storage, process RSS or terminal behavior."
+  ]
+}

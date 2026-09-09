@@ -1,0 +1,23 @@
+{
+  "report_version": 1,
+  "kind": "stage_c_product_unix_pty",
+  "binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/pty/typ-product-integrated-v3",
+  "binary_sha256": "7a65d9006aaba376a377eef09d0d6ce9a5612f622d3be32a1bc2d96c7f2e5741",
+  "test_hooks": true,
+  "platform": "darwin",
+  "python": "3.12.5",
+  "created_at_utc": "2026-09-07T02:51:12Z",
+  "terminal_policy": "synthetic xterm-256color PTY; isolated config/data for each case",
+  "limitations": [
+    "No actual emulator, physical display, font/IME, native Windows, tmux, or SSH validation is claimed.",
+    "Observer frames are test instrumentation, not production performance measurements."
+  ],
+  "results": [
+    {
+      "case": "overload_verdict_after_storage_ack",
+      "status": "fail",
+      "seconds": 3.358537,
+      "detail": "did not observe interrupted; exit=None; screen='\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n                        4000000 wpm       100.0% accuracy\\n                        raw 4000000    0.00s    custom\\n\\n\\n\\n                        enter next   f2 repeat   f3 practice   f4 details'; stderr=b''"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "server_version": "OpenSSH_10.2p1, LibreSSL 3.3.6",
+  "config_check_code": 0,
+  "config_error": "",
+  "loopback_only": true,
+  "system_config_modified": false,
+  "returncode": 0,
+  "stdout": "TRANSPORT_OK",
+  "stderr": "",
+  "server_log": "BSM audit: bsm_audit_session_setup: setaudit_addr failed: Operation not permitted\n"
+}

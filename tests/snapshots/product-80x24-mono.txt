@@ -1,0 +1,525 @@
+Style legend: A=accent m=muted F=foreground 0=monochrome d=dim U=underlined
+[palette-theme-last] 80x24 cursor=Some((11, 2))
+
+
+    > theme
+style     0 00000
+
+      Theme · terminal
+style       00000 0 00000000
+      Favorite themes · []
+style       00000000 000000 0 00
+      Theme terminal
+style       00000 00000000
+      Theme dark
+style       00000 0000
+      Theme light
+style       00000 00000
+      Theme warm
+style       00000 0000
+    > Theme high_contrast
+style     0 00000 0000000000000
+
+
+
+
+
+
+
+
+
+
+    Arrow keys preview; Enter saves this theme; Esc restores the previous th
+style     00000 0000 00000000 00000 00000 0000 000000 000 00000000 000 00000000 00
+    enter select  ↑↓ move  esc close
+style     00000 000000  00 0000  000 00000
+
+[palette-no-matches] 80x24 cursor=Some((30, 2))
+
+
+    > does not match a command
+style     0 0000 000 00000 0 0000000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    No matching command or setting
+style     00 00000000 0000000 00 0000000
+    enter select  ↑↓ move  esc close
+style     00000 000000  00 0000  000 00000
+
+[settings-invalid-value] 80x24 cursor=Some((7, 4))
+
+
+    Duration
+style     00000000
+
+    > 0
+style     0 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    test.seconds=0: expected an integer in 1..=3600
+style     000000000000000 00000000 00 0000000 00 00000000
+    enter apply  ↑↓ choices  esc cancel
+style     00000 00000  00 0000000  000 000000
+
+[settings-theme-choices] 80x24 cursor=Some((10, 4))
+
+
+    Theme
+style     00000
+
+    > warm
+style     0 0000
+
+      terminal
+style       00000000
+      dark
+style       0000
+      light
+style       00000
+    > warm
+style     0 0000
+      high_contrast
+style       0000000000000
+
+
+
+
+
+
+
+
+
+
+    Terminal-inherited or shipped independent theme.
+style     000000000000000000 00 0000000 00000000000 000000
+    enter apply  ↑↓ choices  esc cancel
+style     00000 00000  00 0000000  000 000000
+
+[review-summary] 80x24 cursor=None
+
+    review · custom · complete
+style     000000 0 000000 0 00000000
+
+    37.3 wpm · raw 48.6 · 90.3% accuracy
+style     0000 000 0 000 0000 0 00000 00000000
+    7.40s · 186.5 cpm · eligible for local records
+style     00000 0 00000 000 0 00000000 000 00000 0000000
+
+    wpm  █▅▃▅▅▆▆▆
+style     000  00000000
+    raw  █▇▇▇████
+style     000  00000000
+    err  ███▁▁▁▁▁
+style     UUU  UUUUUUUU
+    8 retained buckets · cumulative speed / bucket errors
+style     0 00000000 0000000 0 0000000000 00000 0 000000 000000
+
+    Typing: 31 attempts · 3 mistaken attempts
+style     0000000 00 00000000 0 0 00000000 00000000
+    1 deletions · 30 retained output units
+style     0 000000000 0 00 00000000 000000 00000
+    Final: 29 correct · 1 incorrect
+style     000000 00 0000000 0 0 000000000
+    0 extra · 1 missed · 23 credited units
+style     0 00000 0 0 000000 0 00 00000000 00000
+    Consistency 88.2 / 100
+style     00000000000 0000 0 000
+
+    Mistaken tokens: cat, dog, fox
+style     00000000 0000000 0000 0000 000
+
+
+
+
+    tab summary/text  ↑↓ scroll  esc results
+style     000 000000000000  00 000000  000 0000000
+
+[review-text] 80x24 cursor=None
+
+    review · custom · complete
+style     000000 0 000000 0 00000000
+
+    1 · 5 attempts, 1 mistaken · corrected while typing
+style     0 0 0 000000000 0 00000000 0 000000000 00000 000000
+    exp cat
+style     ddd ddd
+    got cat
+style     000 000
+    2 · 3 attempts, 1 mistaken · final output differs or is unfinished
+style     0 0 0 000000000 0 00000000 0 00000 000000 0000000 00 00 0000000000
+    exp dog
+style     ddd ddd
+    got do
+style     UUU UU
+    3 · 4 attempts, 1 mistaken · final output differs or is unfinished
+style     0 0 0 000000000 0 00000000 0 00000 000000 0000000 00 00 0000000000
+    exp fox
+style     ddd ddd
+    got fog
+style     UUU UUU
+    4 · 4 attempts, 0 mistaken · completed correctly
+style     0 0 0 000000000 0 00000000 0 000000000 000000000
+    exp owl
+style     ddd ddd
+    got owl
+style     000 000
+    5 · 4 attempts, 0 mistaken · completed correctly
+style     0 0 0 000000000 0 00000000 0 000000000 000000000
+    exp yak
+style     ddd ddd
+    got yak
+style     000 000
+    6 · 4 attempts, 0 mistaken · completed correctly
+style     0 0 0 000000000 0 00000000 0 000000000 000000000
+    exp eel
+style     ddd ddd
+    got eel
+style     000 000
+
+    tab summary/text  ↑↓ scroll  esc results
+style     000 000000000000  00 000000  000 0000000
+
+[review-text-last] 80x24 cursor=None
+
+    review · custom · complete
+style     000000 0 000000 0 00000000
+
+    8 · 3 attempts, 0 mistaken · completed correctly
+style     0 0 0 000000000 0 00000000 0 000000000 000000000
+    exp bee
+style     ddd ddd
+    got bee
+style     000 000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    tab summary/text  ↑↓ scroll  esc results
+style     000 000000000000  00 000000  000 0000000
+
+[review-private-original-required] 80x24 cursor=None
+
+    review · custom · complete
+style     000000 0 000000 0 00000000
+
+    Original text was not retained.
+style     00000000 0000 000 000 000000000
+    Press o to provide the original file:
+style     00000 0 00 0000000 000 00000000 00000
+    cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+style     0000000000000000000000000000000000000000000000000000000000000000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    tab summary/text  ↑↓ scroll  esc results
+style     000 000000000000  00 000000  000 0000000
+
+[review-verified-original] 80x24 cursor=None
+
+    review · custom · complete
+style     000000 0 000000 0 00000000
+
+    Source target · per-token input unavailable
+style     000000 000000 0 000000000 00000 00000000000
+    cat dog fox owl yak eel ant bee
+style     ddd ddd ddd ddd ddd ddd ddd ddd
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    tab summary/text  ↑↓ scroll  esc results
+style     000 000000000000  00 000000  000 0000000
+
+[review-zen-summary] 80x24 cursor=None
+
+    review · zen · complete
+style     000000 0 000 0 00000000
+
+    96.0 wpm output · 1.50s
+style     0000 000 000000 0 00000
+    raw █▆
+style     000 00
+    12 typed units · 12 retained
+style     00 00000 00000 0 00 00000000
+    0 deletions · consistency —
+style     0 000000000 0 00000000000 0
+    Accuracy and target-error metrics are unavailable in zen.
+style     00000000 000 000000000000 0000000 000 00000000000 00 0000
+    2 bounded chart buckets
+style     0 0000000 00000 0000000
+
+
+
+
+
+
+
+
+
+
+
+
+
+    tab summary/text  ↑↓ scroll  esc results
+style     000 000000000000  00 000000  000 0000000
+
+[review-zen-text] 80x24 cursor=None
+
+    review · zen · complete
+style     000000 0 000 0 00000000
+
+    Zen has no expected target or accuracy score.
+style     000 000 00 00000000 000000 00 00000000 000000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    tab summary/text  ↑↓ scroll  esc results
+style     000 000000000000  00 000000  000 0000000
+
+[history-selected-last] 80x24 cursor=None
+
+    History · matching profile
+style     0000000 0 00000000 0000000
+    23 runs · aggregate 31.4 wpm · 92.3% accuracy
+style     00 0000 0 000000000 0000 000 0 00000 00000000
+
+      2026-07-05  37.3  90.3% Complete  ▅▇▁█
+style       0000000000  0000  00000 00000000  0000
+      2026-07-06  37.3  90.3% Complete  ▅▇▁█
+style       0000000000  0000  00000 00000000  0000
+      2026-07-07  37.3  90.3% Complete  ▅▇▁█
+style       0000000000  0000  00000 00000000  0000
+      2026-07-08  37.3  90.3% Complete  ▅▇▁█
+style       0000000000  0000  00000 00000000  0000
+      2026-07-09  37.3  90.3% Complete  ▅▇▁█
+style       0000000000  0000  00000 00000000  0000
+      2026-07-10  37.3  90.3% Complete  ▅▇▁█
+style       0000000000  0000  00000 00000000  0000
+      2026-07-11  37.3  90.3% Complete  ▅▇▁█
+style       0000000000  0000  00000 00000000  0000
+      2026-07-12  37.3  90.3% Complete  ▅▇▁█
+style       0000000000  0000  00000 00000000  0000
+      2026-07-13  37.3  90.3% Complete  ▅▇▁█
+style       0000000000  0000  00000 00000000  0000
+      2026-07-14  37.3  90.3% Complete  ▅▇▁█
+style       0000000000  0000  00000 00000000  0000
+      2026-07-15  37.3  90.3% Complete  ▅▇▁█
+style       0000000000  0000  00000 00000000  0000
+      2026-07-16  37.3  90.3% Complete  ▅▇▁█
+style       0000000000  0000  00000 00000000  0000
+      2026-07-17  37.3  90.3% Complete  ▅▇▁█
+style       0000000000  0000  00000 00000000  0000
+      2026-07-18  37.3  90.3% Complete  ▅▇▁█
+style       0000000000  0000  00000 00000000  0000
+      2026-07-19  37.3  90.3% Complete  ▅▇▁█
+style       0000000000  0000  00000 00000000  0000
+    > 2026-07-20  37.3  90.3% Complete  ▅▇▁█
+style     0 0000000000  0000  00000 00000000  0000
+
+
+    ↑↓ select  enter review  ←→ page  f filters  esc close
+style     00 000000  00000 000000  00 0000  0 0000000  000 00000
+
+[history-empty-storage-failure] 80x24 cursor=None
+
+    History · matching profile
+style     0000000 0 00000000 0000000
+    23 runs · aggregate 31.4 wpm · 92.3% accuracy
+style     00 0000 0 000000000 0000 000 0 00000 00000000
+
+    No results match this filter.
+style     00 0000000 00000 0000 0000000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Storage busy; results remain unsaved
+style     0000000 00000 0000000 000000 0000000
+    ↑↓ select  enter review  ←→ page  f filters  esc close
+style     00 000000  00000 000000  00 0000  0 0000000  000 00000
+
+[history-loading] 80x24 cursor=None
+
+    History · matching profile
+style     0000000 0 00000000 0000000
+
+
+    Loading local history…
+style     0000000 00000 00000000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ↑↓ select  enter review  ←→ page  f filters  esc close
+style     00 000000  00000 000000  00 0000  0 0000000  000 00000
+
+[config-panel] 80x24 cursor=None
+
+    Configuration
+style     0000000000000
+
+    Effective values (CLI overrides remain session-local):
+style     000000000 000000 0000 000000000 000000 000000000000000
+    test.mode = time
+style     000000000 0 0000
+    test.seconds = 15
+style     000000000000 0 00
+    appearance.theme = high_contrast
+style     0000000000000000 0 0000000000000
+    privacy.private_session = true
+style     00000000000000000000000 0 0000
+    privacy.save_results = false
+style     00000000000000000000 0 00000
+    workflow.bindings = { new_sample = 'ctrl+n' }
+style     00000000000000000 0 0 0000000000 0 00000000 0
+
+
+
+
+
+
+
+
+
+
+
+
+    ↑↓ scroll  pgup/pgdn page  esc close
+style     00 000000  000000000 0000  000 00000
+
+[config-panel-last] 80x24 cursor=None
+
+    Configuration
+style     0000000000000
+
+    workflow.bindings = { new_sample = 'ctrl+n' }
+style     00000000000000000 0 0 0000000000 0 00000000 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ↑↓ scroll  pgup/pgdn page  esc close
+style     00 000000  000000000 0000  000 00000
+

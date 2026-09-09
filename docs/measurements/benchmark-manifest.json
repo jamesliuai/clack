@@ -1,0 +1,69 @@
+{
+  "manifest_version": 1,
+  "archived_at_utc": "2026-09-05T06:11:10Z",
+  "artifacts": [
+    {
+      "path": "stage-b-quick.json",
+      "schema_version": 1,
+      "sha256": "bddca3a6219424824a74b348f3ad5a3bc4fb2b05f0820397793d0d6608c03509",
+      "bytes": 21769,
+      "original_workspace_path": "target/benchmarks/stage-b/quick.json",
+      "kind": "PTY",
+      "phase": "pre-storage Stage B",
+      "actual_emulator_measured": false,
+      "controlled_reference": false
+    },
+    {
+      "path": "stage-b-full.json",
+      "schema_version": 1,
+      "sha256": "28c822d89c50f1684026f87bb2d31b411cf111fb75b7e49dee3597f5ba455e2e",
+      "bytes": 274602,
+      "original_workspace_path": "target/benchmarks/stage-b/full.json",
+      "kind": "PTY",
+      "phase": "pre-storage Stage B",
+      "actual_emulator_measured": false,
+      "controlled_reference": false
+    },
+    {
+      "path": "stage-b-zen-long.json",
+      "schema_version": 1,
+      "sha256": "0ae1decc7c1e0bc32f5ac0da0524fc81837f0632998c57b456cae75ab173cf98",
+      "bytes": 22610,
+      "original_workspace_path": "target/benchmarks/stage-b/zen-long.json",
+      "kind": "PTY",
+      "phase": "pre-storage Stage B",
+      "actual_emulator_measured": false,
+      "controlled_reference": false
+    },
+    {
+      "path": "storage-history-100k.json",
+      "schema_version": 1,
+      "sha256": "850e738572d43dda85f381e883d1f8cc16aa4f2289f50fff39257fb31977957a",
+      "bytes": 3287,
+      "original_workspace_path": "target/benchmarks/storage/history-100k.json",
+      "kind": "storage query",
+      "phase": "pre-integration Stage C storage library",
+      "actual_emulator_measured": false,
+      "controlled_reference": false
+    },
+    {
+      "path": "storage-history-100k-initial.json",
+      "schema_version": 1,
+      "sha256": "67832db5a81793ff54fcaad2e97d7fa4fe8ea170b81db5b477b5e91211aa5165",
+      "bytes": 3223,
+      "original_workspace_path": "target/benchmarks/storage/history-100k-initial.json",
+      "kind": "storage query",
+      "phase": "pre-integration Stage C storage library",
+      "actual_emulator_measured": false,
+      "controlled_reference": false
+    }
+  ],
+  "limits": [
+    "Stage B reports use the preserved pre-storage production build, not the final integrated application.",
+    "The storage report benchmarks the optimized storage API directly; no terminal or bulk save throughput is measured.",
+    "Measurements use a shared development host, not a controlled regression reference.",
+    "No genuine cold-launch, physical key-to-photon, unavailable OS/emulator, or final release measurement is implied.",
+    "The 3,610-second Zen run has only about ten seconds after chart saturation.",
+    "Original machine paths remain in raw reports as provenance; baseline binaries are retained in the workspace, not duplicated into these documentation artifacts."
+  ]
+}

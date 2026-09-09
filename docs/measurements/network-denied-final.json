@@ -1,0 +1,53 @@
+{
+  "report_version": 1,
+  "kind": "process_local_ip_denied_unix_pty",
+  "created_at_utc": "2026-09-07T03:23:44Z",
+  "environment": {
+    "operating_system": "Darwin",
+    "operating_system_version": "26.6.2",
+    "operating_system_build": "25G83",
+    "kernel_release": "25.6.0",
+    "architecture": "arm64",
+    "terminal_environment": {
+      "TERM": "xterm-256color",
+      "COLORTERM": "truecolor",
+      "NO_COLOR_nonempty": true
+    }
+  },
+  "execution_label": "native_macOS_arm64_production",
+  "binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/benchmarks/stage-d/typ",
+  "binary_sha256": "364c3b402cb9bd6a2c4d858ff28af881fc328ac7d9557ec52d343d93c3ae32b2",
+  "sandbox_profile": "(version 1)\n(allow default)\n(deny network-bind (local ip))\n(deny network-inbound (local ip))\n(deny network-outbound (remote ip))\n",
+  "limitations": [
+    "Operation under denied IP networking is not packet capture or a trace of attempted calls.",
+    "The macOS process-local sandbox profile permits Unix IPC and otherwise leaves default permissions unchanged.",
+    "Synthetic outer PTY supplies no graphical emulator or physical display validation."
+  ],
+  "controls": {
+    "unix_socketpair": "pass",
+    "ip": [
+      {
+        "family": 2,
+        "tcp_connect_errno": 1,
+        "bind_errno": 1,
+        "udp_send_errno": 1
+      },
+      {
+        "family": 30,
+        "tcp_connect_errno": 1,
+        "bind_errno": 1,
+        "udp_send_errno": 1
+      }
+    ],
+    "unrestricted_ipv4_ipv6_loopback_connect": "pass"
+  },
+  "workflow": {
+    "startup": "pass",
+    "typing": "pass",
+    "completed_json_result": "pass",
+    "sqlite_save": "pass",
+    "terminal_cleanup": "pass",
+    "attempts_total": 7
+  },
+  "status": "pass"
+}

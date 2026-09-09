@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "rows": 100000,
+  "samples": 100,
+  "warmups": 5,
+  "profile_page_p95_us": 167,
+  "profile_summary_p95_us": 12,
+  "sqlite_version": "3.51.3",
+  "debug_assertions": false,
+  "controlled_reference": false,
+  "recorded_at_utc": "2026-09-07T03:38:36.355889+00:00",
+  "completed_output_log_modified_at_utc": "2026-09-07T03:37:40.495236+00:00",
+  "command": [
+    "/Users/james/Desktop/u/typing_test_gpt6astra/target/benchmarks/stage-d/storage-acceptance-release-v2",
+    "history_100000_rows_reports_first_page_and_summary_p95",
+    "--exact",
+    "--ignored",
+    "--nocapture",
+    "--test-threads",
+    "1"
+  ],
+  "measurement_attempts": 1,
+  "cpu": "Apple M3",
+  "logical_cores": 8,
+  "memory_bytes": 17179869184,
+  "os": "Darwin",
+  "os_release": "25.6.0",
+  "os_version": "Darwin Kernel Version 25.6.0: Fri Jul 31 19:18:29 PDT 2026; root:xnu-12377.161.14~5/RELEASE_ARM64_T8122",
+  "architecture": "arm64",
+  "execution": "local",
+  "terminal_kind": "none; direct production storage API in the release test executable",
+  "background_conditions": "Project build and other measured workloads paused; ongoing long Zen bounds application remains as known low-load concurrency; unrelated host activity is uncontrolled.",
+  "dataset": "One production-committed 25-unit/5-second English 200 result plus 99,999 SQL-seeded copies with unique IDs and UTC milliseconds, one matching profile, materialized raw totals scaled to the exact 100,000-row count.",
+  "workload": "First page of 20 results ordered by date/id for the matching profile and weighted current-profile summary; indexed history query plan and all returned row/sample counts asserted.",
+  "journal_mode_option": "delete; explicitly selected by the test Fixture",
+  "percentile": "nearest rank; five warmups excluded, 100 measured queries for each operation",
+  "target_p95_us": 100000,
+  "observed_within_target": true,
+  "build_manifest": {
+    "path": "/Users/james/Desktop/u/typing_test_gpt6astra/docs/measurements/stage-d-storage-build-manifest-v2.json",
+    "sha256": "12a5e0cb8fc48d6c32bf748ccb4d6eb4a2ac191927f8e900fd7b76d512871c48",
+    "content": {
+      "schema_version": 1,
+      "started_at_utc": "2026-09-07T03:28:21.311882+00:00",
+      "completed_at_utc": "2026-09-07T03:28:29.395796+00:00",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "--offline",
+        "--no-default-features",
+        "--test",
+        "storage_acceptance",
+        "--no-run",
+        "--jobs",
+        "2",
+        "--message-format=json-render-diagnostics"
+      ],
+      "profile": {
+        "CARGO_PROFILE_RELEASE_LTO": "thin",
+        "CARGO_PROFILE_RELEASE_CODEGEN_UNITS": "1",
+        "CARGO_PROFILE_RELEASE_STRIP": "symbols",
+        "CARGO_PROFILE_RELEASE_OPT_LEVEL": "3",
+        "CARGO_PROFILE_RELEASE_PANIC": "unwind",
+        "CARGO_PROFILE_RELEASE_DEBUG_ASSERTIONS": "false"
+      },
+      "cargo_encoded_rustflags": "",
+      "macos_deployment_target": "11.0",
+      "target_directory": "/Users/james/Desktop/u/typing_test_gpt6astra/target/storage-final-build",
+      "application_source_identity_sha256": "a3c58706a5ba1de96232ad4d49ab7f734ffea6d4c8dfbfd26bab2b8cd71a1545",
+      "application_source_manifest": {
+        "path": "/Users/james/Desktop/u/typing_test_gpt6astra/target/benchmarks/stage-d/build-manifest.json",
+        "sha256": "28ed2b78110f2dc3bb2da3de6942a1287aaa96ce067ec4e2afbd88dc50231114"
+      },
+      "source_inputs_verified_unchanged_before_and_after_build": true,
+      "test_source": {
+        "path": "/Users/james/Desktop/u/typing_test_gpt6astra/tests/storage_acceptance.rs",
+        "sha256": "bc3dc23781fb4ec44771335fe317a53aa1691ef8edd618f54a6ccf5784980b10"
+      },
+      "artifact": {
+        "path": "/Users/james/Desktop/u/typing_test_gpt6astra/target/benchmarks/stage-d/storage-acceptance-release-v2",
+        "sha256": "759d12dec3f86b6894b0ef126f67d63a82f215a2e33ba151a5a9cc50a0a960d1",
+        "bytes": 3614976
+      },
+      "rustc": "rustc 1.95.0 (59807616e 2026-04-14)\nbinary: rustc\ncommit-hash: 59807616e1fa2540724bfbac14d7976d7e4a3860\ncommit-date: 2026-04-14\nhost: aarch64-apple-darwin\nrelease: 1.95.0\nLLVM version: 22.1.2\n",
+      "cargo": "cargo 1.95.0 (f2d3ce0bd 2026-03-21)\n",
+      "build_log": {
+        "path": "/Users/james/Desktop/u/typing_test_gpt6astra/docs/measurements/stage-d-storage-benchmark-build-v2.jsonl",
+        "sha256": "af67042bc9d889e92cfb00814fdfd0eceff84e41356002e69cbdcdc9f9521b37"
+      },
+      "rebuild_reason": "Windows Clippy fixture-only TempDir retention field renamed _directory; benchmark algorithm and frozen production source are unchanged."
+    }
+  },
+  "output_log": {
+    "path": "/Users/james/Desktop/u/typing_test_gpt6astra/docs/measurements/stage-d-storage-history-100k.log",
+    "sha256": "cccaa0cc2c490acaf029568f637eb2c38c08071a451a2ec442edd40e06fd01c8"
+  },
+  "report_wrapper_corrections": [
+    "An initial source-path preflight typo failed before any benchmark process started.",
+    "The one measured run passed; the first report parser assumed JSON began a line, while libtest prefixed the test name. The report was recovered from the unchanged successful output log without rerunning or selecting a faster result."
+  ],
+  "limitations": [
+    "Shared local development host, not a controlled reference machine.",
+    "Warm query/cache measurement; not cold storage, a terminal measurement, or save-throughput timing.",
+    "Raw sample arrays were not emitted by this existing test; p95 values are preserved exactly from its successful output.",
+    "The release test executable has a separate hash from the packaged application and links the same verified frozen production source."
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "german_200",
+  "language_tag": "de",
+  "revision": "moby-clack-1",
+  "source": "Grady Ward, Moby Language II; https://www.gutenberg.org/ebooks/3206; selection and normalization by clack contributors",
+  "license": "LicenseRef-Moby-Public-Domain",
+  "content_hash": "e759ceb5f44321278eccd5baf54750006fed71fa50f74e6918e64b784279a523",
+  "text_direction": "ltr",
+  "supported_input_policy": "prose",
+  "token_count": 200
+}

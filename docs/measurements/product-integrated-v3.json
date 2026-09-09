@@ -1,0 +1,155 @@
+{
+  "report_version": 1,
+  "kind": "stage_c_product_unix_pty",
+  "binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/pty/typ-product-integrated-v3",
+  "binary_sha256": "7a65d9006aaba376a377eef09d0d6ce9a5612f622d3be32a1bc2d96c7f2e5741",
+  "test_hooks": true,
+  "platform": "darwin",
+  "python": "3.12.5",
+  "created_at_utc": "2026-09-05T06:47:15Z",
+  "terminal_policy": "synthetic xterm-256color PTY; isolated config/data for each case",
+  "limitations": [
+    "No actual emulator, physical display, font/IME, native Windows, tmux, or SSH validation is claimed.",
+    "Observer frames are test instrumentation, not production performance measurements."
+  ],
+  "results": [
+    {
+      "case": "palette_compact_abort",
+      "status": "pass",
+      "seconds": 0.685107,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "theme_preview_field_persistence",
+      "status": "pass",
+      "seconds": 0.231498,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "invalid_setting_recovery",
+      "status": "pass",
+      "seconds": 1.311063,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "missing_source_apply",
+      "status": "pass",
+      "seconds": 0.170832,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "external_config_error_recovery",
+      "status": "pass",
+      "seconds": 0.145176,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "named_presets",
+      "status": "pass",
+      "seconds": 0.236462,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "shipped_presets_save_defaults",
+      "status": "pass",
+      "seconds": 0.285021,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "dynamic_binding_reader_timer",
+      "status": "pass",
+      "seconds": 1.255958,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "exact_controls_palette",
+      "status": "pass",
+      "seconds": 0.165055,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "missed_practice_return",
+      "status": "pass",
+      "seconds": 0.217082,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "practice_ineligible_reason",
+      "status": "pass",
+      "seconds": 0.155649,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "current_private_review",
+      "status": "pass",
+      "seconds": 0.161127,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "private_preset_lock",
+      "status": "pass",
+      "seconds": 0.201554,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "historical_custom_privacy",
+      "status": "pass",
+      "seconds": 0.347155,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "history_filters_enhanced_original",
+      "status": "pass",
+      "seconds": 0.443104,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "storage_recovery_retry",
+      "status": "pass",
+      "seconds": 1.077276,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "practice_later_privacy_theme",
+      "status": "pass",
+      "seconds": 0.409164,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "personal_best_pace",
+      "status": "pass",
+      "seconds": 0.454632,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "unsaved_across_results_and_quit",
+      "status": "pass",
+      "seconds": 0.768794,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "historical_explicit_trace_diff",
+      "status": "pass",
+      "seconds": 0.3417,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "result_details_slow_selection",
+      "status": "pass",
+      "seconds": 0.412591,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "private_trace_opt_in_suppression",
+      "status": "pass",
+      "seconds": 0.125536,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "doctor_explicit_probe",
+      "status": "pass",
+      "seconds": 0.763984,
+      "detail": "assertions satisfied"
+    }
+  ]
+}

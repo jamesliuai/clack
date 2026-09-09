@@ -1,0 +1,89 @@
+{
+  "report_version": 1,
+  "kind": "stage_c_product_unix_pty",
+  "binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/pty/typ-product-instrumented",
+  "binary_sha256": "63836e4c24f511c73b1f82e3bf75d55320b6c0c377d51be13212fe52802f731b",
+  "test_hooks": true,
+  "platform": "darwin",
+  "python": "3.12.5",
+  "created_at_utc": "2026-09-05T05:57:26Z",
+  "terminal_policy": "synthetic xterm-256color PTY; isolated config/data for each case",
+  "limitations": [
+    "No actual emulator, physical display, font/IME, native Windows, tmux, or SSH validation is claimed.",
+    "Observer frames are test instrumentation, not production performance measurements."
+  ],
+  "results": [
+    {
+      "case": "palette_compact_abort",
+      "status": "fail",
+      "seconds": 0.545052,
+      "detail": "opening commands did not abort the active test"
+    },
+    {
+      "case": "theme_preview_field_persistence",
+      "status": "fail",
+      "seconds": 3.124239,
+      "detail": "did not observe warm theme preview escape output; exit=None; screen='\\n\\n    > theme warm\\n\\n    > Theme warm\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n    Arrow keys preview; Enter saves this theme; Esc restores the previous th\\n    enter select  \u2191\u2193 move  esc close'; stderr=b''"
+    },
+    {
+      "case": "invalid_setting_recovery",
+      "status": "pass",
+      "seconds": 1.31541,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "missing_source_apply",
+      "status": "pass",
+      "seconds": 0.166499,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "external_config_error_recovery",
+      "status": "pass",
+      "seconds": 0.143536,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "named_presets",
+      "status": "pass",
+      "seconds": 0.246149,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "dynamic_binding_reader_timer",
+      "status": "pass",
+      "seconds": 1.262305,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "exact_controls_palette",
+      "status": "pass",
+      "seconds": 0.167825,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "missed_practice_return",
+      "status": "fail",
+      "seconds": 0.042882,
+      "detail": "did not observe post-flush Ready observer frame (build --features test-hooks); exit=2; screen=''; stderr=b'typ: interactive --json requires --once\\n'"
+    },
+    {
+      "case": "practice_ineligible_reason",
+      "status": "fail",
+      "seconds": 3.104509,
+      "detail": "did not observe No mistaken or omitted words; exit=None; screen='\\n\\n                        > practice\\n\\n                        > Practice missed\\n                          Practice slow\\n                          Pace caret \u00b7 off\\n                          Code auto-indent \u00b7 false\\n                          Practice selection \u00b7 missed\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n                        Practice original words with mistakes or omissions, including repaired w\\n                        enter select  \u2191\u2193 move  esc close'; stderr=b''"
+    },
+    {
+      "case": "current_private_review",
+      "status": "fail",
+      "seconds": 0.054254,
+      "detail": "did not observe post-flush Ready observer frame (build --features test-hooks); exit=2; screen=''; stderr=b'typ: interactive --json requires --once\\n'"
+    },
+    {
+      "case": "private_preset_lock",
+      "status": "fail",
+      "seconds": 0.030578,
+      "detail": "did not observe post-flush Ready observer frame (build --features test-hooks); exit=2; screen=''; stderr=b'typ: interactive --json requires --once\\n'"
+    }
+  ]
+}

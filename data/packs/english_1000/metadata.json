@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "english_1000",
+  "language_tag": "en",
+  "revision": "moby-clack-1",
+  "source": "Grady Ward, Moby Words II; https://www.gutenberg.org/ebooks/3201; selection and normalization by clack contributors",
+  "license": "LicenseRef-Moby-Public-Domain",
+  "content_hash": "c83075e28c0ec6ba63d9fe61fa1e5c2f24fd1ba5833556cc7a644d158317a6c4",
+  "text_direction": "ltr",
+  "supported_input_policy": "prose",
+  "token_count": 1000
+}

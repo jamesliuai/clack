@@ -1,0 +1,123 @@
+{
+  "report_version": 1,
+  "kind": "actual_local_transport_synthetic_outer_pty",
+  "binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/pty/typ-product-integrated-v3",
+  "binary_sha256": "7a65d9006aaba376a377eef09d0d6ce9a5612f622d3be32a1bc2d96c7f2e5741",
+  "platform": "darwin",
+  "created_at_utc": "2026-09-07T02:47:40Z",
+  "tmux_version": "tmux 3.7c",
+  "ssh_version": "OpenSSH_10.3p1, LibreSSL 3.3.6",
+  "ssh_server_log": "",
+  "limitations": [
+    "Outer terminal is synthetic xterm-256color PTY, not a graphical emulator or physical display.",
+    "SSH is an actual authenticated encrypted loopback transport; no remote network latency or remote OS is simulated.",
+    "Separate inner and outer terminal attributes and modes are checked; no system service, user authentication file, or existing tmux session is modified."
+  ],
+  "results": [
+    {
+      "transport": "tmux",
+      "case": "normal_completion",
+      "status": "pass",
+      "seconds": 0.183414,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 0,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 2,
+        "inner_cleanup_protocol_checked": true
+      }
+    },
+    {
+      "transport": "tmux",
+      "case": "restart_resize",
+      "status": "pass",
+      "seconds": 0.332736,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 0,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 2,
+        "inner_cleanup_protocol_checked": true
+      }
+    },
+    {
+      "transport": "tmux",
+      "case": "exact_unicode_controls",
+      "status": "pass",
+      "seconds": 0.186315,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 0,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 2,
+        "inner_cleanup_protocol_checked": true
+      }
+    },
+    {
+      "transport": "tmux",
+      "case": "paste_integrity",
+      "status": "pass",
+      "seconds": 0.183082,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 0,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 2,
+        "inner_cleanup_protocol_checked": true
+      }
+    },
+    {
+      "transport": "tmux",
+      "case": "ctrl_c_cleanup",
+      "status": "pass",
+      "seconds": 0.15795,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 130,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 2,
+        "inner_cleanup_protocol_checked": true
+      }
+    },
+    {
+      "transport": "ssh",
+      "case": "normal_completion",
+      "status": "fail",
+      "seconds": 0.089286,
+      "detail": "did not observe complete target through ssh; exit=255; screen=''; stderr=b'james@127.0.0.1: Permission denied (publickey).\\r\\n'"
+    },
+    {
+      "transport": "ssh",
+      "case": "restart_resize",
+      "status": "fail",
+      "seconds": 0.067795,
+      "detail": "did not observe complete target through ssh; exit=255; screen=''; stderr=b'james@127.0.0.1: Permission denied (publickey).\\r\\n'"
+    },
+    {
+      "transport": "ssh",
+      "case": "exact_unicode_controls",
+      "status": "fail",
+      "seconds": 0.053601,
+      "detail": "did not observe complete target through ssh; exit=255; screen=''; stderr=b'james@127.0.0.1: Permission denied (publickey).\\r\\n'"
+    },
+    {
+      "transport": "ssh",
+      "case": "paste_integrity",
+      "status": "fail",
+      "seconds": 0.056159,
+      "detail": "did not observe complete target through ssh; exit=255; screen=''; stderr=b'james@127.0.0.1: Permission denied (publickey).\\r\\n'"
+    },
+    {
+      "transport": "ssh",
+      "case": "ctrl_c_cleanup",
+      "status": "fail",
+      "seconds": 0.024526,
+      "detail": "did not observe complete target through ssh; exit=255; screen=''; stderr=b''"
+    }
+  ]
+}

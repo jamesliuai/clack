@@ -1,0 +1,16 @@
+    Checking windows-sys v0.61.2
+    Checking anstyle-wincon v3.0.11
+    Checking anstyle-query v1.1.5
+    Checking dirs-sys v0.5.0
+    Checking anstream v1.0.0
+    Checking directories v6.0.0
+    Checking tempfile v3.27.0
+    Checking clap_builder v4.6.6
+    Checking typ-private-fs v1.0.0 (/Users/james/Desktop/u/typing_test_gpt6astra/vendor/typ-private-fs)
+    Checking rusty-fork v0.3.1
+    Checking proptest v1.11.0
+    Checking clap v4.6.6
+    Checking clap_mangen v0.2.33
+    Checking clap_complete v4.6.9
+    Checking typ-local v1.0.0 (/Users/james/Desktop/u/typing_test_gpt6astra)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.88s

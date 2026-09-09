@@ -1,0 +1,53 @@
+{
+  "report_version": 1,
+  "kind": "actual_local_transport_synthetic_outer_pty",
+  "binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/pty/typ-product-integrated-v3",
+  "binary_sha256": "7a65d9006aaba376a377eef09d0d6ce9a5612f622d3be32a1bc2d96c7f2e5741",
+  "platform": "darwin",
+  "created_at_utc": "2026-09-05T06:47:27Z",
+  "tmux_version": "tmux 3.7c",
+  "ssh_version": "OpenSSH_10.2p1, LibreSSL 3.3.6",
+  "ssh_server_log": "",
+  "limitations": [
+    "Outer terminal is synthetic xterm-256color PTY, not a graphical emulator or physical display.",
+    "SSH is an actual authenticated encrypted loopback transport; no remote network latency or remote OS is simulated.",
+    "Separate inner and outer terminal attributes and modes are checked; no system service, user authentication file, or existing tmux session is modified."
+  ],
+  "results": [
+    {
+      "transport": "tmux",
+      "case": "normal_completion",
+      "status": "fail",
+      "seconds": 0.145814,
+      "detail": "cursor style was not reset to terminal default"
+    },
+    {
+      "transport": "tmux",
+      "case": "restart_resize",
+      "status": "fail",
+      "seconds": 0.272716,
+      "detail": "cursor style was not reset to terminal default"
+    },
+    {
+      "transport": "tmux",
+      "case": "exact_unicode_controls",
+      "status": "fail",
+      "seconds": 0.177935,
+      "detail": "cursor style was not reset to terminal default"
+    },
+    {
+      "transport": "tmux",
+      "case": "paste_integrity",
+      "status": "fail",
+      "seconds": 0.187055,
+      "detail": "cursor style was not reset to terminal default"
+    },
+    {
+      "transport": "tmux",
+      "case": "ctrl_c_cleanup",
+      "status": "fail",
+      "seconds": 0.151068,
+      "detail": "cursor style was not reset to terminal default"
+    }
+  ]
+}

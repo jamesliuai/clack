@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "upstream_version": "0.29.0",
+  "upstream_repository": "https://github.com/crossterm-rs/crossterm",
+  "upstream_commit": "36d95b26a26e64b0f8c12edfe11f410a6d56a812",
+  "upstream_registry_archive_sha256": "d8b9f2e4c67f833b660cdb0a3523065869fb35570177239812ed4c905aeff87b",
+  "upstream_license_unchanged": true,
+  "changes": [
+    {
+      "path": ".gitignore",
+      "change": "modified",
+      "upstream_sha256": "187cd13134be31e6fa457b83bae023129b77a81bf3c0a44bd954ec05de58afe5",
+      "vendored_sha256": "306fd52e74fca6746e12acc750f232de15e71da917756a1270d74c91f5eb7368"
+    },
+    {
+      "path": "Cargo.toml",
+      "change": "modified",
+      "upstream_sha256": "78b5e8b5cd6660067195979533e61d4b33c375c74613f24180efd94c86f7d295",
+      "vendored_sha256": "736eae09ff19946789fbe6a2e89f18408f2e14c06ef1d8d0e9ff414f4f718705"
+    },
+    {
+      "path": "Cargo.toml.orig",
+      "change": "modified",
+      "upstream_sha256": "a4db652d1a5e748e0da1c3efc0e7baf3d969d7b376dd773183c308ea721a9f7e",
+      "vendored_sha256": "ae8cb4285dd205dc7e778dcf80405f4ff73862d4a7f3467dc862afa659295db9"
+    },
+    {
+      "path": "TYP-PATCH.md",
+      "change": "added",
+      "upstream_sha256": null,
+      "vendored_sha256": "e87ec2d78e86f57f8b167cff17c75b1b8545871ebcc7c3baf92a2c73968170ca"
+    },
+    {
+      "path": "src/ansi_support.rs",
+      "change": "modified",
+      "upstream_sha256": "36b902490d60259d99f88a2b45555d2d9d13f2c344cb3693c6a81442670f632b",
+      "vendored_sha256": "f4d4901d3ee3f4393d8470b553459528696f2c3f8a43df60cac0b32f94d42628"
+    },
+    {
+      "path": "src/event.rs",
+      "change": "modified",
+      "upstream_sha256": "0d7c9506d5dc0033bf357c255e6d44bfe765cb7db5f503cbe62cd66094aaf34f",
+      "vendored_sha256": "3438af3b4e9d35e674336c8e8880eaac788b5bbb79d32988ef75146532c6929c"
+    },
+    {
+      "path": "src/event/read.rs",
+      "change": "modified",
+      "upstream_sha256": "704eb054bff7408e7591e7b5869cf4606794a43b69dc7a1edef67fa7e26ccb8a",
+      "vendored_sha256": "b71db0be63cf1f4e8f9dcd656d33a97b86a092d9eb762bcb25038a11b2e0f085"
+    },
+    {
+      "path": "src/event/source.rs",
+      "change": "modified",
+      "upstream_sha256": "f606a124266b6d86b58969348bb713f7f89fb09886f51bfb6fe16b766e113bb7",
+      "vendored_sha256": "71a0ae6cadd65ce3f42108c4bf5560d2d985705dd4cff88f70aa2b0f6b959a67"
+    },
+    {
+      "path": "src/event/source/unix.rs",
+      "change": "modified",
+      "upstream_sha256": "253ed074fbe63e7270fc19e5c85186407c3a91454f43291c29cf5717575c74a6",
+      "vendored_sha256": "be8e946e387a02fd3f0c1bd6606a0ce49899ae182c8f47aef9888a4522275e17"
+    },
+    {
+      "path": "src/event/source/unix/mio.rs",
+      "change": "modified",
+      "upstream_sha256": "57f4a90b828444fcc6dd7199a73907bbbccf2df4b7808f9e8a0a4b0771e12e39",
+      "vendored_sha256": "3de0d49c02ec5e2ede5d7f3c032568db9a5b4304db10f17585a9b3f8edb7ba0a"
+    },
+    {
+      "path": "src/event/source/unix/tty.rs",
+      "change": "modified",
+      "upstream_sha256": "453e854ca82cd2d37e57494d9766a9eea728883a8a1c5fec186f7c6b83dbd64e",
+      "vendored_sha256": "6d09cc967c2f741c2fb7410c624e8210fb44fd0e57eac80f727b69d714b8eb66"
+    },
+    {
+      "path": "src/event/source/windows.rs",
+      "change": "modified",
+      "upstream_sha256": "e25bdd13432dfda96401a76f3e2d6aa2a404fbaa4f1b99b55bb0bdec2ac75336",
+      "vendored_sha256": "77c4c370a238dbbf854451bfae8e64ed6a8d57b9f0fdb6b11d3afbb617ca8cf9"
+    },
+    {
+      "path": "src/event/sys.rs",
+      "change": "modified",
+      "upstream_sha256": "3ec336b2d4c36cfc895fc7cf586e92f7763473130ca99e8168bead1ba3918d1a",
+      "vendored_sha256": "95d3d81018a41d40eea8ac68c4b50599a75870d1af660cb38c2045cb27cef10e"
+    },
+    {
+      "path": "src/event/sys/unix.rs",
+      "change": "modified",
+      "upstream_sha256": "d651928295213cd12a4df7edeb0c8be5a4e4487345fc9f2c2ff59d6411047cf2",
+      "vendored_sha256": "282490b6b61e8a1e4738a70a98121158d8272dfcf14bf1b630c881f76e5570de"
+    },
+    {
+      "path": "src/event/sys/unix/parse.rs",
+      "change": "modified",
+      "upstream_sha256": "689b765d67be62703f7935abfa1475d98994987461e413836b54c7936966ce2b",
+      "vendored_sha256": "83204e48a684061837f6d2e4363e990286673f12ab8275d09ddfce4429f43e81"
+    },
+    {
+      "path": "src/event/sys/windows.rs",
+      "change": "modified",
+      "upstream_sha256": "130d7da62a0af8b1cf7c55bd8bf78fa0272a9a44803704dac6416db993d30d81",
+      "vendored_sha256": "1165d591545a9e1ceb11f841cc9e3dbdee20d8a24e15cb0f1f9f863ef86ceb3d"
+    },
+    {
+      "path": "src/event/sys/windows/parse.rs",
+      "change": "modified",
+      "upstream_sha256": "15afbd3b84edfa2a72f9587f591ce9f7dfe99f1cb85db8b45037c0b70c0346ae",
+      "vendored_sha256": "9ca5d51ca3602b032e6c3d3c44164757d9c101aae0d5e19b887c8d0e181ea02a"
+    },
+    {
+      "path": "src/event/sys/windows/poll.rs",
+      "change": "modified",
+      "upstream_sha256": "232c69f9c9aa058189a418cdaee82134feaf6ef91f89cea8eaaeb5b4cfd722fc",
+      "vendored_sha256": "aa3b4d3070f44fccdc417dd1d2e80897b440884ada24ffbea229efcb4300c94b"
+    },
+    {
+      "path": "src/terminal/sys/unix.rs",
+      "change": "modified",
+      "upstream_sha256": "db066f11aa75d6c06515fd600ee38336f230d0f8f9d307663debb6ba835b334b",
+      "vendored_sha256": "97c411914771c9e227fc626d3a629d0bbd83c8a13c912560d98991b2293190b3"
+    },
+    {
+      "path": "src/terminal/sys/windows.rs",
+      "change": "modified",
+      "upstream_sha256": "60b47ae9b6a9c3185c8820906df43c21c0329e8f444409bb6fc68f97a6946061",
+      "vendored_sha256": "943fb9dce102515f3c297cc98d55c75ca88a3e76e0f02635e5d7ea4e8d39dace"
+    }
+  ],
+  "limitations": [
+    "This is a source-difference inventory; it does not replace behavioral tests or prove absence of vulnerabilities.",
+    "Refresh if vendor source changes."
+  ]
+}

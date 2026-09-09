@@ -1,0 +1,251 @@
+Style legend: A=accent m=muted F=foreground 0=monochrome d=dim U=underlined
+[palette-theme-last] 40x10 cursor=Some((11, 2))
+
+
+    > theme
+style     0 00000
+
+      Theme warm
+style       00000 0000
+    > Theme high_contrast
+style     0 00000 0000000000000
+
+    Arrow keys preview; Enter saves
+style     00000 0000 00000000 00000 00000
+    enter select  ↑↓ move  esc close
+style     00000 000000  00 0000  000 00000
+
+[palette-no-matches] 40x10 cursor=Some((30, 2))
+
+
+    > does not match a command
+style     0 0000 000 00000 0 0000000
+
+
+
+
+    No matching command or setting
+style     00 00000000 0000000 00 0000000
+    enter select  ↑↓ move  esc close
+style     00000 000000  00 0000  000 00000
+
+[settings-invalid-value] 40x10 cursor=Some((7, 4))
+
+
+    Duration
+style     00000000
+
+    > 0
+style     0 0
+
+
+    test.seconds=0: expected an inte
+style     000000000000000 00000000 00 0000
+    enter apply  ↑↓ choices  esc can
+style     00000 00000  00 0000000  000 000
+
+[settings-theme-choices] 40x10 cursor=Some((10, 4))
+
+
+    Theme
+style     00000
+
+    > warm
+style     0 0000
+
+
+    Terminal-inherited or shipped in
+style     000000000000000000 00 0000000 00
+    enter apply  ↑↓ choices  esc can
+style     00000 00000  00 0000000  000 000
+
+[review-summary] 40x10 cursor=None
+
+    review · custom · complete
+style     000000 0 000000 0 00000000
+
+    37.3 wpm · raw 48.6 · 90.3% accu
+style     0000 000 0 000 0000 0 00000 0000
+    7.40s · 186.5 cpm · eligible for
+style     00000 0 00000 000 0 00000000 000
+
+    wpm  █▅▃▅▅▆▆▆
+style     000  00000000
+    raw  █▇▇▇████
+style     000  00000000
+    tab summary/text  ↑↓ scroll  esc
+style     000 000000000000  00 000000  000
+
+[review-text] 40x10 cursor=None
+
+    review · custom · complete
+style     000000 0 000000 0 00000000
+
+    1 · 5 attempts, 1 mistaken · cor
+style     0 0 0 000000000 0 00000000 0 000
+    exp cat
+style     ddd ddd
+    got cat
+style     000 000
+
+
+    tab summary/text  ↑↓ scroll  esc
+style     000 000000000000  00 000000  000
+
+[review-text-last] 40x10 cursor=None
+
+    review · custom · complete
+style     000000 0 000000 0 00000000
+
+    8 · 3 attempts, 0 mistaken · com
+style     0 0 0 000000000 0 00000000 0 000
+    exp bee
+style     ddd ddd
+    got bee
+style     000 000
+
+
+    tab summary/text  ↑↓ scroll  esc
+style     000 000000000000  00 000000  000
+
+[review-private-original-required] 40x10 cursor=None
+
+    review · custom · complete
+style     000000 0 000000 0 00000000
+
+    Original text was not retained.
+style     00000000 0000 000 000 000000000
+    Press o to provide the original
+style     00000 0 00 0000000 000 00000000
+    cccccccccccccccccccccccccccccccc
+style     00000000000000000000000000000000
+
+
+    tab summary/text  ↑↓ scroll  esc
+style     000 000000000000  00 000000  000
+
+[review-verified-original] 40x10 cursor=None
+
+    review · custom · complete
+style     000000 0 000000 0 00000000
+
+    Source target · per-token input
+style     000000 000000 0 000000000 00000
+    cat dog fox owl yak eel ant bee
+style     ddd ddd ddd ddd ddd ddd ddd ddd
+
+
+
+    tab summary/text  ↑↓ scroll  esc
+style     000 000000000000  00 000000  000
+
+[review-zen-summary] 40x10 cursor=None
+
+    review · zen · complete
+style     000000 0 000 0 00000000
+
+    96.0 wpm output · 1.50s
+style     0000 000 000000 0 00000
+    raw █▆
+style     000 00
+    12 typed units · 12 retained
+style     00 00000 00000 0 00 00000000
+    0 deletions · consistency —
+style     0 000000000 0 00000000000 0
+    Accuracy and target-error metric
+style     00000000 000 000000000000 000000
+    tab summary/text  ↑↓ scroll  esc
+style     000 000000000000  00 000000  000
+
+[review-zen-text] 40x10 cursor=None
+
+    review · zen · complete
+style     000000 0 000 0 00000000
+
+    Zen has no expected target or ac
+style     000 000 00 00000000 000000 00 00
+
+
+
+
+    tab summary/text  ↑↓ scroll  esc
+style     000 000000000000  00 000000  000
+
+[history-selected-last] 40x10 cursor=None
+
+    History · matching profile
+style     0000000 0 00000000 0000000
+    23 runs · aggregate 31.4 wpm · 9
+style     00 0000 0 000000000 0000 000 0 0
+
+      2026-07-19  37.3  90.3% Comple
+style       0000000000  0000  00000 000000
+    > 2026-07-20  37.3  90.3% Comple
+style     0 0000000000  0000  00000 000000
+
+
+    enter review  ←→ page  f filter
+style     00000 000000  00 0000  0 000000
+
+[history-empty-storage-failure] 40x10 cursor=None
+
+    History · matching profile
+style     0000000 0 00000000 0000000
+    23 runs · aggregate 31.4 wpm · 9
+style     00 0000 0 000000000 0000 000 0 0
+
+    No results match this filter.
+style     00 0000000 00000 0000 0000000
+
+
+    Storage busy; results remain uns
+style     0000000 00000 0000000 000000 000
+    enter review  ←→ page  f filter
+style     00000 000000  00 0000  0 000000
+
+[history-loading] 40x10 cursor=None
+
+    History · matching profile
+style     0000000 0 00000000 0000000
+
+
+    Loading local history…
+style     0000000 00000 00000000
+
+
+
+    enter review  ←→ page  f filter
+style     00000 000000  00 0000  0 000000
+
+[config-panel] 40x10 cursor=None
+
+    Configuration
+style     0000000000000
+
+    Effective values (CLI overrides
+style     000000000 000000 0000 000000000
+    test.mode = time
+style     000000000 0 0000
+    test.seconds = 15
+style     000000000000 0 00
+    appearance.theme = high_contrast
+style     0000000000000000 0 0000000000000
+    privacy.private_session = true
+style     00000000000000000000000 0 0000
+    ↑↓ scroll  pgup/pgdn page  esc c
+style     00 000000  000000000 0000  000 0
+
+[config-panel-last] 40x10 cursor=None
+
+    Configuration
+style     0000000000000
+
+    workflow.bindings = { new_sample
+style     00000000000000000 0 0 0000000000
+
+
+
+
+    ↑↓ scroll  pgup/pgdn page  esc c
+style     00 000000  000000000 0000  000 0
+

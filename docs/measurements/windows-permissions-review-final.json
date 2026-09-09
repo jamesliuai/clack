@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "reviewer": "independent terminal/platform auditor",
+  "reviewed_at_utc": "2026-09-07T04:16:17.545337+00:00",
+  "requirements": [
+    "PRIV-005",
+    "ARCH-004"
+  ],
+  "result": "source review cleared; native Windows execution pending",
+  "runtime_changes_by_reviewer": false,
+  "unresolved_source_findings": [],
+  "resolved_findings": [
+    "Bound complete SID extent before SID APIs",
+    "Reject superscript COM/LPT aliases",
+    "Validate original spelling before Windows path normalization and resolved spelling afterward",
+    "Distinguish TokenOwner from TokenUser with approved narrow Administrators exception and preflight"
+  ],
+  "files": {
+    "vendor/typ-private-fs/Cargo.toml": "8431fc86402126b2c8d3179fc2fc67792480e9171486c0f0389911fa2b30b1ff",
+    "vendor/typ-private-fs/src/lib.rs": "563f88b19eaa563d11a4e9efb21fb3c7c9d024b8b50efe9c5c88b0a0c72cfc9e",
+    "vendor/typ-private-fs/src/tests.rs": "58c11c627d9564ced664177ee8802c1f73ee13ca25e275b45333bf743b6a240c",
+    "vendor/typ-private-fs/SAFETY.md": "f558e4b7dccec25f0ef5109ff5043b7a6a51b43341bea1b4732883e750cdf7e9",
+    "src/storage/database.rs": "267fab8a7846c2095166955e9f0977020c8e812f6f93eb2f88a5f0757c7e38c1",
+    "src/config.rs": "a5a73eaa4ed15ef089a34d133b7c4f59bc6c04f0e6a85303a9a664bc1d700521",
+    "src/main.rs": "3b135f65626e226bbee76a845559bc615a20abf007b3385d7eb19cb28effac56",
+    "src/app/storage_flow.rs": "079956397f91f9fb6e2ea23f20aedc5d36313213177f8cc802a545897226cc33",
+    "tests/storage_acceptance.rs": "492d84b191286b4740bc2c5a5c0b743010c97522ffb187c97585881ae5c6bc5b",
+    "tests/settings_acceptance.rs": "c358b261f2e89d337c5948eca43894435691db05a75e330b72244a640006744d",
+    "Cargo.toml": "ee32999611dab1a949a71b87d42d45a846d284b562228fb46258c63b3d6ffdc2",
+    "Cargo.lock": "eb7f81f39fe4ba6ccfb6f86e7e2610fe55800edd42ee93297d97fcbaa351e464"
+  },
+  "validation": {
+    "helper_native_windows_tests_inspected": 8,
+    "native_windows_tests_executed": false,
+    "cross_clippy_log_inspected": "docs/measurements/windows-privacy-clippy.txt",
+    "cross_clippy_log_sha256": "d18a4a337a92dc5d11ee7245edf4c20b9b1ee68f6652b55cfe1baf0d8a7821d8",
+    "cross_clippy_executed_by": "release owner",
+    "scope": "Windows target type/lint checking, not native execution",
+    "final_compilation_report": "docs/measurements/windows-privacy-compilation.json",
+    "final_compilation_report_sha256": "72e0c0d363e33118193e3a4d5d9f46b6c00ed930de658ca9cdbe929f71b4cf95",
+    "verified_compilation_checks": [
+      {
+        "command": [
+          "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-tools/bin/cargo-zigbuild",
+          "clippy",
+          "--locked",
+          "--offline",
+          "--all-targets",
+          "--all-features",
+          "--target",
+          "x86_64-pc-windows-gnu",
+          "-j",
+          "2",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "toolchain": "stable",
+        "target": "x86_64-pc-windows-gnu",
+        "exit_code": 0,
+        "log": "docs/measurements/windows-privacy-clippy-stable.txt",
+        "log_sha256": "6fe7bc449b38f396c6bb27ae7fe970dba9d776a7dfeb25588001e5ca9f1981b6",
+        "recorded_at_utc": "2026-09-07T04:15:03.635272+00:00",
+        "scope": "Windows target compilation on macOS; no Windows runtime execution"
+      },
+      {
+        "command": [
+          "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-tools/bin/cargo-zigbuild",
+          "check",
+          "--locked",
+          "--offline",
+          "--all-targets",
+          "--all-features",
+          "--target",
+          "x86_64-pc-windows-gnu",
+          "-j",
+          "2"
+        ],
+        "toolchain": "1.88.0",
+        "target": "x86_64-pc-windows-gnu",
+        "exit_code": 0,
+        "log": "docs/measurements/windows-privacy-check-1.88.0.txt",
+        "log_sha256": "573284175e269af6e5770a7a2a7d36b94479e70bf497e8921f60defd76ea1da5",
+        "recorded_at_utc": "2026-09-07T04:15:27.242373+00:00",
+        "scope": "Windows target compilation on macOS; no Windows runtime execution"
+      }
+    ]
+  },
+  "external_validation": [
+    "Native Windows standard-user and elevated/default-owner runs",
+    "Native reparse fixture with symlink privilege",
+    "ACL-incapable filesystem refusal",
+    "Actual UNC and remote filesystem behavior"
+  ],
+  "report": "docs/audit-windows-permissions-review.md",
+  "runtime_source_freeze_sha256": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3"
+}

@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-05T06:06:31Z",
+  "command": "cargo test --release --test storage_acceptance history_100000_rows_reports_first_page_and_summary_p95 -- --ignored --nocapture",
+  "cpu": "Apple M3",
+  "logical_cores": 8,
+  "memory_bytes": 17179869184,
+  "os": "Darwin",
+  "os_release": "25.5.0",
+  "os_version": "Darwin Kernel Version 25.5.0: Tue Jun  9 22:19:21 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T8122",
+  "architecture": "arm64",
+  "rustc": "rustc 1.95.0 (59807616e 2026-04-14)\nbinary: rustc\ncommit-hash: 59807616e1fa2540724bfbac14d7976d7e4a3860\ncommit-date: 2026-04-14\nhost: aarch64-apple-darwin\nrelease: 1.95.0\nLLVM version: 22.1.2",
+  "cargo": "cargo 1.95.0 (f2d3ce0bd 2026-03-21)",
+  "execution": "local",
+  "terminal": "none; direct storage API benchmark",
+  "compiler_profile": {
+    "name": "release",
+    "lto": "thin",
+    "codegen_units": 1,
+    "strip": "symbols",
+    "panic": "unwind",
+    "features": [],
+    "debug_assertions": false,
+    "portable_cpu_target_verified": false
+  },
+  "sqlite_version": "3.51.3",
+  "journal_mode": "delete",
+  "history_rows": 100000,
+  "dataset": "One committed 25-unit/5-second English 200 result, plus 99,999 SQL-seeded copies with unique IDs and UTC milliseconds; one matching profile; raw materialized totals scaled to exact row count.",
+  "workload": "First page of 20 results for matching profile and current-profile weighted summary; both indexed query paths asserted.",
+  "warmups_excluded": 5,
+  "measured_samples": 100,
+  "percentile": "nearest rank",
+  "profile_page_p95_us": 177,
+  "profile_summary_p95_us": 14,
+  "target_p95_us": 100000,
+  "observed_within_target": true,
+  "controlled_reference": false,
+  "limitations": [
+    "Shared development host with uncontrolled background activity.",
+    "Warm query/cache measurement; not a cold-storage or actual terminal result.",
+    "Functional database tests separately cover production worker transactions; the bulk SQL seed is not a save-throughput measurement.",
+    "Raw sample arrays were not retained in this run; observed p95 values are copied exactly from the successful test output."
+  ],
+  "test_binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/benchmarks/storage/storage-acceptance-release",
+  "test_binary_sha256": "50c156c48f873f43284c485417f719e151800990bdd562a05354471dc742ceea",
+  "test_binary_bytes": 3498896,
+  "source_sha256": {
+    "src/storage/database.rs": "515f708459a91aead26b8b41cbe18ecf80f1db1b496434a0586a125d117c3ead",
+    "src/storage/dates.rs": "35d96a516303b689c41238743a13b7ab55f9427a009de915f9bb198de0251871",
+    "src/storage/export.rs": "855bc05dd74cff4fbfa37f5a4fa149342de17d0babbd04a20516cf6bf7dcf84b",
+    "src/storage/mod.rs": "d7c3c51b85503bf22d29f9d44a1c27fcd9563995974027aa20e2ff4f568eb9e3",
+    "src/storage/model.rs": "eb459a300777522aeff779d79873a75fffd9416efa806c01f655f09c7034d939",
+    "src/storage/worker.rs": "89dc76c8b32db2e9d5bde11c78ec86930d0ae2a54a8ffe8ef86060b4ba3840e6"
+  },
+  "test_source_sha256": "476efee40c16e56b271c08e9e21c2e07c1221f8e3d452edef133ff061eb47428",
+  "prior_runs": [
+    {
+      "profile_page_p95_us": 179,
+      "profile_summary_p95_us": 13,
+      "artifact": "history-100k-initial.json"
+    }
+  ],
+  "test_binary_preserved": true
+}

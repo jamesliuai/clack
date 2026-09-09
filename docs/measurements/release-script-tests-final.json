@@ -1,0 +1,23 @@
+{
+  "command": [
+    "python3",
+    "scripts/release_test.py"
+  ],
+  "exit_code": 0,
+  "passed": 17,
+  "skipped": [
+    {
+      "test": "test_native_windows_junction_uninstall_preserves_matching_external_files",
+      "reason": "requires native Windows directory junction"
+    }
+  ],
+  "log": "docs/measurements/release-script-tests-final.txt",
+  "log_sha256": "3470945c3c7e8242672993176c0279776037d59c1bf5e79d5aa34321515ffd0f",
+  "script_sha256": {
+    "install.py": "470c4d983c635d842b892d607b97a707680d1b3e4580cf9fa3419f096caf5624",
+    "package.py": "2cfc5f29b762278f0561f9f9f356cc3ecc850a70999077ad2650479666d60e3d",
+    "verify_release.py": "8276d4e27dbf55963e1db94161000d0e69dbfe063ce552b5303b749fcd40d27b",
+    "release_test.py": "c112fcd14227da363dd42dbcc7f55235b43d42a09dc14397a88c456bfdf60111"
+  },
+  "recorded_at_utc": "2026-09-07T04:40:52.971993+00:00"
+}

@@ -1,0 +1,8 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.44s
+     Running tests/ui_acceptance.rs (target/debug/deps/ui_acceptance-85386b578f48f754)
+
+running 1 test
+test ready_running_results_snapshots_at_required_sizes_in_color_and_monochrome ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.02s
+

@@ -1,0 +1,122 @@
+$ cargo +1.88.0 test --offline --lib content::
+   Compiling typ-local v1.0.0 (/Users/james/Desktop/u/typing_test_gpt6astra)
+warning: function `visible_text` is never used
+   --> src/ui/review.rs:513:4
+    |
+513 | fn visible_text(text: &str, ascii: bool) -> String {
+    |    ^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` on by default
+
+warning: `typ-local` (lib test) generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.86s
+     Running unittests src/lib.rs (target/debug/deps/typ-d7a01adba4e8c090)
+
+running 23 tests
+test content::generator::tests::splitmix_reference_vector ... ok
+test content::case::tests::pinned_unicode_tables_do_not_follow_the_compiler_version ... ok
+test content::generator::tests::uniform_range_sanity_and_invalid_parameters ... ok
+test content::packs::tests::import_checks_hash_direction_policy_and_unknown_fields ... ok
+test content::packs::tests::import_normalizes_tokens_and_rejects_ambiguities ... ok
+test content::generator::tests::shared_pack_outlives_its_application_cache_reference ... ok
+test content::packs::tests::metadata_rejects_display_injection_and_allocation_bombs ... ok
+test content::practice::tests::exact_token_labels_trim_separators_and_skip_empty_segments ... ok
+test content::practice::tests::slow_selection_uses_ratio_excludes_first_and_corrections ... ok
+test content::generator::tests::sentence_and_number_rules_are_explicit ... ok
+test content::practice::tests::repaired_mistakes_and_omissions_use_original_tokens_once ... ok
+test content::generator::tests::independent_portable_golden_vectors ... ok
+test content::quotes::tests::boundaries_and_code_are_literal ... ok
+test content::validation::tests::prose_and_exact_preserve_their_distinct_contracts ... ok
+test content::validation::tests::reject_before_normalizing_pathological_clusters ... ok
+test content::validation::tests::reject_bytes_empty_and_terminal_controls ... ok
+test content::validation::tests::validation_never_echoes_private_text ... ok
+test content::generator::tests::replay_rejects_a_seed_without_the_original_identity ... ok
+test content::generator::tests::stream_is_independent_of_chunk_request_boundaries ... ok
+test content::quotes::tests::all_length_categories_have_attributed_choices_and_never_repeat ... ok
+test content::generator::tests::no_adjacent_source_duplicates_and_finite_count ... ok
+test content::validation::tests::arbitrary_unicode_validation_is_bounded_and_spans_are_sound ... ok
+test content::packs::tests::all_bundled_packs_match_declared_count_and_hash ... ok
+
+test result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 15 filtered out; finished in 0.17s
+
+$ cargo +1.88.0 test --offline --lib storage::
+warning: function `visible_text` is never used
+   --> src/ui/review.rs:513:4
+    |
+513 | fn visible_text(text: &str, ascii: bool) -> String {
+    |    ^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` on by default
+
+warning: `typ-local` (lib test) generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.06s
+     Running unittests src/lib.rs (target/debug/deps/typ-d7a01adba4e8c090)
+
+running 5 tests
+test storage::dates::tests::utc_dates_are_strict_and_round_trip_calendar_edges ... ok
+test storage::database::tests::acknowledged_connection_uses_full_durability_and_patched_sqlite ... ok
+test storage::database::tests::sqlite_read_only_rejects_transaction_without_partial_save ... ok
+test storage::database::tests::overflowing_aggregate_never_rounds_to_real_and_never_acknowledges_partial_result ... ok
+test storage::database::tests::sqlite_full_rolls_back_result_children_stats_and_can_retry_same_record ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 33 filtered out; finished in 0.71s
+
+$ cargo +1.88.0 test --offline --test content_adversarial --test storage_acceptance
+   Compiling typ-local v1.0.0 (/Users/james/Desktop/u/typing_test_gpt6astra)
+warning: function `visible_text` is never used
+   --> src/ui/review.rs:513:4
+    |
+513 | fn visible_text(text: &str, ascii: bool) -> String {
+    |    ^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` on by default
+
+warning: `typ-local` (lib) generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.48s
+     Running tests/content_adversarial.rs (target/debug/deps/content_adversarial-3290e001a972e0fc)
+
+running 6 tests
+test unicode_17_capitalization_goldens_match_on_msrv_and_current_rust ... ok
+test capitalized_metadata_tracks_multiple_graphemes_without_changing_source_identity ... ok
+test full_case_expansion_preserves_cluster_limits_after_normalization ... ok
+test imported_token_byte_and_grapheme_limits_apply_after_canonical_normalization ... ok
+test pinned_unicode_canonical_expansion_has_a_conservative_storage_ceiling ... ok
+test nfc_expansion_does_not_turn_the_raw_input_limit_into_a_prepared_target_limit ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.94s
+
+     Running tests/storage_acceptance.rs (target/debug/deps/storage_acceptance-58941eca60d72b14)
+
+running 29 tests
+test history_100000_rows_reports_first_page_and_summary_p95 ... ignored, run explicitly in release mode; records a 100,000-row history benchmark
+test hostile_trace_bounds_order_and_nonfinite_metrics_are_rejected ... ok
+test corrupt_and_unknown_schema_databases_are_preserved_and_report_unsaved ... ok
+test an_existing_read_only_worker_observes_history_created_by_another_process ... ok
+test an_oversized_opted_in_word_diagnostic_is_explicitly_omitted_without_losing_the_result ... ok
+test async_queries_correlate_request_ids_and_do_not_announce_unloaded_bests ... ok
+test missing_read_only_history_is_empty_and_creates_nothing ... ok
+test caller_and_worker_release_owned_pending_records_after_commit_or_shutdown ... ok
+test migration_acknowledgement_precedes_saved_result_samples_and_stats ... ok
+test malformed_review_requests_and_tampered_best_ids_are_rejected_without_echoing_text ... ok
+test new_storage_files_are_private_and_final_symlinks_are_refused ... ok
+test entered_orphan_continuations_round_trip_without_relaxing_control_or_grapheme_limits ... ok
+test private_and_default_custom_records_have_no_text_path_or_diagnostics ... ok
+test read_only_worker_queries_missing_or_existing_history_without_creating_or_saving ... ok
+test profile_and_filter_isolation_and_weighted_statistics_are_exact ... ok
+test reconfiguration_reuses_the_worker_and_preserves_save_then_read_only_order ... ok
+test replaying_a_save_id_is_idempotent_for_rows_stats_samples_and_bests ... ok
+test retained_zen_text_has_an_explicit_scope_and_accepts_visible_input_continuations ... ok
+test reducing_pending_capacity_preserves_owned_snapshots_and_later_retry ... ok
+test locked_database_retains_bounded_pending_records_without_blocking_submission ... ok
+test stored_custom_review_requires_the_same_normalized_source_and_honest_missing_input ... ok
+test saturated_worker_reconfiguration_leaves_the_previous_frontend_policy_intact ... ok
+test text_and_event_trace_opt_ins_are_independent_and_exports_require_text_opt_in ... ok
+test zen_and_zero_duration_do_not_invent_target_speed_or_accuracy ... ok
+test local_best_uses_exact_ratios_and_excludes_every_ineligible_outcome ... ok
+test paginated_export_holds_a_consistent_snapshot_while_another_writer_commits ... ok
+test a_maximum_legal_custom_token_and_body_can_be_saved_and_read_with_matching_identity ... ok
+test nfc_expanded_legal_custom_body_and_diagnostics_round_trip_and_original_matches ... ok
+test serialized_diagnostic_budget_is_bounded_and_omissions_are_explicit ... ok
+
+test result: ok. 28 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 8.56s
+

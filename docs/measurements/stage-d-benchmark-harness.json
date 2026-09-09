@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-07T03:26:22.585787+00:00",
+  "scope": "Harness and synthetic trace identities captured after the long Zen run started; file mtimes are retained to disclose capture timing. The launch-time application source/build manifest is embedded in each benchmark report.",
+  "inputs": [
+    {
+      "path": "/Users/james/Desktop/u/typing_test_gpt6astra/scripts/benchmark.py",
+      "sha256": "4f460fb6cd7164faaa7f99a701c8c2d10b1ad83f8327fd670137bc4079529187",
+      "modified_at_utc": "2026-09-07T03:02:33.254408+00:00"
+    },
+    {
+      "path": "/Users/james/Desktop/u/typing_test_gpt6astra/scripts/pty_test.py",
+      "sha256": "5cb1b463a944e1b3ecd7110819cadc0c663a86059fc46c10fb52038681d2b7ef",
+      "modified_at_utc": "2026-09-07T03:20:46.283138+00:00"
+    },
+    {
+      "path": "/Users/james/Desktop/u/typing_test_gpt6astra/data/packs/english_200/words.txt",
+      "sha256": "12e81e1c77f89bd4772d8586de0237be74c0610ba1d7446fb251db3573595d2e",
+      "modified_at_utc": "2026-09-05T04:11:43.179563+00:00"
+    },
+    {
+      "path": "/Users/james/Desktop/u/typing_test_gpt6astra/data/generator-v1-golden.json",
+      "sha256": "45c369e17b5f37cf14605186db1989ef546b3052df8a9fcc3019543cb55b9e82",
+      "modified_at_utc": "2026-09-05T04:03:44.010452+00:00"
+    }
+  ]
+}

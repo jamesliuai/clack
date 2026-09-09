@@ -1,0 +1,113 @@
+{
+  "report_version": 1,
+  "kind": "stage_c_product_unix_pty",
+  "binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/pty/typ-product-integrated-v1",
+  "binary_sha256": "f510acee1ae1aa212f09ea2b9b4325fc0d89548c5919a550717e312ecd725447",
+  "test_hooks": true,
+  "platform": "darwin",
+  "python": "3.12.5",
+  "created_at_utc": "2026-09-05T06:21:33Z",
+  "terminal_policy": "synthetic xterm-256color PTY; isolated config/data for each case",
+  "limitations": [
+    "No actual emulator, physical display, font/IME, native Windows, tmux, or SSH validation is claimed.",
+    "Observer frames are test instrumentation, not production performance measurements."
+  ],
+  "results": [
+    {
+      "case": "palette_compact_abort",
+      "status": "pass",
+      "seconds": 1.113578,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "theme_preview_field_persistence",
+      "status": "pass",
+      "seconds": 0.195587,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "invalid_setting_recovery",
+      "status": "pass",
+      "seconds": 1.284656,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "missing_source_apply",
+      "status": "pass",
+      "seconds": 0.144594,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "external_config_error_recovery",
+      "status": "pass",
+      "seconds": 0.1248,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "named_presets",
+      "status": "pass",
+      "seconds": 0.207376,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "shipped_presets_save_defaults",
+      "status": "pass",
+      "seconds": 0.238445,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "dynamic_binding_reader_timer",
+      "status": "pass",
+      "seconds": 1.241911,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "exact_controls_palette",
+      "status": "pass",
+      "seconds": 0.146958,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "missed_practice_return",
+      "status": "pass",
+      "seconds": 0.195992,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "practice_ineligible_reason",
+      "status": "pass",
+      "seconds": 0.134039,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "current_private_review",
+      "status": "pass",
+      "seconds": 0.149965,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "private_preset_lock",
+      "status": "pass",
+      "seconds": 0.175875,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "historical_custom_privacy",
+      "status": "pass",
+      "seconds": 0.2287,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "storage_recovery_retry",
+      "status": "pass",
+      "seconds": 0.974944,
+      "detail": "assertions satisfied"
+    },
+    {
+      "case": "practice_later_privacy_theme",
+      "status": "pass",
+      "seconds": 0.371113,
+      "detail": "assertions satisfied"
+    }
+  ]
+}

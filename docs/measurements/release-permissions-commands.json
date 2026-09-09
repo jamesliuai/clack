@@ -1,0 +1,207 @@
+{
+  "recorded_at_utc": "2026-09-07T04:22:20.667790+00:00",
+  "runs": [
+    {
+      "target": "aarch64-apple-darwin",
+      "binary": "target/release-permissions/typ-aarch64-apple-darwin-production",
+      "binary_sha256": "4e50a20121623d2634fbdbda9aa1bdf8c066cc2e6623f0b071c1e9d9125c5807",
+      "source_identity_sha256": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+      "execution": "native macOS arm64",
+      "checks": [
+        {
+          "arguments": [
+            "--version"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 10,
+          "stdout_sha256": "ada61fdcb19a9b8c39d9f28b652f0f8872d9f1e8b9bd53e8577339dd404a2aca",
+          "stderr_bytes": 0
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 3251,
+          "stdout_sha256": "ae475b2886d59173f83c51a4b7dcc2711321668b56880f21214a02f889a21739",
+          "stderr_bytes": 0
+        },
+        {
+          "arguments": [
+            "doctor",
+            "--json"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 1188,
+          "stdout_sha256": "8a9bf63df36b34410eea43e197fda33d2a63098c3fc031a5542b6f0439095586",
+          "stderr_bytes": 0
+        },
+        {
+          "arguments": [
+            "history",
+            "--json"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 246,
+          "stdout_sha256": "a8ee09508aa5a1faa9fb22192fac802606113a11b10178b925c6c816d2c07f0c",
+          "stderr_bytes": 0
+        },
+        {
+          "arguments": [
+            "stats",
+            "--profile",
+            "all",
+            "--json"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 478,
+          "stdout_sha256": "2da6496094937c9e9e49bf0198c91cf54f563e86fb360fcacd9695a51b269b77",
+          "stderr_bytes": 0
+        },
+        {
+          "arguments": [
+            "export",
+            "--format",
+            "json"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 34,
+          "stdout_sha256": "5c5e539214090f7a511c37c4c2e111850d24f95d906ae5393a39e0f6bf3ecf95",
+          "stderr_bytes": 0
+        },
+        {
+          "arguments": [
+            "config",
+            "validate",
+            "--json"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 34,
+          "stdout_sha256": "3e7101522e71132c9c87370d47a127e1e6d7fa7b9fe8feddd734d5663bfe18fb",
+          "stderr_bytes": 0
+        },
+        {
+          "arguments": [
+            "man"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 5347,
+          "stdout_sha256": "404aa51b181093d30d3e3a1ed6881bb15c46a971433090aa0c4b32a1acaa5362",
+          "stderr_bytes": 0
+        },
+        {
+          "arguments": [
+            "completions",
+            "bash"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 41170,
+          "stdout_sha256": "227cbd091d0e0f0dd3cc62c15590ec218bd258cea64e11336c1af840a512b5e9",
+          "stderr_bytes": 0
+        }
+      ],
+      "missing_data_directory_was_not_created": true
+    },
+    {
+      "target": "x86_64-apple-darwin",
+      "binary": "target/release-permissions/typ-x86_64-apple-darwin-production",
+      "binary_sha256": "7b3b795660c3a27b2e93235383f888bce3d797b3fa467c0a6bdec4c5e050361d",
+      "source_identity_sha256": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+      "execution": "Rosetta translated macOS x86-64 process",
+      "checks": [
+        {
+          "arguments": [
+            "--version"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 10,
+          "stdout_sha256": "ada61fdcb19a9b8c39d9f28b652f0f8872d9f1e8b9bd53e8577339dd404a2aca",
+          "stderr_bytes": 0
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 3250,
+          "stdout_sha256": "b654e90b8cb023d591590df216f9dd93391e73e7f57e796bfc8f4f23b8300f3f",
+          "stderr_bytes": 0
+        },
+        {
+          "arguments": [
+            "doctor",
+            "--json"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 1187,
+          "stdout_sha256": "e977b4dda04e874ad9f63bf7ab5c6f5e71cf8b6a33bd0b420b19f3f577eeb40b",
+          "stderr_bytes": 0
+        },
+        {
+          "arguments": [
+            "history",
+            "--json"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 246,
+          "stdout_sha256": "a8ee09508aa5a1faa9fb22192fac802606113a11b10178b925c6c816d2c07f0c",
+          "stderr_bytes": 0
+        },
+        {
+          "arguments": [
+            "stats",
+            "--profile",
+            "all",
+            "--json"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 478,
+          "stdout_sha256": "2da6496094937c9e9e49bf0198c91cf54f563e86fb360fcacd9695a51b269b77",
+          "stderr_bytes": 0
+        },
+        {
+          "arguments": [
+            "export",
+            "--format",
+            "json"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 34,
+          "stdout_sha256": "5c5e539214090f7a511c37c4c2e111850d24f95d906ae5393a39e0f6bf3ecf95",
+          "stderr_bytes": 0
+        },
+        {
+          "arguments": [
+            "config",
+            "validate",
+            "--json"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 34,
+          "stdout_sha256": "3e7101522e71132c9c87370d47a127e1e6d7fa7b9fe8feddd734d5663bfe18fb",
+          "stderr_bytes": 0
+        },
+        {
+          "arguments": [
+            "man"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 5347,
+          "stdout_sha256": "404aa51b181093d30d3e3a1ed6881bb15c46a971433090aa0c4b32a1acaa5362",
+          "stderr_bytes": 0
+        },
+        {
+          "arguments": [
+            "completions",
+            "bash"
+          ],
+          "exit_code": 0,
+          "stdout_bytes": 41170,
+          "stdout_sha256": "227cbd091d0e0f0dd3cc62c15590ec218bd258cea64e11336c1af840a512b5e9",
+          "stderr_bytes": 0
+        }
+      ],
+      "missing_data_directory_was_not_created": true
+    }
+  ]
+}

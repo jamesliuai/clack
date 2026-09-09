@@ -1,0 +1,5 @@
+   Compiling windows-link v0.2.1
+   Compiling windows-sys v0.61.2
+   Compiling typ-private-fs v1.0.0 (/Users/james/Desktop/u/typing_test_gpt6astra/vendor/typ-private-fs)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 14.73s
+  Executable unittests src/lib.rs (target/cross-windows/x86_64-pc-windows-gnu/debug/deps/typ_private_fs-dd5acd61dbf578f8.exe)

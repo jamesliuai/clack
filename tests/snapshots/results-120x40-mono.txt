@@ -1,0 +1,41 @@
+120x40 cursor=None
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        0 wpm       66.7% accuracy
+                        raw 1    30.00s    english 200
+                        time 30s · #e9018ef6
+
+
+                        enter next   f2 repeat   f3 practice   f4 details
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

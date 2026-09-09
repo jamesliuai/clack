@@ -1,0 +1,791 @@
+Style legend: A=accent m=muted F=foreground 0=monochrome d=dim U=underlined
+[palette-theme-last] 120x40 cursor=Some((31, 2))
+
+
+                        > theme
+style                         F FFFFF
+
+                          Theme · terminal
+style                           mmmmm m mmmmmmmm
+                          Favorite themes · []
+style                           mmmmmmmm mmmmmm m mm
+                          Theme terminal
+style                           mmmmm mmmmmmmm
+                          Theme dark
+style                           mmmmm mmmm
+                          Theme light
+style                           mmmmm mmmmm
+                          Theme warm
+style                           mmmmm mmmm
+                        > Theme high_contrast
+style                         A AAAAA AAAAAAAAAAAAA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        Arrow keys preview; Enter saves this theme; Esc restores the previous th
+style                         mmmmm mmmm mmmmmmmm mmmmm mmmmm mmmm mmmmmm mmm mmmmmmmm mmm mmmmmmmm mm
+                        enter select  ↑↓ move  esc close
+style                         mmmmm mmmmmm  mm mmmm  mmm mmmmm
+
+[palette-no-matches] 120x40 cursor=Some((50, 2))
+
+
+                        > does not match a command
+style                         F FFFF FFF FFFFF F FFFFFFF
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        No matching command or setting
+style                         mm mmmmmmmm mmmmmmm mm mmmmmmm
+                        enter select  ↑↓ move  esc close
+style                         mmmmm mmmmmm  mm mmmm  mmm mmmmm
+
+[settings-invalid-value] 120x40 cursor=Some((27, 4))
+
+
+                        Duration
+style                         FFFFFFFF
+
+                        > 0
+style                         F F
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        test.seconds=0: expected an integer in 1..=3600
+style                         mmmmmmmmmmmmmmm mmmmmmmm mm mmmmmmm mm mmmmmmmm
+                        enter apply  ↑↓ choices  esc cancel
+style                         mmmmm mmmmm  mm mmmmmmm  mmm mmmmmm
+
+[settings-theme-choices] 120x40 cursor=Some((30, 4))
+
+
+                        Theme
+style                         FFFFF
+
+                        > warm
+style                         F FFFF
+
+                          terminal
+style                           mmmmmmmm
+                          dark
+style                           mmmm
+                          light
+style                           mmmmm
+                        > warm
+style                         A AAAA
+                          high_contrast
+style                           mmmmmmmmmmmmm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        Terminal-inherited or shipped independent theme.
+style                         mmmmmmmmmmmmmmmmmm mm mmmmmmm mmmmmmmmmmm mmmmmm
+                        enter apply  ↑↓ choices  esc cancel
+style                         mmmmm mmmmm  mm mmmmmmm  mmm mmmmmm
+
+[review-summary] 120x40 cursor=None
+
+                        review · custom · complete
+style                         FFFFFF F FFFFFF F FFFFFFFF
+
+                        37.3 wpm · raw 48.6 · 90.3% accuracy
+style                         FFFF FFF F FFF FFFF F FFFFF FFFFFFFF
+                        7.40s · 186.5 cpm · eligible for local records
+style                         mmmmm m mmmmm mmm m mmmmmmmm mmm mmmmm mmmmmmm
+
+                        wpm  █▅▃▅▅▆▆▆
+style                         FFF  FFFFFFFF
+                        raw  █▇▇▇████
+style                         mmm  mmmmmmmm
+                        err  ███▁▁▁▁▁
+style                         UUU  UUUUUUUU
+                        8 retained buckets · cumulative speed / bucket errors
+style                         m mmmmmmmm mmmmmmm m mmmmmmmmmm mmmmm m mmmmmm mmmmmm
+
+                        Typing: 31 attempts · 3 mistaken attempts
+style                         FFFFFFF FF FFFFFFFF F F FFFFFFFF FFFFFFFF
+                        1 deletions · 30 retained output units
+style                         m mmmmmmmmm m mm mmmmmmmm mmmmmm mmmmm
+                        Final: 29 correct · 1 incorrect
+style                         FFFFFF FF FFFFFFF F F FFFFFFFFF
+                        0 extra · 1 missed · 23 credited units
+style                         m mmmmm m m mmmmmm m mm mmmmmmmm mmmmm
+                        Consistency 88.2 / 100
+style                         mmmmmmmmmmm mmmm m mmm
+
+                        Mistaken tokens: cat, dog, fox
+style                         mmmmmmmm mmmmmmm mmmm mmmm mmm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        tab summary/text  ↑↓ scroll  esc results
+style                         mmm mmmmmmmmmmmm  mm mmmmmm  mmm mmmmmmm
+
+[review-text] 120x40 cursor=None
+
+                        review · custom · complete
+style                         FFFFFF F FFFFFF F FFFFFFFF
+
+                        1 · 5 attempts, 1 mistaken · corrected while typing
+style                         m m m mmmmmmmmm m mmmmmmmm m mmmmmmmmm mmmmm mmmmmm
+                        exp cat
+style                         ddd ddd
+                        got cat
+style                         FFF FFF
+                        2 · 3 attempts, 1 mistaken · final output differs or is unfinished
+style                         m m m mmmmmmmmm m mmmmmmmm m mmmmm mmmmmm mmmmmmm mm mm mmmmmmmmmm
+                        exp dog
+style                         ddd ddd
+                        got do
+style                         UUU UU
+                        3 · 4 attempts, 1 mistaken · final output differs or is unfinished
+style                         m m m mmmmmmmmm m mmmmmmmm m mmmmm mmmmmm mmmmmmm mm mm mmmmmmmmmm
+                        exp fox
+style                         ddd ddd
+                        got fog
+style                         UUU UUU
+                        4 · 4 attempts, 0 mistaken · completed correctly
+style                         m m m mmmmmmmmm m mmmmmmmm m mmmmmmmmm mmmmmmmmm
+                        exp owl
+style                         ddd ddd
+                        got owl
+style                         FFF FFF
+                        5 · 4 attempts, 0 mistaken · completed correctly
+style                         m m m mmmmmmmmm m mmmmmmmm m mmmmmmmmm mmmmmmmmm
+                        exp yak
+style                         ddd ddd
+                        got yak
+style                         FFF FFF
+                        6 · 4 attempts, 0 mistaken · completed correctly
+style                         m m m mmmmmmmmm m mmmmmmmm m mmmmmmmmm mmmmmmmmm
+                        exp eel
+style                         ddd ddd
+                        got eel
+style                         FFF FFF
+                        7 · 4 attempts, 0 mistaken · completed correctly
+style                         m m m mmmmmmmmm m mmmmmmmm m mmmmmmmmm mmmmmmmmm
+                        exp ant
+style                         ddd ddd
+                        got ant
+style                         FFF FFF
+                        8 · 3 attempts, 0 mistaken · completed correctly
+style                         m m m mmmmmmmmm m mmmmmmmm m mmmmmmmmm mmmmmmmmm
+                        exp bee
+style                         ddd ddd
+                        got bee
+style                         FFF FFF
+
+
+
+
+
+
+
+
+
+
+
+                        tab summary/text  ↑↓ scroll  esc results
+style                         mmm mmmmmmmmmmmm  mm mmmmmm  mmm mmmmmmm
+
+[review-text-last] 120x40 cursor=None
+
+                        review · custom · complete
+style                         FFFFFF F FFFFFF F FFFFFFFF
+
+                        8 · 3 attempts, 0 mistaken · completed correctly
+style                         m m m mmmmmmmmm m mmmmmmmm m mmmmmmmmm mmmmmmmmm
+                        exp bee
+style                         ddd ddd
+                        got bee
+style                         FFF FFF
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        tab summary/text  ↑↓ scroll  esc results
+style                         mmm mmmmmmmmmmmm  mm mmmmmm  mmm mmmmmmm
+
+[review-private-original-required] 120x40 cursor=None
+
+                        review · custom · complete
+style                         FFFFFF F FFFFFF F FFFFFFFF
+
+                        Original text was not retained.
+style                         mmmmmmmm mmmm mmm mmm mmmmmmmmm
+                        Press o to provide the original file:
+style                         mmmmm m mm mmmmmmm mmm mmmmmmmm mmmmm
+                        cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+style                         mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        tab summary/text  ↑↓ scroll  esc results
+style                         mmm mmmmmmmmmmmm  mm mmmmmm  mmm mmmmmmm
+
+[review-verified-original] 120x40 cursor=None
+
+                        review · custom · complete
+style                         FFFFFF F FFFFFF F FFFFFFFF
+
+                        Source target · per-token input unavailable
+style                         mmmmmm mmmmmm m mmmmmmmmm mmmmm mmmmmmmmmmm
+                        cat dog fox owl yak eel ant bee
+style                         ddd ddd ddd ddd ddd ddd ddd ddd
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        tab summary/text  ↑↓ scroll  esc results
+style                         mmm mmmmmmmmmmmm  mm mmmmmm  mmm mmmmmmm
+
+[review-zen-summary] 120x40 cursor=None
+
+                        review · zen · complete
+style                         FFFFFF F FFF F FFFFFFFF
+
+                        96.0 wpm output · 1.50s
+style                         FFFF FFF FFFFFF F FFFFF
+                        raw █▆
+style                         FFF FF
+                        12 typed units · 12 retained
+style                         FF FFFFF FFFFF F FF FFFFFFFF
+                        0 deletions · consistency —
+style                         F FFFFFFFFF F FFFFFFFFFFF F
+                        Accuracy and target-error metrics are unavailable in zen.
+style                         FFFFFFFF FFF FFFFFFFFFFFF FFFFFFF FFF FFFFFFFFFFF FF FFFF
+                        2 bounded chart buckets
+style                         F FFFFFFF FFFFF FFFFFFF
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        tab summary/text  ↑↓ scroll  esc results
+style                         mmm mmmmmmmmmmmm  mm mmmmmm  mmm mmmmmmm
+
+[review-zen-text] 120x40 cursor=None
+
+                        review · zen · complete
+style                         FFFFFF F FFF F FFFFFFFF
+
+                        Zen has no expected target or accuracy score.
+style                         mmm mmm mm mmmmmmmm mmmmmm mm mmmmmmmm mmmmmm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        tab summary/text  ↑↓ scroll  esc results
+style                         mmm mmmmmmmmmmmm  mm mmmmmm  mmm mmmmmmm
+
+[history-selected-last] 120x40 cursor=None
+
+                        History · matching profile
+style                         FFFFFFF F FFFFFFFF FFFFFFF
+                        23 runs · aggregate 31.4 wpm · 92.3% accuracy
+style                         mm mmmm m mmmmmmmmm mmmm mmm m mmmmm mmmmmmmm
+
+                          2026-07-01  37.3  90.3% Complete  ▅▇▁█
+style                           mmmmmmmmmm  mmmm  mmmmm mmmmmmmm  mmmm
+                          2026-07-02  37.3  90.3% Complete  ▅▇▁█
+style                           mmmmmmmmmm  mmmm  mmmmm mmmmmmmm  mmmm
+                          2026-07-03  37.3  90.3% Complete  ▅▇▁█
+style                           mmmmmmmmmm  mmmm  mmmmm mmmmmmmm  mmmm
+                          2026-07-04  37.3  90.3% Complete  ▅▇▁█
+style                           mmmmmmmmmm  mmmm  mmmmm mmmmmmmm  mmmm
+                          2026-07-05  37.3  90.3% Complete  ▅▇▁█
+style                           mmmmmmmmmm  mmmm  mmmmm mmmmmmmm  mmmm
+                          2026-07-06  37.3  90.3% Complete  ▅▇▁█
+style                           mmmmmmmmmm  mmmm  mmmmm mmmmmmmm  mmmm
+                          2026-07-07  37.3  90.3% Complete  ▅▇▁█
+style                           mmmmmmmmmm  mmmm  mmmmm mmmmmmmm  mmmm
+                          2026-07-08  37.3  90.3% Complete  ▅▇▁█
+style                           mmmmmmmmmm  mmmm  mmmmm mmmmmmmm  mmmm
+                          2026-07-09  37.3  90.3% Complete  ▅▇▁█
+style                           mmmmmmmmmm  mmmm  mmmmm mmmmmmmm  mmmm
+                          2026-07-10  37.3  90.3% Complete  ▅▇▁█
+style                           mmmmmmmmmm  mmmm  mmmmm mmmmmmmm  mmmm
+                          2026-07-11  37.3  90.3% Complete  ▅▇▁█
+style                           mmmmmmmmmm  mmmm  mmmmm mmmmmmmm  mmmm
+                          2026-07-12  37.3  90.3% Complete  ▅▇▁█
+style                           mmmmmmmmmm  mmmm  mmmmm mmmmmmmm  mmmm
+                          2026-07-13  37.3  90.3% Complete  ▅▇▁█
+style                           mmmmmmmmmm  mmmm  mmmmm mmmmmmmm  mmmm
+                          2026-07-14  37.3  90.3% Complete  ▅▇▁█
+style                           mmmmmmmmmm  mmmm  mmmmm mmmmmmmm  mmmm
+                          2026-07-15  37.3  90.3% Complete  ▅▇▁█
+style                           mmmmmmmmmm  mmmm  mmmmm mmmmmmmm  mmmm
+                          2026-07-16  37.3  90.3% Complete  ▅▇▁█
+style                           mmmmmmmmmm  mmmm  mmmmm mmmmmmmm  mmmm
+                          2026-07-17  37.3  90.3% Complete  ▅▇▁█
+style                           mmmmmmmmmm  mmmm  mmmmm mmmmmmmm  mmmm
+                          2026-07-18  37.3  90.3% Complete  ▅▇▁█
+style                           mmmmmmmmmm  mmmm  mmmmm mmmmmmmm  mmmm
+                          2026-07-19  37.3  90.3% Complete  ▅▇▁█
+style                           mmmmmmmmmm  mmmm  mmmmm mmmmmmmm  mmmm
+                        > 2026-07-20  37.3  90.3% Complete  ▅▇▁█
+style                         A AAAAAAAAAA  AAAA  AAAAA AAAAAAAA  AAAA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        ↑↓ select  enter review  ←→ page  f filters  esc close
+style                         mm mmmmmm  mmmmm mmmmmm  mm mmmm  m mmmmmmm  mmm mmmmm
+
+[history-empty-storage-failure] 120x40 cursor=None
+
+                        History · matching profile
+style                         FFFFFFF F FFFFFFFF FFFFFFF
+                        23 runs · aggregate 31.4 wpm · 92.3% accuracy
+style                         mm mmmm m mmmmmmmmm mmmm mmm m mmmmm mmmmmmmm
+
+                        No results match this filter.
+style                         mm mmmmmmm mmmmm mmmm mmmmmmm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        Storage busy; results remain unsaved
+style                         AAAAAAA AAAAA AAAAAAA AAAAAA AAAAAAA
+                        ↑↓ select  enter review  ←→ page  f filters  esc close
+style                         mm mmmmmm  mmmmm mmmmmm  mm mmmm  m mmmmmmm  mmm mmmmm
+
+[history-loading] 120x40 cursor=None
+
+                        History · matching profile
+style                         FFFFFFF F FFFFFFFF FFFFFFF
+
+
+                        Loading local history…
+style                         mmmmmmm mmmmm mmmmmmmm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        ↑↓ select  enter review  ←→ page  f filters  esc close
+style                         mm mmmmmm  mmmmm mmmmmm  mm mmmm  m mmmmmmm  mmm mmmmm
+
+[config-panel] 120x40 cursor=None
+
+                        Configuration
+style                         FFFFFFFFFFFFF
+
+                        Effective values (CLI overrides remain session-local):
+style                         mmmmmmmmm mmmmmm mmmm mmmmmmmmm mmmmmm mmmmmmmmmmmmmmm
+                        test.mode = time
+style                         mmmmmmmmm m mmmm
+                        test.seconds = 15
+style                         mmmmmmmmmmmm m mm
+                        appearance.theme = high_contrast
+style                         mmmmmmmmmmmmmmmm m mmmmmmmmmmmmm
+                        privacy.private_session = true
+style                         mmmmmmmmmmmmmmmmmmmmmmm m mmmm
+                        privacy.save_results = false
+style                         mmmmmmmmmmmmmmmmmmmm m mmmmm
+                        workflow.bindings = { new_sample = 'ctrl+n' }
+style                         mmmmmmmmmmmmmmmmm m m mmmmmmmmmm m mmmmmmmm m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        ↑↓ scroll  pgup/pgdn page  esc close
+style                         mm mmmmmm  mmmmmmmmm mmmm  mmm mmmmm
+
+[config-panel-last] 120x40 cursor=None
+
+                        Configuration
+style                         FFFFFFFFFFFFF
+
+                        workflow.bindings = { new_sample = 'ctrl+n' }
+style                         mmmmmmmmmmmmmmmmm m m mmmmmmmmmm m mmmmmmmm m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        ↑↓ scroll  pgup/pgdn page  esc close
+style                         mm mmmmmm  mmmmmmmmm mmmm  mmm mmmmm
+

@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-07T02:52:39.559305+00:00",
+  "command": [
+    "target/release-tools/bin/cargo-deny",
+    "--locked",
+    "--offline",
+    "check"
+  ],
+  "config_path": "deny.toml",
+  "config_sha256": "e47bdfecfb2714852a0811a6c9f4b32a6e2fa5da587ec0e6fdedbdbcff84d6b0",
+  "cargo_lock_sha256": "fff67a3b330fa906946bd7b56a3cc284040fce8fe17a81aa62d97f6faa7e96b2",
+  "checks": {
+    "advisories": "pass",
+    "bans": "pass",
+    "licenses": "pass",
+    "sources": "pass"
+  },
+  "scope": "All six configured native target graphs, exact lockfile, no ignored advisories. Public RustSec database refreshed successfully immediately before the successful complete check. Known-advisory checks do not prove absence of undiscovered defects.",
+  "database": {
+    "path": "target/advisory-dbs/advisory-db-3157b0e258782691",
+    "commit": "5a0ebedfe8bdd2e295b171f4162f8c977bcad9a5",
+    "committed_at": "2026-09-02T11:13:32+02:00",
+    "url": "https://github.com/rustsec/advisory-db",
+    "refresh_command": [
+      "target/release-tools/bin/cargo-deny",
+      "--locked",
+      "fetch",
+      "db"
+    ],
+    "refresh_exit_code": 0,
+    "checked_at_utc": "2026-09-07T02:53:05.354030+00:00"
+  },
+  "ci_definition_verification": {
+    "yaml": "parsed with PyYAML",
+    "jobs": [
+      "quality",
+      "msrv",
+      "native (five target matrix)",
+      "source"
+    ],
+    "remote_execution": "not run",
+    "action_pins": {
+      "actions/checkout": "3d3c42e5aac5ba805825da76410c181273ba90b1",
+      "actions/setup-python": "ece7cb06caefa5fff74198d8649806c4678c61a1",
+      "actions/upload-artifact": "043fb46d1a93c77aae656e7c1c64a875d1fc6a0a"
+    },
+    "pin_verification": "Full SHA values resolved through official GitHub release commit links during audit",
+    "runners": [
+      "ubuntu-22.04",
+      "ubuntu-22.04-arm",
+      "macos-15-intel",
+      "macos-14",
+      "windows-2022"
+    ],
+    "runner_reference": "https://docs.github.com/en/actions/reference/runners/github-hosted-runners"
+  }
+}

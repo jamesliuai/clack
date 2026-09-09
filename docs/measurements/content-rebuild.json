@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "verified_at_utc": "2026-09-05T06:27:40Z",
+  "source_manifest_sha256": "76667a9487846e1264da0c3df48ade14084b8f0dffe7088e3d6552bae78454eb",
+  "source_inputs": 9,
+  "network_during_rebuild": false,
+  "files": [
+    {
+      "file": "data/language-source-mappings.json",
+      "bytes": 40022,
+      "sha256": "cfe89bff5654e5df1519d67e0101189d559a3ae99aa4bdda8c01793ffcf5e34c",
+      "reproduced": true
+    },
+    {
+      "file": "data/packs/english_1000/metadata.json",
+      "bytes": 450,
+      "sha256": "0b8aa0566f7b34396f80d019389aab60ddee3c17cd9fc7f58b0156654802028f",
+      "reproduced": true
+    },
+    {
+      "file": "data/packs/english_1000/words.txt",
+      "bytes": 6442,
+      "sha256": "c83075e28c0ec6ba63d9fe61fa1e5c2f24fd1ba5833556cc7a644d158317a6c4",
+      "reproduced": true
+    },
+    {
+      "file": "data/packs/english_10000/metadata.json",
+      "bytes": 452,
+      "sha256": "2417c8d79111cd06c6e194e184ba83d7f96888d628834d40d887f9f768ce9a5f",
+      "reproduced": true
+    },
+    {
+      "file": "data/packs/english_10000/words.txt",
+      "bytes": 85789,
+      "sha256": "a7856acef01ac7650bf79c5718bcbf9333f2ddc485b7ff3b49e6776673f71336",
+      "reproduced": true
+    },
+    {
+      "file": "data/packs/english_200/metadata.json",
+      "bytes": 448,
+      "sha256": "e29d044674e950197c32bf66d129973ef9aa990b642e691862f11f3cd0d72402",
+      "reproduced": true
+    },
+    {
+      "file": "data/packs/english_200/words.txt",
+      "bytes": 1037,
+      "sha256": "12e81e1c77f89bd4772d8586de0237be74c0610ba1d7446fb251db3573595d2e",
+      "reproduced": true
+    },
+    {
+      "file": "data/packs/french_200/metadata.json",
+      "bytes": 450,
+      "sha256": "a4fb93920342b60786535a5b33d61b517dc0c8e0a0f51e0c9eb0df08387f9f40",
+      "reproduced": true
+    },
+    {
+      "file": "data/packs/french_200/words.txt",
+      "bytes": 1290,
+      "sha256": "ab8a8388bb051c87a9572c5db9a4e81e2c8298a10f030d8ef6353197d2ae4bb3",
+      "reproduced": true
+    },
+    {
+      "file": "data/packs/german_200/metadata.json",
+      "bytes": 450,
+      "sha256": "0b52251b73d84a1650264307b1dc4b5587d4e4eec2c92060a11747e80b31eac1",
+      "reproduced": true
+    },
+    {
+      "file": "data/packs/german_200/words.txt",
+      "bytes": 1248,
+      "sha256": "e759ceb5f44321278eccd5baf54750006fed71fa50f74e6918e64b784279a523",
+      "reproduced": true
+    },
+    {
+      "file": "data/packs/spanish_200/metadata.json",
+      "bytes": 451,
+      "sha256": "ff78abb1d6248aad16e7ccf6310c3e097e6a16a7b7b2222e9b1de4ef22cd4188",
+      "reproduced": true
+    },
+    {
+      "file": "data/packs/spanish_200/words.txt",
+      "bytes": 1244,
+      "sha256": "f072abc2324b978f6016ae63b02fde613fd957fdad0f11a161bbc271b11d30af",
+      "reproduced": true
+    },
+    {
+      "file": "data/quotes/quotes.json",
+      "bytes": 7100,
+      "sha256": "ef536d09c7297c3dc3c357645d65cbeef6510771ab6932baae0b3d22e2c6dcd2",
+      "reproduced": true
+    }
+  ],
+  "quote_counts": [
+    "pride-opening 23",
+    "alice-down 21",
+    "alice-book 57",
+    "pride-neighbourhood 48",
+    "tale-times 118",
+    "alice-rabbit 112",
+    "tale-kingdoms 185",
+    "alice-curiosity 253"
+  ]
+}

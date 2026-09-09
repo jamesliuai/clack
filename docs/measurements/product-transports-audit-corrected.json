@@ -1,0 +1,158 @@
+{
+  "report_version": 1,
+  "kind": "actual_local_transport_synthetic_outer_pty",
+  "binary": "/Users/james/Desktop/u/typing_test_gpt6astra/target/pty/typ-product-integrated-v3",
+  "binary_sha256": "7a65d9006aaba376a377eef09d0d6ce9a5612f622d3be32a1bc2d96c7f2e5741",
+  "platform": "darwin",
+  "created_at_utc": "2026-09-07T02:49:24Z",
+  "tmux_version": "tmux 3.7c",
+  "ssh_version": "OpenSSH_10.3p1, LibreSSL 3.3.6",
+  "ssh_server_log": "BSM audit: bsm_audit_session_setup: setaudit_addr failed: Operation not permitted\nBSM audit: bsm_audit_session_setup: setaudit_addr failed: Operation not permitted\nBSM audit: bsm_audit_session_setup: setaudit_addr failed: Operation not permitted\nBSM audit: bsm_audit_session_setup: setaudit_addr failed: Operation not permitted\nBSM audit: bsm_audit_session_setup: setaudit_addr failed: Operation not permitted\n",
+  "limitations": [
+    "Outer terminal is synthetic xterm-256color PTY, not a graphical emulator or physical display.",
+    "SSH is an actual authenticated encrypted loopback transport; no remote network latency or remote OS is simulated.",
+    "Separate inner and outer terminal attributes and modes are checked; no system service, user authentication file, or existing tmux session is modified."
+  ],
+  "results": [
+    {
+      "transport": "tmux",
+      "case": "normal_completion",
+      "status": "pass",
+      "seconds": 0.148064,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 0,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 2,
+        "inner_cleanup_protocol_checked": true
+      }
+    },
+    {
+      "transport": "tmux",
+      "case": "restart_resize",
+      "status": "pass",
+      "seconds": 0.274441,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 0,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 2,
+        "inner_cleanup_protocol_checked": true
+      }
+    },
+    {
+      "transport": "tmux",
+      "case": "exact_unicode_controls",
+      "status": "pass",
+      "seconds": 0.191003,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 0,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 2,
+        "inner_cleanup_protocol_checked": true
+      }
+    },
+    {
+      "transport": "tmux",
+      "case": "paste_integrity",
+      "status": "pass",
+      "seconds": 0.182452,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 0,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 2,
+        "inner_cleanup_protocol_checked": true
+      }
+    },
+    {
+      "transport": "tmux",
+      "case": "ctrl_c_cleanup",
+      "status": "pass",
+      "seconds": 0.150192,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 130,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 2,
+        "inner_cleanup_protocol_checked": true
+      }
+    },
+    {
+      "transport": "ssh",
+      "case": "normal_completion",
+      "status": "pass",
+      "seconds": 0.204999,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 0,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 0,
+        "inner_cleanup_protocol_checked": false
+      }
+    },
+    {
+      "transport": "ssh",
+      "case": "restart_resize",
+      "status": "pass",
+      "seconds": 0.311607,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 0,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 0,
+        "inner_cleanup_protocol_checked": false
+      }
+    },
+    {
+      "transport": "ssh",
+      "case": "exact_unicode_controls",
+      "status": "pass",
+      "seconds": 0.226226,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 0,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 0,
+        "inner_cleanup_protocol_checked": false
+      }
+    },
+    {
+      "transport": "ssh",
+      "case": "paste_integrity",
+      "status": "pass",
+      "seconds": 0.218294,
+      "detail": {
+        "outer_exit": 0,
+        "inner_exit": 0,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 0,
+        "inner_cleanup_protocol_checked": false
+      }
+    },
+    {
+      "transport": "ssh",
+      "case": "ctrl_c_cleanup",
+      "status": "pass",
+      "seconds": 0.201287,
+      "detail": {
+        "outer_exit": 130,
+        "inner_exit": 130,
+        "inner_termios_restored": true,
+        "outer_modes_restored": true,
+        "outer_cursor_reset": 0,
+        "inner_cleanup_protocol_checked": false
+      }
+    }
+  ]
+}

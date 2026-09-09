@@ -1,0 +1,116 @@
+Recorded UTC: 2026-09-07T04:05:35.572072+00:00
+Windows cfg paths are not executed by these Unix correctness checks.
+
+COMMAND current: cargo test --locked --offline --all-features -p typ-local --lib storage::
+   Compiling typ-local v1.0.0 (/Users/james/Desktop/u/typing_test_gpt6astra)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.47s
+     Running unittests src/lib.rs (target/debug/deps/typ-71ee2b238dcdd4d9)
+
+running 5 tests
+test storage::dates::tests::utc_dates_are_strict_and_round_trip_calendar_edges ... ok
+test storage::database::tests::acknowledged_connection_uses_full_durability_and_patched_sqlite ... ok
+test storage::database::tests::sqlite_read_only_rejects_transaction_without_partial_save ... ok
+test storage::database::tests::overflowing_aggregate_never_rounds_to_real_and_never_acknowledges_partial_result ... ok
+test storage::database::tests::sqlite_full_rolls_back_result_children_stats_and_can_retry_same_record ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 37 filtered out; finished in 0.66s
+
+EXIT 0
+
+COMMAND current: cargo test --locked --offline --all-features -p typ-local --test storage_acceptance
+   Compiling typ-local v1.0.0 (/Users/james/Desktop/u/typing_test_gpt6astra)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.07s
+     Running tests/storage_acceptance.rs (target/debug/deps/storage_acceptance-ad4779a9543cb03e)
+
+running 30 tests
+test corrupt_and_unknown_schema_databases_are_preserved_and_report_unsaved ... ok
+test history_100000_rows_reports_first_page_and_summary_p95 ... ignored, run explicitly in release mode; records a 100,000-row history benchmark
+test an_oversized_opted_in_word_diagnostic_is_explicitly_omitted_without_losing_the_result ... ok
+test hostile_trace_bounds_order_and_nonfinite_metrics_are_rejected ... ok
+test async_queries_correlate_request_ids_and_do_not_announce_unloaded_bests ... ok
+test an_existing_read_only_worker_observes_history_created_by_another_process ... ok
+test caller_and_worker_release_owned_pending_records_after_commit_or_shutdown ... ok
+test missing_read_only_history_is_empty_and_creates_nothing ... ok
+test malformed_review_requests_and_tampered_best_ids_are_rejected_without_echoing_text ... ok
+test migration_acknowledgement_precedes_saved_result_samples_and_stats ... ok
+test new_storage_files_are_private_and_final_symlinks_are_refused ... ok
+test entered_orphan_continuations_round_trip_without_relaxing_control_or_grapheme_limits ... ok
+test private_and_default_custom_records_have_no_text_path_or_diagnostics ... ok
+test read_only_worker_queries_missing_or_existing_history_without_creating_or_saving ... ok
+test profile_and_filter_isolation_and_weighted_statistics_are_exact ... ok
+test reconfiguration_reuses_the_worker_and_preserves_save_then_read_only_order ... ok
+test classification_filters_preserve_overlapping_assistance_and_independent_outcomes ... ok
+test locked_database_retains_bounded_pending_records_without_blocking_submission ... ok
+test reducing_pending_capacity_preserves_owned_snapshots_and_later_retry ... ok
+test replaying_a_save_id_is_idempotent_for_rows_stats_samples_and_bests ... ok
+test retained_zen_text_has_an_explicit_scope_and_accepts_visible_input_continuations ... ok
+test stored_custom_review_requires_the_same_normalized_source_and_honest_missing_input ... ok
+test local_best_uses_exact_ratios_and_excludes_every_ineligible_outcome ... ok
+test text_and_event_trace_opt_ins_are_independent_and_exports_require_text_opt_in ... ok
+test saturated_worker_reconfiguration_leaves_the_previous_frontend_policy_intact ... ok
+test zen_and_zero_duration_do_not_invent_target_speed_or_accuracy ... ok
+test paginated_export_holds_a_consistent_snapshot_while_another_writer_commits ... ok
+test a_maximum_legal_custom_token_and_body_can_be_saved_and_read_with_matching_identity ... ok
+test nfc_expanded_legal_custom_body_and_diagnostics_round_trip_and_original_matches ... ok
+test serialized_diagnostic_budget_is_bounded_and_omissions_are_explicit ... ok
+
+test result: ok. 29 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 8.69s
+
+EXIT 0
+
+COMMAND msrv: cargo +1.88.0 test --locked --offline --all-features -p typ-local --lib storage::
+   Compiling typ-local v1.0.0 (/Users/james/Desktop/u/typing_test_gpt6astra)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.95s
+     Running unittests src/lib.rs (target/msrv/debug/deps/typ-f914d1095126a579)
+
+running 5 tests
+test storage::dates::tests::utc_dates_are_strict_and_round_trip_calendar_edges ... ok
+test storage::database::tests::acknowledged_connection_uses_full_durability_and_patched_sqlite ... ok
+test storage::database::tests::sqlite_read_only_rejects_transaction_without_partial_save ... ok
+test storage::database::tests::overflowing_aggregate_never_rounds_to_real_and_never_acknowledges_partial_result ... ok
+test storage::database::tests::sqlite_full_rolls_back_result_children_stats_and_can_retry_same_record ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 37 filtered out; finished in 0.67s
+
+EXIT 0
+
+COMMAND msrv: cargo +1.88.0 test --locked --offline --all-features -p typ-local --test storage_acceptance
+   Compiling typ-local v1.0.0 (/Users/james/Desktop/u/typing_test_gpt6astra)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.07s
+     Running tests/storage_acceptance.rs (target/msrv/debug/deps/storage_acceptance-ad69ed44be703f1d)
+
+running 30 tests
+test corrupt_and_unknown_schema_databases_are_preserved_and_report_unsaved ... ok
+test history_100000_rows_reports_first_page_and_summary_p95 ... ignored, run explicitly in release mode; records a 100,000-row history benchmark
+test hostile_trace_bounds_order_and_nonfinite_metrics_are_rejected ... ok
+test async_queries_correlate_request_ids_and_do_not_announce_unloaded_bests ... ok
+test an_existing_read_only_worker_observes_history_created_by_another_process ... ok
+test an_oversized_opted_in_word_diagnostic_is_explicitly_omitted_without_losing_the_result ... ok
+test caller_and_worker_release_owned_pending_records_after_commit_or_shutdown ... ok
+test missing_read_only_history_is_empty_and_creates_nothing ... ok
+test migration_acknowledgement_precedes_saved_result_samples_and_stats ... ok
+test malformed_review_requests_and_tampered_best_ids_are_rejected_without_echoing_text ... ok
+test entered_orphan_continuations_round_trip_without_relaxing_control_or_grapheme_limits ... ok
+test new_storage_files_are_private_and_final_symlinks_are_refused ... ok
+test private_and_default_custom_records_have_no_text_path_or_diagnostics ... ok
+test read_only_worker_queries_missing_or_existing_history_without_creating_or_saving ... ok
+test profile_and_filter_isolation_and_weighted_statistics_are_exact ... ok
+test reconfiguration_reuses_the_worker_and_preserves_save_then_read_only_order ... ok
+test classification_filters_preserve_overlapping_assistance_and_independent_outcomes ... ok
+test replaying_a_save_id_is_idempotent_for_rows_stats_samples_and_bests ... ok
+test locked_database_retains_bounded_pending_records_without_blocking_submission ... ok
+test reducing_pending_capacity_preserves_owned_snapshots_and_later_retry ... ok
+test retained_zen_text_has_an_explicit_scope_and_accepts_visible_input_continuations ... ok
+test local_best_uses_exact_ratios_and_excludes_every_ineligible_outcome ... ok
+test stored_custom_review_requires_the_same_normalized_source_and_honest_missing_input ... ok
+test saturated_worker_reconfiguration_leaves_the_previous_frontend_policy_intact ... ok
+test text_and_event_trace_opt_ins_are_independent_and_exports_require_text_opt_in ... ok
+test zen_and_zero_duration_do_not_invent_target_speed_or_accuracy ... ok
+test paginated_export_holds_a_consistent_snapshot_while_another_writer_commits ... ok
+test a_maximum_legal_custom_token_and_body_can_be_saved_and_read_with_matching_identity ... ok
+test nfc_expanded_legal_custom_body_and_diagnostics_round_trip_and_original_matches ... ok
+test serialized_diagnostic_budget_is_bounded_and_omissions_are_explicit ... ok
+
+test result: ok. 29 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 8.37s
+
+EXIT 0

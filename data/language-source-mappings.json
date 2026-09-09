@@ -1,0 +1,2408 @@
+{
+  "french": [
+    {
+      "token": "le",
+      "source_form": "le"
+    },
+    {
+      "token": "la",
+      "source_form": "la"
+    },
+    {
+      "token": "les",
+      "source_form": "les"
+    },
+    {
+      "token": "un",
+      "source_form": "un"
+    },
+    {
+      "token": "une",
+      "source_form": "une"
+    },
+    {
+      "token": "des",
+      "source_form": "des"
+    },
+    {
+      "token": "du",
+      "source_form": "du"
+    },
+    {
+      "token": "de",
+      "source_form": "de"
+    },
+    {
+      "token": "à",
+      "source_form": "a`"
+    },
+    {
+      "token": "et",
+      "source_form": "et"
+    },
+    {
+      "token": "ou",
+      "source_form": "ou"
+    },
+    {
+      "token": "mais",
+      "source_form": "mais"
+    },
+    {
+      "token": "donc",
+      "source_form": "donc"
+    },
+    {
+      "token": "car",
+      "source_form": "car"
+    },
+    {
+      "token": "ni",
+      "source_form": "ni"
+    },
+    {
+      "token": "que",
+      "source_form": "que"
+    },
+    {
+      "token": "qui",
+      "source_form": "qui"
+    },
+    {
+      "token": "quoi",
+      "source_form": "quoi"
+    },
+    {
+      "token": "où",
+      "source_form": "ou`"
+    },
+    {
+      "token": "quand",
+      "source_form": "quand"
+    },
+    {
+      "token": "comment",
+      "source_form": "comment"
+    },
+    {
+      "token": "pourquoi",
+      "source_form": "pourquoi"
+    },
+    {
+      "token": "je",
+      "source_form": "je"
+    },
+    {
+      "token": "tu",
+      "source_form": "tu"
+    },
+    {
+      "token": "il",
+      "source_form": "il"
+    },
+    {
+      "token": "elle",
+      "source_form": "elle"
+    },
+    {
+      "token": "nous",
+      "source_form": "nous"
+    },
+    {
+      "token": "vous",
+      "source_form": "vous"
+    },
+    {
+      "token": "ils",
+      "source_form": "ils"
+    },
+    {
+      "token": "elles",
+      "source_form": "elles"
+    },
+    {
+      "token": "me",
+      "source_form": "me"
+    },
+    {
+      "token": "te",
+      "source_form": "te"
+    },
+    {
+      "token": "se",
+      "source_form": "se"
+    },
+    {
+      "token": "mon",
+      "source_form": "mon"
+    },
+    {
+      "token": "ton",
+      "source_form": "ton"
+    },
+    {
+      "token": "son",
+      "source_form": "son"
+    },
+    {
+      "token": "ma",
+      "source_form": "ma"
+    },
+    {
+      "token": "ta",
+      "source_form": "ta"
+    },
+    {
+      "token": "sa",
+      "source_form": "sa"
+    },
+    {
+      "token": "mes",
+      "source_form": "mes"
+    },
+    {
+      "token": "tes",
+      "source_form": "tes"
+    },
+    {
+      "token": "ses",
+      "source_form": "ses"
+    },
+    {
+      "token": "notre",
+      "source_form": "notre"
+    },
+    {
+      "token": "votre",
+      "source_form": "votre"
+    },
+    {
+      "token": "leur",
+      "source_form": "leur"
+    },
+    {
+      "token": "nos",
+      "source_form": "nos"
+    },
+    {
+      "token": "vos",
+      "source_form": "vos"
+    },
+    {
+      "token": "leurs",
+      "source_form": "leurs"
+    },
+    {
+      "token": "ce",
+      "source_form": "ce"
+    },
+    {
+      "token": "cet",
+      "source_form": "cet"
+    },
+    {
+      "token": "cette",
+      "source_form": "cette"
+    },
+    {
+      "token": "ces",
+      "source_form": "ces"
+    },
+    {
+      "token": "être",
+      "source_form": "e^tre"
+    },
+    {
+      "token": "avoir",
+      "source_form": "avoir"
+    },
+    {
+      "token": "faire",
+      "source_form": "faire"
+    },
+    {
+      "token": "dire",
+      "source_form": "dire"
+    },
+    {
+      "token": "aller",
+      "source_form": "aller"
+    },
+    {
+      "token": "voir",
+      "source_form": "voir"
+    },
+    {
+      "token": "savoir",
+      "source_form": "savoir"
+    },
+    {
+      "token": "pouvoir",
+      "source_form": "pouvoir"
+    },
+    {
+      "token": "vouloir",
+      "source_form": "vouloir"
+    },
+    {
+      "token": "venir",
+      "source_form": "venir"
+    },
+    {
+      "token": "devoir",
+      "source_form": "devoir"
+    },
+    {
+      "token": "prendre",
+      "source_form": "prendre"
+    },
+    {
+      "token": "donner",
+      "source_form": "donner"
+    },
+    {
+      "token": "parler",
+      "source_form": "parler"
+    },
+    {
+      "token": "aimer",
+      "source_form": "aimer"
+    },
+    {
+      "token": "penser",
+      "source_form": "penser"
+    },
+    {
+      "token": "trouver",
+      "source_form": "trouver"
+    },
+    {
+      "token": "laisser",
+      "source_form": "laisser"
+    },
+    {
+      "token": "demander",
+      "source_form": "demander"
+    },
+    {
+      "token": "comprendre",
+      "source_form": "comprendre"
+    },
+    {
+      "token": "mettre",
+      "source_form": "mettre"
+    },
+    {
+      "token": "rester",
+      "source_form": "rester"
+    },
+    {
+      "token": "passer",
+      "source_form": "passer"
+    },
+    {
+      "token": "porter",
+      "source_form": "porter"
+    },
+    {
+      "token": "regarder",
+      "source_form": "regarder"
+    },
+    {
+      "token": "appeler",
+      "source_form": "appeler"
+    },
+    {
+      "token": "jouer",
+      "source_form": "jouer"
+    },
+    {
+      "token": "vivre",
+      "source_form": "vivre"
+    },
+    {
+      "token": "croire",
+      "source_form": "croire"
+    },
+    {
+      "token": "entendre",
+      "source_form": "entendre"
+    },
+    {
+      "token": "suivre",
+      "source_form": "suivre"
+    },
+    {
+      "token": "attendre",
+      "source_form": "attendre"
+    },
+    {
+      "token": "sentir",
+      "source_form": "sentir"
+    },
+    {
+      "token": "sortir",
+      "source_form": "sortir"
+    },
+    {
+      "token": "entrer",
+      "source_form": "entrer"
+    },
+    {
+      "token": "lire",
+      "source_form": "lire"
+    },
+    {
+      "token": "écrire",
+      "source_form": "e'crire"
+    },
+    {
+      "token": "manger",
+      "source_form": "manger"
+    },
+    {
+      "token": "boire",
+      "source_form": "boire"
+    },
+    {
+      "token": "dormir",
+      "source_form": "dormir"
+    },
+    {
+      "token": "marcher",
+      "source_form": "marcher"
+    },
+    {
+      "token": "courir",
+      "source_form": "courir"
+    },
+    {
+      "token": "ouvrir",
+      "source_form": "ouvrir"
+    },
+    {
+      "token": "fermer",
+      "source_form": "fermer"
+    },
+    {
+      "token": "apprendre",
+      "source_form": "apprendre"
+    },
+    {
+      "token": "choisir",
+      "source_form": "choisir"
+    },
+    {
+      "token": "finir",
+      "source_form": "finir"
+    },
+    {
+      "token": "commencer",
+      "source_form": "commencer"
+    },
+    {
+      "token": "continuer",
+      "source_form": "continuer"
+    },
+    {
+      "token": "travailler",
+      "source_form": "travailler"
+    },
+    {
+      "token": "chercher",
+      "source_form": "chercher"
+    },
+    {
+      "token": "changer",
+      "source_form": "changer"
+    },
+    {
+      "token": "arriver",
+      "source_form": "arriver"
+    },
+    {
+      "token": "partir",
+      "source_form": "partir"
+    },
+    {
+      "token": "revenir",
+      "source_form": "revenir"
+    },
+    {
+      "token": "tenir",
+      "source_form": "tenir"
+    },
+    {
+      "token": "compter",
+      "source_form": "compter"
+    },
+    {
+      "token": "tomber",
+      "source_form": "tomber"
+    },
+    {
+      "token": "montrer",
+      "source_form": "montrer"
+    },
+    {
+      "token": "gagner",
+      "source_form": "gagner"
+    },
+    {
+      "token": "perdre",
+      "source_form": "perdre"
+    },
+    {
+      "token": "acheter",
+      "source_form": "acheter"
+    },
+    {
+      "token": "vendre",
+      "source_form": "vendre"
+    },
+    {
+      "token": "payer",
+      "source_form": "payer"
+    },
+    {
+      "token": "recevoir",
+      "source_form": "recevoir"
+    },
+    {
+      "token": "rendre",
+      "source_form": "rendre"
+    },
+    {
+      "token": "servir",
+      "source_form": "servir"
+    },
+    {
+      "token": "devenir",
+      "source_form": "devenir"
+    },
+    {
+      "token": "connaître",
+      "source_form": "connai^tre"
+    },
+    {
+      "token": "paraître",
+      "source_form": "parai^tre"
+    },
+    {
+      "token": "permettre",
+      "source_form": "permettre"
+    },
+    {
+      "token": "répondre",
+      "source_form": "re'pondre"
+    },
+    {
+      "token": "offrir",
+      "source_form": "offrir"
+    },
+    {
+      "token": "préparer",
+      "source_form": "pre'parer"
+    },
+    {
+      "token": "écouter",
+      "source_form": "e'couter"
+    },
+    {
+      "token": "aider",
+      "source_form": "aider"
+    },
+    {
+      "token": "oublier",
+      "source_form": "oublier"
+    },
+    {
+      "token": "rappeler",
+      "source_form": "rappeler"
+    },
+    {
+      "token": "rencontrer",
+      "source_form": "rencontrer"
+    },
+    {
+      "token": "poser",
+      "source_form": "poser"
+    },
+    {
+      "token": "lever",
+      "source_form": "lever"
+    },
+    {
+      "token": "tourner",
+      "source_form": "tourner"
+    },
+    {
+      "token": "utiliser",
+      "source_form": "utiliser"
+    },
+    {
+      "token": "garder",
+      "source_form": "garder"
+    },
+    {
+      "token": "construire",
+      "source_form": "construire"
+    },
+    {
+      "token": "conduire",
+      "source_form": "conduire"
+    },
+    {
+      "token": "créer",
+      "source_form": "cre'er"
+    },
+    {
+      "token": "obtenir",
+      "source_form": "obtenir"
+    },
+    {
+      "token": "expliquer",
+      "source_form": "expliquer"
+    },
+    {
+      "token": "décider",
+      "source_form": "de'cider"
+    },
+    {
+      "token": "essayer",
+      "source_form": "essayer"
+    },
+    {
+      "token": "inviter",
+      "source_form": "inviter"
+    },
+    {
+      "token": "partager",
+      "source_form": "partager"
+    },
+    {
+      "token": "voyager",
+      "source_form": "voyager"
+    },
+    {
+      "token": "histoire",
+      "source_form": "histoire"
+    },
+    {
+      "token": "temps",
+      "source_form": "temps"
+    },
+    {
+      "token": "jour",
+      "source_form": "jour"
+    },
+    {
+      "token": "nuit",
+      "source_form": "nuit"
+    },
+    {
+      "token": "matin",
+      "source_form": "matin"
+    },
+    {
+      "token": "soir",
+      "source_form": "soir"
+    },
+    {
+      "token": "semaine",
+      "source_form": "semaine"
+    },
+    {
+      "token": "mois",
+      "source_form": "mois"
+    },
+    {
+      "token": "année",
+      "source_form": "anne'e"
+    },
+    {
+      "token": "heure",
+      "source_form": "heure"
+    },
+    {
+      "token": "minute",
+      "source_form": "minute"
+    },
+    {
+      "token": "aujourd'hui",
+      "source_form": "aujourd'hui"
+    },
+    {
+      "token": "demain",
+      "source_form": "demain"
+    },
+    {
+      "token": "hier",
+      "source_form": "hier"
+    },
+    {
+      "token": "maintenant",
+      "source_form": "maintenant"
+    },
+    {
+      "token": "toujours",
+      "source_form": "toujours"
+    },
+    {
+      "token": "jamais",
+      "source_form": "jamais"
+    },
+    {
+      "token": "souvent",
+      "source_form": "souvent"
+    },
+    {
+      "token": "parfois",
+      "source_form": "parfois"
+    },
+    {
+      "token": "encore",
+      "source_form": "encore"
+    },
+    {
+      "token": "déjà",
+      "source_form": "de'ja`"
+    },
+    {
+      "token": "bientôt",
+      "source_form": "biento^t"
+    },
+    {
+      "token": "ici",
+      "source_form": "ici"
+    },
+    {
+      "token": "là",
+      "source_form": "la`"
+    },
+    {
+      "token": "partout",
+      "source_form": "partout"
+    },
+    {
+      "token": "ailleurs",
+      "source_form": "ailleurs"
+    },
+    {
+      "token": "avant",
+      "source_form": "avant"
+    },
+    {
+      "token": "après",
+      "source_form": "apre`s"
+    },
+    {
+      "token": "pendant",
+      "source_form": "pendant"
+    },
+    {
+      "token": "depuis",
+      "source_form": "depuis"
+    },
+    {
+      "token": "avec",
+      "source_form": "avec"
+    },
+    {
+      "token": "sans",
+      "source_form": "sans"
+    },
+    {
+      "token": "sous",
+      "source_form": "sous"
+    },
+    {
+      "token": "sur",
+      "source_form": "sur"
+    },
+    {
+      "token": "entre",
+      "source_form": "entre"
+    },
+    {
+      "token": "devant",
+      "source_form": "devant"
+    },
+    {
+      "token": "derrière",
+      "source_form": "derrie`re"
+    },
+    {
+      "token": "dans",
+      "source_form": "dans"
+    },
+    {
+      "token": "contre",
+      "source_form": "contre"
+    },
+    {
+      "token": "vers",
+      "source_form": "vers"
+    },
+    {
+      "token": "chez",
+      "source_form": "chez"
+    },
+    {
+      "token": "pour",
+      "source_form": "pour"
+    },
+    {
+      "token": "par",
+      "source_form": "par"
+    },
+    {
+      "token": "comme",
+      "source_form": "comme"
+    },
+    {
+      "token": "plus",
+      "source_form": "plus"
+    },
+    {
+      "token": "moins",
+      "source_form": "moins"
+    },
+    {
+      "token": "très",
+      "source_form": "tre`s"
+    },
+    {
+      "token": "bien",
+      "source_form": "bien"
+    },
+    {
+      "token": "mal",
+      "source_form": "mal"
+    },
+    {
+      "token": "beaucoup",
+      "source_form": "beaucoup"
+    },
+    {
+      "token": "peu",
+      "source_form": "peu"
+    },
+    {
+      "token": "assez",
+      "source_form": "assez"
+    },
+    {
+      "token": "trop",
+      "source_form": "trop"
+    },
+    {
+      "token": "tout",
+      "source_form": "tout"
+    }
+  ],
+  "german": [
+    {
+      "token": "die",
+      "source_form": "die"
+    },
+    {
+      "token": "ein",
+      "source_form": "ein"
+    },
+    {
+      "token": "eine",
+      "source_form": "eine"
+    },
+    {
+      "token": "eines",
+      "source_form": "eines"
+    },
+    {
+      "token": "einer",
+      "source_form": "einer"
+    },
+    {
+      "token": "einen",
+      "source_form": "einen"
+    },
+    {
+      "token": "oder",
+      "source_form": "oder"
+    },
+    {
+      "token": "aber",
+      "source_form": "aber"
+    },
+    {
+      "token": "denn",
+      "source_form": "denn"
+    },
+    {
+      "token": "doch",
+      "source_form": "doch"
+    },
+    {
+      "token": "als",
+      "source_form": "als"
+    },
+    {
+      "token": "wenn",
+      "source_form": "wenn"
+    },
+    {
+      "token": "weil",
+      "source_form": "weil"
+    },
+    {
+      "token": "dass",
+      "source_form": "dass"
+    },
+    {
+      "token": "ob",
+      "source_form": "ob"
+    },
+    {
+      "token": "was",
+      "source_form": "was"
+    },
+    {
+      "token": "wer",
+      "source_form": "wer"
+    },
+    {
+      "token": "wo",
+      "source_form": "wo"
+    },
+    {
+      "token": "ich",
+      "source_form": "ich"
+    },
+    {
+      "token": "er",
+      "source_form": "er"
+    },
+    {
+      "token": "es",
+      "source_form": "es"
+    },
+    {
+      "token": "ihr",
+      "source_form": "ihr"
+    },
+    {
+      "token": "mich",
+      "source_form": "mich"
+    },
+    {
+      "token": "dich",
+      "source_form": "dich"
+    },
+    {
+      "token": "sich",
+      "source_form": "sich"
+    },
+    {
+      "token": "mir",
+      "source_form": "mir"
+    },
+    {
+      "token": "dir",
+      "source_form": "dir"
+    },
+    {
+      "token": "uns",
+      "source_form": "uns"
+    },
+    {
+      "token": "euch",
+      "source_form": "euch"
+    },
+    {
+      "token": "dein",
+      "source_form": "dein"
+    },
+    {
+      "token": "sein",
+      "source_form": "sein"
+    },
+    {
+      "token": "unser",
+      "source_form": "unser"
+    },
+    {
+      "token": "euer",
+      "source_form": "euer"
+    },
+    {
+      "token": "dieser",
+      "source_form": "dieser"
+    },
+    {
+      "token": "dieses",
+      "source_form": "dieses"
+    },
+    {
+      "token": "jener",
+      "source_form": "jener"
+    },
+    {
+      "token": "jene",
+      "source_form": "jene"
+    },
+    {
+      "token": "jedes",
+      "source_form": "jedes"
+    },
+    {
+      "token": "jeder",
+      "source_form": "jeder"
+    },
+    {
+      "token": "jede",
+      "source_form": "jede"
+    },
+    {
+      "token": "kein",
+      "source_form": "kein"
+    },
+    {
+      "token": "keine",
+      "source_form": "keine"
+    },
+    {
+      "token": "nicht",
+      "source_form": "nicht"
+    },
+    {
+      "token": "noch",
+      "source_form": "noch"
+    },
+    {
+      "token": "schon",
+      "source_form": "schon"
+    },
+    {
+      "token": "nur",
+      "source_form": "nur"
+    },
+    {
+      "token": "auch",
+      "source_form": "auch"
+    },
+    {
+      "token": "nie",
+      "source_form": "nie"
+    },
+    {
+      "token": "oft",
+      "source_form": "oft"
+    },
+    {
+      "token": "manchmal",
+      "source_form": "manchmal"
+    },
+    {
+      "token": "heute",
+      "source_form": "heute"
+    },
+    {
+      "token": "jetzt",
+      "source_form": "jetzt"
+    },
+    {
+      "token": "überall",
+      "source_form": "ueberall"
+    },
+    {
+      "token": "vorher",
+      "source_form": "vorher"
+    },
+    {
+      "token": "nachher",
+      "source_form": "nachher"
+    },
+    {
+      "token": "sehr",
+      "source_form": "sehr"
+    },
+    {
+      "token": "mehr",
+      "source_form": "mehr"
+    },
+    {
+      "token": "weniger",
+      "source_form": "weniger"
+    },
+    {
+      "token": "viel",
+      "source_form": "viel"
+    },
+    {
+      "token": "wenig",
+      "source_form": "wenig"
+    },
+    {
+      "token": "alle",
+      "source_form": "alle"
+    },
+    {
+      "token": "alles",
+      "source_form": "alles"
+    },
+    {
+      "token": "etwas",
+      "source_form": "etwas"
+    },
+    {
+      "token": "nichts",
+      "source_form": "nichts"
+    },
+    {
+      "token": "man",
+      "source_form": "man"
+    },
+    {
+      "token": "selbst",
+      "source_form": "selbst"
+    },
+    {
+      "token": "zusammen",
+      "source_form": "zusammen"
+    },
+    {
+      "token": "wieder",
+      "source_form": "wieder"
+    },
+    {
+      "token": "gern",
+      "source_form": "gern"
+    },
+    {
+      "token": "wirklich",
+      "source_form": "wirklich"
+    },
+    {
+      "token": "vielleicht",
+      "source_form": "vielleicht"
+    },
+    {
+      "token": "haben",
+      "source_form": "haben"
+    },
+    {
+      "token": "können",
+      "source_form": "koennen"
+    },
+    {
+      "token": "müssen",
+      "source_form": "muessen"
+    },
+    {
+      "token": "sollen",
+      "source_form": "sollen"
+    },
+    {
+      "token": "dürfen",
+      "source_form": "duerfen"
+    },
+    {
+      "token": "machen",
+      "source_form": "machen"
+    },
+    {
+      "token": "sagen",
+      "source_form": "sagen"
+    },
+    {
+      "token": "gehen",
+      "source_form": "gehen"
+    },
+    {
+      "token": "sehen",
+      "source_form": "sehen"
+    },
+    {
+      "token": "wissen",
+      "source_form": "wissen"
+    },
+    {
+      "token": "geben",
+      "source_form": "geben"
+    },
+    {
+      "token": "nehmen",
+      "source_form": "nehmen"
+    },
+    {
+      "token": "lassen",
+      "source_form": "lassen"
+    },
+    {
+      "token": "stehen",
+      "source_form": "stehen"
+    },
+    {
+      "token": "liegen",
+      "source_form": "liegen"
+    },
+    {
+      "token": "sitzen",
+      "source_form": "sitzen"
+    },
+    {
+      "token": "halten",
+      "source_form": "halten"
+    },
+    {
+      "token": "bringen",
+      "source_form": "bringen"
+    },
+    {
+      "token": "heißen",
+      "source_form": "heissen"
+    },
+    {
+      "token": "sprechen",
+      "source_form": "sprechen"
+    },
+    {
+      "token": "lernen",
+      "source_form": "lernen"
+    },
+    {
+      "token": "schreiben",
+      "source_form": "schreiben"
+    },
+    {
+      "token": "arbeiten",
+      "source_form": "arbeiten"
+    },
+    {
+      "token": "spielen",
+      "source_form": "spielen"
+    },
+    {
+      "token": "leben",
+      "source_form": "leben"
+    },
+    {
+      "token": "lieben",
+      "source_form": "lieben"
+    },
+    {
+      "token": "hören",
+      "source_form": "hoeren"
+    },
+    {
+      "token": "helfen",
+      "source_form": "helfen"
+    },
+    {
+      "token": "suchen",
+      "source_form": "suchen"
+    },
+    {
+      "token": "beginnen",
+      "source_form": "beginnen"
+    },
+    {
+      "token": "enden",
+      "source_form": "enden"
+    },
+    {
+      "token": "laufen",
+      "source_form": "laufen"
+    },
+    {
+      "token": "fliegen",
+      "source_form": "fliegen"
+    },
+    {
+      "token": "schwimmen",
+      "source_form": "schwimmen"
+    },
+    {
+      "token": "trinken",
+      "source_form": "trinken"
+    },
+    {
+      "token": "schlafen",
+      "source_form": "schlafen"
+    },
+    {
+      "token": "kaufen",
+      "source_form": "kaufen"
+    },
+    {
+      "token": "verkaufen",
+      "source_form": "verkaufen"
+    },
+    {
+      "token": "bezahlen",
+      "source_form": "bezahlen"
+    },
+    {
+      "token": "treffen",
+      "source_form": "treffen"
+    },
+    {
+      "token": "ziehen",
+      "source_form": "ziehen"
+    },
+    {
+      "token": "bauen",
+      "source_form": "bauen"
+    },
+    {
+      "token": "versuchen",
+      "source_form": "versuchen"
+    },
+    {
+      "token": "bekommen",
+      "source_form": "bekommen"
+    },
+    {
+      "token": "behalten",
+      "source_form": "behalten"
+    },
+    {
+      "token": "vergessen",
+      "source_form": "vergessen"
+    },
+    {
+      "token": "erzählen",
+      "source_form": "erzaehlen"
+    },
+    {
+      "token": "fühlen",
+      "source_form": "fuehlen"
+    },
+    {
+      "token": "wachsen",
+      "source_form": "wachsen"
+    },
+    {
+      "token": "fallen",
+      "source_form": "fallen"
+    },
+    {
+      "token": "schauen",
+      "source_form": "schauen"
+    },
+    {
+      "token": "glauben",
+      "source_form": "glauben"
+    },
+    {
+      "token": "Zeit",
+      "source_form": "Zeit"
+    },
+    {
+      "token": "Tag",
+      "source_form": "Tag"
+    },
+    {
+      "token": "Nacht",
+      "source_form": "Nacht"
+    },
+    {
+      "token": "Morgen",
+      "source_form": "Morgen"
+    },
+    {
+      "token": "Abend",
+      "source_form": "Abend"
+    },
+    {
+      "token": "Woche",
+      "source_form": "Woche"
+    },
+    {
+      "token": "Monat",
+      "source_form": "Monat"
+    },
+    {
+      "token": "Jahr",
+      "source_form": "Jahr"
+    },
+    {
+      "token": "Minute",
+      "source_form": "Minute"
+    },
+    {
+      "token": "Welt",
+      "source_form": "Welt"
+    },
+    {
+      "token": "Land",
+      "source_form": "Land"
+    },
+    {
+      "token": "Stadt",
+      "source_form": "Stadt"
+    },
+    {
+      "token": "Dorf",
+      "source_form": "Dorf"
+    },
+    {
+      "token": "Haus",
+      "source_form": "Haus"
+    },
+    {
+      "token": "Tür",
+      "source_form": "Tuer"
+    },
+    {
+      "token": "Fenster",
+      "source_form": "Fenster"
+    },
+    {
+      "token": "Bett",
+      "source_form": "Bett"
+    },
+    {
+      "token": "Buch",
+      "source_form": "Buch"
+    },
+    {
+      "token": "Straße",
+      "source_form": "Strasse"
+    },
+    {
+      "token": "Weg",
+      "source_form": "Weg"
+    },
+    {
+      "token": "Garten",
+      "source_form": "Garten"
+    },
+    {
+      "token": "Baum",
+      "source_form": "Baum"
+    },
+    {
+      "token": "Blume",
+      "source_form": "Blume"
+    },
+    {
+      "token": "Sonne",
+      "source_form": "Sonne"
+    },
+    {
+      "token": "Himmel",
+      "source_form": "Himmel"
+    },
+    {
+      "token": "Feuer",
+      "source_form": "Feuer"
+    },
+    {
+      "token": "Erde",
+      "source_form": "Erde"
+    },
+    {
+      "token": "Luft",
+      "source_form": "Luft"
+    },
+    {
+      "token": "Meer",
+      "source_form": "Meer"
+    },
+    {
+      "token": "Fluss",
+      "source_form": "Fluss"
+    },
+    {
+      "token": "Milch",
+      "source_form": "Milch"
+    },
+    {
+      "token": "Kaffee",
+      "source_form": "Kaffee"
+    },
+    {
+      "token": "Hund",
+      "source_form": "Hund"
+    },
+    {
+      "token": "Fisch",
+      "source_form": "Fisch"
+    },
+    {
+      "token": "Pferd",
+      "source_form": "Pferd"
+    },
+    {
+      "token": "Familie",
+      "source_form": "Familie"
+    },
+    {
+      "token": "Mutter",
+      "source_form": "Mutter"
+    },
+    {
+      "token": "Vater",
+      "source_form": "Vater"
+    },
+    {
+      "token": "Bruder",
+      "source_form": "Bruder"
+    },
+    {
+      "token": "Kind",
+      "source_form": "Kind"
+    },
+    {
+      "token": "Tochter",
+      "source_form": "Tochter"
+    },
+    {
+      "token": "Arbeit",
+      "source_form": "Arbeit"
+    },
+    {
+      "token": "Frage",
+      "source_form": "Frage"
+    },
+    {
+      "token": "Antwort",
+      "source_form": "Antwort"
+    },
+    {
+      "token": "Wort",
+      "source_form": "Wort"
+    },
+    {
+      "token": "Satz",
+      "source_form": "Satz"
+    },
+    {
+      "token": "Sprache",
+      "source_form": "Sprache"
+    },
+    {
+      "token": "Musik",
+      "source_form": "Musik"
+    },
+    {
+      "token": "Bild",
+      "source_form": "Bild"
+    },
+    {
+      "token": "Farbe",
+      "source_form": "Farbe"
+    },
+    {
+      "token": "Licht",
+      "source_form": "Licht"
+    },
+    {
+      "token": "Stimme",
+      "source_form": "Stimme"
+    },
+    {
+      "token": "Ding",
+      "source_form": "Ding"
+    },
+    {
+      "token": "Grund",
+      "source_form": "Grund"
+    },
+    {
+      "token": "Idee",
+      "source_form": "Idee"
+    },
+    {
+      "token": "Ende",
+      "source_form": "Ende"
+    },
+    {
+      "token": "Anfang",
+      "source_form": "Anfang"
+    },
+    {
+      "token": "Seite",
+      "source_form": "Seite"
+    },
+    {
+      "token": "Form",
+      "source_form": "Form"
+    },
+    {
+      "token": "Teil",
+      "source_form": "Teil"
+    },
+    {
+      "token": "Beispiel",
+      "source_form": "Beispiel"
+    },
+    {
+      "token": "Winter",
+      "source_form": "Winter"
+    },
+    {
+      "token": "Sommer",
+      "source_form": "Sommer"
+    },
+    {
+      "token": "Frühling",
+      "source_form": "Fruehling"
+    },
+    {
+      "token": "Herbst",
+      "source_form": "Herbst"
+    },
+    {
+      "token": "Mensch",
+      "source_form": "Mensch"
+    },
+    {
+      "token": "Mann",
+      "source_form": "Mann"
+    },
+    {
+      "token": "Name",
+      "source_form": "Name"
+    },
+    {
+      "token": "Ohr",
+      "source_form": "Ohr"
+    },
+    {
+      "token": "Herz",
+      "source_form": "Herz"
+    },
+    {
+      "token": "Fuß",
+      "source_form": "Fuss"
+    },
+    {
+      "token": "Bein",
+      "source_form": "Bein"
+    },
+    {
+      "token": "Arm",
+      "source_form": "Arm"
+    },
+    {
+      "token": "Haar",
+      "source_form": "Haar"
+    },
+    {
+      "token": "Leben",
+      "source_form": "Leben"
+    },
+    {
+      "token": "Liebe",
+      "source_form": "Liebe"
+    },
+    {
+      "token": "Glück",
+      "source_form": "Glueck"
+    }
+  ],
+  "spanish": [
+    {
+      "token": "el",
+      "source_form": "el"
+    },
+    {
+      "token": "la",
+      "source_form": "la"
+    },
+    {
+      "token": "los",
+      "source_form": "los"
+    },
+    {
+      "token": "las",
+      "source_form": "las"
+    },
+    {
+      "token": "un",
+      "source_form": "un"
+    },
+    {
+      "token": "una",
+      "source_form": "una"
+    },
+    {
+      "token": "de",
+      "source_form": "de"
+    },
+    {
+      "token": "del",
+      "source_form": "del"
+    },
+    {
+      "token": "al",
+      "source_form": "al"
+    },
+    {
+      "token": "y",
+      "source_form": "y"
+    },
+    {
+      "token": "o",
+      "source_form": "o"
+    },
+    {
+      "token": "pero",
+      "source_form": "pero"
+    },
+    {
+      "token": "porque",
+      "source_form": "porque"
+    },
+    {
+      "token": "que",
+      "source_form": "que"
+    },
+    {
+      "token": "quien",
+      "source_form": "quien"
+    },
+    {
+      "token": "donde",
+      "source_form": "donde"
+    },
+    {
+      "token": "cuando",
+      "source_form": "cuando"
+    },
+    {
+      "token": "como",
+      "source_form": "como"
+    },
+    {
+      "token": "por",
+      "source_form": "por"
+    },
+    {
+      "token": "para",
+      "source_form": "para"
+    },
+    {
+      "token": "con",
+      "source_form": "con"
+    },
+    {
+      "token": "sin",
+      "source_form": "sin"
+    },
+    {
+      "token": "sobre",
+      "source_form": "sobre"
+    },
+    {
+      "token": "entre",
+      "source_form": "entre"
+    },
+    {
+      "token": "hasta",
+      "source_form": "hasta"
+    },
+    {
+      "token": "desde",
+      "source_form": "desde"
+    },
+    {
+      "token": "durante",
+      "source_form": "durante"
+    },
+    {
+      "token": "contra",
+      "source_form": "contra"
+    },
+    {
+      "token": "hacia",
+      "source_form": "hacia"
+    },
+    {
+      "token": "yo",
+      "source_form": "yo"
+    },
+    {
+      "token": "tú",
+      "source_form": "tu`"
+    },
+    {
+      "token": "él",
+      "source_form": "e`l"
+    },
+    {
+      "token": "ella",
+      "source_form": "ella"
+    },
+    {
+      "token": "nosotros",
+      "source_form": "nosotros"
+    },
+    {
+      "token": "nosotras",
+      "source_form": "nosotras"
+    },
+    {
+      "token": "vosotros",
+      "source_form": "vosotros"
+    },
+    {
+      "token": "vosotras",
+      "source_form": "vosotras"
+    },
+    {
+      "token": "ellos",
+      "source_form": "ellos"
+    },
+    {
+      "token": "ellas",
+      "source_form": "ellas"
+    },
+    {
+      "token": "me",
+      "source_form": "me"
+    },
+    {
+      "token": "te",
+      "source_form": "te"
+    },
+    {
+      "token": "se",
+      "source_form": "se"
+    },
+    {
+      "token": "nos",
+      "source_form": "nos"
+    },
+    {
+      "token": "os",
+      "source_form": "os"
+    },
+    {
+      "token": "mi",
+      "source_form": "mi"
+    },
+    {
+      "token": "tu",
+      "source_form": "tu"
+    },
+    {
+      "token": "su",
+      "source_form": "su"
+    },
+    {
+      "token": "mis",
+      "source_form": "mis"
+    },
+    {
+      "token": "tus",
+      "source_form": "tus"
+    },
+    {
+      "token": "sus",
+      "source_form": "sus"
+    },
+    {
+      "token": "nuestro",
+      "source_form": "nuestro"
+    },
+    {
+      "token": "nuestra",
+      "source_form": "nuestra"
+    },
+    {
+      "token": "vuestro",
+      "source_form": "vuestro"
+    },
+    {
+      "token": "vuestra",
+      "source_form": "vuestra"
+    },
+    {
+      "token": "este",
+      "source_form": "este"
+    },
+    {
+      "token": "esta",
+      "source_form": "esta"
+    },
+    {
+      "token": "esto",
+      "source_form": "esto"
+    },
+    {
+      "token": "ese",
+      "source_form": "ese"
+    },
+    {
+      "token": "esa",
+      "source_form": "esa"
+    },
+    {
+      "token": "eso",
+      "source_form": "eso"
+    },
+    {
+      "token": "aquel",
+      "source_form": "aquel"
+    },
+    {
+      "token": "aquella",
+      "source_form": "aquella"
+    },
+    {
+      "token": "aquí",
+      "source_form": "aqui`"
+    },
+    {
+      "token": "allí",
+      "source_form": "alli`"
+    },
+    {
+      "token": "allá",
+      "source_form": "alla`"
+    },
+    {
+      "token": "ahora",
+      "source_form": "ahora"
+    },
+    {
+      "token": "antes",
+      "source_form": "antes"
+    },
+    {
+      "token": "después",
+      "source_form": "despue`s"
+    },
+    {
+      "token": "hoy",
+      "source_form": "hoy"
+    },
+    {
+      "token": "ayer",
+      "source_form": "ayer"
+    },
+    {
+      "token": "mañana",
+      "source_form": "ma\\ana"
+    },
+    {
+      "token": "siempre",
+      "source_form": "siempre"
+    },
+    {
+      "token": "nunca",
+      "source_form": "nunca"
+    },
+    {
+      "token": "jamás",
+      "source_form": "jama`s"
+    },
+    {
+      "token": "también",
+      "source_form": "tambie`n"
+    },
+    {
+      "token": "tampoco",
+      "source_form": "tampoco"
+    },
+    {
+      "token": "muy",
+      "source_form": "muy"
+    },
+    {
+      "token": "más",
+      "source_form": "ma`s"
+    },
+    {
+      "token": "menos",
+      "source_form": "menos"
+    },
+    {
+      "token": "mucho",
+      "source_form": "mucho"
+    },
+    {
+      "token": "poco",
+      "source_form": "poco"
+    },
+    {
+      "token": "todo",
+      "source_form": "todo"
+    },
+    {
+      "token": "nada",
+      "source_form": "nada"
+    },
+    {
+      "token": "algo",
+      "source_form": "algo"
+    },
+    {
+      "token": "cada",
+      "source_form": "cada"
+    },
+    {
+      "token": "mismo",
+      "source_form": "mismo"
+    },
+    {
+      "token": "otro",
+      "source_form": "otro"
+    },
+    {
+      "token": "alguno",
+      "source_form": "alguno"
+    },
+    {
+      "token": "ninguno",
+      "source_form": "ninguno"
+    },
+    {
+      "token": "ser",
+      "source_form": "ser"
+    },
+    {
+      "token": "estar",
+      "source_form": "estar"
+    },
+    {
+      "token": "tener",
+      "source_form": "tener"
+    },
+    {
+      "token": "hacer",
+      "source_form": "hacer"
+    },
+    {
+      "token": "decir",
+      "source_form": "decir"
+    },
+    {
+      "token": "ir",
+      "source_form": "ir"
+    },
+    {
+      "token": "ver",
+      "source_form": "ver"
+    },
+    {
+      "token": "dar",
+      "source_form": "dar"
+    },
+    {
+      "token": "saber",
+      "source_form": "saber"
+    },
+    {
+      "token": "querer",
+      "source_form": "querer"
+    },
+    {
+      "token": "poder",
+      "source_form": "poder"
+    },
+    {
+      "token": "deber",
+      "source_form": "deber"
+    },
+    {
+      "token": "venir",
+      "source_form": "venir"
+    },
+    {
+      "token": "poner",
+      "source_form": "poner"
+    },
+    {
+      "token": "salir",
+      "source_form": "salir"
+    },
+    {
+      "token": "llegar",
+      "source_form": "llegar"
+    },
+    {
+      "token": "pasar",
+      "source_form": "pasar"
+    },
+    {
+      "token": "quedar",
+      "source_form": "quedar"
+    },
+    {
+      "token": "llevar",
+      "source_form": "llevar"
+    },
+    {
+      "token": "dejar",
+      "source_form": "dejar"
+    },
+    {
+      "token": "seguir",
+      "source_form": "seguir"
+    },
+    {
+      "token": "encontrar",
+      "source_form": "encontrar"
+    },
+    {
+      "token": "llamar",
+      "source_form": "llamar"
+    },
+    {
+      "token": "pensar",
+      "source_form": "pensar"
+    },
+    {
+      "token": "sentir",
+      "source_form": "sentir"
+    },
+    {
+      "token": "parecer",
+      "source_form": "parecer"
+    },
+    {
+      "token": "volver",
+      "source_form": "volver"
+    },
+    {
+      "token": "tomar",
+      "source_form": "tomar"
+    },
+    {
+      "token": "conocer",
+      "source_form": "conocer"
+    },
+    {
+      "token": "vivir",
+      "source_form": "vivir"
+    },
+    {
+      "token": "creer",
+      "source_form": "creer"
+    },
+    {
+      "token": "hablar",
+      "source_form": "hablar"
+    },
+    {
+      "token": "contar",
+      "source_form": "contar"
+    },
+    {
+      "token": "esperar",
+      "source_form": "esperar"
+    },
+    {
+      "token": "buscar",
+      "source_form": "buscar"
+    },
+    {
+      "token": "entrar",
+      "source_form": "entrar"
+    },
+    {
+      "token": "trabajar",
+      "source_form": "trabajar"
+    },
+    {
+      "token": "escribir",
+      "source_form": "escribir"
+    },
+    {
+      "token": "leer",
+      "source_form": "leer"
+    },
+    {
+      "token": "comer",
+      "source_form": "comer"
+    },
+    {
+      "token": "beber",
+      "source_form": "beber"
+    },
+    {
+      "token": "dormir",
+      "source_form": "dormir"
+    },
+    {
+      "token": "caminar",
+      "source_form": "caminar"
+    },
+    {
+      "token": "correr",
+      "source_form": "correr"
+    },
+    {
+      "token": "abrir",
+      "source_form": "abrir"
+    },
+    {
+      "token": "cerrar",
+      "source_form": "cerrar"
+    },
+    {
+      "token": "aprender",
+      "source_form": "aprender"
+    },
+    {
+      "token": "elegir",
+      "source_form": "elegir"
+    },
+    {
+      "token": "terminar",
+      "source_form": "terminar"
+    },
+    {
+      "token": "empezar",
+      "source_form": "empezar"
+    },
+    {
+      "token": "continuar",
+      "source_form": "continuar"
+    },
+    {
+      "token": "cambiar",
+      "source_form": "cambiar"
+    },
+    {
+      "token": "ayudar",
+      "source_form": "ayudar"
+    },
+    {
+      "token": "olvidar",
+      "source_form": "olvidar"
+    },
+    {
+      "token": "recordar",
+      "source_form": "recordar"
+    },
+    {
+      "token": "preguntar",
+      "source_form": "preguntar"
+    },
+    {
+      "token": "responder",
+      "source_form": "responder"
+    },
+    {
+      "token": "comprar",
+      "source_form": "comprar"
+    },
+    {
+      "token": "vender",
+      "source_form": "vender"
+    },
+    {
+      "token": "pagar",
+      "source_form": "pagar"
+    },
+    {
+      "token": "recibir",
+      "source_form": "recibir"
+    },
+    {
+      "token": "servir",
+      "source_form": "servir"
+    },
+    {
+      "token": "ganar",
+      "source_form": "ganar"
+    },
+    {
+      "token": "perder",
+      "source_form": "perder"
+    },
+    {
+      "token": "jugar",
+      "source_form": "jugar"
+    },
+    {
+      "token": "escuchar",
+      "source_form": "escuchar"
+    },
+    {
+      "token": "mirar",
+      "source_form": "mirar"
+    },
+    {
+      "token": "usar",
+      "source_form": "usar"
+    },
+    {
+      "token": "preparar",
+      "source_form": "preparar"
+    },
+    {
+      "token": "viajar",
+      "source_form": "viajar"
+    },
+    {
+      "token": "construir",
+      "source_form": "construir"
+    },
+    {
+      "token": "crear",
+      "source_form": "crear"
+    },
+    {
+      "token": "entender",
+      "source_form": "entender"
+    },
+    {
+      "token": "necesitar",
+      "source_form": "necesitar"
+    },
+    {
+      "token": "ofrecer",
+      "source_form": "ofrecer"
+    },
+    {
+      "token": "compartir",
+      "source_form": "compartir"
+    },
+    {
+      "token": "explicar",
+      "source_form": "explicar"
+    },
+    {
+      "token": "decidir",
+      "source_form": "decidir"
+    },
+    {
+      "token": "probar",
+      "source_form": "probar"
+    },
+    {
+      "token": "invitar",
+      "source_form": "invitar"
+    },
+    {
+      "token": "reunir",
+      "source_form": "reunir"
+    },
+    {
+      "token": "subir",
+      "source_form": "subir"
+    },
+    {
+      "token": "bajar",
+      "source_form": "bajar"
+    },
+    {
+      "token": "caer",
+      "source_form": "caer"
+    },
+    {
+      "token": "crecer",
+      "source_form": "crecer"
+    },
+    {
+      "token": "nacer",
+      "source_form": "nacer"
+    },
+    {
+      "token": "morir",
+      "source_form": "morir"
+    },
+    {
+      "token": "tiempo",
+      "source_form": "tiempo"
+    },
+    {
+      "token": "día",
+      "source_form": "di`a"
+    },
+    {
+      "token": "noche",
+      "source_form": "noche"
+    },
+    {
+      "token": "tarde",
+      "source_form": "tarde"
+    },
+    {
+      "token": "semana",
+      "source_form": "semana"
+    },
+    {
+      "token": "mes",
+      "source_form": "mes"
+    },
+    {
+      "token": "año",
+      "source_form": "a\\o"
+    },
+    {
+      "token": "hora",
+      "source_form": "hora"
+    },
+    {
+      "token": "minuto",
+      "source_form": "minuto"
+    },
+    {
+      "token": "mundo",
+      "source_form": "mundo"
+    },
+    {
+      "token": "país",
+      "source_form": "pai`s"
+    },
+    {
+      "token": "ciudad",
+      "source_form": "ciudad"
+    },
+    {
+      "token": "pueblo",
+      "source_form": "pueblo"
+    },
+    {
+      "token": "casa",
+      "source_form": "casa"
+    },
+    {
+      "token": "puerta",
+      "source_form": "puerta"
+    },
+    {
+      "token": "ventana",
+      "source_form": "ventana"
+    },
+    {
+      "token": "habitación",
+      "source_form": "habitacio`n"
+    },
+    {
+      "token": "mesa",
+      "source_form": "mesa"
+    },
+    {
+      "token": "silla",
+      "source_form": "silla"
+    },
+    {
+      "token": "cama",
+      "source_form": "cama"
+    },
+    {
+      "token": "libro",
+      "source_form": "libro"
+    },
+    {
+      "token": "escuela",
+      "source_form": "escuela"
+    },
+    {
+      "token": "calle",
+      "source_form": "calle"
+    },
+    {
+      "token": "camino",
+      "source_form": "camino"
+    }
+  ]
+}

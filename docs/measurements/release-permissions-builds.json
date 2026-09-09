@@ -1,0 +1,345 @@
+{
+  "report_version": 1,
+  "recorded_at_utc": "2026-09-07T04:20:25.704197+00:00",
+  "inspector_version": "Apple LLVM version 21.0.0\n  Optimized build.\n\n\n  Registered Targets:\n    aarch64    - AArch64 (little endian)\n    aarch64_32 - AArch64 (little endian ILP32)\n    aarch64_be - AArch64 (big endian)\n    arm        - ARM\n    arm64      - ARM64 (little endian)\n    arm64_32   - ARM64 (little endian ILP32)\n    armeb      - ARM (big endian)\n    thumb      - Thumb\n    thumbeb    - Thumb (big endian)\n    x86        - 32-bit X86: Pentium-Pro and above\n    x86-64     - 64-bit X86: EM64T and AMD64\n",
+  "builds": [
+    {
+      "target": "aarch64-apple-darwin",
+      "test_hooks": false,
+      "command": [
+        "cargo",
+        "+stable",
+        "build",
+        "--locked",
+        "--offline",
+        "--release",
+        "--no-default-features",
+        "--target",
+        "aarch64-apple-darwin",
+        "-j",
+        "2"
+      ],
+      "target_directory": "target/release-packages",
+      "source_before": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+      "source_after": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+      "binary": "target/release-packages/aarch64-apple-darwin/release/typ",
+      "snapshot": "target/release-permissions/typ-aarch64-apple-darwin-production",
+      "binary_sha256": "4e50a20121623d2634fbdbda9aa1bdf8c066cc2e6623f0b071c1e9d9125c5807",
+      "binary_bytes": 5047968,
+      "seconds": 30.97044824999466,
+      "recorded_at_utc": "2026-09-07T04:16:59.128692+00:00",
+      "log": "docs/measurements/release-permissions-build-aarch64-apple-darwin.txt",
+      "rustc": "rustc 1.95.0 (59807616e 2026-04-14)\nbinary: rustc\ncommit-hash: 59807616e1fa2540724bfbac14d7976d7e4a3860\ncommit-date: 2026-04-14\nhost: aarch64-apple-darwin\nrelease: 1.95.0\nLLVM version: 22.1.2\n",
+      "environment": {
+        "CARGO_ENCODED_RUSTFLAGS": "",
+        "CARGO_PROFILE_RELEASE_DEBUG_ASSERTIONS": "false",
+        "CARGO_PROFILE_RELEASE_PANIC": "unwind",
+        "CARGO_PROFILE_RELEASE_LTO": "thin",
+        "CARGO_PROFILE_RELEASE_CODEGEN_UNITS": "1",
+        "CARGO_PROFILE_RELEASE_STRIP": "symbols",
+        "CARGO_PROFILE_RELEASE_OPT_LEVEL": "3",
+        "SDKROOT": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "MACOSX_DEPLOYMENT_TARGET": "11.0",
+        "CARGO_ZIGBUILD_CACHE_DIR": "/Users/james/Desktop/u/typing_test_gpt6astra/target/zigbuild-cache",
+        "CARGO_ZIGBUILD_ZIG_COMMAND": "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-tools/python/ziglang/zig",
+        "ZIG_GLOBAL_CACHE_DIR": "/Users/james/Desktop/u/typing_test_gpt6astra/target/zig-global-cache",
+        "ZIG_LOCAL_CACHE_DIR": "/Users/james/Desktop/u/typing_test_gpt6astra/target/zig-local-cache"
+      },
+      "abi": {
+        "command": [
+          "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/llvm-objdump",
+          "--private-headers",
+          "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-permissions/typ-aarch64-apple-darwin-production"
+        ],
+        "header_log": "docs/measurements/release-permissions-header-aarch64-apple-darwin.txt",
+        "header_sha256": "1fec5715e53e969b586b54a2e76a64e77d55f955f91fc5cb3e405526c41bde92",
+        "macos_minimum": "11.0",
+        "sdk": "26.2",
+        "dynamic_libraries": [
+          "/usr/lib/libiconv.2.dylib",
+          "/usr/lib/libSystem.B.dylib"
+        ],
+        "pie": true,
+        "loader": "/usr/lib/dyld"
+      }
+    },
+    {
+      "target": "aarch64-unknown-linux-gnu",
+      "test_hooks": false,
+      "command": [
+        "cargo",
+        "+stable",
+        "zigbuild",
+        "--locked",
+        "--offline",
+        "--release",
+        "--no-default-features",
+        "--target",
+        "aarch64-unknown-linux-gnu.2.17",
+        "-j",
+        "2"
+      ],
+      "target_directory": "target/cross-linux",
+      "source_before": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+      "source_after": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+      "binary": "target/cross-linux/aarch64-unknown-linux-gnu/release/typ",
+      "snapshot": "target/release-permissions/typ-aarch64-unknown-linux-gnu-production",
+      "binary_sha256": "eccaf7162f0f2a776db42572fbc55c0d2e54ec815b169fb7e154b87a4b4811d7",
+      "binary_bytes": 5007184,
+      "seconds": 34.74675783299608,
+      "recorded_at_utc": "2026-09-07T04:17:58.260353+00:00",
+      "log": "docs/measurements/release-permissions-build-aarch64-unknown-linux-gnu.txt",
+      "rustc": "rustc 1.95.0 (59807616e 2026-04-14)\nbinary: rustc\ncommit-hash: 59807616e1fa2540724bfbac14d7976d7e4a3860\ncommit-date: 2026-04-14\nhost: aarch64-apple-darwin\nrelease: 1.95.0\nLLVM version: 22.1.2\n",
+      "environment": {
+        "CARGO_ENCODED_RUSTFLAGS": "",
+        "CARGO_PROFILE_RELEASE_DEBUG_ASSERTIONS": "false",
+        "CARGO_PROFILE_RELEASE_PANIC": "unwind",
+        "CARGO_PROFILE_RELEASE_LTO": "thin",
+        "CARGO_PROFILE_RELEASE_CODEGEN_UNITS": "1",
+        "CARGO_PROFILE_RELEASE_STRIP": "symbols",
+        "CARGO_PROFILE_RELEASE_OPT_LEVEL": "3",
+        "SDKROOT": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "CARGO_ZIGBUILD_CACHE_DIR": "/Users/james/Desktop/u/typing_test_gpt6astra/target/zigbuild-cache",
+        "CARGO_ZIGBUILD_ZIG_COMMAND": "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-tools/python/ziglang/zig",
+        "ZIG_GLOBAL_CACHE_DIR": "/Users/james/Desktop/u/typing_test_gpt6astra/target/zig-global-cache",
+        "ZIG_LOCAL_CACHE_DIR": "/Users/james/Desktop/u/typing_test_gpt6astra/target/zig-local-cache"
+      },
+      "abi": {
+        "command": [
+          "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/llvm-objdump",
+          "--private-headers",
+          "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-permissions/typ-aarch64-unknown-linux-gnu-production"
+        ],
+        "header_log": "docs/measurements/release-permissions-header-aarch64-unknown-linux-gnu.txt",
+        "header_sha256": "81ea3f4e6d1b5318157063d011dd52f539c13a07213ac42ef0285c95b1244c75",
+        "dynamic_libraries": [
+          "libm.so.6",
+          "libpthread.so.0",
+          "libc.so.6",
+          "libdl.so.2"
+        ],
+        "glibc_versions": [
+          "2.17"
+        ],
+        "max_glibc": "2.17",
+        "interpreter": "/lib/ld-linux-aarch64.so.1",
+        "pie": true,
+        "nonexecutable_stack": true,
+        "relro": true
+      }
+    },
+    {
+      "target": "x86_64-apple-darwin",
+      "test_hooks": false,
+      "command": [
+        "cargo",
+        "+stable",
+        "build",
+        "--locked",
+        "--offline",
+        "--release",
+        "--no-default-features",
+        "--target",
+        "x86_64-apple-darwin",
+        "-j",
+        "2"
+      ],
+      "target_directory": "target/cross-macos",
+      "source_before": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+      "source_after": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+      "binary": "target/cross-macos/x86_64-apple-darwin/release/typ",
+      "snapshot": "target/release-permissions/typ-x86_64-apple-darwin-production",
+      "binary_sha256": "7b3b795660c3a27b2e93235383f888bce3d797b3fa467c0a6bdec4c5e050361d",
+      "binary_bytes": 5401632,
+      "seconds": 33.08165925000503,
+      "recorded_at_utc": "2026-09-07T04:18:08.677530+00:00",
+      "log": "docs/measurements/release-permissions-build-x86_64-apple-darwin.txt",
+      "rustc": "rustc 1.95.0 (59807616e 2026-04-14)\nbinary: rustc\ncommit-hash: 59807616e1fa2540724bfbac14d7976d7e4a3860\ncommit-date: 2026-04-14\nhost: aarch64-apple-darwin\nrelease: 1.95.0\nLLVM version: 22.1.2\n",
+      "environment": {
+        "CARGO_ENCODED_RUSTFLAGS": "",
+        "CARGO_PROFILE_RELEASE_DEBUG_ASSERTIONS": "false",
+        "CARGO_PROFILE_RELEASE_PANIC": "unwind",
+        "CARGO_PROFILE_RELEASE_LTO": "thin",
+        "CARGO_PROFILE_RELEASE_CODEGEN_UNITS": "1",
+        "CARGO_PROFILE_RELEASE_STRIP": "symbols",
+        "CARGO_PROFILE_RELEASE_OPT_LEVEL": "3",
+        "SDKROOT": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "MACOSX_DEPLOYMENT_TARGET": "11.0",
+        "CARGO_ZIGBUILD_CACHE_DIR": "/Users/james/Desktop/u/typing_test_gpt6astra/target/zigbuild-cache",
+        "CARGO_ZIGBUILD_ZIG_COMMAND": "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-tools/python/ziglang/zig",
+        "ZIG_GLOBAL_CACHE_DIR": "/Users/james/Desktop/u/typing_test_gpt6astra/target/zig-global-cache",
+        "ZIG_LOCAL_CACHE_DIR": "/Users/james/Desktop/u/typing_test_gpt6astra/target/zig-local-cache"
+      },
+      "abi": {
+        "command": [
+          "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/llvm-objdump",
+          "--private-headers",
+          "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-permissions/typ-x86_64-apple-darwin-production"
+        ],
+        "header_log": "docs/measurements/release-permissions-header-x86_64-apple-darwin.txt",
+        "header_sha256": "adedfd7d108be5287a878c9d45f5dfb66cce772a174712c5fc5fa08e10247c3b",
+        "macos_minimum": "11.0",
+        "sdk": "26.2",
+        "dynamic_libraries": [
+          "/usr/lib/libiconv.2.dylib",
+          "/usr/lib/libSystem.B.dylib"
+        ],
+        "pie": true,
+        "loader": "/usr/lib/dyld"
+      }
+    },
+    {
+      "target": "x86_64-pc-windows-gnu",
+      "test_hooks": false,
+      "command": [
+        "cargo",
+        "+stable",
+        "zigbuild",
+        "--locked",
+        "--offline",
+        "--release",
+        "--no-default-features",
+        "--target",
+        "x86_64-pc-windows-gnu",
+        "-j",
+        "2"
+      ],
+      "target_directory": "target/cross-windows",
+      "source_before": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+      "source_after": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+      "binary": "target/cross-windows/x86_64-pc-windows-gnu/release/typ.exe",
+      "snapshot": "target/release-permissions/typ-x86_64-pc-windows-gnu-production.exe",
+      "binary_sha256": "bf3aaa1729ecddf0368e10e521ef096bf2909dcc8ca98fb7f5a8a97170b652b3",
+      "binary_bytes": 5273088,
+      "seconds": 37.97892591699201,
+      "recorded_at_utc": "2026-09-07T04:18:36.503593+00:00",
+      "log": "docs/measurements/release-permissions-build-x86_64-pc-windows-gnu.txt",
+      "rustc": "rustc 1.95.0 (59807616e 2026-04-14)\nbinary: rustc\ncommit-hash: 59807616e1fa2540724bfbac14d7976d7e4a3860\ncommit-date: 2026-04-14\nhost: aarch64-apple-darwin\nrelease: 1.95.0\nLLVM version: 22.1.2\n",
+      "environment": {
+        "CARGO_ENCODED_RUSTFLAGS": "",
+        "CARGO_PROFILE_RELEASE_DEBUG_ASSERTIONS": "false",
+        "CARGO_PROFILE_RELEASE_PANIC": "unwind",
+        "CARGO_PROFILE_RELEASE_LTO": "thin",
+        "CARGO_PROFILE_RELEASE_CODEGEN_UNITS": "1",
+        "CARGO_PROFILE_RELEASE_STRIP": "symbols",
+        "CARGO_PROFILE_RELEASE_OPT_LEVEL": "3",
+        "SDKROOT": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "CARGO_ZIGBUILD_CACHE_DIR": "/Users/james/Desktop/u/typing_test_gpt6astra/target/zigbuild-cache",
+        "CARGO_ZIGBUILD_ZIG_COMMAND": "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-tools/python/ziglang/zig",
+        "ZIG_GLOBAL_CACHE_DIR": "/Users/james/Desktop/u/typing_test_gpt6astra/target/zig-global-cache",
+        "ZIG_LOCAL_CACHE_DIR": "/Users/james/Desktop/u/typing_test_gpt6astra/target/zig-local-cache"
+      },
+      "abi": {
+        "command": [
+          "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/llvm-objdump",
+          "--private-headers",
+          "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-permissions/typ-x86_64-pc-windows-gnu-production.exe"
+        ],
+        "header_log": "docs/measurements/release-permissions-header-x86_64-pc-windows-gnu.txt",
+        "header_sha256": "bc7d1341a21eb84286a8454973c635279ddcff908a44578e597445ef9d2b8f87",
+        "dynamic_libraries": [
+          "bcryptprimitives.dll",
+          "KERNEL32.dll",
+          "ntdll.dll",
+          "advapi32.dll",
+          "combase.dll",
+          "api-ms-win-core-synch-l1-2-0.dll",
+          "shell32.dll",
+          "USER32.dll",
+          "api-ms-win-crt-heap-l1-1-0.dll",
+          "api-ms-win-crt-math-l1-1-0.dll",
+          "api-ms-win-crt-runtime-l1-1-0.dll",
+          "api-ms-win-crt-stdio-l1-1-0.dll",
+          "api-ms-win-crt-string-l1-1-0.dll",
+          "api-ms-win-crt-private-l1-1-0.dll",
+          "api-ms-win-crt-time-l1-1-0.dll",
+          "api-ms-win-crt-utility-l1-1-0.dll",
+          "api-ms-win-crt-environment-l1-1-0.dll"
+        ],
+        "unaccounted_third_party_runtime_dlls": [],
+        "aslr": true,
+        "dep": true,
+        "high_entropy_aslr": true
+      }
+    },
+    {
+      "target": "x86_64-unknown-linux-gnu",
+      "test_hooks": false,
+      "command": [
+        "cargo",
+        "+stable",
+        "zigbuild",
+        "--locked",
+        "--offline",
+        "--release",
+        "--no-default-features",
+        "--target",
+        "x86_64-unknown-linux-gnu.2.17",
+        "-j",
+        "2"
+      ],
+      "target_directory": "target/cross-linux",
+      "source_before": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+      "source_after": "31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3",
+      "binary": "target/cross-linux/x86_64-unknown-linux-gnu/release/typ",
+      "snapshot": "target/release-permissions/typ-x86_64-unknown-linux-gnu-production",
+      "binary_sha256": "838057d5830f0fe474b2535a4e6504853f781cce397ae98116387a20ec04821f",
+      "binary_bytes": 5600552,
+      "seconds": 32.33802295799251,
+      "recorded_at_utc": "2026-09-07T04:17:23.241289+00:00",
+      "log": "docs/measurements/release-permissions-build-x86_64-unknown-linux-gnu.txt",
+      "rustc": "rustc 1.95.0 (59807616e 2026-04-14)\nbinary: rustc\ncommit-hash: 59807616e1fa2540724bfbac14d7976d7e4a3860\ncommit-date: 2026-04-14\nhost: aarch64-apple-darwin\nrelease: 1.95.0\nLLVM version: 22.1.2\n",
+      "environment": {
+        "CARGO_ENCODED_RUSTFLAGS": "",
+        "CARGO_PROFILE_RELEASE_DEBUG_ASSERTIONS": "false",
+        "CARGO_PROFILE_RELEASE_PANIC": "unwind",
+        "CARGO_PROFILE_RELEASE_LTO": "thin",
+        "CARGO_PROFILE_RELEASE_CODEGEN_UNITS": "1",
+        "CARGO_PROFILE_RELEASE_STRIP": "symbols",
+        "CARGO_PROFILE_RELEASE_OPT_LEVEL": "3",
+        "SDKROOT": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "CARGO_ZIGBUILD_CACHE_DIR": "/Users/james/Desktop/u/typing_test_gpt6astra/target/zigbuild-cache",
+        "CARGO_ZIGBUILD_ZIG_COMMAND": "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-tools/python/ziglang/zig",
+        "ZIG_GLOBAL_CACHE_DIR": "/Users/james/Desktop/u/typing_test_gpt6astra/target/zig-global-cache",
+        "ZIG_LOCAL_CACHE_DIR": "/Users/james/Desktop/u/typing_test_gpt6astra/target/zig-local-cache"
+      },
+      "abi": {
+        "command": [
+          "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/llvm-objdump",
+          "--private-headers",
+          "/Users/james/Desktop/u/typing_test_gpt6astra/target/release-permissions/typ-x86_64-unknown-linux-gnu-production"
+        ],
+        "header_log": "docs/measurements/release-permissions-header-x86_64-unknown-linux-gnu.txt",
+        "header_sha256": "c09d1cf2c92881eb1dc00ee5ddef8c3e7d0ba578077211341a9c095e045a4cb1",
+        "dynamic_libraries": [
+          "libm.so.6",
+          "libpthread.so.0",
+          "libc.so.6",
+          "libdl.so.2"
+        ],
+        "glibc_versions": [
+          "2.2.5",
+          "2.3",
+          "2.3.4",
+          "2.4",
+          "2.9",
+          "2.12",
+          "2.14",
+          "2.15",
+          "2.16",
+          "2.17"
+        ],
+        "max_glibc": "2.17",
+        "interpreter": "/lib64/ld-linux-x86-64.so.2",
+        "pie": true,
+        "nonexecutable_stack": true,
+        "relro": true
+      }
+    }
+  ],
+  "limitations": [
+    "Native Linux/Windows and controlled target hardware execution not performed on this macOS host.",
+    "Windows GNU is locally built and inspected; native MSVC is defined in CI but has not run.",
+    "Header/import inspection is static ABI evidence, not OS runtime validation."
+  ]
+}

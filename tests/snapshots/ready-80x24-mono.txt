@@ -1,0 +1,27 @@
+80x24 cursor=Some((4, 9))
+
+
+
+
+
+
+
+    time 30  ·  english 200
+
+    the world can change when small things become part of the way we work
+style     Uddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+    and think about what comes next in a place we know so well
+style     dddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+
+
+    start typing                 esc commands
+
+
+
+
+
+
+
+
+
+
