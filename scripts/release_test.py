@@ -181,16 +181,20 @@ class ReleaseTests(unittest.TestCase):
         junction = bundle / "share/man/man1"
         (junction / "clack.1").unlink()
         junction.rmdir()
-        outside = self.root / "outside-junction"
+        outside = self.root / "outside junction"
         outside.mkdir()
         (outside / "clack.1").write_bytes(b"manual")
         (outside / "empty-user-directory").mkdir()
         # Only generated fixture paths enter this command, each quoted. Refuse
         # expansion characters rather than invoking cmd with an ambiguous path.
         self.assertFalse(any(character in str(junction) + str(outside) for character in '%!"\r\n'))
-        subprocess.run(["cmd", "/d", "/v:off", "/s", "/c",
-                        f'mklink /J "{junction}" "{outside}"'], check=True,
-                       stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        # Pass cmd's command line directly: list2cmdline would backslash-escape
+        # the embedded quotes using CRT rules, which cmd does not understand.
+        result = subprocess.run(
+            f'cmd.exe /d /v:off /s /c "mklink /J "{junction}" "{outside}""',
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10)
+        self.assertEqual(result.returncode, 0,
+                         f"junction creation failed: {result.stdout!r} {result.stderr!r}")
         self.assertTrue(install.link_like(junction))
         install.uninstall(self.prefix)
         self.assertEqual((outside / "clack.1").read_bytes(), b"manual")
