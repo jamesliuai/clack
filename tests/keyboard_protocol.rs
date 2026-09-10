@@ -613,12 +613,17 @@ def run(case):
     try:
         if case == 'early_signal':
             until(b'SIGNAL-WINDOW\r\n')
-            os.kill(child.pid, signal.SIGTERM)
-            os.write(master, b'x')
-        until(b'READY\r\n')
+        else:
+            until(b'READY\r\n')
+        # Inspect raw mode while the child is blocked waiting for our input.
+        # An early signal can be consumed and restore the terminal immediately
+        # after READY, before this parent gets scheduled again.
         active = termios.tcgetattr(slave)
         assert active[3] & (termios.ECHO | termios.ICANON) == 0, case
-        if case == 'early_signal': pass
+        if case == 'early_signal':
+            os.kill(child.pid, signal.SIGTERM)
+            os.write(master, b'x')
+            until(b'READY\r\n')
         elif case == 'signal': os.kill(child.pid, signal.SIGTERM)
         elif case == 'suspend':
             os.kill(child.pid, signal.SIGTSTP)
