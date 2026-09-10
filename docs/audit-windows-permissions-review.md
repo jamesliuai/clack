@@ -1,5 +1,14 @@
 # Independent Windows permissions review
 
+**Historical review:** the hashes and source-only conclusions below describe the
+original implementation. Native [CI run #16](https://github.com/jamesliuai/clack/actions/runs/34421894879)
+subsequently found that its metadata-only directory handles did not prevent
+rename. The follow-up correction requests `FILE_LIST_DIRECTORY` so those handles
+participate in sharing checks while omitting `FILE_SHARE_DELETE`. The existing
+native guard test remains the regression check; the historical review is not
+independent validation of that correction. See the updated
+[sharing contract](../vendor/clack-private-fs/SAFETY.md).
+
 The final source review found no unresolved issue in the scoped Windows privacy
 correction. This is source and cross-compilation evidence, not native Windows ACL
 validation. The Windows implementation addresses SPEC §12 / PRIV-005 with the

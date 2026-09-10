@@ -35,8 +35,12 @@ individual database/sidecar checks. [File security and access rights](https://le
 SQLite persistence additionally requires a protected private parent. Storage
 retains `PrivateDirectory` after its `Connection` field so the connection and
 journals close before the guard. The guard keeps every inspected ancestor and
-the leaf open without `FILE_SHARE_DELETE`; Windows then refuses conflicting
-delete/rename access until those handles close. Existing database, journal, WAL
+the leaf open with `FILE_LIST_DIRECTORY` and without `FILE_SHARE_DELETE`;
+Windows then refuses conflicting delete/rename access until those handles close.
+Metadata-only access (`READ_CONTROL | FILE_READ_ATTRIBUTES`) does not establish
+that sharing exclusion. Every ancestor must permit directory listing as well as
+metadata inspection; an inaccessible ancestor is refused without changing its
+ACL. The guard does not enumerate directory contents. Existing database, journal, WAL
 and SHM files must each have only the current user's effective full-control ACE.
 New SQLite children inherit that same ACE. Broad existing objects are refused
 without changing their ACLs; callers report an honest unsaved/storage error.

@@ -35,10 +35,10 @@ use windows_sys::Win32::{
         CREATE_NEW, CreateDirectoryW, CreateFileW, DELETE, FILE_ALL_ACCESS,
         FILE_ATTRIBUTE_DIRECTORY, FILE_ATTRIBUTE_NORMAL, FILE_ATTRIBUTE_REPARSE_POINT,
         FILE_ATTRIBUTE_TAG_INFO, FILE_DISPOSITION_INFO, FILE_FLAG_BACKUP_SEMANTICS,
-        FILE_FLAG_OPEN_REPARSE_POINT, FILE_GENERIC_READ, FILE_GENERIC_WRITE, FILE_READ_ATTRIBUTES,
-        FILE_SHARE_DELETE, FILE_SHARE_READ, FILE_SHARE_WRITE, FileAttributeTagInfo,
-        FileDispositionInfo, GetFileInformationByHandleEx, OPEN_EXISTING, READ_CONTROL,
-        SECURITY_IDENTIFICATION, SECURITY_SQOS_PRESENT, SetFileInformationByHandle,
+        FILE_FLAG_OPEN_REPARSE_POINT, FILE_GENERIC_READ, FILE_GENERIC_WRITE, FILE_LIST_DIRECTORY,
+        FILE_READ_ATTRIBUTES, FILE_SHARE_DELETE, FILE_SHARE_READ, FILE_SHARE_WRITE,
+        FileAttributeTagInfo, FileDispositionInfo, GetFileInformationByHandleEx, OPEN_EXISTING,
+        READ_CONTROL, SECURITY_IDENTIFICATION, SECURITY_SQOS_PRESENT, SetFileInformationByHandle,
     },
     System::{
         SystemServices::ACCESS_ALLOWED_ACE_TYPE,
@@ -320,12 +320,17 @@ fn kind(file: &File, directory: bool) -> io::Result<()> {
 }
 fn open_existing(path: &Path, directory: bool) -> io::Result<File> {
     let path = wide(path.as_os_str())?;
+    // Metadata-only opens do not participate in Windows sharing checks. A
+    // directory guard needs list access for omitted FILE_SHARE_DELETE to pin
+    // the directory against rename/delete for the lifetime of this handle.
+    let access =
+        READ_CONTROL | FILE_READ_ATTRIBUTES | if directory { FILE_LIST_DIRECTORY } else { 0 };
     // SAFETY: terminated path and no security attributes; OPEN_EXISTING cannot
-    // create or truncate. Omitting FILE_SHARE_DELETE pins each opened directory.
+    // create or truncate. Directory list access is read-only.
     let file = owned_file(unsafe {
         CreateFileW(
             path.as_ptr(),
-            READ_CONTROL | FILE_READ_ATTRIBUTES,
+            access,
             FILE_SHARE_READ | FILE_SHARE_WRITE,
             null(),
             OPEN_EXISTING,
