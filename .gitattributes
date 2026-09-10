@@ -1,2 +1,11 @@
+# Keep project text and Cargo.lock hashes stable on every checkout.
+* text=auto eol=lf
+
+# These upstream/data files are distributed and verified byte-for-byte. Some
+# deliberately contain CRLF; preserve their original bytes rather than normalize.
+/data/** -text
+/third-party/** -text
+/vendor/** -text
+
 # Snapshot serializers emit LF on every platform, including Windows.
 /tests/snapshots/*.txt text eol=lf
