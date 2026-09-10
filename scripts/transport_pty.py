@@ -141,7 +141,7 @@ def exercise(binary: Path, directory: Path, transport: str, case: str, tmux: Pat
     # The inner app still receives /dev/null and writes JSON independently.
     try:
         with PtyProcess(command, terminal_stdin=True, capture_stdout=False, cols=80, rows=24) as process:
-            wait_for(process, lambda: "start typing" in process.screen.text().lower() and ("dog" in process.screen.text() or "end" in process.screen.text()), "complete target through " + transport, timeout=6)
+            wait_for(process, lambda: "type to start" in process.screen.text().lower() and ("dog" in process.screen.text() or "end" in process.screen.text()), "complete target through " + transport, timeout=6)
             if case == "normal_completion":
                 process.send(b"c")
                 pause(process, 0.03)

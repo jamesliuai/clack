@@ -247,7 +247,7 @@ class Session:
         raise TimeoutError("application did not render the expected screen before the deadline")
 
     def ready(self, timeout: float = 5.0) -> int:
-        return self.wait_screen(lambda text: "start typing" in text and
+        return self.wait_screen(lambda text: "type to start" in text and
                                 ("esc" in text or "commands" in text) and self.proc.screen.cursor_visible,
                                 timeout)
 

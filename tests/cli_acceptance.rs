@@ -6,7 +6,7 @@ use clack::{
     content::{self, InputPolicy, PackMetadata},
     engine::{Action, Mode, Outcome},
     sample::Samples,
-    storage::{self, Options, Persistence, Record, Store},
+    storage::{self, Event, Options, Persistence, Record, Store},
 };
 use clap::Parser;
 use serde_json::Value;
@@ -16,7 +16,7 @@ use std::{
     path::PathBuf,
     process::{Command, Output, Stdio},
     thread,
-    time::Duration,
+    time::{Duration, Instant},
 };
 
 struct Fixture {
@@ -118,12 +118,28 @@ impl Fixture {
         for record in records {
             worker.submit(record).unwrap();
         }
-        let flushed = worker.flush_for(Duration::from_secs(3));
-        assert!(
-            flushed.unsaved.is_empty(),
-            "fixture failed to save: {:?}",
-            flushed.unsaved
-        );
+        // Fixture setup must await acknowledgements, not use the production
+        // exit flush, which deliberately caps every caller's budget at 750 ms.
+        let deadline = Instant::now() + Duration::from_secs(5);
+        loop {
+            for event in worker.poll() {
+                match event {
+                    Event::Unavailable(error) | Event::Unsaved { error, .. } => {
+                        panic!("fixture failed to save: {error}");
+                    }
+                    _ => {}
+                }
+            }
+            if worker.pending_count() == 0 {
+                break;
+            }
+            assert!(
+                Instant::now() < deadline,
+                "fixture timed out awaiting save acknowledgements: {:?}",
+                worker.pending().collect::<Vec<_>>()
+            );
+            thread::park_timeout(Duration::from_millis(5));
+        }
     }
     fn pack(&self, id: &str, words: &str) -> PathBuf {
         let source = self.directory.path().join(format!("source-{id}"));

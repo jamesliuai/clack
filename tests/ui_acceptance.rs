@@ -190,7 +190,7 @@ fn first_input_keeps_target_coordinates_and_correct_typing_reuses_layout() {
         let (active, cursor) = draw(&engine, &appearance, size, &mut viewport);
         assert_eq!(cursor, ready.map(|(x, y)| (x + 1, y)));
         assert_eq!(viewport.layout_rebuilds, rebuilds);
-        assert!(!text(&active).contains("start typing"));
+        assert!(!text(&active).contains("type to start"));
         assert!(!text(&active).contains("english 200"));
         assert!(text(&active).contains("the world"));
     }

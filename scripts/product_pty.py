@@ -945,7 +945,9 @@ def case_quick_setup_validation_sources_and_palette(ctx: Context) -> None:
     with ctx.launch("--private") as p:
         ready(p, True)
         choose(p, "test setup")
-        seen(p, "Test setup")
+        # The palette match already contains "Test setup"; wait for the editor
+        # controls before sending input into the newly opened setup screen.
+        seen(p, "enter apply")
         p.send(b"0")
         p.send(ENTER)
         seen(p, "Duration must be 1-3600")

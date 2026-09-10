@@ -80,7 +80,8 @@ started_ns = time.monotonic_ns()
 pid = os.fork()
 if pid == 0:
     os.close(gate_write)
-    os.setpgid(0, 0)
+    # The parent establishes our process group and foreground terminal before
+    # releasing this gate. Do not race it with a second setpgid on macOS.
     os.read(gate_read, 1)
     os.close(gate_read)
     os.close(status_fd)
@@ -1049,7 +1050,7 @@ def case_small_ready_rejects_input_and_focus_loss_never_pauses(ctx: Context) -> 
             check(latest_frame(p)["counts"]["attempts_total"] == 0,
                   "unsafe Ready input entered scoring")
         p.resize(80, 24)
-        wait_for(p, lambda: "start typing" in p.screen.text(), "safe Ready target after resize")
+        wait_for(p, lambda: "type to start" in p.screen.text(), "safe Ready target after resize")
         pause(p, 0.05)
         p.send(b"x")
         pause(p, 0.03)
@@ -1057,7 +1058,7 @@ def case_small_ready_rejects_input_and_focus_loss_never_pauses(ctx: Context) -> 
         pause(p, 0.03)
         p.send(b"\x1b[I\x1b[<35;10;5M")  # Focus gained and mouse motion.
         pause(p, 0.03)
-        check("start typing" not in p.screen.text() and "esc commands" not in p.screen.text(),
+        check("type to start" not in p.screen.text() and "esc commands" not in p.screen.text(),
               "focus or mouse movement restored hidden controls")
         check(p.wait(timeout=3) == 0, "focus loss paused or interrupted a normal timed run")
         result = one_json(p)
