@@ -119,12 +119,14 @@ def verify(archive: Path) -> dict:
         if manifest["kind"] == "source":
             cargo_bytes = (root / "Cargo.toml").read_bytes()
             cargo = tomllib.loads(cargo_bytes.decode())
-            if cargo["package"]["publish"] is not False or cargo["patch"]["crates-io"]["crossterm"]["path"] != "vendor/crossterm":
-                raise ValueError("source release did not preserve its original vendor patch")
+            for dependency, expected_path in (("crossterm", "vendor/crossterm"),
+                                               ("ratatui-crossterm", "vendor/ratatui-crossterm")):
+                if cargo["dependencies"][dependency].get("path") != expected_path:
+                    raise ValueError("source release did not preserve its terminal dependency paths")
             for filename in package.SOURCE_FILES:
                 if not (root / filename).is_file():
                     raise ValueError("source release lacks " + filename)
-            for filename in ("vendor/crossterm/Cargo.toml", "vendor/clack-private-fs/Cargo.toml",
+            for filename in ("vendor/crossterm/Cargo.toml", "vendor/ratatui-crossterm/Cargo.toml", "vendor/clack-private-fs/Cargo.toml",
                              "vendor/clack-private-fs/src/lib.rs", "vendor/clack-private-fs/src/tests.rs",
                              "vendor/clack-private-fs/SAFETY.md", "src/main.rs", "src/lib.rs",
                              "tests/cli_acceptance.rs", "scripts/package.py", ".github/workflows/ci.yml"):
@@ -158,6 +160,7 @@ def verify(archive: Path) -> dict:
                          "third-party/inventory.json", "third-party/source/option-ext-0.2.0/Cargo.toml",
                          "vendor/clack-private-fs/SAFETY.md", "vendor/clack-private-fs/LICENSE",
                          "vendor/crossterm/CLACK-PATCH.md", "vendor/crossterm/LICENSE",
+                         "vendor/ratatui-crossterm/CLACK_PATCH.md", "vendor/ratatui-crossterm/LICENSE",
                          "share/man/man1/clack.1", "install.py"):
             if not (root / filename).is_file():
                 raise ValueError("native package lacks " + filename)

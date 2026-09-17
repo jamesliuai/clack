@@ -31,7 +31,7 @@ TARGETS = {
     "x86_64-pc-windows-gnu": ("windows", "x86_64"),
 }
 SOURCE_DIRS = ("src", "tests", "examples", "scripts", "data", "vendor", "docs", "third-party", ".github")
-SOURCE_FILES = ("Cargo.toml", "Cargo.lock", "LICENSE", "README.md", "THIRD-PARTY-NOTICES.md", "deny.toml", ".gitignore", "SPEC.md")
+SOURCE_FILES = ("Cargo.toml", "Cargo.lock", "LICENSE", "README.md", "THIRD-PARTY-NOTICES.md", "deny.toml", ".gitignore", ".gitattributes", "SPEC.md", "CONTRIBUTING.md", "CODE_OF_CONDUCT.md", "SECURITY.md", "CHANGELOG.md")
 
 
 def sha(data: bytes) -> str:
@@ -200,10 +200,11 @@ def package(args: argparse.Namespace) -> Path:
         inventory = json.loads((ROOT / "third-party/inventory.json").read_text())
         if inventory["cargo_lock_sha256"] != sha((ROOT / "Cargo.lock").read_bytes()):
             raise ValueError("dependency notices are stale; run scripts/licenses.py")
-        for filename in ("README.md", "LICENSE", "THIRD-PARTY-NOTICES.md", "SPEC.md"):
+        for filename in ("README.md", "LICENSE", "THIRD-PARTY-NOTICES.md", "SPEC.md", "CONTRIBUTING.md", "CODE_OF_CONDUCT.md", "SECURITY.md", "CHANGELOG.md"):
             files[filename] = ((ROOT / filename).read_bytes(), 0o644)
         for filename in ("vendor/clack-private-fs/SAFETY.md", "vendor/clack-private-fs/LICENSE",
-                         "vendor/crossterm/CLACK-PATCH.md", "vendor/crossterm/LICENSE"):
+                         "vendor/crossterm/CLACK-PATCH.md", "vendor/crossterm/LICENSE",
+                         "vendor/ratatui-crossterm/CLACK_PATCH.md", "vendor/ratatui-crossterm/LICENSE"):
             files[filename] = ((ROOT / filename).read_bytes(), 0o644)
         files["install.py"] = ((ROOT / "scripts/install.py").read_bytes(), 0o644)
         for directory in ("third-party", "docs", "data"):

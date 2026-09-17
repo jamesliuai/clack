@@ -19,7 +19,7 @@ license are included at [third-party/source/option-ext-0.2.0](third-party/source
 in source and binary packages. These files may be obtained and modified under
 their MPL terms. No proprietary restriction is imposed on that source.
 
-Crossterm 0.29.0 is included as a narrow MIT-licensed fork in
+A fork based on Crossterm 0.29.0, published as `clack-crossterm` 0.30.0, is included as a narrow MIT-licensed fork in
 [vendor/crossterm](vendor/crossterm), with its original
 [license](vendor/crossterm/LICENSE). Changes expose associated text, permit a
 wakeable dedicated reader and safe signal ownership, preserve epoch/partial
@@ -40,3 +40,9 @@ metadata and [data/licenses](data/licenses). The literature selections are based
 on the original public-domain works, not an assumption about a hosting site's
 repository license. No Monkeytype implementation, logo, theme, text collection
 or other project asset is bundled.
+
+The MIT-licensed Ratatui Crossterm backend is published as
+`clack-ratatui-crossterm` 0.2.0 with its dependency selecting the same terminal
+fork. Its implementation is unchanged from upstream 0.1.2. See
+[vendor/ratatui-crossterm/CLACK_PATCH.md](vendor/ratatui-crossterm/CLACK_PATCH.md)
+and its [license](vendor/ratatui-crossterm/LICENSE).

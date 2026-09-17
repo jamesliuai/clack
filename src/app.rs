@@ -12,7 +12,8 @@ use crate::{
 };
 use crossterm::event::{KeyCode, KeyEvent, KeyModifiers};
 use presentation::Presentation;
-use ratatui::{Terminal, backend::CrosstermBackend};
+use ratatui::Terminal;
+use ratatui_crossterm::CrosstermBackend;
 use serde::Serialize;
 use settings_flow::Deferred;
 #[cfg(feature = "test-hooks")]

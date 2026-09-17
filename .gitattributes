@@ -9,3 +9,5 @@
 
 # Snapshot serializers emit LF on every platform, including Windows.
 /tests/snapshots/*.txt text eol=lf
+
+vendor/ratatui-crossterm/** -text -eol

@@ -4,7 +4,9 @@ version = "1.0.0"
 edition = "2024"
 rust-version = "1.88"
 license = "MIT"
-publish = false
+publish = ["crates-io"]
+repository = "https://github.com/jamesliuai/clack"
+readme = "SAFETY.md"
 description = "Narrow Windows private-file creation adapter for clack"
 
 [target.'cfg(windows)'.dependencies]

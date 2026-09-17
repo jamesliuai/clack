@@ -1,4 +1,8 @@
-# Local terminal compatibility patch
+# Clack terminal compatibility fork
+
+Published as `clack-crossterm` 0.30.0 for Clack 1.0.0. This is a different
+input API from the earlier Clack 0.1 fork (published as 0.29.0).
+
 
 Base: crates.io `crossterm` 0.29.0. The upstream MIT license remains in `LICENSE`.
 This is a documented local compatibility fork, not an upstream release or an

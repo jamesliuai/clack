@@ -34,8 +34,12 @@ jobs:
         with:
           python-version: "3.12"
       - run: rustup toolchain install 1.95.0 --profile minimal --component rustfmt --component clippy
-      - run: cargo +1.95.0 fmt --all -- --check
+      - run: cargo +1.95.0 fmt -p clack-typing -p clack-private-fs -- --check
       - run: cargo +1.95.0 clippy --locked --all-targets --all-features -- -D warnings
+      - name: Validate terminal backend support crate
+        run: |
+          cargo +1.95.0 fmt --manifest-path vendor/ratatui-crossterm/Cargo.toml --all -- --check
+          cargo +1.95.0 test --manifest-path vendor/ratatui-crossterm/Cargo.toml --locked --all-features
       - run: cargo +1.95.0 fetch --locked
       - run: python scripts/licenses.py --check
       - run: python scripts/release_test.py

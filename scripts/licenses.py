@@ -36,7 +36,8 @@ CHOICES = {
     "(MIT OR Apache-2.0) AND Unicode-3.0": ["MIT", "Unicode-3.0"],
 }
 LOCAL_PACKAGES = {
-    ("crossterm", "0.29.0"): ROOT / "vendor/crossterm/Cargo.toml",
+    ("clack-crossterm", "0.30.0"): ROOT / "vendor/crossterm/Cargo.toml",
+    ("clack-ratatui-crossterm", "0.2.0"): ROOT / "vendor/ratatui-crossterm/Cargo.toml",
     ("clack-private-fs", "1.0.0"): ROOT / "vendor/clack-private-fs/Cargo.toml",
 }
 
@@ -79,7 +80,7 @@ def generate(destination: Path) -> dict:
     packages = []
     for package in sorted(metadata["packages"], key=lambda p: (p["name"], p["version"])):
         name, version = package["name"], package["version"]
-        if name == "clack-local":
+        if Path(package["manifest_path"]) == ROOT / "Cargo.toml":
             continue
         expression = package.get("license")
         if expression not in CHOICES:

@@ -6,3 +6,5 @@
 /artifacts/
 __pycache__/
 *.pyc
+
+/vendor/ratatui-crossterm/target/

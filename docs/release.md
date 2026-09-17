@@ -41,9 +41,33 @@ is explicitly unperformed. The report stays beside the archives.
 The source archive preserves the original Cargo manifest, lockfile, complete
 application/tests/scripts, approved data, vendor fork and privacy adapter, documentation, notices,
 CI configuration and source specification. It does not depend on Git metadata.
-Source packages are created by `scripts/package.py --source`, not `cargo package`,
-whose normalization would remove the root `[patch.crates-io]` needed for the
-Crossterm fork. There is no publishing step in the workflow.
+Source archives preserve versioned local dependency paths. The separate crates.io
+package normalizes those paths to published support crates. Neither the existing
+archive workflow nor a push to main publishes Rust crates automatically.
+
+## Publishing to crates.io
+
+Use a verified crates.io account and `cargo login`. Start from a clean release
+commit, update the changelog and affected lockfiles, regenerate notices, and run
+CI checks. Publish changed support crates in this order, running the same command
+with `--dry-run` before each actual upload:
+
+```sh
+cargo publish --manifest-path vendor/crossterm/Cargo.toml
+cargo publish --manifest-path vendor/ratatui-crossterm/Cargo.toml
+cargo publish -p clack-private-fs
+cargo publish -p clack-typing --dry-run
+cargo publish -p clack-typing
+```
+
+Skip unchanged support versions already in the registry. A published version
+cannot be overwritten: bump changed support versions and their exact dependency
+requirements together. Version 1.0.0 uses `clack-crossterm` 0.30.0,
+`clack-ratatui-crossterm` 0.2.0, and `clack-private-fs` 1.0.0.
+Check `cargo package -p clack-typing --list` and verify a registry install in a
+temporary directory with `cargo install clack-typing --version 1.0.0 --locked --root PATH`.
+
+## Archive reproducibility
 
 Archive entries have sorted paths, fixed permissions, zero owner/group IDs and
 `SOURCE_DATE_EPOCH` timestamps (default zero; ZIP clamps dates to 1980). Repeating
@@ -54,7 +78,10 @@ those inputs fixed and compare the manifest's binary and source hashes. Never
 claim independent bit-identical cross-host compiler reproduction from archive
 determinism alone.
 
-## Local binary construction
+## Historical local binary construction
+
+The following measurements predate the crates.io packaging changes. They remain
+evidence for the exact source identities recorded below, not this release build.
 
 The frozen source identity for this collection is
 `31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3`.

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "cargo_lock_sha256": "9d307798c9e83ba65c37822195e2049143e803a1060bef298ca47e0140e81794",
+  "cargo_lock_sha256": "ca82af0220c90a7307895527bfaf7ffe815026dab04ce7d6feb6e2e14f92c52b",
   "scope": "All locked dependencies; target membership is normal/build edges for the five OS/architecture configurations including both Windows MSVC and GNU ABIs, and may include build-only tools.",
   "targets": [
     "x86_64-unknown-linux-gnu",
@@ -218,26 +218,6 @@
       "scope_note": null
     },
     {
-      "name": "approx",
-      "version": "0.5.1",
-      "spdx_expression": "Apache-2.0",
-      "selected_licenses": [
-        "Apache-2.0"
-      ],
-      "source": "registry+https://github.com/rust-lang/crates.io-index",
-      "registry_checksum": "cab112f0a86d568ea0e627cc1d6be74a1e9cd55214684db5561995f6dad897c6",
-      "repository": "https://github.com/brendanzab/approx",
-      "native_release_targets": [],
-      "license_notices": [
-        {
-          "path": "licenses/approx-0.5.1/LICENSE",
-          "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
-        }
-      ],
-      "corresponding_source": null,
-      "scope_note": "Locked development or other-target dependency; not in the native release graphs."
-    },
-    {
       "name": "autocfg",
       "version": "1.5.1",
       "spdx_expression": "Apache-2.0 OR MIT",
@@ -396,30 +376,6 @@
       "scope_note": "Locked development or other-target dependency; not in the native release graphs."
     },
     {
-      "name": "by_address",
-      "version": "1.2.1",
-      "spdx_expression": "MIT OR Apache-2.0",
-      "selected_licenses": [
-        "MIT"
-      ],
-      "source": "registry+https://github.com/rust-lang/crates.io-index",
-      "registry_checksum": "64fa3c856b712db6612c019f14756e64e4bcea13337a6b33b696333a9eaa2d06",
-      "repository": "https://github.com/mbrubeck/by_address",
-      "native_release_targets": [],
-      "license_notices": [
-        {
-          "path": "licenses/by_address-1.2.1/LICENSE-APACHE",
-          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
-        },
-        {
-          "path": "licenses/by_address-1.2.1/LICENSE-MIT",
-          "sha256": "daa94322de7eab889e055932396160395bd8e3af82f56ae8c419d3049111da72"
-        }
-      ],
-      "corresponding_source": null,
-      "scope_note": "Locked development or other-target dependency; not in the native release graphs."
-    },
-    {
       "name": "castaway",
       "version": "0.2.4",
       "spdx_expression": "MIT",
@@ -538,6 +494,37 @@
       "scope_note": null
     },
     {
+      "name": "clack-crossterm",
+      "version": "0.30.0",
+      "spdx_expression": "MIT",
+      "selected_licenses": [
+        "MIT"
+      ],
+      "source": "vendor/crossterm",
+      "registry_checksum": null,
+      "repository": "https://github.com/jamesliuai/clack",
+      "native_release_targets": [
+        "aarch64-apple-darwin",
+        "aarch64-unknown-linux-gnu",
+        "x86_64-apple-darwin",
+        "x86_64-pc-windows-gnu",
+        "x86_64-pc-windows-msvc",
+        "x86_64-unknown-linux-gnu"
+      ],
+      "license_notices": [
+        {
+          "path": "licenses/clack-crossterm-0.30.0/LICENSE",
+          "sha256": "aca4760f2a5eba9ce9d4448fe7cd3fcf98245a8315ede59ebd0c6085dd542e61"
+        },
+        {
+          "path": "licenses/clack-crossterm-0.30.0/target/package/clack-crossterm-0.29.0/LICENSE",
+          "sha256": "aca4760f2a5eba9ce9d4448fe7cd3fcf98245a8315ede59ebd0c6085dd542e61"
+        }
+      ],
+      "corresponding_source": null,
+      "scope_note": null
+    },
+    {
       "name": "clack-private-fs",
       "version": "1.0.0",
       "spdx_expression": "MIT",
@@ -546,7 +533,7 @@
       ],
       "source": "vendor/clack-private-fs",
       "registry_checksum": null,
-      "repository": null,
+      "repository": "https://github.com/jamesliuai/clack",
       "native_release_targets": [
         "aarch64-apple-darwin",
         "aarch64-unknown-linux-gnu",
@@ -559,6 +546,37 @@
         {
           "path": "licenses/clack-private-fs-1.0.0/LICENSE",
           "sha256": "e098c57e408b4ce80cd40c402e68fadbe9b3d3d883d1ad53a2fc167f51a5b5d4"
+        }
+      ],
+      "corresponding_source": null,
+      "scope_note": null
+    },
+    {
+      "name": "clack-ratatui-crossterm",
+      "version": "0.2.0",
+      "spdx_expression": "MIT",
+      "selected_licenses": [
+        "MIT"
+      ],
+      "source": "vendor/ratatui-crossterm",
+      "registry_checksum": null,
+      "repository": "https://github.com/jamesliuai/clack",
+      "native_release_targets": [
+        "aarch64-apple-darwin",
+        "aarch64-unknown-linux-gnu",
+        "x86_64-apple-darwin",
+        "x86_64-pc-windows-gnu",
+        "x86_64-pc-windows-msvc",
+        "x86_64-unknown-linux-gnu"
+      ],
+      "license_notices": [
+        {
+          "path": "licenses/clack-ratatui-crossterm-0.2.0/LICENSE",
+          "sha256": "50eb43e8d742c9c61a9391e42b2184fce54dbd1893a1bb1c85b8c9ee217ab1f5"
+        },
+        {
+          "path": "licenses/clack-ratatui-crossterm-0.2.0/target/package/clack-ratatui-crossterm-0.1.2/LICENSE",
+          "sha256": "50eb43e8d742c9c61a9391e42b2184fce54dbd1893a1bb1c85b8c9ee217ab1f5"
         }
       ],
       "corresponding_source": null,
@@ -867,33 +885,6 @@
       "scope_note": null
     },
     {
-      "name": "crossterm",
-      "version": "0.29.0",
-      "spdx_expression": "MIT",
-      "selected_licenses": [
-        "MIT"
-      ],
-      "source": "vendor/crossterm",
-      "registry_checksum": null,
-      "repository": "https://github.com/crossterm-rs/crossterm",
-      "native_release_targets": [
-        "aarch64-apple-darwin",
-        "aarch64-unknown-linux-gnu",
-        "x86_64-apple-darwin",
-        "x86_64-pc-windows-gnu",
-        "x86_64-pc-windows-msvc",
-        "x86_64-unknown-linux-gnu"
-      ],
-      "license_notices": [
-        {
-          "path": "licenses/crossterm-0.29.0/LICENSE",
-          "sha256": "aca4760f2a5eba9ce9d4448fe7cd3fcf98245a8315ede59ebd0c6085dd542e61"
-        }
-      ],
-      "corresponding_source": null,
-      "scope_note": null
-    },
-    {
       "name": "crossterm_winapi",
       "version": "0.9.1",
       "spdx_expression": "MIT",
@@ -1097,30 +1088,6 @@
       ],
       "corresponding_source": null,
       "scope_note": null
-    },
-    {
-      "name": "deranged",
-      "version": "0.5.8",
-      "spdx_expression": "MIT OR Apache-2.0",
-      "selected_licenses": [
-        "MIT"
-      ],
-      "source": "registry+https://github.com/rust-lang/crates.io-index",
-      "registry_checksum": "7cd812cc2bc1d69d4764bd80df88b4317eaef9e773c75226407d9bc0876b211c",
-      "repository": "https://github.com/jhpratt/deranged",
-      "native_release_targets": [],
-      "license_notices": [
-        {
-          "path": "licenses/deranged-0.5.8/LICENSE-Apache",
-          "sha256": "edd65bdd88957a205c47d53fa499eed8865a70320f0f03f6391668cb304ea376"
-        },
-        {
-          "path": "licenses/deranged-0.5.8/LICENSE-MIT",
-          "sha256": "231c837c45eb53f108fb48929e488965bc4fcc14e9ea21d35f50e6b99d98685b"
-        }
-      ],
-      "corresponding_source": null,
-      "scope_note": "Locked development or other-target dependency; not in the native release graphs."
     },
     {
       "name": "derive_more",
@@ -2101,26 +2068,6 @@
       "scope_note": null
     },
     {
-      "name": "libm",
-      "version": "0.2.16",
-      "spdx_expression": "MIT",
-      "selected_licenses": [
-        "MIT"
-      ],
-      "source": "registry+https://github.com/rust-lang/crates.io-index",
-      "registry_checksum": "b6d2cec3eae94f9f509c767b45932f1ada8350c4bdb85af2fcab4a3c14807981",
-      "repository": "https://github.com/rust-lang/compiler-builtins",
-      "native_release_targets": [],
-      "license_notices": [
-        {
-          "path": "licenses/libm-0.2.16/LICENSE.txt",
-          "sha256": "3823dda7cf046602f4b4e77ec8e227863dc4736037cc85bb33d9f19febe16bb7"
-        }
-      ],
-      "corresponding_source": null,
-      "scope_note": "Locked development or other-target dependency; not in the native release graphs."
-    },
-    {
       "name": "libredox",
       "version": "0.1.23",
       "spdx_expression": "MIT",
@@ -2441,30 +2388,6 @@
       "scope_note": null
     },
     {
-      "name": "num-conv",
-      "version": "0.2.2",
-      "spdx_expression": "MIT OR Apache-2.0",
-      "selected_licenses": [
-        "MIT"
-      ],
-      "source": "registry+https://github.com/rust-lang/crates.io-index",
-      "registry_checksum": "521739c6d2bac4aa25192232afe6841231376b2b26d4d9fae5ecf8ca5772e441",
-      "repository": "https://github.com/jhpratt/num-conv",
-      "native_release_targets": [],
-      "license_notices": [
-        {
-          "path": "licenses/num-conv-0.2.2/LICENSE-Apache",
-          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
-        },
-        {
-          "path": "licenses/num-conv-0.2.2/LICENSE-MIT",
-          "sha256": "e2e245f2b566d0bfafb0f6a04c16b82d710c4e6e7d799e39bb4ef6e541b85b98"
-        }
-      ],
-      "corresponding_source": null,
-      "scope_note": "Locked development or other-target dependency; not in the native release graphs."
-    },
-    {
       "name": "num-traits",
       "version": "0.2.19",
       "spdx_expression": "MIT OR Apache-2.0",
@@ -2483,30 +2406,6 @@
         {
           "path": "licenses/num-traits-0.2.19/LICENSE-MIT",
           "sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb"
-        }
-      ],
-      "corresponding_source": null,
-      "scope_note": "Locked development or other-target dependency; not in the native release graphs."
-    },
-    {
-      "name": "num_threads",
-      "version": "0.1.7",
-      "spdx_expression": "MIT OR Apache-2.0",
-      "selected_licenses": [
-        "MIT"
-      ],
-      "source": "registry+https://github.com/rust-lang/crates.io-index",
-      "registry_checksum": "5c7398b9c8b70908f6371f47ed36737907c87c52af34c268fed0bf0ceb92ead9",
-      "repository": "https://github.com/jhpratt/num_threads",
-      "native_release_targets": [],
-      "license_notices": [
-        {
-          "path": "licenses/num_threads-0.1.7/LICENSE-Apache",
-          "sha256": "c69b72788ec261765e460532016b4bb78372f238e449b5e70e3268ec1e18fd15"
-        },
-        {
-          "path": "licenses/num_threads-0.1.7/LICENSE-MIT",
-          "sha256": "b4bf94a9fceb8846320fda938ee53fc16b506572609da5cf1d2d289a5597a8f8"
         }
       ],
       "corresponding_source": null,
@@ -2589,78 +2488,6 @@
       ],
       "corresponding_source": "source/option-ext-0.2.0",
       "scope_note": null
-    },
-    {
-      "name": "palette",
-      "version": "0.7.7",
-      "spdx_expression": "MIT OR Apache-2.0",
-      "selected_licenses": [
-        "MIT"
-      ],
-      "source": "registry+https://github.com/rust-lang/crates.io-index",
-      "registry_checksum": "ddeed8580d347d2abf3dcf06a5f0b3dc020258338526b277847cd4248a70fc64",
-      "repository": "https://github.com/Ogeon/palette",
-      "native_release_targets": [],
-      "license_notices": [
-        {
-          "path": "licenses/palette-0.7.7/LICENSE-APACHE",
-          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
-        },
-        {
-          "path": "licenses/palette-0.7.7/LICENSE-MIT",
-          "sha256": "be1313a4b07ab509c80083966cdd209a7d81d75cd57fcea24441fc9041ccf184"
-        }
-      ],
-      "corresponding_source": null,
-      "scope_note": "Locked development or other-target dependency; not in the native release graphs."
-    },
-    {
-      "name": "palette_derive",
-      "version": "0.7.7",
-      "spdx_expression": "MIT OR Apache-2.0",
-      "selected_licenses": [
-        "MIT"
-      ],
-      "source": "registry+https://github.com/rust-lang/crates.io-index",
-      "registry_checksum": "88537020289b719d81be994ccf1bbf4990f477e2f69ee52fe3e45f43a02e56be",
-      "repository": "https://github.com/Ogeon/palette",
-      "native_release_targets": [],
-      "license_notices": [
-        {
-          "path": "licenses/palette_derive-0.7.7/LICENSE-APACHE",
-          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
-        },
-        {
-          "path": "licenses/palette_derive-0.7.7/LICENSE-MIT",
-          "sha256": "be1313a4b07ab509c80083966cdd209a7d81d75cd57fcea24441fc9041ccf184"
-        }
-      ],
-      "corresponding_source": null,
-      "scope_note": "Locked development or other-target dependency; not in the native release graphs."
-    },
-    {
-      "name": "palette_math",
-      "version": "0.7.7",
-      "spdx_expression": "MIT OR Apache-2.0",
-      "selected_licenses": [
-        "MIT"
-      ],
-      "source": "registry+https://github.com/rust-lang/crates.io-index",
-      "registry_checksum": "6e6eb142958d64335fb0e345c5b9ead2ecd6fc438c307e9d7d3c4fd428dbaf12",
-      "repository": "https://github.com/Ogeon/palette",
-      "native_release_targets": [],
-      "license_notices": [
-        {
-          "path": "licenses/palette_math-0.7.7/LICENSE-APACHE",
-          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
-        },
-        {
-          "path": "licenses/palette_math-0.7.7/LICENSE_MIT",
-          "sha256": "be1313a4b07ab509c80083966cdd209a7d81d75cd57fcea24441fc9041ccf184"
-        }
-      ],
-      "corresponding_source": null,
-      "scope_note": "Locked development or other-target dependency; not in the native release graphs."
     },
     {
       "name": "parking_lot",
@@ -2754,54 +2581,6 @@
       ],
       "corresponding_source": null,
       "scope_note": null
-    },
-    {
-      "name": "portable-atomic",
-      "version": "1.15.0",
-      "spdx_expression": "Apache-2.0 OR MIT",
-      "selected_licenses": [
-        "MIT"
-      ],
-      "source": "registry+https://github.com/rust-lang/crates.io-index",
-      "registry_checksum": "05c8b63e8d9609db387f0324918f81d68fe27748f084ef092fb35954d0539a85",
-      "repository": "https://github.com/taiki-e/portable-atomic",
-      "native_release_targets": [],
-      "license_notices": [
-        {
-          "path": "licenses/portable-atomic-1.15.0/LICENSE-APACHE",
-          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
-        },
-        {
-          "path": "licenses/portable-atomic-1.15.0/LICENSE-MIT",
-          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
-        }
-      ],
-      "corresponding_source": null,
-      "scope_note": "Locked development or other-target dependency; not in the native release graphs."
-    },
-    {
-      "name": "powerfmt",
-      "version": "0.2.0",
-      "spdx_expression": "MIT OR Apache-2.0",
-      "selected_licenses": [
-        "MIT"
-      ],
-      "source": "registry+https://github.com/rust-lang/crates.io-index",
-      "registry_checksum": "439ee305def115ba05938db6eb1644ff94165c5ab5e9420d1c1bcedbba909391",
-      "repository": "https://github.com/jhpratt/powerfmt",
-      "native_release_targets": [],
-      "license_notices": [
-        {
-          "path": "licenses/powerfmt-0.2.0/LICENSE-Apache",
-          "sha256": "155420c6403d4e0fca34105e3c03fdd6939b64c393c7ec6f95f5b72c5474eab0"
-        },
-        {
-          "path": "licenses/powerfmt-0.2.0/LICENSE-MIT",
-          "sha256": "070dbc7dda03a29296f2d58bdb9b7331af90f2abc9f31df22875d1eabaf29852"
-        }
-      ],
-      "corresponding_source": null,
-      "scope_note": "Locked development or other-target dependency; not in the native release graphs."
     },
     {
       "name": "ppv-lite86",
@@ -3127,33 +2906,6 @@
       "license_notices": [
         {
           "path": "licenses/ratatui-core-0.1.2/LICENSE",
-          "sha256": "50eb43e8d742c9c61a9391e42b2184fce54dbd1893a1bb1c85b8c9ee217ab1f5"
-        }
-      ],
-      "corresponding_source": null,
-      "scope_note": null
-    },
-    {
-      "name": "ratatui-crossterm",
-      "version": "0.1.2",
-      "spdx_expression": "MIT",
-      "selected_licenses": [
-        "MIT"
-      ],
-      "source": "registry+https://github.com/rust-lang/crates.io-index",
-      "registry_checksum": "567584a3b0e6a8203c23de40b4861497266725eb5363dbfd18a1edd603cca9f0",
-      "repository": "https://github.com/ratatui/ratatui",
-      "native_release_targets": [
-        "aarch64-apple-darwin",
-        "aarch64-unknown-linux-gnu",
-        "x86_64-apple-darwin",
-        "x86_64-pc-windows-gnu",
-        "x86_64-pc-windows-msvc",
-        "x86_64-unknown-linux-gnu"
-      ],
-      "license_notices": [
-        {
-          "path": "licenses/ratatui-crossterm-0.1.2/LICENSE",
           "sha256": "50eb43e8d742c9c61a9391e42b2184fce54dbd1893a1bb1c85b8c9ee217ab1f5"
         }
       ],
@@ -4216,54 +3968,6 @@
       ],
       "corresponding_source": null,
       "scope_note": null
-    },
-    {
-      "name": "time",
-      "version": "0.3.55",
-      "spdx_expression": "MIT OR Apache-2.0",
-      "selected_licenses": [
-        "MIT"
-      ],
-      "source": "registry+https://github.com/rust-lang/crates.io-index",
-      "registry_checksum": "cdb87b95ec50ddfa440816d227a17b2ccbdda963a316a727fda0fc4334f7d134",
-      "repository": "https://github.com/time-rs/time",
-      "native_release_targets": [],
-      "license_notices": [
-        {
-          "path": "licenses/time-0.3.55/LICENSE-Apache",
-          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
-        },
-        {
-          "path": "licenses/time-0.3.55/LICENSE-MIT",
-          "sha256": "2537228d9a1b44a5dc595241349cae7090b326c8de165aaf89bfddef4a00d0fc"
-        }
-      ],
-      "corresponding_source": null,
-      "scope_note": "Locked development or other-target dependency; not in the native release graphs."
-    },
-    {
-      "name": "time-core",
-      "version": "0.1.9",
-      "spdx_expression": "MIT OR Apache-2.0",
-      "selected_licenses": [
-        "MIT"
-      ],
-      "source": "registry+https://github.com/rust-lang/crates.io-index",
-      "registry_checksum": "9e1c906769ad99c88eaa54e728060edef082f8e358ff32030cb7c7d315e81109",
-      "repository": "https://github.com/time-rs/time",
-      "native_release_targets": [],
-      "license_notices": [
-        {
-          "path": "licenses/time-core-0.1.9/LICENSE-Apache",
-          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
-        },
-        {
-          "path": "licenses/time-core-0.1.9/LICENSE-MIT",
-          "sha256": "2537228d9a1b44a5dc595241349cae7090b326c8de165aaf89bfddef4a00d0fc"
-        }
-      ],
-      "corresponding_source": null,
-      "scope_note": "Locked development or other-target dependency; not in the native release graphs."
     },
     {
       "name": "tinyvec",

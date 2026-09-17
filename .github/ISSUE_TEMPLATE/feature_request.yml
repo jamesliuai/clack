@@ -1,0 +1,44 @@
+name: Feature request
+description: Propose an improvement that keeps clack focused and fast
+title: "feature: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: Explain the typing workflow or limitation, not only the desired implementation.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed experience
+      description: Describe how this should behave in the CLI, including controls or configuration if relevant.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Mention workarounds or simpler approaches you have tried.
+
+  - type: textarea
+    id: performance
+    attributes:
+      label: Performance and visual impact
+      description: Note any expected effect on startup, idle CPU, input latency, terminal compatibility, or focus mode.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and discussions for a similar idea.
+          required: true
+        - label: This request preserves a distraction-free typing experience.
+          required: true
+
