@@ -19,11 +19,22 @@ from types import SimpleNamespace
 from unittest import mock
 
 import install
+import licenses
 import package
 import verify_release
 
 
 class ReleaseTests(unittest.TestCase):
+    def test_license_inventory_ignores_local_build_artifacts(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            expected = root / "LICENSE"
+            expected.write_text("source license")
+            stale = root / "target/package/old-version/LICENSE"
+            stale.parent.mkdir(parents=True)
+            stale.write_text("stale build license")
+            self.assertEqual(licenses.notice_files(root), [expected])
+
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory(prefix="clack-release-test-")
         self.addCleanup(self.temporary.cleanup)

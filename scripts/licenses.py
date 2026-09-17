@@ -68,6 +68,7 @@ def native_graphs() -> dict[tuple[str, str], list[str]]:
 
 def notice_files(directory: Path) -> list[Path]:
     return sorted(p for p in directory.rglob("*") if p.is_file() and not p.is_symlink()
+                  and not {"target", ".git", "__pycache__"}.intersection(p.relative_to(directory).parts)
                   and any(word in p.name.lower() for word in ("license", "copying", "notice", "copyright"))
                   and "test" not in str(p.relative_to(directory)).lower())
 

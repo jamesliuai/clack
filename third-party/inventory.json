@@ -515,10 +515,6 @@
         {
           "path": "licenses/clack-crossterm-0.30.0/LICENSE",
           "sha256": "aca4760f2a5eba9ce9d4448fe7cd3fcf98245a8315ede59ebd0c6085dd542e61"
-        },
-        {
-          "path": "licenses/clack-crossterm-0.30.0/target/package/clack-crossterm-0.29.0/LICENSE",
-          "sha256": "aca4760f2a5eba9ce9d4448fe7cd3fcf98245a8315ede59ebd0c6085dd542e61"
         }
       ],
       "corresponding_source": null,
@@ -572,10 +568,6 @@
       "license_notices": [
         {
           "path": "licenses/clack-ratatui-crossterm-0.2.0/LICENSE",
-          "sha256": "50eb43e8d742c9c61a9391e42b2184fce54dbd1893a1bb1c85b8c9ee217ab1f5"
-        },
-        {
-          "path": "licenses/clack-ratatui-crossterm-0.2.0/target/package/clack-ratatui-crossterm-0.1.2/LICENSE",
           "sha256": "50eb43e8d742c9c61a9391e42b2184fce54dbd1893a1bb1c85b8c9ee217ab1f5"
         }
       ],
