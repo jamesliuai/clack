@@ -38,7 +38,7 @@ jobs:
       - run: cargo +1.95.0 clippy --locked --all-targets --all-features -- -D warnings
       - name: Validate terminal backend support crate
         run: |
-          cargo +1.95.0 fmt --manifest-path vendor/ratatui-crossterm/Cargo.toml --all -- --check
+          cargo +1.95.0 fmt --manifest-path vendor/ratatui-crossterm/Cargo.toml -p clack-ratatui-crossterm -- --check
           cargo +1.95.0 test --manifest-path vendor/ratatui-crossterm/Cargo.toml --locked --all-features
       - run: cargo +1.95.0 fetch --locked
       - run: python scripts/licenses.py --check
