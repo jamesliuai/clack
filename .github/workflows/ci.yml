@@ -106,13 +106,13 @@ jobs:
           python scripts/product_pty.py --binary target/pty/clack-instrumented --report target/pty/product.json
       - run: python scripts/package.py --target ${{ matrix.target }} --toolchain 1.95.0 --output dist
       - run: python scripts/verify_release.py --directory dist --single-artifact
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: clack-${{ matrix.target }}
           path: dist/*
           if-no-files-found: error
           retention-days: 30
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always() && runner.os != 'Windows'
         with:
           name: terminal-evidence-${{ matrix.target }}
@@ -131,7 +131,7 @@ jobs:
           python-version: "3.12"
       - run: python scripts/package.py --source --output dist
       - run: python scripts/verify_release.py --directory dist --single-artifact
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: clack-source
           path: dist/*
