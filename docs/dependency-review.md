@@ -1,5 +1,5 @@
-> Packaging update: the application now selects `clack-crossterm` 0.30.0 and
-> `clack-ratatui-crossterm` 0.2.0 using versioned paths for source builds and
+> Packaging update: the application now selects `clack-crossterm` 0.30.1 and
+> `clack-ratatui-crossterm` 0.2.1 using versioned paths for source builds and
 > registry dependencies for Cargo installs. The terminal implementation remains
 > the newer main-branch fork described below. Prior measurement hashes remain
 > historical evidence and are not regenerated to imply a new audit.

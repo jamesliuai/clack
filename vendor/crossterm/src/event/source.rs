@@ -23,7 +23,13 @@ pub(crate) trait EventSource: Sync + Send {
 
     /// Discard pending keyboard bytes and incomplete parser state at an epoch barrier.
     #[cfg(feature = "poll-waker")]
-    fn discard_pending_input(&mut self) -> io::Result<()> { Ok(()) }
+    fn discard_pending_input(&mut self) -> io::Result<()> {
+        Ok(())
+    }
+
+    /// Legacy X10 reports share their prefix with unsupported keyboard input.
+    #[cfg(all(unix, feature = "poll-waker"))]
+    fn set_legacy_mouse_input(&mut self, _enabled: bool) {}
 
     /// Returns a `Waker` allowing to wake/force the `try_read` method to return `Ok(None)`.
     #[cfg(any(feature = "event-stream", feature = "poll-waker"))]

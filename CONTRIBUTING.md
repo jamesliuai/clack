@@ -35,6 +35,7 @@ cargo +1.95.0 test --locked --all-targets --all-features
 cargo +1.88.0 check --locked --all-targets --all-features
 python3 scripts/licenses.py --check
 python3 scripts/release_test.py
+python3 scripts/verify_crates.py
 python3 scripts/benchmark.py --self-test
 python3 scripts/audit_coverage.py --require-local-complete
 ```

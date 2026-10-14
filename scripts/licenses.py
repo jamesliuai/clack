@@ -36,8 +36,8 @@ CHOICES = {
     "(MIT OR Apache-2.0) AND Unicode-3.0": ["MIT", "Unicode-3.0"],
 }
 LOCAL_PACKAGES = {
-    ("clack-crossterm", "0.30.0"): ROOT / "vendor/crossterm/Cargo.toml",
-    ("clack-ratatui-crossterm", "0.2.0"): ROOT / "vendor/ratatui-crossterm/Cargo.toml",
+    ("clack-crossterm", "0.30.1"): ROOT / "vendor/crossterm/Cargo.toml",
+    ("clack-ratatui-crossterm", "0.2.1"): ROOT / "vendor/ratatui-crossterm/Cargo.toml",
     ("clack-private-fs", "1.0.0"): ROOT / "vendor/clack-private-fs/Cargo.toml",
 }
 

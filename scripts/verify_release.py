@@ -135,7 +135,7 @@ def verify(archive: Path) -> dict:
             if sha((root / "Cargo.lock").read_bytes()) != manifest["cargo_lock_sha256"]:
                 raise ValueError("source lockfile checksum mismatch")
             digest = hashlib.sha256()
-            sources = [root / "Cargo.toml", root / "Cargo.lock"]
+            sources = [root / "Cargo.toml", root / "Cargo.lock", root / "build.rs"]
             for name in ("src", "data", "vendor"):
                 sources.extend(package.files_under(root / name))
             for source in sorted(sources):

@@ -1,4 +1,8 @@
-use std::{collections::vec_deque::VecDeque, io, time::Duration};
+use std::{
+    collections::vec_deque::VecDeque,
+    io,
+    time::{Duration, Instant},
+};
 
 #[cfg(unix)]
 use crate::event::source::unix::UnixInternalEventSource;
@@ -49,9 +53,29 @@ impl InternalEventReader {
     #[cfg(feature = "poll-waker")]
     pub(crate) fn discard_pending_input(&mut self) -> io::Result<()> {
         self.events.retain(super::source::preserve_across_epoch);
-        self.skipped_events.retain(super::source::preserve_across_epoch);
-        self.source.as_mut().ok_or_else(|| io::Error::new(io::ErrorKind::NotConnected,
-            "input reader is not initialized"))?.discard_pending_input()
+        self.skipped_events
+            .retain(super::source::preserve_across_epoch);
+        self.source
+            .as_mut()
+            .ok_or_else(|| {
+                io::Error::new(
+                    io::ErrorKind::NotConnected,
+                    "input reader is not initialized",
+                )
+            })?
+            .discard_pending_input()
+    }
+
+    #[cfg(all(unix, feature = "poll-waker"))]
+    pub(crate) fn set_legacy_mouse_input(&mut self, enabled: bool) -> io::Result<()> {
+        let source = self.source.as_mut().ok_or_else(|| {
+            io::Error::new(
+                io::ErrorKind::NotConnected,
+                "input reader is not initialized",
+            )
+        })?;
+        source.set_legacy_mouse_input(enabled);
+        Ok(())
     }
 
     pub(crate) fn poll<F>(&mut self, timeout: Option<Duration>, filter: &F) -> io::Result<bool>
@@ -75,6 +99,7 @@ impl InternalEventReader {
         };
 
         let poll_timeout = PollTimeout::new(timeout);
+        let service_started = Instant::now();
 
         loop {
             let maybe_event = match event_source.try_read(poll_timeout.leftover()) {
@@ -83,6 +108,18 @@ impl InternalEventReader {
                     if filter.eval(&event) {
                         Some(event)
                     } else {
+                        // Replies are state snapshots, and no outstanding
+                        // request accepts these. Retain only the latest reply
+                        // of each kind instead of accumulating an unbounded
+                        // backlog during ordinary keyboard polling.
+                        #[cfg(unix)]
+                        if !matches!(event, InternalEvent::Event(_)) {
+                            let kind = std::mem::discriminant(&event);
+                            self.events
+                                .retain(|queued| std::mem::discriminant(queued) != kind);
+                            self.skipped_events
+                                .retain(|queued| std::mem::discriminant(queued) != kind);
+                        }
                         self.skipped_events.push(event);
                         None
                     }
@@ -96,7 +133,10 @@ impl InternalEventReader {
                 }
             };
 
-            if poll_timeout.elapsed() || maybe_event.is_some() {
+            if poll_timeout.elapsed()
+                || maybe_event.is_some()
+                || service_started.elapsed() >= Duration::from_millis(1)
+            {
                 self.events.extend(self.skipped_events.drain(..));
 
                 if let Some(event) = maybe_event {
@@ -396,6 +436,50 @@ mod tests {
         assert_eq!(reader.read(&InternalEventFilter).unwrap(), EVENT);
         assert!(reader.read(&InternalEventFilter).is_err());
         assert_eq!(reader.read(&InternalEventFilter).unwrap(), EVENT);
+    }
+
+    #[test]
+    #[cfg(unix)]
+    fn unsolicited_reply_flood_keeps_latest_state_and_keyboard_order() {
+        use super::super::{filter::EventFilter, KeyCode, KeyEvent, KeyboardEnhancementFlags};
+        let mut events = Vec::new();
+        for coordinate in 0..10_000 {
+            events.extend([
+                InternalEvent::CursorPosition(coordinate, coordinate),
+                InternalEvent::KeyboardEnhancementFlags(
+                    KeyboardEnhancementFlags::from_bits_retain(23),
+                ),
+                InternalEvent::PrimaryDeviceAttributes,
+            ]);
+        }
+        events.extend(['a', 'b'].map(|character| {
+            InternalEvent::Event(Event::Key(KeyEvent::from(KeyCode::Char(character))))
+        }));
+        let mut reader = InternalEventReader {
+            events: VecDeque::new(),
+            source: Some(Box::new(FakeSource::with_events(&events))),
+            skipped_events: Vec::new(),
+        };
+        for character in ['a', 'b'] {
+            while !reader
+                .poll(Some(Duration::from_secs(1)), &EventFilter)
+                .unwrap()
+            {
+                assert!(reader.events.len() + reader.skipped_events.len() <= 3);
+            }
+            assert_eq!(
+                reader.read(&EventFilter).unwrap(),
+                InternalEvent::Event(Event::Key(KeyEvent::from(KeyCode::Char(character))))
+            );
+            assert!(reader.events.len() + reader.skipped_events.len() <= 3);
+        }
+        assert!(reader
+            .poll(Some(Duration::ZERO), &CursorPositionFilter)
+            .unwrap());
+        assert_eq!(
+            reader.read(&CursorPositionFilter).unwrap(),
+            InternalEvent::CursorPosition(9_999, 9_999)
+        );
     }
 
     #[derive(Default)]

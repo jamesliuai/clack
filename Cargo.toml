@@ -1,6 +1,6 @@
 [package]
 name = "clack-typing"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2024"
 rust-version = "1.88"
 description = "A local-first, keyboard-driven terminal typing test"
@@ -10,7 +10,7 @@ publish = ["crates-io"]
 repository = "https://github.com/jamesliuai/clack"
 keywords = ["typing", "terminal", "tui", "cli", "keyboard"]
 categories = ["command-line-utilities", "games"]
-exclude = [".github/", "vendor/", "dist/"]
+exclude = [".github/", "vendor/", "dist/", "docs/measurements/"]
 default-run = "clack"
 
 [workspace]
@@ -30,11 +30,11 @@ path = "src/main.rs"
 clap = { version = "4.6", features = ["derive"] }
 clap_complete = "4.6"
 clap_mangen = "0.2"
-crossterm = { package = "clack-crossterm", version = "=0.30.0", path = "vendor/crossterm", features = ["associated-text", "poll-waker", "managed-signals", "use-dev-tty"] }
+crossterm = { package = "clack-crossterm", version = "=0.30.1", path = "vendor/crossterm", features = ["associated-text", "poll-waker", "managed-signals", "use-dev-tty"] }
 directories = "6"
 ratatui = { version = "0.30.2", default-features = false }
-ratatui-crossterm = { package = "clack-ratatui-crossterm", version = "=0.2.0", path = "vendor/ratatui-crossterm" }
-rusqlite = { version = "0.39", features = ["bundled"] }
+ratatui-crossterm = { package = "clack-ratatui-crossterm", version = "=0.2.1", path = "vendor/ratatui-crossterm" }
+rusqlite = { version = "0.39", features = ["bundled", "limits"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 sha2 = "0.10"
@@ -56,6 +56,14 @@ clack-private-fs = { version = "=1.0.0", path = "vendor/clack-private-fs" }
 proptest = "1.11"
 tempfile = "3"
 allocation-counter = "0.8"
+
+[build-dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+unicode-normalization = "0.1"
+unicode-segmentation = "1.13"
+unicode-width = "0.2"
 
 [features]
 default = []

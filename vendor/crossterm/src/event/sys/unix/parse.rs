@@ -27,6 +27,10 @@ fn could_not_parse_event_error() -> io::Error {
     io::Error::new(kind, "Could not parse an event.")
 }
 
+fn unsupported_event_error() -> io::Error {
+    io::Error::new(io::ErrorKind::Unsupported, "Unsupported terminal sequence")
+}
+
 pub(crate) fn parse_event(
     buffer: &[u8],
     input_available: bool,
@@ -69,11 +73,14 @@ pub(crate) fn parse_event(
                                 b'F' => {
                                     Ok(Some(InternalEvent::Event(Event::Key(KeyCode::End.into()))))
                                 }
+                                b'M' => Ok(Some(InternalEvent::Event(Event::Key(
+                                    KeyCode::Enter.into(),
+                                )))),
                                 // F1-F4
                                 val @ b'P'..=b'S' => Ok(Some(InternalEvent::Event(Event::Key(
                                     KeyCode::F(1 + val - b'P').into(),
                                 )))),
-                                _ => Err(could_not_parse_event_error()),
+                                _ => Err(unsupported_event_error()),
                             }
                         }
                     }
@@ -145,6 +152,21 @@ pub(crate) fn parse_csi(buffer: &[u8]) -> io::Result<Option<InternalEvent>> {
         return Ok(None);
     }
 
+    // Unknown CSI commands still have to be consumed through their final byte.
+    // X10 mouse reports and Linux-console function keys have extra bytes after
+    // their first final byte; bracketed paste has its own terminator.
+    #[cfg(feature = "bracketed-paste")]
+    if buffer.starts_with(b"\x1B[200~") {
+        return parse_csi_bracketed_paste(buffer);
+    }
+    if !matches!(buffer[2], b'[' | b'M')
+        && !buffer
+            .last()
+            .is_some_and(|byte| (0x40..=0x7e).contains(byte))
+    {
+        return Ok(None);
+    }
+
     let input_event = match buffer[2] {
         b'[' => {
             if buffer.len() == 3 {
@@ -154,7 +176,7 @@ pub(crate) fn parse_csi(buffer: &[u8]) -> io::Result<Option<InternalEvent>> {
                     // NOTE (@imdaveho): cannot find when this occurs;
                     // having another '[' after ESC[ not a likely scenario
                     val @ b'A'..=b'E' => Some(Event::Key(KeyCode::F(1 + val - b'A').into())),
-                    _ => return Err(could_not_parse_event_error()),
+                    _ => return Err(unsupported_event_error()),
                 }
             }
         }
@@ -164,6 +186,7 @@ pub(crate) fn parse_csi(buffer: &[u8]) -> io::Result<Option<InternalEvent>> {
         b'B' => Some(Event::Key(KeyCode::Down.into())),
         b'H' => Some(Event::Key(KeyCode::Home.into())),
         b'F' => Some(Event::Key(KeyCode::End.into())),
+        b'E' | b'G' => Some(Event::Key(KeyCode::KeypadBegin.into())),
         b'Z' => Some(Event::Key(KeyEvent::new_with_kind(
             KeyCode::BackTab,
             KeyModifiers::SHIFT,
@@ -184,6 +207,7 @@ pub(crate) fn parse_csi(buffer: &[u8]) -> io::Result<Option<InternalEvent>> {
         b'?' => match buffer[buffer.len() - 1] {
             b'u' => return parse_csi_keyboard_enhancement_flags(buffer),
             b'c' => return parse_csi_primary_device_attributes(buffer),
+            byte if (0x40..=0x7e).contains(&byte) => return Err(unsupported_event_error()),
             _ => None,
         },
         b'0'..=b'9' => {
@@ -206,12 +230,15 @@ pub(crate) fn parse_csi(buffer: &[u8]) -> io::Result<Option<InternalEvent>> {
                         b'~' => return parse_csi_special_key_code(buffer),
                         b'u' => return parse_csi_u_encoded_key_code(buffer),
                         b'R' => return parse_csi_cursor_position(buffer),
-                        _ => return parse_csi_modifier_key_code(buffer),
+                        b'A' | b'B' | b'C' | b'D' | b'F' | b'H' | b'P' | b'Q' | b'S' => {
+                            return parse_csi_modifier_key_code(buffer);
+                        }
+                        _ => return Err(unsupported_event_error()),
                     }
                 }
             }
         }
-        _ => return Err(could_not_parse_event_error()),
+        _ => return Err(unsupported_event_error()),
     };
 
     Ok(input_event.map(InternalEvent::Event))
@@ -254,8 +281,12 @@ pub(crate) fn parse_csi_cursor_position(buffer: &[u8]) -> io::Result<Option<Inte
 
     let mut split = s.split(';');
 
-    let y = next_parsed::<u16>(&mut split)? - 1;
-    let x = next_parsed::<u16>(&mut split)? - 1;
+    let y = next_parsed::<u16>(&mut split)?
+        .checked_sub(1)
+        .ok_or_else(could_not_parse_event_error)?;
+    let x = next_parsed::<u16>(&mut split)?
+        .checked_sub(1)
+        .ok_or_else(could_not_parse_event_error)?;
 
     Ok(Some(InternalEvent::CursorPosition(x, y)))
 }
@@ -618,8 +649,10 @@ pub(crate) fn parse_csi_u_encoded_key_code(buffer: &[u8]) -> io::Result<Option<I
                     .ok().and_then(char::from_u32)
                     .ok_or_else(could_not_parse_event_error)?;
                 if text.len() + scalar.len_utf8() > 16 * 1024 {
-                    return Err(io::Error::new(io::ErrorKind::InvalidData,
-                        "associated keyboard text exceeds 16 KiB"));
+                    return Err(io::Error::new(
+                        io::ErrorKind::InvalidData,
+                        "associated keyboard text exceeds 16 KiB",
+                    ));
                 }
                 text.push(scalar);
             }
@@ -640,6 +673,26 @@ pub(crate) fn parse_csi_special_key_code(buffer: &[u8]) -> io::Result<Option<Int
 
     // This CSI sequence can be a list of semicolon-separated numbers.
     let first = next_parsed::<u8>(&mut split)?;
+
+    // xterm modifyOtherKeys: CSI 27 ; modifier ; codepoint ~.
+    if first == 27 {
+        let modifiers = parse_modifiers(next_parsed::<u8>(&mut split)?);
+        let scalar = char::from_u32(next_parsed::<u32>(&mut split)?)
+            .ok_or_else(could_not_parse_event_error)?;
+        if split.next().is_some() {
+            return Err(could_not_parse_event_error());
+        }
+        let code = match scalar {
+            '\r' => KeyCode::Enter,
+            '\t' => KeyCode::Tab,
+            '\x1b' => KeyCode::Esc,
+            '\x7f' => KeyCode::Backspace,
+            c => KeyCode::Char(c),
+        };
+        return Ok(Some(InternalEvent::Event(Event::Key(KeyEvent::new(
+            code, modifiers,
+        )))));
+    }
 
     let (modifiers, kind, state) =
         if let Ok((modifier_mask, kind_code)) = modifier_and_kind_parsed(&mut split) {
@@ -664,7 +717,7 @@ pub(crate) fn parse_csi_special_key_code(buffer: &[u8]) -> io::Result<Option<Int
         v @ 23..=26 => KeyCode::F(v - 12),
         v @ 28..=29 => KeyCode::F(v - 15),
         v @ 31..=34 => KeyCode::F(v - 17),
-        _ => return Err(could_not_parse_event_error()),
+        _ => return Err(unsupported_event_error()),
     };
 
     let input_event = Event::Key(KeyEvent::new_with_kind_and_state(
@@ -690,8 +743,12 @@ pub(crate) fn parse_csi_rxvt_mouse(buffer: &[u8]) -> io::Result<Option<InternalE
         .ok_or_else(could_not_parse_event_error)?;
     let (kind, modifiers) = parse_cb(cb)?;
 
-    let cx = next_parsed::<u16>(&mut split)? - 1;
-    let cy = next_parsed::<u16>(&mut split)? - 1;
+    let cx = next_parsed::<u16>(&mut split)?
+        .checked_sub(1)
+        .ok_or_else(could_not_parse_event_error)?;
+    let cy = next_parsed::<u16>(&mut split)?
+        .checked_sub(1)
+        .ok_or_else(could_not_parse_event_error)?;
 
     Ok(Some(InternalEvent::Event(Event::Mouse(MouseEvent {
         kind,
@@ -718,8 +775,12 @@ pub(crate) fn parse_csi_normal_mouse(buffer: &[u8]) -> io::Result<Option<Interna
     // See http://www.xfree86.org/current/ctlseqs.html#Mouse%20Tracking
     // The upper left character position on the terminal is denoted as 1,1.
     // Subtract 1 to keep it synced with cursor
-    let cx = u16::from(buffer[4].saturating_sub(32)) - 1;
-    let cy = u16::from(buffer[5].saturating_sub(32)) - 1;
+    let cx = u16::from(buffer[4])
+        .checked_sub(33)
+        .ok_or_else(could_not_parse_event_error)?;
+    let cy = u16::from(buffer[5])
+        .checked_sub(33)
+        .ok_or_else(could_not_parse_event_error)?;
 
     Ok(Some(InternalEvent::Event(Event::Mouse(MouseEvent {
         kind,
@@ -748,8 +809,12 @@ pub(crate) fn parse_csi_sgr_mouse(buffer: &[u8]) -> io::Result<Option<InternalEv
     // See http://www.xfree86.org/current/ctlseqs.html#Mouse%20Tracking
     // The upper left character position on the terminal is denoted as 1,1.
     // Subtract 1 to keep it synced with cursor
-    let cx = next_parsed::<u16>(&mut split)? - 1;
-    let cy = next_parsed::<u16>(&mut split)? - 1;
+    let cx = next_parsed::<u16>(&mut split)?
+        .checked_sub(1)
+        .ok_or_else(could_not_parse_event_error)?;
+    let cy = next_parsed::<u16>(&mut split)?
+        .checked_sub(1)
+        .ok_or_else(could_not_parse_event_error)?;
 
     // When button 3 in Cb is used to represent mouse release, you can't tell which button was
     // released. SGR mode solves this by having the sequence end with a lowercase m if it's a
@@ -882,6 +947,70 @@ mod tests {
     use super::*;
 
     #[test]
+    fn zero_or_invalid_terminal_coordinates_are_errors_instead_of_panics() {
+        for sequence in [
+            b"\x1b[0;1R".as_slice(),
+            b"\x1b[1;0R",
+            b"\x1b[32;0;1;M",
+            b"\x1b[<0;1;0M",
+            b"\x1b[M \x20\x21",
+            b"\x1b[M \x21\x00",
+        ] {
+            assert!(parse_event(sequence, false).is_err());
+        }
+    }
+
+    #[test]
+    fn legacy_keypad_and_modify_other_keys_sequences_are_keys() {
+        for (sequence, code, modifiers) in [
+            (
+                b"\x1b[E".as_slice(),
+                KeyCode::KeypadBegin,
+                KeyModifiers::NONE,
+            ),
+            (
+                b"\x1b[G".as_slice(),
+                KeyCode::KeypadBegin,
+                KeyModifiers::NONE,
+            ),
+            (b"\x1bOM".as_slice(), KeyCode::Enter, KeyModifiers::NONE),
+            (
+                b"\x1b[27;5;13~".as_slice(),
+                KeyCode::Enter,
+                KeyModifiers::CONTROL,
+            ),
+            (
+                b"\x1b[27;3;233~".as_slice(),
+                KeyCode::Char('é'),
+                KeyModifiers::ALT,
+            ),
+        ] {
+            assert_eq!(
+                parse_event(sequence, false).unwrap(),
+                Some(InternalEvent::Event(Event::Key(KeyEvent::new(
+                    code, modifiers
+                ))))
+            );
+        }
+    }
+
+    #[test]
+    fn unknown_terminal_sequences_are_distinct_from_malformed_keyboard_text() {
+        for sequence in [b"\x1bOX".as_slice(), b"\x1b[=1x", b"\x1b[99~", b"\x1b[1x"] {
+            assert_eq!(
+                parse_event(sequence, false).unwrap_err().kind(),
+                io::ErrorKind::Unsupported
+            );
+        }
+        assert!(parse_event(b"\x1b[=1", false).unwrap().is_none());
+        #[cfg(feature = "associated-text")]
+        assert_eq!(
+            parse_event(b"\x1b[97;1;55296u", false).unwrap_err().kind(),
+            io::ErrorKind::InvalidData
+        );
+    }
+
+    #[test]
     fn keyboard_status_reply_uses_complete_decimal_value() {
         for bits in [0_u8, 1, 8, 16, 23, 31, 255] {
             let reply = format!("\x1b[?{}u", bits);
@@ -892,7 +1021,12 @@ mod tests {
 
     #[test]
     fn malformed_keyboard_status_reply_is_rejected() {
-        for reply in [b"\x1b[?256u".as_slice(), b"\x1b[?1;2u", b"\x1b[?+1u", b"\x1b[?-1u"] {
+        for reply in [
+            b"\x1b[?256u".as_slice(),
+            b"\x1b[?1;2u",
+            b"\x1b[?+1u",
+            b"\x1b[?-1u",
+        ] {
             assert!(parse_csi_keyboard_enhancement_flags(reply).is_err());
         }
     }
@@ -1557,7 +1691,11 @@ mod associated_text_tests {
 
     #[test]
     fn associated_text_preserves_press_repeat_release_and_modifiers() {
-        for (code, expected) in [(1, KeyEventKind::Press), (2, KeyEventKind::Repeat), (3, KeyEventKind::Release)] {
+        for (code, expected) in [
+            (1, KeyEventKind::Press),
+            (2, KeyEventKind::Repeat),
+            (3, KeyEventKind::Release),
+        ] {
             let sequence = format!("\x1b[97;5:{code};98u");
             let (key, text) = text_event(sequence.as_bytes());
             assert_eq!(key.kind, expected);

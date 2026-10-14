@@ -38,6 +38,24 @@ all-keys flag 8 according to the [Kitty protocol](https://sw.kovidgoyal.net/kitt
 The application ignores Release and non-text modifier events while preserving
 baseline input when enhancements are disabled.
 
+Unsupported CSI/SS3 commands are consumed through their sequence boundary and
+ignored without terminating keyboard input. Keypad Begin/Enter and xterm
+modifyOtherKeys are decoded as key events. Malformed associated text still
+produces ordered errors. Clack disables ambiguous legacy X10 mouse parsing with
+`event::set_legacy_mouse_input(false)` because it never captures mouse input;
+the fork retains enabled parsing by default for other consumers. A stray private
+reply prefix followed by a nonnumeric key no longer consumes that key.
+
+These changes are prepared as 0.30.1. Consumers using `set_legacy_mouse_input`
+must select that version; the published 0.30.0 does not expose this API.
+
+Unmatched terminal replies are coalesced to their latest state by reply type,
+while ordinary input keeps its order. Reply floods yield after a one-millisecond
+service slice so keyboard-owner controls and deadlines remain responsive.
+Terminal coordinate decoding uses checked subtraction instead of debug-build
+underflows. The application input-owner scope guard closes and notifies its
+queue even during unwinding, allowing the render loop to restore the terminal.
+
 ## Explicit diagnostic probe
 
 The application uses `event::poll_keyboard_probe` only from `doctor --probe`.
@@ -46,7 +64,10 @@ owner, without writing queries, accessing stdout, or changing terminal modes.
 The application supplies a nonblocking controlling-terminal writer, a raw-state
 guard, a 400 ms overall response deadline, and a 4096-event limit. The filter
 accepts every event, so unrelated keys cannot accumulate in a skipped queue.
-No normal startup code calls this API. Missing replies remain unknown; a
+No normal startup code calls this API. The terminal query protocols provide no
+cancellation acknowledgement: a response delayed beyond the bounded probe can
+arrive after control returns to the shell. Increasing a drain timeout cannot
+eliminate that protocol limit. Missing replies remain unknown; a
 device-attribute reply without a keyboard reply indicates protocol absence.
 
 The upstream flags-response decoder treated the first ASCII digit as a raw
@@ -67,7 +88,10 @@ preserving process signals and geometry. Unix uses safe rustix `tcflush` on the
 controlling terminal; Windows drains a bounded console-input snapshot through the
 existing safe backend API. The `use-dev-tty` zero-timeout poll now inspects both
 buffered events and ready input; previously it returned before either check.
-Both Unix sources report input EOF instead of spinning.
+Both Unix sources report input EOF instead of spinning. The selected TTY source
+polls before every terminal read, including after full buffers, because its
+terminal descriptor may be blocking. Incomplete sequences cannot block a second
+read while signals, wakeups, or a deadline are pending.
 
 The optional `managed-signals` feature routes SIGINT, SIGTERM, SIGHUP, SIGTSTP and
 SIGCONT as `Event::Signal`; SIGWINCH stays Resize. It extends the existing signal
@@ -102,9 +126,15 @@ cargo check --manifest-path vendor/crossterm/Cargo.toml --offline --all-features
 cargo check --manifest-path vendor/crossterm/Cargo.toml --offline --target x86_64-pc-windows-gnu --features associated-text,poll-waker,managed-signals,use-dev-tty
 ```
 
-The selected TTY source passes 109 tests; the alternative MIO source passes 108.
-Each leaves seven pre-existing cursor/terminal-dependent upstream tests ignored.
-The final local audit logs are `docs/measurements/terminal-vendor-*-final.log`
+The current security/performance regression run passes 117 tests for the TTY
+source and 115 for the alternative MIO source. Each leaves seven pre-existing
+cursor/terminal-dependent upstream tests ignored. Minimal events-only and
+all-feature/all-target compatibility checks also pass. The application keyboard
+suite passes all 15 tests, including 21 isolated lifecycle/input scenarios and
+11 explicit probe scenarios; the reader-unwind queue-closure test also passes.
+
+The earlier release audit recorded 109 TTY tests and 108 MIO tests. Its
+final local audit logs are `docs/measurements/terminal-vendor-*-final.log`
 in the application repository, including minimal/all-features and Windows cross checks.
 The checks cover configuration compilation, including cross-compilation of the
 Windows backend, rather than native Windows or emulator compatibility. The root

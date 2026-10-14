@@ -1,4 +1,4 @@
-use std::{fmt, ops::Range};
+use std::{borrow::Cow, fmt, ops::Range};
 
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
@@ -173,6 +173,21 @@ pub fn prepare_custom(
     policy: InputPolicy,
     normalize_exact: bool,
 ) -> Result<PreparedText, ContentError> {
+    let text = normalize_custom(bytes, policy, normalize_exact)?;
+    let normalization = if policy == InputPolicy::Prose || normalize_exact {
+        Normalization::Nfc
+    } else {
+        Normalization::Preserve
+    };
+    Ok(PreparedText::from_validated(text, policy, normalization))
+}
+
+/// Normalize and validate a source without building unused target span arrays.
+pub fn normalize_custom(
+    bytes: &[u8],
+    policy: InputPolicy,
+    normalize_exact: bool,
+) -> Result<String, ContentError> {
     if bytes.len() > MAX_CUSTOM_BYTES {
         return Err(ContentError::new(
             "input_too_large",
@@ -183,15 +198,28 @@ pub fn prepare_custom(
         ContentError::new("invalid_utf8", "custom input is not valid UTF-8").at(error.valid_up_to())
     })?;
     validate_text(source, policy)?;
-    let lines = source.replace("\r\n", "\n");
+    let lines = if source.contains("\r\n") {
+        Cow::Owned(source.replace("\r\n", "\n"))
+    } else {
+        Cow::Borrowed(source)
+    };
     let normalization = if policy == InputPolicy::Prose || normalize_exact {
         Normalization::Nfc
     } else {
         Normalization::Preserve
     };
     let text = match policy {
-        InputPolicy::Prose => lines.split_whitespace().collect::<Vec<_>>().join(" "),
-        InputPolicy::Exact => lines,
+        InputPolicy::Prose => {
+            let mut text = String::with_capacity(lines.len());
+            for word in lines.split_whitespace() {
+                if !text.is_empty() {
+                    text.push(' ');
+                }
+                text.push_str(word);
+            }
+            text
+        }
+        InputPolicy::Exact => lines.into_owned(),
     };
     let text = if normalization == Normalization::Nfc {
         text.nfc().collect()
@@ -213,7 +241,7 @@ pub fn prepare_custom(
     // Whitespace normalization can expose an orphan combining mark that was
     // previously attached to a leading space, so validate the final target too.
     validate_text(&text, policy)?;
-    Ok(PreparedText::from_validated(text, policy, normalization))
+    Ok(text)
 }
 
 /// Conservative 1.0 repertoire: Latin, Greek, Cyrillic, CJK, kana, Hangul and symbols/emoji.

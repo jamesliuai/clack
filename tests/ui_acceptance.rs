@@ -195,6 +195,131 @@ fn first_input_keeps_target_coordinates_and_correct_typing_reuses_layout() {
         assert!(text(&active).contains("the world"));
     }
 }
+
+#[test]
+fn bounded_layout_extends_and_matches_fresh_layout_after_edits_and_resizes() {
+    for (policy, source) in [
+        (Policy::Prose, "cat dog tail ".repeat(2_000)),
+        (Policy::Exact, format!("{}\n\tend", "a".repeat(20_000))),
+    ] {
+        let spec = TestSpec {
+            mode: if policy == Policy::Exact {
+                Mode::Code
+            } else {
+                Mode::Time
+            },
+            policy,
+            rules: clack::engine::Rules {
+                backspace: clack::engine::Backspace::Full,
+                ..Default::default()
+            },
+            ..TestSpec::default()
+        };
+        let mut engine = Engine::new(spec, &source).unwrap();
+        let mut viewport = Viewport::default();
+        let appearance = Appearance::default();
+        for step in 0..150 {
+            let payload = if policy == Policy::Prose {
+                "catx dog tail "
+            } else {
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            };
+            engine.prepare_text(payload);
+            engine.apply(Action::Text(payload), step * 10);
+            if step % 3 == 0 {
+                engine.apply(Action::Backspace, step * 10 + 1);
+            }
+            let size = if step % 7 == 0 { (40, 10) } else { (80, 24) };
+            let cached = draw(&engine, &appearance, size, &mut viewport);
+            let fresh = draw(&engine, &appearance, size, &mut Viewport::default());
+            assert_eq!(cached, fresh, "policy={policy:?}, step={step}");
+        }
+    }
+}
+
+#[test]
+fn backtracking_and_returning_between_frames_invalidates_the_changed_word() {
+    let mut engine = Engine::new(
+        TestSpec {
+            rules: clack::engine::Rules {
+                backspace: clack::engine::Backspace::Full,
+                ..Default::default()
+            },
+            ..TestSpec::default()
+        },
+        "cat dog tail",
+    )
+    .unwrap();
+    let mut viewport = Viewport::default();
+    let appearance = Appearance::default();
+    engine.apply(Action::Text("catx dog "), 0);
+    draw(&engine, &appearance, (80, 24), &mut viewport);
+    engine.apply(Action::DeleteWord, 1);
+    engine.apply(Action::Backspace, 2);
+    engine.apply(Action::Backspace, 3);
+    engine.apply(Action::Text(" dog "), 4);
+    assert_eq!(engine.current_token(), 2);
+    let cached = draw(&engine, &appearance, (80, 24), &mut viewport);
+    let fresh = draw(&engine, &appearance, (80, 24), &mut Viewport::default());
+    assert_eq!(cached, fresh);
+}
+
+#[test]
+fn large_untyped_passages_keep_only_a_small_layout_lookahead() {
+    let mut engine = Engine::new(TestSpec::default(), &"cat dog ".repeat(130_000)).unwrap();
+    let allocations = allocation_counter::measure(|| {
+        let mut viewport = Viewport::default();
+        viewport.sync(&engine, 72, 4);
+        engine.apply(Action::Text("catx"), 0);
+        viewport.sync(&engine, 72, 4);
+        std::hint::black_box(viewport);
+    });
+    assert!(allocations.bytes_max < 128 * 1024, "{allocations:?}");
+}
+
+#[test]
+fn appending_lookahead_adds_the_old_final_words_separator() {
+    let mut engine = Engine::new(TestSpec::default(), "cat").unwrap();
+    let appearance = Appearance::default();
+    let mut viewport = Viewport::default();
+    draw(&engine, &appearance, (80, 24), &mut viewport);
+    engine.append_prepared("dog tail").unwrap();
+    let cached = draw(&engine, &appearance, (80, 24), &mut viewport);
+    let fresh = draw(&engine, &appearance, (80, 24), &mut Viewport::default());
+    assert_eq!(cached, fresh);
+    assert!(text(&cached.0).contains("cat dog tail"));
+}
+
+#[test]
+fn wide_edits_in_a_long_token_reuse_the_prefix_without_stale_wrapping() {
+    for policy in [Policy::Prose, Policy::Exact] {
+        let spec = TestSpec {
+            mode: Mode::Custom,
+            policy,
+            ..Default::default()
+        };
+        let mut engine = Engine::new(spec, &format!("{} end", "a".repeat(20_000))).unwrap();
+        engine.apply(Action::Text(&"a".repeat(10_000)), 0);
+        let appearance = Appearance::default();
+        let mut viewport = Viewport::default();
+        draw(&engine, &appearance, (80, 24), &mut viewport);
+        for (time, action) in [
+            Action::Text("界"),
+            Action::Text("b"),
+            Action::Backspace,
+            Action::Backspace,
+            Action::Text("a"),
+        ]
+        .into_iter()
+        .enumerate()
+        {
+            engine.apply(action, time as u64 + 1);
+            let cached = draw(&engine, &appearance, (80, 24), &mut viewport);
+            let fresh = draw(&engine, &appearance, (80, 24), &mut Viewport::default());
+            assert_eq!(cached, fresh, "policy={policy:?}, time={time}");
+        }
+    }
+}
 #[test]
 fn incorrect_and_extra_input_have_visible_non_color_cues() {
     let appearance = Appearance {

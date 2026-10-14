@@ -655,6 +655,35 @@ fn export_files_are_new_only_private_and_reserved_stdout_stays_empty() {
     assert_eq!(fs::read(&path).unwrap(), content);
 }
 
+#[test]
+fn buffered_json_and_jsonl_files_match_stdout_for_nonempty_history() {
+    let f = Fixture::new();
+    let record = f.record(
+        &["--time", "1"],
+        "2026-09-04T12:00:00Z",
+        Outcome::Complete,
+        Persistence::default(),
+    );
+    f.save(vec![record]);
+    for format in ["json", "jsonl"] {
+        let expected = f.run(&["export", "--format", format, "--profile", "all"]);
+        assert!(expected.status.success());
+        let path = f.directory.path().join(format!("results.{format}"));
+        let output = f.run(&[
+            "export",
+            "--format",
+            format,
+            "--profile",
+            "all",
+            "--output",
+            path.to_str().unwrap(),
+        ]);
+        assert!(output.status.success());
+        assert!(output.stdout.is_empty());
+        assert_eq!(fs::read(path).unwrap(), expected.stdout);
+    }
+}
+
 #[cfg(windows)]
 #[test]
 fn windows_export_rejects_stream_and_device_destinations_without_payloads() {
@@ -756,6 +785,78 @@ fn language_import_is_validated_atomic_idempotent_and_user_only() {
                 0o600
             );
         }
+    }
+}
+
+#[test]
+fn language_listing_ignores_unrelated_folders_but_reports_corrupt_packs() {
+    let f = Fixture::new();
+    let source = f.pack("listed_fixture", "alpha\nbeta\n");
+    f.json(&["languages", "import", source.to_str().unwrap(), "--json"]);
+    fs::create_dir(f.paths.languages.join("unrelated-folder")).unwrap();
+    fs::create_dir(f.paths.languages.join("partial-folder")).unwrap();
+    fs::write(
+        f.paths.languages.join("partial-folder/words.txt"),
+        "ignored",
+    )
+    .unwrap();
+    let listed = f.json(&["languages", "list", "--json"]);
+    assert_eq!(
+        listed.as_array().unwrap().len(),
+        content::BUNDLED_PACK_IDS.len() + 1
+    );
+    assert!(
+        listed
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|pack| pack["id"] == "listed_fixture")
+    );
+    fs::write(
+        f.paths.languages.join("listed_fixture/metadata.json"),
+        "invalid",
+    )
+    .unwrap();
+    let corrupt = f.run(&["languages", "list", "--json"]);
+    assert_eq!(corrupt.status.code(), Some(1));
+    assert!(corrupt.stdout.is_empty());
+}
+
+#[cfg(unix)]
+#[test]
+fn fifo_sources_are_rejected_promptly_in_profile_queries_and_imports() {
+    use nix::{sys::stat::Mode as FileMode, unistd::mkfifo};
+    let f = Fixture::new();
+    let fifo = f.directory.path().join("private-source.pipe");
+    mkfifo(&fifo, FileMode::S_IRUSR | FileMode::S_IWUSR).unwrap();
+    let pack = f.directory.path().join("fifo-pack");
+    fs::create_dir(&pack).unwrap();
+    mkfifo(
+        &pack.join("words.txt"),
+        FileMode::S_IRUSR | FileMode::S_IWUSR,
+    )
+    .unwrap();
+    for arguments in [
+        vec!["--file", fifo.to_str().unwrap(), "history", "--json"],
+        vec!["languages", "import", pack.to_str().unwrap(), "--json"],
+    ] {
+        let mut child = f.command(&arguments).spawn().unwrap();
+        let deadline = Instant::now() + Duration::from_secs(2);
+        loop {
+            if child.try_wait().unwrap().is_some() {
+                break;
+            }
+            if Instant::now() >= deadline {
+                child.kill().unwrap();
+                child.wait().unwrap();
+                panic!("FIFO source blocked: {arguments:?}");
+            }
+            thread::sleep(Duration::from_millis(5));
+        }
+        let output = child.wait_with_output().unwrap();
+        assert_eq!(output.status.code(), Some(2), "{arguments:?}");
+        assert!(output.stdout.is_empty());
+        assert!(!String::from_utf8_lossy(&output.stderr).contains("private-source.pipe"));
     }
 }
 

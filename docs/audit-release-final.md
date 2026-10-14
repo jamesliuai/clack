@@ -1,6 +1,6 @@
 # Release, CLI, configuration and architecture audit
 
-Audit source: the complete `SPEC.md` (SHA-256 `6598170acd19ce38c166cd2dd2b44587002ca0d9a8acff8bad107057203c3134`), independently compared with the user's original `/Users/james/Downloads/SPEC.md`; the bytes match. This audit retains the stable IDs from `docs/coverage.md` and supplies evidence for the primary agent's final reconciliation. It does not redefine an external validation requirement as an implementation pass.
+Audit source: the complete `SPEC.md` (SHA-256 `6598170acd19ce38c166cd2dd2b44587002ca0d9a8acff8bad107057203c3134`), independently compared with the user's original reference document; the bytes match. This audit retains the stable IDs from `docs/coverage.md` and supplies evidence for the primary agent's final reconciliation. It does not redefine an external validation requirement as an implementation pass.
 
 **Frozen implementation, local checks and complete archive/install verification pass.** The implementation and lockfile are committed at `d9284e80f46836efc48365b7fe3a3d038d7e771f`; the frozen build-input identity is `31586c3bc81633d5d3f912b7e717800caf185ecfce5358f7feeb92b3aa8129e3`. The current repository was inspected directly rather than inferred from earlier completion messages. Final distribution byte attestations belong in `dist/`, outside the archives whose hashes they record. Native Linux/Windows runtime, real emulator appearance/input and controlled reference hardware remain separate required evidence.
 

@@ -1,4 +1,4 @@
-use std::{collections::HashSet, sync::OnceLock};
+use std::collections::HashSet;
 
 use serde::{Deserialize, Serialize};
 use unicode_normalization::UnicodeNormalization;
@@ -265,38 +265,10 @@ fn validate_metadata(metadata: &PackMetadata) -> Result<(), ContentError> {
     Ok(())
 }
 
-pub fn bundled_pack(id: &str) -> Result<&'static LanguagePack, ContentError> {
-    macro_rules! pack {
-        ($id:literal, $cache:ident) => {{
-            static $cache: OnceLock<Result<LanguagePack, ContentError>> = OnceLock::new();
-            $cache
-                .get_or_init(|| {
-                    LanguagePack::from_parts(
-                        include_bytes!(concat!("../../data/packs/", $id, "/words.txt")),
-                        include_bytes!(concat!("../../data/packs/", $id, "/metadata.json")),
-                    )
-                })
-                .as_ref()
-                .map_err(Clone::clone)
-        }};
-    }
-    match id {
-        "english_200" => pack!("english_200", ENGLISH_200),
-        "english_1000" => pack!("english_1000", ENGLISH_1000),
-        "english_10000" => pack!("english_10000", ENGLISH_10000),
-        "french_200" => pack!("french_200", FRENCH_200),
-        "german_200" => pack!("german_200", GERMAN_200),
-        "spanish_200" => pack!("spanish_200", SPANISH_200),
-        _ => Err(ContentError::new(
-            "unknown_pack",
-            "language pack ID is not installed or bundled",
-        )),
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::content::bundled_pack;
 
     pub(crate) fn fixture(words: &str) -> Result<LanguagePack, ContentError> {
         let canonical: String = words

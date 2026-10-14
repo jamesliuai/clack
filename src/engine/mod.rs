@@ -104,6 +104,7 @@ pub struct Token {
     pub corrected: bool,
     pub elapsed_us: u64,
     pub label: String,
+    pub display_width: usize,
     wrong: u64,
     manual: u64,
     contribution: u64,
@@ -121,10 +122,11 @@ impl Token {
                     .collect()
             })
             .clone();
+        let display_width = target.iter().map(|unit| unit.width().max(1)).sum();
         Self {
             target_start: 0,
             layout_revision: 0,
-            entered: Vec::with_capacity(target.len().min(256) + 32),
+            entered: Vec::new(),
             target,
             separator: false,
             committed: false,
@@ -133,6 +135,7 @@ impl Token {
             corrected: false,
             elapsed_us: 0,
             label: s.to_owned(),
+            display_width,
             wrong: 0,
             manual: 0,
             contribution: 0,
@@ -198,6 +201,8 @@ pub struct Engine {
     token_start_us: u64,
     zen: VecDeque<Entered>,
     zen_discarded: u64,
+    layout_version: u64,
+    layout_changes: VecDeque<(usize, usize)>,
 }
 impl Engine {
     pub fn new(spec: TestSpec, text: &str) -> Result<Self, String> {
@@ -247,7 +252,7 @@ impl Engine {
             target_start += token.target.len() + usize::from(spec.policy == Policy::Prose);
         }
         let edit_stack = Vec::with_capacity(tokens.len());
-        Ok(Self {
+        let mut engine = Self {
             spec,
             state: State::Ready,
             tokens,
@@ -272,7 +277,11 @@ impl Engine {
             token_start_us: 0,
             zen: VecDeque::with_capacity(ZEN_WINDOW + 1),
             zen_discarded: 0,
-        })
+            layout_version: 0,
+            layout_changes: VecDeque::with_capacity(128),
+        };
+        engine.prepare_input();
+        Ok(engine)
     }
     pub fn logical_target_position(&self) -> usize {
         self.tokens.get(self.current).map_or_else(
@@ -293,6 +302,28 @@ impl Engine {
     }
     pub fn tokens(&self) -> &[Token] {
         &self.tokens
+    }
+    pub fn layout_version(&self) -> u64 {
+        self.layout_version
+    }
+    pub fn layout_changed_since(&self, version: u64) -> Option<usize> {
+        self.layout_unit_changed_since(version)
+            .map(|(token, _)| token)
+    }
+    pub(crate) fn layout_unit_changed_since(&self, version: u64) -> Option<(usize, usize)> {
+        let count = self.layout_version.wrapping_sub(version) as usize;
+        if count > self.layout_changes.len() {
+            Some((0, 0))
+        } else {
+            self.layout_changes.iter().rev().take(count).copied().min()
+        }
+    }
+    fn layout_changed(&mut self, token: usize, unit: usize) {
+        self.layout_version = self.layout_version.wrapping_add(1);
+        if self.layout_changes.len() == 128 {
+            self.layout_changes.pop_front();
+        }
+        self.layout_changes.push_back((token, unit));
     }
     pub fn current_token(&self) -> usize {
         self.current
@@ -358,6 +389,65 @@ impl Engine {
     pub fn samples(&self) -> &VecDeque<Sample> {
         &self.samples
     }
+    /// Warm correction storage only around the caret, outside the reducer.
+    /// A bounded input batch can type ahead or move backwards into existing
+    /// buffers; distant, untouched words need no correction storage.
+    pub fn prepare_input(&mut self) {
+        let end = self.current.saturating_add(4).min(self.tokens.len());
+        for token in &mut self.tokens[self.current.min(end)..end] {
+            let capacity = token.target.len().min(256);
+            Self::reserve_entered(token, capacity);
+        }
+    }
+    /// Prepare a text event before reducing it. Associated text can cross several
+    /// words, and automatic indentation can retain more units than the payload.
+    /// Ordinary single-character events only touch the current and next word.
+    pub fn prepare_text(&mut self, text: &str) {
+        if self.state == State::Results {
+            return;
+        }
+        let units = text.graphemes(true).count();
+        let reachable = if self.spec.policy == Policy::Prose {
+            text.graphemes(true)
+                .filter(|unit| *unit == " ")
+                .count()
+                .saturating_add(1)
+        } else {
+            units.saturating_add(1)
+        };
+        let token_count = self.tokens.len();
+        let mut end = self.current.saturating_add(reachable).min(token_count);
+        let indentation = self.spec.auto_indent && text.contains('\n');
+        let mut index = self.current;
+        while index < end {
+            let token = &mut self.tokens[index];
+            let leading = if indentation {
+                token
+                    .target
+                    .iter()
+                    .take_while(|unit| matches!(unit.as_str(), " " | "\t"))
+                    .count()
+            } else {
+                0
+            };
+            if indentation && leading == token.target.len() {
+                end = end.saturating_add(1).min(token_count);
+            }
+            let capacity = token
+                .entered
+                .len()
+                .max(leading)
+                .saturating_add(units)
+                .min(token.target.len().saturating_add(TOKEN_EXTRA_LIMIT));
+            Self::reserve_entered(token, capacity);
+            index += 1;
+        }
+    }
+    fn reserve_entered(token: &mut Token, capacity: usize) {
+        if token.entered.capacity() < capacity {
+            token.entered.reserve(capacity - token.entered.len());
+        }
+    }
     /// Content preparation/extension occurs outside apply; callers maintain deterministic lookahead.
     pub fn append_prepared(&mut self, text: &str) -> Result<(), String> {
         if self.spec.mode != Mode::Time || self.spec.policy != Policy::Prose {
@@ -378,7 +468,7 @@ impl Engine {
             self.tokens.push(token);
         }
         self.edit_stack
-            .reserve(self.tokens.len().saturating_sub(self.edit_stack.capacity()));
+            .reserve(self.tokens.len().saturating_sub(self.edit_stack.len()));
         Ok(())
     }
     pub fn apply(&mut self, action: Action<'_>, receipt_us: u64) {
@@ -658,7 +748,17 @@ impl Engine {
     }
     fn push_unit(&mut self, token: usize, unit: Unit, correct: bool, assisted: bool) {
         let t = &mut self.tokens[token];
+        let index = t.entered.len();
         let extra = t.entered.len() >= t.target.len();
+        let changed = extra
+            || t.target
+                .get(t.entered.len())
+                .is_some_and(|target| target.width() != unit.width());
+        t.display_width = t.display_width
+            - t.target
+                .get(t.entered.len())
+                .map_or(0, |target| target.width().max(1))
+            + unit.width().max(1);
         if extra
             || t.target
                 .get(t.entered.len())
@@ -685,10 +785,21 @@ impl Engine {
             correct,
             assisted,
         });
+        if changed {
+            self.layout_changed(token, index);
+        }
     }
     fn pop_unit(&mut self, token: usize) {
         let t = &mut self.tokens[token];
         if let Some(entry) = t.entered.pop() {
+            let changed = t.entered.len() >= t.target.len()
+                || t.target
+                    .get(t.entered.len())
+                    .is_some_and(|target| target.width() != entry.unit.width());
+            t.display_width = t.display_width - entry.unit.width().max(1)
+                + t.target
+                    .get(t.entered.len())
+                    .map_or(0, |target| target.width().max(1));
             if t.entered.len() >= t.target.len()
                 || t.target
                     .get(t.entered.len())
@@ -709,6 +820,10 @@ impl Engine {
                 self.counts.final_correct -= 1;
             } else {
                 self.counts.final_incorrect -= 1;
+            }
+            if changed {
+                let index = t.entered.len();
+                self.layout_changed(token, index);
             }
         }
     }

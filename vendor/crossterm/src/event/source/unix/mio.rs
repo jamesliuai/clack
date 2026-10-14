@@ -132,7 +132,10 @@ impl EventSource for UnixInternalEventSource {
                             match self.tty_fd.read(&mut self.tty_buffer) {
                                 Ok(read_count) => {
                                     if read_count == 0 {
-                                        return Err(io::Error::new(io::ErrorKind::UnexpectedEof, "terminal input closed"));
+                                        return Err(io::Error::new(
+                                            io::ErrorKind::UnexpectedEof,
+                                            "terminal input closed",
+                                        ));
                                     }
                                     if read_count > 0 {
                                         self.parser.advance(
@@ -158,7 +161,10 @@ impl EventSource for UnixInternalEventSource {
                             }
                             if timeout.elapsed() { return Ok(None); }
                             if service_started.elapsed() >= Duration::from_millis(1) {
-                                return Err(io::Error::new(io::ErrorKind::Interrupted, "yield incomplete terminal input"));
+                                return Err(io::Error::new(
+                                    io::ErrorKind::Interrupted,
+                                    "yield incomplete terminal input",
+                                ));
                             }
                         }
                     }
@@ -166,7 +172,11 @@ impl EventSource for UnixInternalEventSource {
                         for signal in self.signals.pending() {
                             if signal == signal_hook::consts::SIGWINCH {
                                 let (width, height) = crate::terminal::size()?;
-                                self.parser.internal_events.push_back(Ok(InternalEvent::Event(Event::Resize(width, height))));
+                                self.parser
+                                    .internal_events
+                                    .push_back(Ok(InternalEvent::Event(Event::Resize(
+                                        width, height,
+                                    ))));
                             } else {
                                 #[cfg(feature = "managed-signals")]
                                 self.parser.internal_events.push_back(Ok(InternalEvent::Event(Event::Signal(signal))));
@@ -193,6 +203,11 @@ impl EventSource for UnixInternalEventSource {
     }
 
     #[cfg(feature = "poll-waker")]
+    fn set_legacy_mouse_input(&mut self, enabled: bool) {
+        self.parser.legacy_mouse_input = enabled;
+    }
+
+    #[cfg(feature = "poll-waker")]
     fn discard_pending_input(&mut self) -> io::Result<()> {
         // A fresh controlling-terminal handle also supports the optional libc
         // descriptor backend without introducing a new unsafe conversion.
@@ -200,9 +215,14 @@ impl EventSource for UnixInternalEventSource {
         rustix::termios::tcflush(&terminal, rustix::termios::QueueSelector::IFlush)?;
         self.parser.buffer.clear();
         #[cfg(feature = "associated-text")]
-        { self.parser.discard = None; }
-        self.parser.internal_events.retain(|event| event.as_ref().is_ok_and(
-            super::super::preserve_across_epoch));
+        {
+            self.parser.discard = None;
+        }
+        self.parser.internal_events.retain(|event| {
+            event
+                .as_ref()
+                .is_ok_and(super::super::preserve_across_epoch)
+        });
         Ok(())
     }
 
@@ -221,6 +241,7 @@ impl EventSource for UnixInternalEventSource {
 #[derive(Debug)]
 struct Parser {
     buffer: Vec<u8>,
+    legacy_mouse_input: bool,
     #[cfg(feature = "associated-text")]
     discard: Option<Discard>,
     internal_events: VecDeque<io::Result<InternalEvent>>,
@@ -228,7 +249,10 @@ struct Parser {
 
 #[cfg(feature = "associated-text")]
 #[derive(Debug)]
-enum Discard { Escape, Paste(usize) }
+enum Discard {
+    Escape,
+    Paste(usize),
+}
 
 impl Default for Parser {
     fn default() -> Self {
@@ -240,6 +264,7 @@ impl Default for Parser {
             // Probably not worth spending more time on this as "there's a plan"
             // to use the anes crate parser.
             buffer: Vec::with_capacity(256),
+            legacy_mouse_input: true,
             #[cfg(feature = "associated-text")]
             discard: None,
             // TTY_BUFFER_SIZE is 1_024 bytes. How many ANSI escape sequences can
@@ -281,7 +306,16 @@ impl Parser {
                 }
                 continue;
             }
+            // A private reply must start with a decimal parameter. A letter
+            // after a stray ESC[? is keyboard input, not a reply terminator.
+            if self.buffer == b"\x1b[?" && !byte.is_ascii_digit() {
+                self.buffer.clear();
+            }
             self.buffer.push(*byte);
+            if !self.legacy_mouse_input && self.buffer == b"\x1b[M" {
+                self.buffer.clear();
+                continue;
+            }
             #[cfg(feature = "associated-text")]
             if self.buffer.len() > 128 * 1024 {
                 if self.buffer.starts_with(b"\x1b[200~") {
@@ -294,9 +328,13 @@ impl Parser {
                         self.discard = Some(Discard::Paste(matched));
                     }
                 } else {
-                    self.internal_events.push_back(Err(io::Error::new(io::ErrorKind::InvalidData,
-                        "terminal escape sequence exceeds 128 KiB")));
-                    if !(0x40..=0x7e).contains(byte) { self.discard = Some(Discard::Escape); }
+                    self.internal_events.push_back(Err(io::Error::new(
+                        io::ErrorKind::InvalidData,
+                        "terminal escape sequence exceeds 128 KiB",
+                    )));
+                    if !(0x40..=0x7e).contains(byte) {
+                        self.discard = Some(Discard::Escape);
+                    }
                 }
                 self.buffer.clear();
                 continue;
@@ -312,6 +350,10 @@ impl Parser {
                     // the current sequence. Keep the buffer and process next bytes.
                 }
                 Err(error) => {
+                    if error.kind() == io::ErrorKind::Unsupported {
+                        self.buffer.clear();
+                        continue;
+                    }
                     #[cfg(feature = "associated-text")]
                     self.internal_events.push_back(Err(error));
                     #[cfg(not(feature = "associated-text"))]
@@ -337,6 +379,55 @@ impl Iterator for Parser {
 #[cfg(all(test, feature = "associated-text"))]
 mod ordered_error_tests {
     use super::*;
+
+    #[test]
+    fn stray_private_and_disabled_legacy_mouse_prefixes_preserve_following_keys() {
+        for prefix in [b"\x1b[M".as_slice(), b"\x1b[?"] {
+            let mut parser = Parser::default();
+            parser.legacy_mouse_input = false;
+            parser.advance(prefix, false);
+            parser.advance(b"abc", false);
+            for character in ['a', 'b', 'c'] {
+                assert!(
+                    matches!(parser.next(), Some(Ok(InternalEvent::Event(Event::Key(key))))
+                    if key.code == crate::event::KeyCode::Char(character))
+                );
+            }
+            assert!(parser.next().is_none());
+        }
+    }
+
+    #[test]
+    fn enabled_legacy_mouse_and_fragmented_private_replies_still_parse() {
+        let mut parser = Parser::default();
+        parser.advance(b"\x1b[M", false);
+        parser.advance(b"0\x60\x70", false);
+        assert!(matches!(
+            parser.next(),
+            Some(Ok(InternalEvent::Event(Event::Mouse(_))))
+        ));
+        parser.advance(b"\x1b[?", false);
+        parser.advance(b"23u", false);
+        assert_eq!(
+            parser.next().unwrap().unwrap(),
+            InternalEvent::KeyboardEnhancementFlags(
+                crate::event::KeyboardEnhancementFlags::from_bits_retain(23)
+            )
+        );
+    }
+
+    #[test]
+    fn unsupported_sequences_do_not_interrupt_or_consume_following_keys() {
+        let mut parser = Parser::default();
+        parser.advance(b"a\x1bOX\x1b[=1x\x1b[99~b", false);
+        for character in ['a', 'b'] {
+            assert!(
+                matches!(parser.next(), Some(Ok(InternalEvent::Event(Event::Key(key))))
+                if key.code == crate::event::KeyCode::Char(character))
+            );
+        }
+        assert!(parser.next().is_none());
+    }
 
     #[test]
     fn malformed_associated_text_is_an_ordered_error_not_silent_loss() {

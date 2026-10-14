@@ -72,6 +72,8 @@ struct TokenLayout {
     before: Position,
     after: Position,
     footprint: u64,
+    units: usize,
+    display_width: usize,
 }
 #[derive(Debug, Default)]
 pub struct Viewport {
@@ -82,6 +84,9 @@ pub struct Viewport {
     width: u16,
     tab_stop: u8,
     last_current: usize,
+    layout_version: u64,
+    source_tokens: usize,
+    partial: bool,
     pub anchor_row: usize,
     pub layout_rebuilds: u64,
 }
@@ -100,11 +105,23 @@ impl Viewport {
         let tab_stop = tab_stop.clamp(1, 16);
         if self.width != width
             || self.tab_stop != tab_stop
-            || self.tokens.len() != engine.tokens().len()
+            || self.source_tokens > engine.tokens().len()
         {
             self.width = width;
             self.tab_stop = tab_stop;
             self.rebuild(engine, 0);
+        } else if let Some((index, unit)) = engine.layout_unit_changed_since(self.layout_version)
+            && index < self.tokens.len()
+        {
+            self.rebuild_changed(engine, index, unit);
+        } else if self.source_tokens > 0
+            && self.source_tokens < engine.tokens().len()
+            && self.tokens.len() == self.source_tokens
+            && !self.partial
+            && engine.spec().policy == Policy::Prose
+        {
+            // The old final word gains a separator when lookahead is appended.
+            self.rebuild(engine, self.source_tokens - 1);
         } else if !self.tokens.is_empty() {
             let start = self
                 .last_current
@@ -121,35 +138,125 @@ impl Viewport {
                 }
             }
         }
+        let cursor = self.logical_cursor(engine);
+        if self.tokens.is_empty()
+            || engine.current_token() >= self.tokens.len()
+            || ((self.partial || self.tokens.len() < engine.tokens().len())
+                && self
+                    .tokens
+                    .last()
+                    .is_some_and(|token| token.after.row < cursor.row + 6))
+        {
+            self.extend(engine);
+        }
         self.last_current = engine.current_token();
+        self.source_tokens = engine.tokens().len();
+        self.layout_version = engine.layout_version();
     }
     fn footprint(engine: &Engine, index: usize) -> u64 {
         engine.tokens()[index].layout_revision
     }
+    fn rebuild_changed(&mut self, engine: &Engine, index: usize, unit: usize) {
+        let layout = self.tokens[index];
+        let token = &engine.tokens()[index];
+        // A short prose word may move as a whole when its width changes. Exact
+        // text and words wider than a row keep their unchanged unit prefix.
+        if unit > 0
+            && unit <= layout.units
+            && (engine.spec().policy == Policy::Exact
+                || (layout.display_width > usize::from(self.width)
+                    && token.display_width > usize::from(self.width)))
+        {
+            let previous = self.cells[layout.first + unit - 1];
+            let mut position = previous.position;
+            position.column += previous.width;
+            if position.column >= self.width
+                || token
+                    .target
+                    .get(unit - 1)
+                    .is_some_and(|unit| unit.as_str() == "\n")
+            {
+                position.row += 1;
+                position.column = 0;
+            }
+            self.cells.truncate(layout.first + unit);
+            self.tokens.truncate(index);
+            self.layout_rebuilds += 1;
+            self.append_layout(
+                engine,
+                index,
+                position,
+                Some(TokenLayout {
+                    after: position,
+                    units: unit,
+                    ..layout
+                }),
+            );
+        } else {
+            self.rebuild(engine, index);
+        }
+    }
     fn rebuild(&mut self, engine: &Engine, from: usize) {
         self.layout_rebuilds += 1;
-        let (cut, mut position) = self
-            .tokens
-            .get(from)
-            .map_or((0, Position::default()), |token| {
-                (token.first, token.before)
-            });
+        let (cut, position) = self.tokens.get(from).map_or_else(
+            || {
+                (
+                    self.cells.len(),
+                    self.tokens
+                        .last()
+                        .map_or(Position::default(), |token| token.after),
+                )
+            },
+            |token| (token.first, token.before),
+        );
         self.cells.truncate(cut);
         self.tokens.truncate(from);
+        self.append_layout(engine, from, position, None);
+    }
+    fn extend(&mut self, engine: &Engine) {
+        self.layout_rebuilds += 1;
+        let resume = if self.partial {
+            self.tokens.pop()
+        } else {
+            None
+        };
+        let position = resume.as_ref().map_or_else(
+            || {
+                self.tokens
+                    .last()
+                    .map_or(Position::default(), |token| token.after)
+            },
+            |token| token.after,
+        );
+        self.append_layout(engine, self.tokens.len(), position, resume);
+    }
+    fn append_layout(
+        &mut self,
+        engine: &Engine,
+        from: usize,
+        mut position: Position,
+        mut resume: Option<TokenLayout>,
+    ) {
+        // Keep a small lookahead beyond the caret. Prefixes remain cached, and
+        // an unfinished long token resumes at its last cell instead of being
+        // scanned from its beginning on every frame.
+        let mut last_row = if engine.current_token() < from {
+            self.logical_cursor(engine).row.saturating_add(8)
+        } else {
+            usize::MAX
+        };
+        self.partial = false;
         for index in from..engine.tokens().len() {
             let token = &engine.tokens()[index];
-            let before = position;
+            let previous = resume.take();
+            let before = previous.as_ref().map_or(position, |token| token.before);
+            let first = previous
+                .as_ref()
+                .map_or(self.cells.len(), |token| token.first);
+            let start = previous.as_ref().map_or(0, |token| token.units);
             let count = token.target.len().max(token.entered.len());
-            if engine.spec().policy == Policy::Prose {
-                let total: usize = (0..count)
-                    .map(|unit| {
-                        token
-                            .entered
-                            .get(unit)
-                            .map_or_else(|| token.target[unit].width(), |entry| entry.unit.width())
-                            .max(1)
-                    })
-                    .sum();
+            if start == 0 && engine.spec().policy == Policy::Prose {
+                let total = token.display_width;
                 if total <= usize::from(self.width)
                     && usize::from(position.column) + total > usize::from(self.width)
                 {
@@ -157,8 +264,22 @@ impl Viewport {
                     position.column = 0;
                 }
             }
-            let first = self.cells.len();
-            for unit in 0..count {
+            if index == engine.current_token() && token.entered.len() < start {
+                last_row = self.logical_cursor(engine).row.saturating_add(8);
+                // The current layout was temporarily removed to resume it.
+                if let Some(cell) = self.cells.get(first + token.entered.len()) {
+                    last_row = cell.position.row.saturating_add(8);
+                }
+            }
+            let mut units = start;
+            for unit in start..count {
+                if index == engine.current_token() && unit == token.entered.len() {
+                    last_row = position.row.saturating_add(8);
+                }
+                if position.row > last_row {
+                    self.partial = true;
+                    break;
+                }
                 let expected = token.target.get(unit).map(|unit| unit.as_str());
                 let newline = expected == Some("\n");
                 let tab = expected == Some("\t");
@@ -186,13 +307,17 @@ impl Viewport {
                     position,
                     width,
                 });
+                units = unit + 1;
                 position.column += width;
                 if newline || position.column >= self.width {
                     position.row += 1;
                     position.column = 0;
                 }
             }
-            if engine.spec().policy == Policy::Prose && index + 1 < engine.tokens().len() {
+            if !self.partial
+                && engine.spec().policy == Policy::Prose
+                && index + 1 < engine.tokens().len()
+            {
                 self.cells.push(Cell {
                     token: index,
                     unit: count,
@@ -211,7 +336,15 @@ impl Viewport {
                 before,
                 after: position,
                 footprint: Self::footprint(engine, index),
+                units,
+                display_width: token.display_width,
             });
+            if index == engine.current_token() && last_row == usize::MAX {
+                last_row = position.row.saturating_add(8);
+            }
+            if self.partial || position.row > last_row {
+                break;
+            }
         }
     }
     pub fn logical_cursor(&self, engine: &Engine) -> Position {
@@ -257,10 +390,12 @@ impl Viewport {
         if offset < token.target.len() {
             self.cells
                 .get(layout.first + offset)
+                .filter(|cell| cell.token == index && !cell.separator)
                 .map(|cell| cell.position)
         } else if offset == token.target.len() && engine.spec().policy == Policy::Prose {
             self.cells
                 .get(layout.first + token.target.len().max(token.entered.len()))
+                .filter(|cell| cell.token == index && cell.separator)
                 .map(|cell| cell.position)
         } else {
             None

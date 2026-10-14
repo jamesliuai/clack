@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Reduce memory use for untyped words, long passages, and repeated source preparation;
+  keep rendering incremental around the caret and cache review navigation.
+- Defer result validation to the storage worker, accelerate history queries, and
+  bound SQLite records and exported file writes.
+- Preserve input after unsupported terminal sequences, keep incomplete reads
+  interruptible, and restore the terminal after input-worker failures.
+- Reject nonregular source files and exclude local paths and measurements from
+  distributed archives.
+- Prepare 1.0.1 with `clack-crossterm` 0.30.1 and `clack-ratatui-crossterm` 0.2.1,
+  and verify the staged Cargo packages together before publication.
+
 ## 1.0.0 — 2026-09-16
 
 - Publish the newer main-branch implementation under the existing `clack-typing`

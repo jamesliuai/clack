@@ -8,7 +8,7 @@ use ratatui::{
     text::{Line, Span},
     widgets::Paragraph,
 };
-use std::cell::RefCell;
+use std::{cell::RefCell, collections::HashMap};
 use unicode_segmentation::UnicodeSegmentation;
 use unicode_width::UnicodeWidthStr;
 
@@ -27,6 +27,7 @@ pub struct Review {
     pub entered_available: bool,
     original_text: Option<String>,
     source_layout: RefCell<Option<SourceLayout>>,
+    word_layouts: RefCell<HashMap<usize, WordLayout>>,
     pub notice: Option<String>,
 }
 impl Review {
@@ -41,6 +42,7 @@ impl Review {
             entered_available: true,
             original_text: None,
             source_layout: RefCell::new(None),
+            word_layouts: RefCell::new(HashMap::new()),
             notice: None,
         }
     }
@@ -83,12 +85,36 @@ impl Review {
             + usize::from(self.result.integrity.focus_lost)
     }
     fn selected_units(&self) -> usize {
-        self.result.words.get(self.scroll).map_or(0, |word| {
-            word.token
-                .graphemes(true)
-                .count()
-                .max(word.entered.graphemes(true).count())
+        self.with_word_layout(self.scroll, |layout| {
+            layout
+                .target
+                .len()
+                .max(layout.entered.len())
+                .saturating_sub(1)
         })
+        .unwrap_or(0)
+    }
+    fn with_word_layout<T>(&self, index: usize, apply: impl FnOnce(&WordLayout) -> T) -> Option<T> {
+        let word = self.result.words.get(index)?;
+        let mut layouts = self.word_layouts.borrow_mut();
+        let layout = layouts.entry(index).or_insert_with(|| WordLayout {
+            target: grapheme_offsets(&word.token),
+            entered: grapheme_offsets(&word.entered),
+        });
+        Some(apply(layout))
+    }
+    fn word_text(&self, index: usize, entered: bool, ascii: bool) -> String {
+        let word = &self.result.words[index];
+        self.with_word_layout(index, |layout| {
+            let (text, offsets) = if entered {
+                (word.entered.as_str(), &layout.entered)
+            } else {
+                (word.token.as_str(), &layout.target)
+            };
+            let offset = self.horizontal.min(offsets.len() - 1);
+            visible_text_from(&text[offsets[offset]..], ascii)
+        })
+        .unwrap_or_default()
     }
     pub fn pan(&mut self, delta: isize) {
         if self.tab == Tab::Text && self.original_text.is_none() {
@@ -105,6 +131,16 @@ impl Review {
             self.move_by(isize::MAX);
         }
     }
+}
+struct WordLayout {
+    target: Vec<usize>,
+    entered: Vec<usize>,
+}
+fn grapheme_offsets(text: &str) -> Vec<usize> {
+    text.grapheme_indices(true)
+        .map(|(index, _)| index)
+        .chain(std::iter::once(text.len()))
+        .collect()
 }
 struct SourceLayout {
     width: u16,
@@ -292,7 +328,7 @@ pub fn render(frame: &mut Frame, review: &Review, appearance: &Appearance) {
                 width,
                 format!(
                     "exp {}",
-                    visible_text_from(&word.token, review.horizontal, appearance.ascii_markers)
+                    review.word_text(index, false, appearance.ascii_markers)
                 ),
                 theme.pending,
             );
@@ -301,7 +337,7 @@ pub fn render(frame: &mut Frame, review: &Review, appearance: &Appearance) {
             } else if word.entered.is_empty() {
                 "[no retained input]".into()
             } else {
-                visible_text_from(&word.entered, review.horizontal, appearance.ascii_markers)
+                review.word_text(index, true, appearance.ascii_markers)
             };
             line(
                 frame,
@@ -510,19 +546,14 @@ pub fn render(frame: &mut Frame, review: &Review, appearance: &Appearance) {
         .collect();
     frame.render_widget(Paragraph::new(lines), Rect::new(x, 3, width, height as u16));
 }
-fn visible_text_from(text: &str, offset: usize, ascii: bool) -> String {
-    use unicode_segmentation::UnicodeSegmentation;
-    let mut visible: String = text
-        .graphemes(true)
-        .skip(offset)
+fn visible_text_from(text: &str, ascii: bool) -> String {
+    let mut units = text.graphemes(true);
+    let mut visible: String = units
+        .by_ref()
         .take(512)
         .map(|unit| super::display_unit(unit, ascii))
         .collect();
-    if text
-        .graphemes(true)
-        .nth(offset.saturating_add(512))
-        .is_some()
-    {
+    if units.next().is_some() {
         visible.push_str(if ascii { "..." } else { "…" });
     }
     visible
@@ -571,6 +602,36 @@ pub fn sparkline(values: impl Iterator<Item = f64>, width: usize, ascii: bool) -
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn long_word_navigation_reuses_grapheme_boundaries_and_preserves_the_tail() {
+        let target = format!("{}Z", "e\u{301}".repeat(100_000));
+        let mut engine = crate::engine::Engine::new(
+            crate::engine::TestSpec {
+                mode: Mode::Code,
+                policy: crate::engine::Policy::Exact,
+                ..Default::default()
+            },
+            &target,
+        )
+        .unwrap();
+        engine.apply(crate::engine::Action::Text("e\u{301}"), 0);
+        engine.apply(crate::engine::Action::Finish, 1);
+        let mut review = Review::new(engine.snapshot());
+        review.tab = Tab::Text;
+        assert_eq!(review.selected_units(), 100_001);
+        let allocations = allocation_counter::measure(|| {
+            review.show_tail();
+            for _ in 0..100 {
+                review.pan(-1);
+                review.pan(1);
+                assert_eq!(review.selected_units(), 100_001);
+            }
+        });
+        assert_eq!(allocations.count_total, 0, "{allocations:?}");
+        let text = review.word_text(0, false, false);
+        assert!(text.ends_with('Z'));
+        assert_eq!(text.graphemes(true).count(), 8);
+    }
     #[test]
     fn charts_are_bounded_and_ignore_nonfinite_inputs() {
         assert_eq!(

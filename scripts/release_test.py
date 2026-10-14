@@ -25,6 +25,29 @@ import verify_release
 
 
 class ReleaseTests(unittest.TestCase):
+    def test_distribution_excludes_local_measurements_but_preserves_user_docs(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            docs = root / "docs"
+            (docs / "measurements").mkdir(parents=True)
+            private = docs / "measurements/build.txt"
+            private.write_text("/Users/local/source")
+            public = docs / "usage.md"
+            public.write_text("User documentation")
+            with mock.patch.object(package, "ROOT", root):
+                self.assertEqual(package.files_under(docs, distribution=True), [public])
+                self.assertIn(private, package.files_under(docs))
+
+    def test_release_flags_remap_sources_dependencies_and_generated_paths(self):
+        root = self.root / "source"
+        target = self.root / "output"
+        cargo = self.root / "custom-cargo"
+        with mock.patch.object(package, "ROOT", root):
+            flags = package.release_rustflags(target, {"CARGO_HOME": str(cargo)}).split("\x1f")
+        self.assertIn(f"--remap-path-prefix={root.resolve()}=/clack", flags)
+        self.assertIn(f"--remap-path-prefix={cargo.resolve()}=/build/cargo", flags)
+        self.assertEqual(flags[-1], f"--remap-path-prefix={target.resolve()}=/clack/target")
+
     def test_license_inventory_ignores_local_build_artifacts(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

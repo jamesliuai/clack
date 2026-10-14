@@ -1,6 +1,7 @@
 use super::{
     Best, BestOutcome, Classification, ErrorKind, Filter, HistoryEntry, HistoryPage, JournalMode,
-    Options, Page, Record, SQL_SCHEMA_VERSION, Statistics, StorageError, format_utc_millis,
+    Options, Page, Preparation, Record, SQL_SCHEMA_VERSION, Statistics, StorageError,
+    format_utc_millis,
     model::{MAX_RECORD_BYTES, MAX_WORD_JSON_BYTES, count_values, ratio_cmp, validate_result_id},
 };
 use crate::{
@@ -8,8 +9,8 @@ use crate::{
     engine::{Mode, Policy, ResultSnapshot},
 };
 use rusqlite::{
-    Connection, OpenFlags, OptionalExtension, TransactionBehavior, params, params_from_iter,
-    types::Value,
+    Connection, OpenFlags, OptionalExtension, TransactionBehavior, limits::Limit, params,
+    params_from_iter, types::Value,
 };
 use serde::{Deserialize, Serialize};
 use std::{fs, io, path::Path, time::Duration};
@@ -74,6 +75,7 @@ impl ReadStore {
                 | OpenFlags::SQLITE_OPEN_NOFOLLOW,
         )
         .map_err(StorageError::sql)?;
+        set_size_limit(&connection)?;
         connection
             .busy_timeout(Duration::from_millis(250))
             .map_err(StorageError::sql)?;
@@ -97,7 +99,7 @@ impl ReadStore {
         values.push(Value::Integer(i64::from(page.limit) + 1));
         values.push(Value::Integer(page.offset as i64));
         let sql = format!(
-            "SELECT id,created_at_utc_ms,CASE WHEN length(header_json)<={HEADER_LIMIT} THEN header_json END,CASE WHEN length(sparkline_json)<=8192 THEN sparkline_json END,word_summaries_omitted FROM results {clause} ORDER BY created_at_utc_ms DESC,id DESC LIMIT ? OFFSET ?"
+            "SELECT id,created_at_utc_ms,CASE WHEN length(CAST(header_json AS BLOB))<={HEADER_LIMIT} THEN header_json END,CASE WHEN length(CAST(sparkline_json AS BLOB))<=8192 THEN sparkline_json END,word_summaries_omitted FROM results {clause} ORDER BY created_at_utc_ms DESC,id DESC LIMIT ? OFFSET ?"
         );
         let mut statement = connection.prepare(&sql).map_err(StorageError::sql)?;
         let mut rows = statement
@@ -163,19 +165,13 @@ impl ReadStore {
         let Some(connection) = &self.connection else {
             return Ok(Statistics::default());
         };
-        let (sql, values) = if let Some(profile_key) = &filter.profile_key
-            && filter.mode.is_none()
+        let (sql, values) = if filter.mode.is_none()
             && filter.language.is_none()
             && filter.classification.is_none()
             && filter.from_utc_ms.is_none()
             && filter.to_utc_ms.is_none()
         {
-            let mut clause = "WHERE profile_key=?".to_owned();
-            let mut values = vec![Value::Text(profile_key.clone())];
-            if let Some(outcome) = filter.outcome {
-                clause.push_str(" AND outcome=?");
-                values.push(Value::Text(enum_text(outcome)));
-            }
+            let (clause, values) = where_clause(filter);
             (
                 format!(
                     "SELECT COALESCE(SUM(result_count),0),COALESCE(SUM(speed_sample_count),0),COALESCE(SUM(target_speed_sample_count),0),COALESCE(SUM(elapsed_us),0),COALESCE(SUM(target_elapsed_us),0),COALESCE(SUM(credited_units),0),COALESCE(SUM(retained_units),0),COALESCE(SUM(attempts_total),0),COALESCE(SUM(attempts_correct),0),COALESCE(SUM(target_attempts_total),0),COALESCE(SUM(target_attempts_correct),0) FROM profile_stats {clause}"
@@ -222,7 +218,7 @@ impl ReadStore {
         let Some(connection) = &self.connection else {
             return Ok(None);
         };
-        let row:Option<(i64,String,i64)>=connection.query_row(&format!("SELECT created_at_utc_ms,CASE WHEN length(header_json)<={HEADER_LIMIT} THEN header_json END,word_summaries_omitted FROM results WHERE id=?"),[id],|row|Ok((row.get(0)?,row.get(1)?,row.get(2)?))).optional().map_err(StorageError::sql)?;
+        let row:Option<(i64,String,i64)>=connection.query_row(&format!("SELECT created_at_utc_ms,CASE WHEN length(CAST(header_json AS BLOB))<={HEADER_LIMIT} THEN header_json END,word_summaries_omitted FROM results WHERE id=?"),[id],|row|Ok((row.get(0)?,row.get(1)?,row.get(2)?))).optional().map_err(StorageError::sql)?;
         let Some((stamp, header, omitted)) = row else {
             return Ok(None);
         };
@@ -258,7 +254,7 @@ impl ReadStore {
             (super::WORD_SUMMARY_LIMIT, MAX_WORD_JSON_BYTES),
             &mut total,
         )?;
-        let body:Option<(String,String)>=connection.query_row("SELECT CASE WHEN length(CAST(text_body AS BLOB))<=?2 THEN text_body END,CASE WHEN length(scope_json)<=32 THEN scope_json END FROM private_content WHERE result_id=?1",params![id,content::MAX_CANONICAL_CUSTOM_BYTES as i64],|row|Ok((row.get(0)?,row.get(1)?))).optional().map_err(StorageError::sql)?;
+        let body:Option<(String,String)>=connection.query_row("SELECT CASE WHEN length(CAST(text_body AS BLOB))<=?2 THEN text_body END,CASE WHEN length(CAST(scope_json AS BLOB))<=32 THEN scope_json END FROM private_content WHERE result_id=?1",params![id,content::MAX_CANONICAL_CUSTOM_BYTES as i64],|row|Ok((row.get(0)?,row.get(1)?))).optional().map_err(StorageError::sql)?;
         if let Some((text, scope)) = body {
             total += text.len();
             record.full_text = Some(text);
@@ -405,6 +401,7 @@ impl Writer {
                 | OpenFlags::SQLITE_OPEN_NOFOLLOW,
         )
         .map_err(StorageError::sql)?;
+        set_size_limit(&connection)?;
         connection
             .busy_timeout(options.busy_budget)
             .map_err(StorageError::sql)?;
@@ -487,6 +484,7 @@ impl Writer {
                     classification.predicate()
                 )).map_err(StorageError::sql)?;
             }
+            ensure_profile_classification_indexes(&transaction)?;
             transaction.execute("INSERT INTO schema_migrations(version,applied_at_utc_ms) VALUES(1,CAST((julianday('now')-2440587.5)*86400000 AS INTEGER))",[]).map_err(StorageError::sql)?;
             transaction
                 .pragma_update(None, "application_id", APPLICATION_ID)
@@ -495,6 +493,11 @@ impl Writer {
                 .pragma_update(None, "user_version", SQL_SCHEMA_VERSION)
                 .map_err(StorageError::sql)?;
             transaction.commit().map_err(StorageError::sql)?;
+        } else {
+            // These indexes are optional accelerators for schema 1. Install them
+            // once on writable opens, without changing records or their identity.
+            // Read-only commands continue to accept existing schema-1 databases.
+            ensure_profile_classification_indexes(&connection)?;
         }
         Ok(Self {
             reader: ReadStore {
@@ -507,6 +510,19 @@ impl Writer {
     }
     pub fn save(&mut self, record: &Record) -> Result<BestOutcome, StorageError> {
         record.validate()?;
+        self.save_record(record)
+    }
+    pub fn save_preparation(
+        &mut self,
+        preparation: &Preparation,
+    ) -> Result<BestOutcome, StorageError> {
+        // The opaque preparation validates before exposing a record, and caches
+        // that immutable record. Deserialized/publicly submitted records still
+        // enter through save(), which validates them independently.
+        let record = preparation.prepare()?;
+        self.save_record(&record)
+    }
+    fn save_record(&mut self, record: &Record) -> Result<BestOutcome, StorageError> {
         let snapshot = &record.snapshot;
         let elapsed = integer(snapshot.elapsed_us)?;
         let c = count_values(&snapshot.counts)
@@ -635,6 +651,54 @@ impl Writer {
     }
 }
 
+fn ensure_profile_classification_indexes(connection: &Connection) -> Result<(), StorageError> {
+    let missing: i64 = connection
+        .query_row(
+            "SELECT 4-COUNT(*) FROM sqlite_schema WHERE type='index' AND name IN ('results_profile_standard_history','results_profile_practice_history','results_profile_paste_history','results_profile_assisted_history')",
+            [],
+            |row| row.get(0),
+        )
+        .map_err(StorageError::sql)?;
+    if missing == 0 {
+        return Ok(());
+    }
+    // The initial schema is already inside a transaction. Existing databases
+    // get the same all-or-nothing installation without a write lock on each launch.
+    let transaction = if connection.is_autocommit() {
+        Some(
+            rusqlite::Transaction::new_unchecked(connection, TransactionBehavior::Immediate)
+                .map_err(StorageError::sql)?,
+        )
+    } else {
+        None
+    };
+    for (name, classification) in [
+        ("standard", Classification::Standard),
+        ("practice", Classification::Practice),
+        ("paste", Classification::PasteAttempted),
+        ("assisted", Classification::AssistedCode),
+    ] {
+        connection.execute_batch(&format!(
+            "CREATE INDEX IF NOT EXISTS results_profile_{name}_history ON results(profile_key,created_at_utc_ms DESC,id DESC) WHERE {}",
+            classification.predicate()
+        )).map_err(StorageError::sql)?;
+    }
+    if let Some(transaction) = transaction {
+        transaction.commit().map_err(StorageError::sql)?;
+    }
+    Ok(())
+}
+
+fn set_size_limit(connection: &Connection) -> Result<(), StorageError> {
+    // Bound SQLite's own value/row allocations before examining any untrusted
+    // schema or record. The whole-record budget also leaves room for every
+    // supported diagnostic row (including maximum-size canonical tokens).
+    connection
+        .set_limit(Limit::SQLITE_LIMIT_LENGTH, MAX_RECORD_BYTES as i32)
+        .map_err(StorageError::sql)?;
+    Ok(())
+}
+
 fn verify_schema(connection: &Connection) -> Result<(), StorageError> {
     let version: i64 = connection
         .pragma_query_value(None, "user_version", |row| row.get(0))
@@ -647,6 +711,16 @@ fn verify_schema(connection: &Connection) -> Result<(), StorageError> {
             ErrorKind::UnsupportedSchema,
             "history schema is unsupported; no migration or repair was performed",
         ));
+    }
+    let tables: i64 = connection
+        .query_row(
+            "SELECT COUNT(*) FROM pragma_table_list WHERE schema='main' AND type='table' AND name IN ('schema_migrations','results','samples','word_summaries','private_content','event_traces','profile_bests','profile_stats')",
+            [],
+            |row| row.get(0),
+        )
+        .map_err(StorageError::sql)?;
+    if tables != 8 {
+        return Err(corrupt_record());
     }
     let applied: Option<i64> = connection
         .query_row(
@@ -891,6 +965,190 @@ mod tests {
         )
         .unwrap()
         .unwrap()
+    }
+    #[test]
+    fn current_profile_classification_queries_use_composite_partial_indexes() {
+        let (_directory, writer) = fixture();
+        let connection = writer.reader.connection.as_ref().unwrap();
+        for (name, classification) in [
+            ("standard", Classification::Standard),
+            ("practice", Classification::Practice),
+            ("paste", Classification::PasteAttempted),
+            ("assisted", Classification::AssistedCode),
+        ] {
+            let filter = Filter {
+                classification: Some(classification),
+                ..Filter::current("0".repeat(64))
+            };
+            let (clause, values) = where_clause(&filter);
+            let sql = format!(
+                "EXPLAIN QUERY PLAN SELECT id FROM results {clause} ORDER BY created_at_utc_ms DESC,id DESC LIMIT 20"
+            );
+            let plan: String = connection
+                .query_row(&sql, params_from_iter(values.clone()), |row| row.get(3))
+                .unwrap();
+            let index = format!("results_profile_{name}_history");
+            assert!(plan.contains(&index), "{plan}");
+            let sql =
+                format!("EXPLAIN QUERY PLAN SELECT SUM(attempts_total) FROM results {clause}");
+            let plan: String = connection
+                .query_row(&sql, params_from_iter(values), |row| row.get(3))
+                .unwrap();
+            assert!(
+                plan.contains(&index)
+                    || (classification == Classification::Standard
+                        && plan.contains("results_profile_eligible")),
+                "{plan}"
+            );
+        }
+    }
+    #[test]
+    fn existing_schema_one_gets_optional_indexes_only_on_a_writable_open() {
+        let (directory, mut writer) = fixture();
+        let record = private_record("x");
+        let id = record.id().to_owned();
+        writer.save(&record).unwrap();
+        let connection = writer.reader.connection.as_ref().unwrap();
+        for name in ["standard", "practice", "paste", "assisted"] {
+            connection
+                .execute_batch(&format!("DROP INDEX results_profile_{name}_history"))
+                .unwrap();
+        }
+        drop(writer);
+        let path = directory.path().join(if cfg!(windows) {
+            "private/history.sqlite3"
+        } else {
+            "history.sqlite3"
+        });
+        let reader = ReadStore::open(&path).unwrap();
+        assert!(reader.review(&id).unwrap().is_some());
+        let count: i64 = reader.connection.as_ref().unwrap().query_row(
+            "SELECT COUNT(*) FROM sqlite_schema WHERE type='index' AND name LIKE 'results_profile_%_history'",
+            [], |row| row.get(0),
+        ).unwrap();
+        assert_eq!(count, 0);
+        drop(reader);
+        let mut options = Options::new(path.clone());
+        options.journal = JournalMode::Delete;
+        let writer = Writer::open(&options).unwrap();
+        let connection = writer.reader.connection.as_ref().unwrap();
+        verify_schema(connection).unwrap();
+        let count: i64 = connection.query_row(
+            "SELECT COUNT(*) FROM sqlite_schema WHERE type='index' AND name LIKE 'results_profile_%_history'",
+            [], |row| row.get(0),
+        ).unwrap();
+        assert_eq!(count, 4);
+        assert_eq!(
+            connection
+                .query_row("SELECT COUNT(*) FROM schema_migrations", [], |row| row
+                    .get::<_, i64>(0))
+                .unwrap(),
+            1
+        );
+        assert_eq!(
+            writer
+                .reader
+                .review(&id)
+                .unwrap()
+                .unwrap()
+                .record
+                .full_text(),
+            Some("x")
+        );
+        drop(writer);
+        let before = fs::read(&path).unwrap();
+        drop(Writer::open(&options).unwrap());
+        assert_eq!(fs::read(path).unwrap(), before);
+    }
+    #[test]
+    fn sqlite_values_are_bounded_on_reader_and_writer_connections() {
+        let (directory, writer) = fixture();
+        assert_eq!(
+            writer
+                .reader
+                .connection
+                .as_ref()
+                .unwrap()
+                .limit(Limit::SQLITE_LIMIT_LENGTH)
+                .unwrap(),
+            MAX_RECORD_BYTES as i32
+        );
+        let path = directory.path().join(if cfg!(windows) {
+            "private/history.sqlite3"
+        } else {
+            "history.sqlite3"
+        });
+        let reader = ReadStore::open(&path).unwrap();
+        let connection = reader.connection.as_ref().unwrap();
+        assert_eq!(
+            connection.limit(Limit::SQLITE_LIMIT_LENGTH).unwrap(),
+            MAX_RECORD_BYTES as i32
+        );
+        let error = connection
+            .query_row(
+                "SELECT zeroblob(?1)",
+                [MAX_RECORD_BYTES as i64 + 1],
+                |row| row.get::<_, Vec<u8>>(0),
+            )
+            .unwrap_err();
+        assert_eq!(StorageError::sql(error).kind, ErrorKind::Corrupt);
+    }
+    #[test]
+    fn schema_views_are_rejected_before_they_can_generate_record_data() {
+        for name in ["results", "schema_migrations", "profile_stats"] {
+            let (_directory, writer) = fixture();
+            let connection = writer.reader.connection.as_ref().unwrap();
+            connection
+                .pragma_update(None, "foreign_keys", false)
+                .unwrap();
+            connection.execute_batch(&format!(
+                "ALTER TABLE {name} RENAME TO original_{name}; CREATE VIEW {name} AS SELECT * FROM original_{name}"
+            )).unwrap();
+            assert_eq!(
+                verify_schema(connection).unwrap_err().kind,
+                ErrorKind::Corrupt
+            );
+        }
+    }
+    #[test]
+    fn nul_padded_metadata_is_rejected_without_copying_the_payload_to_rust() {
+        for (table, column, review) in [
+            ("results", "header_json", false),
+            ("results", "header_json", true),
+            ("results", "sparkline_json", false),
+            ("private_content", "scope_json", true),
+        ] {
+            let (_directory, mut writer) = fixture();
+            let record = private_record("x");
+            let id = record.id().to_owned();
+            writer.save(&record).unwrap();
+            writer
+                .reader
+                .connection
+                .as_ref()
+                .unwrap()
+                .execute(
+                    &format!("UPDATE {table} SET {column}={column}||char(0)||?"),
+                    ["x".repeat(1024 * 1024)],
+                )
+                .unwrap();
+            let allocations = allocation_counter::measure(|| {
+                if review {
+                    assert!(writer.reader.review(&id).is_err());
+                } else {
+                    assert!(
+                        writer
+                            .reader
+                            .history(&Filter::default(), Page::default())
+                            .is_err()
+                    );
+                }
+            });
+            assert!(
+                allocations.bytes_max < 128 * 1024,
+                "{table}.{column}: {allocations:?}"
+            );
+        }
     }
     #[test]
     fn acknowledged_connection_uses_full_durability_and_patched_sqlite() {

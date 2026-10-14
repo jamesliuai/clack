@@ -701,6 +701,9 @@ impl App {
     }
     fn apply_visible(&mut self, action: Action<'_>, received: u64) -> bool {
         let before = self.presentation_at(received, ui::live::Values::default());
+        if let Action::Text(text) = action {
+            self.sample.engine.prepare_text(text);
+        }
         self.sample.engine.apply(action, received);
         let changed =
             !before.same_text(&self.presentation_at(received, ui::live::Values::default()));

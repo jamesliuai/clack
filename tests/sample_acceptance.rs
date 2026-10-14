@@ -772,6 +772,129 @@ fn imported_pack_loading_rejects_traversal_mismatched_identity_and_oversized_fil
 }
 
 #[test]
+fn source_profile_identity_matches_real_sessions_for_every_mode() {
+    let fixture = Fixture::new();
+    fixture.import("profile_fixture", "alpha\nbeta\ngamma\n");
+    let source = fixture.directory.path().join("source.txt");
+    fs::write(&source, "\tfirst\r\n  cafe\u{301}\n").unwrap();
+    let quote_id = &Quotes::bundled().unwrap().passages[0].id;
+    let path = source.to_str().unwrap();
+    for arguments in [
+        vec![],
+        vec![
+            "--words",
+            "10000",
+            "--seed",
+            "42",
+            "--numbers",
+            "--punctuation",
+        ],
+        vec!["--language", "profile_fixture"],
+        vec!["--quote-id", quote_id],
+        vec!["--text", "\tfirst\r\n  cafe\u{301}\n"],
+        vec!["--file", path],
+        vec!["--file", path, "--exact"],
+        vec!["--file", path, "--exact", "--normalize-exact"],
+        vec!["--code"],
+        vec!["--code", "--file", path],
+        vec!["--zen"],
+    ] {
+        let (cli, config) = configured(&arguments, Config::default());
+        let spec = Samples::profile_spec(&cli, &config, &fixture.paths).unwrap();
+        let mut sources = Samples::prepare(&cli, &config, &fixture.paths).unwrap();
+        let sample = sources.next(&config).unwrap();
+        assert_eq!(
+            spec.profile_key(),
+            sample.engine.spec().profile_key(),
+            "{arguments:?}"
+        );
+        assert_eq!(
+            spec.content_hash,
+            sample.engine.spec().content_hash,
+            "{arguments:?}"
+        );
+    }
+}
+
+#[test]
+fn large_custom_profile_and_source_preparation_do_not_build_target_span_arrays() {
+    let fixture = Fixture::new();
+    let text = "a ".repeat(content::MAX_CUSTOM_BYTES / 2);
+    let (cli, config) = configured(&["--text", &text], Config::default());
+    let profile_allocations = allocation_counter::measure(|| {
+        let spec = Samples::profile_spec(&cli, &config, &fixture.paths).unwrap();
+        assert_eq!(spec.content_hash, content_hash(text.trim_end().as_bytes()));
+    });
+    assert!(
+        profile_allocations.bytes_max < 8 * 1024 * 1024,
+        "{profile_allocations:?}"
+    );
+    let source_allocations = allocation_counter::measure(|| {
+        let mut sources = Samples::prepare(&cli, &config, &fixture.paths).unwrap();
+        let reused = allocation_counter::measure(|| {
+            let cloned = sources.clone();
+            std::hint::black_box(cloned);
+            sources.reconfigure(&config, &fixture.paths).unwrap();
+        });
+        assert_eq!(reused.count_total, 0, "{reused:?}");
+    });
+    assert!(
+        source_allocations.bytes_max < 8 * 1024 * 1024,
+        "{source_allocations:?}"
+    );
+    assert_eq!(
+        source_allocations.bytes_current, 0,
+        "{source_allocations:?}"
+    );
+}
+
+#[test]
+fn reconfiguring_the_same_imported_pack_reuses_validated_session_content() {
+    let fixture = Fixture::new();
+    fixture.import("cached_fixture", "alpha\nbeta\ngamma\n");
+    let (cli, mut config) = configured(&["--language", "cached_fixture"], Config::default());
+    let mut sources = Samples::prepare(&cli, &config, &fixture.paths).unwrap();
+    fs::remove_dir_all(&fixture.paths.languages).unwrap();
+    config.test.seconds = 60;
+    config.test.punctuation = true;
+    sources.reconfigure(&config, &fixture.paths).unwrap();
+    let sample = sources.next(&config).unwrap();
+    assert_eq!(sample.engine.spec().source_id, "cached_fixture");
+    assert_eq!(sample.engine.spec().seconds, 60);
+    assert!(sample.engine.spec().punctuation);
+    config.test.language = "missing_fixture".into();
+    assert!(sources.reconfigure(&config, &fixture.paths).is_err());
+    config.test.language = "cached_fixture".into();
+    assert!(
+        sources.next(&config).is_ok(),
+        "failed reconfiguration must preserve the cache"
+    );
+}
+
+#[test]
+fn bundled_pack_loads_share_one_prepared_owner() {
+    let fixture = Fixture::new();
+    for id in content::BUNDLED_PACK_IDS {
+        let first = load_pack(id, &fixture.paths).unwrap();
+        let second = load_pack(id, &fixture.paths).unwrap();
+        assert!(Arc::ptr_eq(&first, &second), "{id}");
+        let source = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("data/packs")
+            .join(id);
+        let imported = content::LanguagePack::from_parts(
+            &fs::read(source.join("words.txt")).unwrap(),
+            &fs::read(source.join("metadata.json")).unwrap(),
+        )
+        .unwrap();
+        assert_eq!(
+            first.as_ref(),
+            &imported,
+            "build-prepared Unicode data must match the importer for {id}"
+        );
+    }
+}
+
+#[test]
 fn changing_custom_file_reconfigures_the_prepared_source_and_hash() {
     let fixture = Fixture::new();
     let first_path = fixture.directory.path().join("first.txt");

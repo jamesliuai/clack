@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "cargo_lock_sha256": "ca82af0220c90a7307895527bfaf7ffe815026dab04ce7d6feb6e2e14f92c52b",
+  "cargo_lock_sha256": "10218145f4d12f9d5b3e4bf63c2b57ef1d7a0af2ba29befbe575f6d4b36bb7b8",
   "scope": "All locked dependencies; target membership is normal/build edges for the five OS/architecture configurations including both Windows MSVC and GNU ABIs, and may include build-only tools.",
   "targets": [
     "x86_64-unknown-linux-gnu",
@@ -495,7 +495,7 @@
     },
     {
       "name": "clack-crossterm",
-      "version": "0.30.0",
+      "version": "0.30.1",
       "spdx_expression": "MIT",
       "selected_licenses": [
         "MIT"
@@ -513,7 +513,7 @@
       ],
       "license_notices": [
         {
-          "path": "licenses/clack-crossterm-0.30.0/LICENSE",
+          "path": "licenses/clack-crossterm-0.30.1/LICENSE",
           "sha256": "aca4760f2a5eba9ce9d4448fe7cd3fcf98245a8315ede59ebd0c6085dd542e61"
         }
       ],
@@ -549,7 +549,7 @@
     },
     {
       "name": "clack-ratatui-crossterm",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "spdx_expression": "MIT",
       "selected_licenses": [
         "MIT"
@@ -567,7 +567,7 @@
       ],
       "license_notices": [
         {
-          "path": "licenses/clack-ratatui-crossterm-0.2.0/LICENSE",
+          "path": "licenses/clack-ratatui-crossterm-0.2.1/LICENSE",
           "sha256": "50eb43e8d742c9c61a9391e42b2184fce54dbd1893a1bb1c85b8c9ee217ab1f5"
         }
       ],
@@ -2044,6 +2044,8 @@
         "aarch64-apple-darwin",
         "aarch64-unknown-linux-gnu",
         "x86_64-apple-darwin",
+        "x86_64-pc-windows-gnu",
+        "x86_64-pc-windows-msvc",
         "x86_64-unknown-linux-gnu"
       ],
       "license_notices": [

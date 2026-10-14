@@ -1808,3 +1808,12 @@ pub fn poll_keyboard_probe(timeout: Duration) -> std::io::Result<Option<Keyboard
         InternalEvent::CursorPosition(_, _) => KeyboardProbeEvent::Other,
     }))
 }
+
+/// Configure legacy X10 mouse parsing on the sole input-owner thread. Enabled
+/// by default for compatibility. Keyboard-only applications may disable it so
+/// an unsolicited `ESC [ M` cannot consume their next three keystrokes. SGR
+/// mouse reports and the terminal's mouse capture modes are unaffected.
+#[cfg(all(unix, feature = "poll-waker"))]
+pub fn set_legacy_mouse_input(enabled: bool) -> std::io::Result<()> {
+    lock_internal_event_reader().set_legacy_mouse_input(enabled)
+}

@@ -31,7 +31,7 @@ TARGETS = {
     "x86_64-pc-windows-gnu": ("windows", "x86_64"),
 }
 SOURCE_DIRS = ("src", "tests", "examples", "scripts", "data", "vendor", "docs", "third-party", ".github")
-SOURCE_FILES = ("Cargo.toml", "Cargo.lock", "LICENSE", "README.md", "THIRD-PARTY-NOTICES.md", "deny.toml", ".gitignore", ".gitattributes", "SPEC.md", "CONTRIBUTING.md", "CODE_OF_CONDUCT.md", "SECURITY.md", "CHANGELOG.md")
+SOURCE_FILES = ("Cargo.toml", "Cargo.lock", "build.rs", "LICENSE", "README.md", "THIRD-PARTY-NOTICES.md", "deny.toml", ".gitignore", ".gitattributes", "SPEC.md", "CONTRIBUTING.md", "CODE_OF_CONDUCT.md", "SECURITY.md", "CHANGELOG.md")
 
 
 def sha(data: bytes) -> str:
@@ -44,10 +44,12 @@ def run(args: list[str], **kwargs) -> bytes:
     return result.stdout
 
 
-def files_under(directory: Path) -> list[Path]:
+def files_under(directory: Path, *, distribution: bool = False) -> list[Path]:
     files = []
     for path in sorted(directory.rglob("*")):
         relative = path.relative_to(directory)
+        if distribution and directory == ROOT / "docs" and relative.parts[0] == "measurements":
+            continue
         if any(part in ("__pycache__", ".git", "target") for part in relative.parts) or path.suffix == ".pyc":
             continue
         if path.is_symlink():
@@ -59,13 +61,25 @@ def files_under(directory: Path) -> list[Path]:
 
 def source_identity() -> str:
     digest = hashlib.sha256()
-    paths = [ROOT / "Cargo.toml", ROOT / "Cargo.lock"]
+    paths = [ROOT / "Cargo.toml", ROOT / "Cargo.lock", ROOT / "build.rs"]
     for directory in ("src", "data", "vendor"):
         paths.extend(files_under(ROOT / directory))
     for path in sorted(paths):
         digest.update(path.relative_to(ROOT).as_posix().encode() + b"\0")
         digest.update(hashlib.sha256(path.read_bytes()).digest())
     return digest.hexdigest()
+
+
+def release_rustflags(target_directory: Path, environment: dict[str, str]) -> str:
+    # Broad prefixes come first: rustc uses the last matching remapping.
+    # Remap Cargo dependency paths as well as our sources and generated files.
+    mappings = [
+        (Path.home(), "/build/home"),
+        (Path(environment.get("CARGO_HOME", str(Path.home() / ".cargo"))).expanduser().resolve(), "/build/cargo"),
+        (ROOT.resolve(), "/clack"),
+        (target_directory.resolve(), "/clack/target"),
+    ]
+    return "\x1f".join(f"--remap-path-prefix={source}={destination}" for source, destination in mappings)
 
 
 def executable_identity(data: bytes) -> tuple[str, str]:
@@ -128,7 +142,7 @@ def package(args: argparse.Namespace) -> Path:
                 raise ValueError(f"required source release input is missing/nonregular: {path}")
             files[path] = (source.read_bytes(), 0o644)
         for directory in SOURCE_DIRS:
-            for source in files_under(ROOT / directory):
+            for source in files_under(ROOT / directory, distribution=True):
                 files[source.relative_to(ROOT).as_posix()] = (source.read_bytes(), 0o644)
         name = f"clack-{version}-source"
         metadata = {"kind": "source", "cargo_lock_sha256": sha((ROOT / "Cargo.lock").read_bytes())}
@@ -142,10 +156,10 @@ def package(args: argparse.Namespace) -> Path:
                       or key.startswith(("CFLAGS_", "CXXFLAGS_", "CPPFLAGS_"))]
         if any(environment.get(key, "").strip() for key in cflag_keys):
             raise ValueError("custom C/C++ flags, including host-specific CPU flags for bundled SQLite, are forbidden for distributed packages")
-        # Explicit empty encoded flags take precedence over user/global Cargo
-        # configuration, so distributed code never inherits host-specific flags.
-        environment["CARGO_ENCODED_RUSTFLAGS"] = ""
         target_directory = args.target_dir.resolve()
+        # Explicit encoded flags take precedence over user/global Cargo
+        # configuration and remove local source paths from panic locations.
+        environment["CARGO_ENCODED_RUSTFLAGS"] = release_rustflags(target_directory, environment)
         environment["CARGO_TARGET_DIR"] = str(target_directory)
         environment["CARGO_PROFILE_RELEASE_DEBUG_ASSERTIONS"] = "false"
         environment["CARGO_PROFILE_RELEASE_PANIC"] = "unwind"
@@ -208,7 +222,7 @@ def package(args: argparse.Namespace) -> Path:
             files[filename] = ((ROOT / filename).read_bytes(), 0o644)
         files["install.py"] = ((ROOT / "scripts/install.py").read_bytes(), 0o644)
         for directory in ("third-party", "docs", "data"):
-            for source in files_under(ROOT / directory):
+            for source in files_under(ROOT / directory, distribution=True):
                 if directory == "data" and source.suffix not in (".json", ".txt"):
                     continue
                 files[source.relative_to(ROOT).as_posix()] = (source.read_bytes(), 0o644)
@@ -225,6 +239,7 @@ def package(args: argparse.Namespace) -> Path:
             "release_profile": {"lto": "thin", "codegen_units": 1, "strip": "symbols", "opt_level": 3,
                                 "panic": "unwind", "debug_assertions": False, "test_hooks": False},
             "host": platform.platform(), "rustflags": environment.get("RUSTFLAGS", ""),
+            "source_paths_remapped": True,
             "macos_deployment_target": environment.get("MACOSX_DEPLOYMENT_TARGET"),
             "glibc_link_target": args.glibc,
             "limitations": ["Foreign-target execution was not attempted by this package command; docs were generated by a checked host binary from the same source." if args.cross else "Local executable checks on a different host architecture may use OS translation and do not establish native target hardware behavior.", "Command checks do not establish terminal emulator, other OS/architecture, cold-start, or controlled performance validation."],

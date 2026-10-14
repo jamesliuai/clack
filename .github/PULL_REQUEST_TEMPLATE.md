@@ -6,7 +6,7 @@
 
 <!-- List the commands and manual terminal scenarios you ran. -->
 
-- [ ] `cargo fmt --all -- --check`
+- [ ] `cargo fmt -p clack-typing -p clack-private-fs -- --check`
 - [ ] `cargo clippy --locked --all-targets --all-features -- -D warnings`
 - [ ] `cargo test --locked --all-targets --all-features`
 - [ ] I tested relevant terminal resize, color, and keyboard behavior.

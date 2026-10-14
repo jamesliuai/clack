@@ -333,11 +333,50 @@ fn terminal_lifecycle_child() {
                 };
                 assert_eq!(key.code, KeyCode::Char('b'));
             }
-            "deadline" => {
+            "deadline" | "incomplete_deadline" => {
                 assert!(matches!(first.kind, InputKind::Key { .. }));
                 let deadline = wait(&reader);
                 assert!(matches!(deadline.kind, InputKind::Tick));
                 assert_eq!(deadline.received_us, first.received_us + 1_000_000);
+            }
+            "unsupported_keys" => {
+                let expected = [
+                    (KeyCode::KeypadBegin, KeyModifiers::NONE),
+                    (KeyCode::KeypadBegin, KeyModifiers::NONE),
+                    (KeyCode::Enter, KeyModifiers::NONE),
+                    (KeyCode::Enter, KeyModifiers::CONTROL),
+                    (KeyCode::Char('a'), KeyModifiers::NONE),
+                ];
+                let mut received = Some(first);
+                for (code, modifiers) in expected {
+                    let event = received.take().unwrap_or_else(|| wait(&reader));
+                    let InputKind::Key { key, .. } = event.kind else {
+                        panic!("unsupported sequence interrupted keyboard input");
+                    };
+                    assert_eq!((key.code, key.modifiers), (code, modifiers));
+                }
+                assert!(matches!(wait(&reader).kind, InputKind::Tick));
+            }
+            "stray_prefix" | "unsupported_running" => {
+                assert!(matches!(first.kind, InputKind::Key { key, .. }
+                    if key.code == KeyCode::Char('a')));
+                let expected = if case == "stray_prefix" {
+                    "bcdefg"
+                } else {
+                    "b"
+                };
+                for character in expected.chars() {
+                    assert!(matches!(wait(&reader).kind, InputKind::Key { key, .. }
+                        if key.code == KeyCode::Char(character)));
+                }
+                assert!(matches!(wait(&reader).kind, InputKind::Tick));
+            }
+            "incomplete_signal" => {
+                assert!(matches!(first.kind, InputKind::Key { .. }));
+                assert!(matches!(
+                    wait(&reader).kind,
+                    InputKind::Signal(signal_hook::consts::SIGTERM)
+                ));
             }
             "enhancements" => {
                 reader.command(Control::Disarm { epoch: 2 }).unwrap();
@@ -501,7 +540,7 @@ def result(stdout):
     line = next(line for line in bytes(stdout).decode().splitlines() if line.startswith('PROBE_JSON '))
     return json.loads(line[len('PROBE_JSON '):])
 
-for case in ['supported', 'unsupported', 'timeout', 'flags_without_da', 'already_raw', 'signal', 'control_c', 'malformed', 'ordinary_input']:
+for case in ['supported', 'unsupported', 'timeout', 'flags_without_da', 'already_raw', 'signal', 'control_c', 'malformed', 'ordinary_input', 'incomplete_escape']:
     with PtyProcess([sys.argv[1], '--exact', 'capability_probe_child', '--nocapture'],
         env={'CLACK_PROBE_TEST_CASE':case}, source_stdin=b'PRIVATE_PIPE_PROBE_FIXTURE') as p:
         wait_for(p, lambda: b'\x1b[?u\x1b[c' in p.output, 'explicit capability query', timeout=2)
@@ -517,6 +556,8 @@ for case in ['supported', 'unsupported', 'timeout', 'flags_without_da', 'already
             p.send(b'\x03')
         elif case == 'malformed':
             p.send(b'\x1b[97;1;1114112u')
+        elif case == 'incomplete_escape':
+            p.send(b'x\x1b[')
         elif case == 'ordinary_input':
             p.send(b'PRIVATE_KEY_PROBE_FIXTURE\x1b[?1;2c')
         check(p.wait(timeout=2) == 0, f'{case}: probe helper failed: {p.stderr!r}')
@@ -536,11 +577,11 @@ for case in ['supported', 'unsupported', 'timeout', 'flags_without_da', 'already
             check(report['keyboard_enhancement_flags'] == (0 if case == 'flags_without_da' else 23), f'{case}: flags changed')
         elif case in ('unsupported', 'ordinary_input'):
             check(report['keyboard_enhancement_support'] is False, f'{case}: DA-only response treated as support')
-        elif case == 'timeout':
+        elif case in ('timeout', 'incomplete_escape'):
             check(report['status'] == 'timeout' and report['keyboard_enhancement_support'] is None, 'timeout was treated as definitive unsupported')
         else:
             check(report['interrupted'] and report['status'] == 'interrupted', f'{case}: interruption ignored')
-        if case in ('timeout', 'flags_without_da'):
+        if case in ('timeout', 'flags_without_da', 'incomplete_escape'):
             check(report['elapsed_ms'] >= 350, f'{case}: incomplete response did not receive its bounded budget')
 
 env = dict(os.environ, CLACK_PROBE_TEST_CASE='no_terminal')
@@ -549,7 +590,7 @@ p = subprocess.run([sys.argv[1], '--exact', 'capability_probe_child', '--nocaptu
 check(p.returncode == 0, 'missing-terminal helper failed')
 check('Err' in result(p.stdout), 'probe did not reject missing controlling terminal')
 check(b'\x1b' not in p.stdout + p.stderr, 'missing-terminal query contaminated streams')
-print('10 explicit capability probe scenarios passed')
+print('11 explicit capability probe scenarios passed')
 "#;
     let output = std::process::Command::new("python3")
         .arg("-c")
@@ -636,6 +677,15 @@ def run(case):
             after = termios.tcgetattr(slave)
             assert settings(after) == settings(before), ('suspend termios', os.WSTOPSIG(status), before, after)
             os.kill(child.pid, signal.SIGCONT)
+        elif case == 'unsupported_keys':
+            os.write(master, b'\x1b[E\x1b[G\x1bOM\x1b[27;5;13~\x1bOX\x1b[=1xa')
+        elif case == 'unsupported_running': os.write(master, b'a\x1bOX\x1b[99~b')
+        elif case == 'stray_prefix': os.write(master, b'a\x1b[Mbcd\x1b[?efg')
+        elif case in ('incomplete_deadline', 'incomplete_signal'):
+            os.write(master, b'a\x1b[')
+            if case == 'incomplete_signal':
+                time.sleep(0.02)
+                os.kill(child.pid, signal.SIGTERM)
         elif case == 'paste': os.write(master, b'\x1b[200~cat dog\x1b[201~')
         elif case == 'associated': os.write(master, b'\x1b[97;1;98u')
         elif case == 'release': os.write(master, b'\x1b[97;1:3u\x1b[98;1u')
@@ -693,9 +743,9 @@ def run(case):
         os.close(master)
         os.close(slave)
 
-for case in ['normal', 'panic', 'signal', 'early_signal', 'paste', 'associated', 'release', 'deadline', 'enhancements', 'overload', 'restart', 'partial_restart', 'paste_restart', 'disarm', 'source', 'suspend']:
+for case in ['normal', 'panic', 'signal', 'early_signal', 'paste', 'associated', 'release', 'deadline', 'enhancements', 'overload', 'restart', 'partial_restart', 'paste_restart', 'disarm', 'source', 'suspend', 'unsupported_keys', 'unsupported_running', 'stray_prefix', 'incomplete_deadline', 'incomplete_signal']:
     run(case)
-print('16 pseudo-terminal scenarios passed')
+print('21 pseudo-terminal scenarios passed')
 "#;
     let output = std::process::Command::new("python3")
         .arg("-c")

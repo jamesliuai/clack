@@ -1,8 +1,8 @@
 //! UI coordination only. SQLite and all history reads belong to the one worker.
 use super::*;
 use crate::storage::{
-    self, Best, BestOutcome, Event, EventTrace, Filter, Options, Page, Persistence, Record, Store,
-    TraceEvent, TraceKind,
+    self, Best, BestOutcome, Event, EventTrace, Filter, Options, Page, Persistence, Preparation,
+    Record, Store, TraceEvent, TraceKind,
 };
 #[cfg(not(windows))]
 use std::fs::OpenOptions;
@@ -17,8 +17,8 @@ pub(super) struct StorageFlow {
     configured: Option<(bool, String, usize)>,
     pub visible_epoch: Option<u64>,
     current_ticket: Option<(u64, u64)>,
-    last_record: Option<Record>,
-    overflow: Option<(u64, Record)>,
+    last_record: Option<Arc<Preparation>>,
+    overflow: Option<(u64, Arc<Preparation>)>,
     lost_unsaved: usize,
     failure: Option<String>,
     pub trace: Option<EventTrace>,
@@ -160,14 +160,19 @@ impl App {
             store_custom_text: pending.config.privacy.store_custom_text,
             store_event_trace: pending.config.privacy.store_event_trace,
         };
-        match Record::prepare(
+        if !privacy.save_results {
+            self.storage.last_record = None;
+            return;
+        }
+        match Record::prepare_async(
             pending.result.clone(),
             privacy,
-            pending.full_text.as_deref(),
+            pending.full_text.clone(),
             pending.trace.clone(),
         ) {
             Ok(Some(record)) => {
-                self.storage.last_record = Some(record.clone());
+                let record = Arc::new(record);
+                self.storage.last_record = Some(Arc::clone(&record));
                 self.submit_record(pending.epoch, record);
             }
             Ok(None) => {
@@ -183,9 +188,9 @@ impl App {
         }
     }
 
-    fn submit_record(&mut self, epoch: u64, record: Record) {
+    fn submit_record(&mut self, epoch: u64, record: Arc<Preparation>) {
         let submission = if let Some(store) = &mut self.storage.store {
-            store.submit(record)
+            store.submit_preparation(record)
         } else {
             self.keep_overflow(epoch, record);
             return;
@@ -200,7 +205,7 @@ impl App {
             }
             Err(rejected) => {
                 self.storage.failure = Some(rejected.error.to_string());
-                self.keep_overflow(epoch, rejected.record);
+                self.keep_overflow(epoch, rejected.preparation);
                 if self.storage.visible_epoch == Some(epoch) {
                     self.report(format!("Unsaved · {}", rejected.error));
                 }
@@ -208,7 +213,7 @@ impl App {
         }
     }
 
-    fn keep_overflow(&mut self, epoch: u64, record: Record) {
+    fn keep_overflow(&mut self, epoch: u64, record: Arc<Preparation>) {
         if self.storage.overflow.replace((epoch, record)).is_some() {
             self.storage.lost_unsaved = self.storage.lost_unsaved.saturating_add(1);
             self.report("Unsaved capacity exceeded · oldest unqueued result discarded; export pending results before continuing");
@@ -395,8 +400,8 @@ impl App {
             || self.storage.overflow.is_some()
             || self.storage.store.as_ref().is_some_and(|store| {
                 store
-                    .pending()
-                    .any(|(_, _, state)| matches!(state, storage::PendingState::Unsaved(_)))
+                    .pending_states()
+                    .any(|(_, state)| matches!(state, storage::PendingState::Unsaved(_)))
             });
         if failed {
             let status = format!(
@@ -787,8 +792,7 @@ impl App {
         self.dirty = true;
     }
     pub(super) fn original_file(&mut self, path: &str) -> Result<String, String> {
-        let file = std::fs::File::open(path).map_err(|_| "Could not open original source file")?;
-        let bytes = crate::sample::read_bounded(file, 1024 * 1024)
+        let bytes = crate::sample::read_source_file(std::path::Path::new(path), 1024 * 1024)
             .map_err(|_| "Could not read bounded original source file")?;
         self.storage
             .stored_review
@@ -806,17 +810,22 @@ impl App {
         if self.private_locked {
             return Err("Private mode does not export session results".into());
         }
-        let mut records: Vec<&Record> =
-            self.storage.store.as_ref().map_or_else(Vec::new, |store| {
-                store.pending().map(|(_, record, _)| record).collect()
-            });
+        let mut records = self
+            .storage
+            .store
+            .as_ref()
+            .map(Store::recovery_records)
+            .transpose()
+            .map_err(|error| error.to_string())?
+            .unwrap_or_default();
         if let Some((_, record)) = &self.storage.overflow {
-            records.push(record);
+            records.push(record.prepare().map_err(|error| error.to_string())?);
         }
-        if let Some(record) = &self.storage.last_record
-            && !records.iter().any(|item| item.id() == record.id())
-        {
-            records.push(record);
+        if let Some(record) = &self.storage.last_record {
+            let record = record.prepare().map_err(|error| error.to_string())?;
+            if !records.iter().any(|item| item.id() == record.id()) {
+                records.push(record);
+            }
         }
         if records.is_empty() {
             return Err("No retained results are available to export".into());
@@ -840,7 +849,7 @@ impl App {
         let result = storage::export_records(
             &mut writer,
             storage::ExportFormat::Jsonl,
-            records.iter().copied(),
+            records.iter().map(Arc::as_ref),
             false,
         )
         .map_err(|error| error.to_string())

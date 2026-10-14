@@ -916,6 +916,31 @@ fn classification_filters_preserve_overlapping_assistance_and_independent_outcom
     assert!(matching(Some(Classification::Standard), Some(Outcome::Incomplete)).is_empty());
     assert!(matching(None, Some(Outcome::Complete)).contains("zero_duration"));
 
+    // The all-profile summary and outcome shortcut must match the full query,
+    // including overlapping classifications, Zen, and zero-duration results.
+    for outcome in [
+        None,
+        Some(Outcome::Complete),
+        Some(Outcome::Failed),
+        Some(Outcome::Incomplete),
+    ] {
+        let filter = Filter {
+            outcome,
+            ..Filter::default()
+        };
+        let summary = reader.stats(&filter).unwrap();
+        let full_scan = reader
+            .stats(&Filter {
+                from_utc_ms: Some(DATE),
+                ..filter
+            })
+            .unwrap();
+        assert_eq!(
+            serde_json::to_value(summary).unwrap(),
+            serde_json::to_value(full_scan).unwrap()
+        );
+    }
+
     let connection = Connection::open(&fixture.options.database).unwrap();
     let index_count: i64 = connection.query_row("SELECT COUNT(*) FROM sqlite_schema WHERE type='index' AND name IN ('results_standard_history','results_practice_history','results_paste_history','results_assisted_history')", [], |row| row.get(0)).unwrap();
     assert_eq!(index_count, 4);
@@ -1734,6 +1759,165 @@ fn caller_and_worker_release_owned_pending_records_after_commit_or_shutdown() {
         assert!(Instant::now() < deadline);
         thread::sleep(Duration::from_millis(5));
     }
+}
+
+#[test]
+fn deferred_preparation_is_memoized_private_and_saved_with_the_same_identity() {
+    let fixture = Fixture::new();
+    let mut store = fixture.ready();
+    let secret = "deferred_private_body";
+    let preparation = Arc::new(
+        Record::prepare_async(
+            private_snapshot(secret),
+            Persistence::default(),
+            Some(secret.into()),
+            Some(EventTrace {
+                events: vec![TraceEvent {
+                    sequence: 0,
+                    received_us: 0,
+                    kind: TraceKind::Text,
+                    text: Some(secret.into()),
+                }],
+                events_total: 1,
+                truncated: false,
+            }),
+        )
+        .unwrap()
+        .unwrap(),
+    );
+    assert!(preparation.prepared_record().is_none());
+    assert!(!format!("{preparation:?}").contains(secret));
+    let ticket = store.submit_preparation(Arc::clone(&preparation)).unwrap();
+    let events = wait(
+        &mut store,
+        |event| matches!(event, Event::Saved { ticket: found, .. } if *found == ticket),
+    );
+    assert_eq!(store.pending_count(), 0);
+    let record = preparation.prepare().unwrap();
+    assert!(Arc::ptr_eq(&record, &preparation.prepare().unwrap()));
+    let allocations = allocation_counter::measure(|| {
+        assert!(Arc::ptr_eq(&record, &preparation.prepare().unwrap()));
+    });
+    assert_eq!(
+        allocations.count_total, 0,
+        "completed preparation must not revalidate or reserialize: {allocations:?}"
+    );
+    assert!(
+        events
+            .iter()
+            .any(|event| matches!(event, Event::Saved { id, .. } if id == record.id()))
+    );
+    let review = fixture.reader().review(record.id()).unwrap().unwrap();
+    assert_eq!(review.record.full_text(), None);
+    assert!(review.record.event_trace().is_none());
+    assert!(review.record.snapshot().words.is_empty());
+}
+
+#[test]
+fn deferred_validation_failure_never_enters_sqlite_and_remains_accounted_for() {
+    let fixture = Fixture::new();
+    let mut store = fixture.ready();
+    let mut invalid = snapshot(10, 1_000_000);
+    invalid.spec.seconds = 0;
+    let preparation = Arc::new(
+        Record::prepare_async(invalid, Persistence::default(), None, None)
+            .unwrap()
+            .unwrap(),
+    );
+    assert!(preparation.prepared_record().is_none());
+    let ticket = store.submit_preparation(Arc::clone(&preparation)).unwrap();
+    let events = wait(
+        &mut store,
+        |event| matches!(event, Event::Unsaved { ticket: found, .. } if *found == ticket),
+    );
+    assert!(events.iter().any(
+        |event| matches!(event, Event::Unsaved { error, .. } if error.kind == ErrorKind::Invalid)
+    ));
+    assert_eq!(store.pending_count(), 1);
+    assert!(
+        store
+            .pending_states()
+            .any(|(found, state)| found == ticket && matches!(state, PendingState::Unsaved(_)))
+    );
+    assert_eq!(
+        fixture
+            .reader()
+            .stats(&Filter::default())
+            .unwrap()
+            .result_count,
+        0
+    );
+    let report = store.flush_for(Duration::ZERO);
+    assert!(report.unsaved.is_empty());
+    assert_eq!(report.unprepared.len(), 1);
+    assert!(Arc::ptr_eq(&report.unprepared[0], &preparation));
+    assert_eq!(
+        store.recovery_records().unwrap_err().kind,
+        ErrorKind::Invalid
+    );
+}
+
+#[test]
+fn queued_preparations_preserve_capacity_bounded_flush_and_explicit_recovery() {
+    let mut fixture = Fixture::new();
+    fixture.options.pending_limit = 2;
+    let mut store = fixture.ready();
+    let lock = Connection::open(&fixture.options.database).unwrap();
+    lock.execute_batch("BEGIN EXCLUSIVE").unwrap();
+    store.submit(record(10, 1_000_000, DATE)).unwrap();
+    let preparation = Arc::new(
+        Record::prepare_async(snapshot(20, 1_000_000), Persistence::default(), None, None)
+            .unwrap()
+            .unwrap(),
+    );
+    store.submit_preparation(Arc::clone(&preparation)).unwrap();
+    let rejected = Arc::new(
+        Record::prepare_async(snapshot(30, 1_000_000), Persistence::default(), None, None)
+            .unwrap()
+            .unwrap(),
+    );
+    let error = store.submit_preparation(Arc::clone(&rejected)).unwrap_err();
+    assert_eq!(error.error.kind, ErrorKind::Capacity);
+    assert!(Arc::ptr_eq(&error.preparation, &rejected));
+    assert!(rejected.prepared_record().is_none());
+    let before = Instant::now();
+    let report = store.flush_for(Duration::ZERO);
+    assert!(before.elapsed() < Duration::from_millis(100));
+    assert_eq!(report.unsaved.len(), 1);
+    assert_eq!(report.unprepared.len(), 1);
+    assert!(Arc::ptr_eq(&report.unprepared[0], &preparation));
+    assert!(preparation.prepared_record().is_none());
+    let recovery = store.recovery_records().unwrap();
+    assert_eq!(recovery.len(), 2);
+    let prepared = preparation.prepare().unwrap();
+    let id = prepared.id().to_owned();
+    assert!(recovery.iter().any(|record| Arc::ptr_eq(record, &prepared)));
+    let mut export = Vec::new();
+    export_records(
+        &mut export,
+        ExportFormat::Jsonl,
+        recovery.iter().map(Arc::as_ref),
+        false,
+    )
+    .unwrap();
+    assert_eq!(String::from_utf8(export).unwrap().lines().count(), 2);
+    lock.execute_batch("ROLLBACK").unwrap();
+    let deadline = Instant::now() + Duration::from_secs(3);
+    while store.pending_count() > 0 {
+        store.poll();
+        store.retry_unsaved();
+        assert!(Instant::now() < deadline);
+        thread::park_timeout(Duration::from_millis(5));
+    }
+    assert!(fixture.reader().review(&id).unwrap().is_some());
+    assert_eq!(
+        fixture
+            .reader()
+            .stats(&Filter::default())
+            .unwrap()
+            .result_count,
+        2
+    );
 }
 
 #[test]

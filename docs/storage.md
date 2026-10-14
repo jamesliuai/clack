@@ -36,30 +36,39 @@ pending limit retains existing records and refuses new ones until below the limi
 Apply storage settings outside active typing; successful reopening emits `Ready`.
 
 At completion, pass the original immutable engine snapshot through the central
-privacy boundary. Current review may continue using the engine's in-memory text.
+privacy boundary. `Record::prepare_async` accepts an owned optional source and
+returns an opaque `Preparation` that clears disallowed private data before it
+enters the queue. `Store::submit_preparation(Arc<Preparation>)` retains it under
+the same pending limit and performs diagnostic budgeting, serialization checks,
+and validation on the storage worker. Preparation is memoized, so retries keep
+the same immutable record and ID without repeating validation. Current review
+may continue using the engine's in-memory text.
 
 ```rust
 use clack::storage::{Record, Persistence};
+use std::sync::Arc;
 let privacy = Persistence {
     save_results: config.privacy.save_results,
     store_custom_text: config.privacy.store_custom_text,
     store_event_trace: config.privacy.store_event_trace,
 };
-if let Some(record) = Record::prepare(
-    engine.snapshot(), privacy, Some(&sample.text), optional_trace,
+if let Some(preparation) = Record::prepare_async(
+    engine.snapshot(), privacy, Some(sample.text.clone()), optional_trace,
 )? {
-    match store.submit(record) {
+    match store.submit_preparation(Arc::new(preparation)) {
         Ok(ticket) => { /* retain ticket -> test epoch association; show unsaved */ }
         Err(rejected) => {
-            // Ownership of rejected.record is returned. Keep the current result
+            // Ownership of rejected.preparation is returned. Keep the current result
             // available for export; never silently evict an older pending result.
         }
     }
 }
 ```
 
-`submit` is nonblocking and returns `Result<Ticket, Box<RejectedRecord>>`.
-The facade retains at most the configured number of immutable `Arc<Record>`s;
+`submit_preparation` returns `Result<Ticket, Box<RejectedPreparation>>` without
+serialization or content validation on its caller. Synchronous `Record::prepare`
+and `submit(Record)` remain available for callers that already have prepared records.
+The facade retains at most the configured number of records or preparations;
 the job channel has capacity 16 and the reply channel capacity 32. A full queue
 does not lose an input event or overwrite a pending result. Request IDs and save
 tickets share a process-local monotonic sequence. Durable record IDs remain stable
@@ -77,9 +86,13 @@ or pending response means personal best is **unknown**. `Saved.best` distinguish
 acknowledgement supports a new local-personal-best announcement.
 
 `retry_unsaved()` resubmits retained failures with their original record IDs.
-`pending()` yields `(ticket, &Record, &PendingState)` for status/recovery. Normal
+`pending()` yields `(ticket, &Record, &PendingState)` for completed preparations;
+`pending_count()` and `pending_states()` also include unfinished drafts.
+`recovery_records()` explicitly completes any unfinished preparations for recovery
+export even when SQLite is unavailable. Normal
 exit calls `flush_for(Duration::from_millis(750))`; interruption uses at most
-100 ms. The flush returns the unacknowledged records. Restore the terminal, then
+100 ms. The flush returns the unacknowledged records and unfinished preparations
+separately without waiting for preparation beyond its time budget. Restore the terminal, then
 report their count and offer recovery export. `Drop` never unconditionally joins a
 thread blocked in a filesystem call. An OS-level stalled sync can outlive the
 frontend's timeout; those results cannot be described as acknowledged saves.
@@ -104,11 +117,12 @@ practice reason. Likewise a zero-duration unassisted complete run has no valid
 standard speed and no invented practice reason: it remains in unfiltered and
 `complete` history, and matches neither `standard` nor `practice`.
 
-New schema-1 databases add partial date/ID indexes for all four predicates. The
+Schema-1 databases use partial date/ID and profile/date/ID indexes for all four predicates. The
 predicates read only neutral stored flags/conditions, never the private body or
 trace. Existing valid schema-1 databases without the optional indexes still query
-correctly; opening them never rewrites records or changes their recorded identity.
-The current-profile materialized-summary shortcut is used only without a class
+correctly; writable opens install missing profile indexes atomically without
+rewriting records or changing their recorded identity. Read-only opens create no indexes.
+The all-profile and current-profile materialized-summary shortcuts are used only without a class
 filter, so class-restricted statistics cannot accidentally return unfiltered sums.
 
 ## Privacy boundary and optional traces
@@ -140,7 +154,9 @@ reader/writer bounds agree. An oversized optional diagnostic ends the retained
 word-summary prefix and increases the omission count instead of losing the result.
 The budget also reserves the body, trace, samples, and metadata before admitting
 word diagnostics, so optional diagnostics cannot exceed the 32 MiB whole-record
-bound. Entered summaries use scalar admission and a
+bound. SQLite values and rows are capped at 32 MiB on both reader and writer
+connections. Byte guards count the entire UTF-8 payload, including embedded NULs,
+and required schema objects must be ordinary tables. Entered summaries use scalar admission and a
 32-scalar grapheme bound, allowing the same orphan continuations as live input.
 The optional diagnostic trace API is:
 
@@ -184,13 +200,15 @@ limits 1–1000 and offsets are validated. `HistoryPage.next_offset` drives pagi
 
 ```rust
 use clack::storage::{ReadStore, Filter, Page, ExportFormat, export_records};
+use std::sync::Arc;
 let history = ReadStore::open(&paths.database)?;
 let page = history.history(&Filter::current(profile_key), Page::default())?;
 let stats = history.stats(&Filter::default())?;
 history.export_to(writer, ExportFormat::Jsonl, &Filter::default(), false)?;
 // Recovery also works when the database is corrupt, full, locked, or unavailable.
+let recovery = store.recovery_records()?;
 export_records(writer, ExportFormat::Jsonl,
-    store.pending().map(|(_, record, _)| record), false)?;
+    recovery.iter().map(Arc::as_ref), false)?;
 ```
 
 JSON is one versioned object with a results array. JSONL is one versioned record

@@ -1,6 +1,6 @@
 # Release construction and validation
 
-Application version 1.0.0 targets stable Rust with MSRV 1.88. The checked-in
+The prepared application version 1.0.1 targets stable Rust with MSRV 1.88. The checked-in
 lockfile is mandatory. Default release settings use thin LTO, one codegen unit,
 symbol stripping and unwind panics so the terminal guard can restore state.
 The core application forbids unsafe code. A narrow Windows-only private-file
@@ -13,13 +13,15 @@ No `target-cpu=native` package is supported.
 ## Rebuild and archive
 
 Install the documented Rust toolchain and a platform C compiler, then fetch the
-lockfile's crates once. Subsequent build and package commands work offline:
+lockfile's crates once. Application builds and release archives work offline;
+the combined Cargo-package check below can fetch additional development dependencies:
 
 ```sh
 cargo +1.95.0 fetch --locked
 cargo +1.95.0 build --locked --offline --release
 python3 scripts/licenses.py --check
 python3 scripts/release_test.py
+python3 scripts/verify_crates.py
 python3 scripts/package.py --target aarch64-apple-darwin --toolchain 1.95.0
 python3 scripts/package.py --source --output dist
 ```
@@ -45,6 +47,13 @@ Source archives preserve versioned local dependency paths. The separate crates.i
 package normalizes those paths to published support crates. Neither the existing
 archive workflow nor a push to main publishes Rust crates automatically.
 
+`verify_crates.py` copies the release sources into a temporary workspace and
+uses Cargo 1.95's multi-package staging to build all four normalized crate
+tarballs against a temporary registry. This verifies new support versions before
+they are published, without resolving them back to the checkout's path dependencies.
+The checkout and its lockfiles remain unchanged. The combined development graph
+can require registry access to reconcile the support crates' development dependencies.
+
 ## Publishing to crates.io
 
 Use a verified crates.io account and `cargo login`. Start from a clean release
@@ -62,10 +71,13 @@ cargo publish -p clack-typing
 
 Skip unchanged support versions already in the registry. A published version
 cannot be overwritten: bump changed support versions and their exact dependency
-requirements together. Version 1.0.0 uses `clack-crossterm` 0.30.0,
-`clack-ratatui-crossterm` 0.2.0, and `clack-private-fs` 1.0.0.
+requirements together. The prepared version 1.0.1 uses `clack-crossterm` 0.30.1,
+`clack-ratatui-crossterm` 0.2.1, and unchanged `clack-private-fs` 1.0.0.
+The 0.30.1 terminal fork supplies `set_legacy_mouse_input`; the published 0.30.0
+fork cannot build this application. Publish the changed terminal crates in the
+order above before performing the application-only package/publish checks.
 Check `cargo package -p clack-typing --list` and verify a registry install in a
-temporary directory with `cargo install clack-typing --version 1.0.0 --locked --root PATH`.
+temporary directory with `cargo install clack-typing --version 1.0.1 --locked --root PATH`.
 
 ## Archive reproducibility
 

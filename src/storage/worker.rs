@@ -1,6 +1,6 @@
 use super::{
-    Best, BestOutcome, ErrorKind, Filter, HistoryPage, Options, Page, ReadStore, Record, Review,
-    Statistics, StorageError, database::Writer,
+    Best, BestOutcome, ErrorKind, Filter, HistoryPage, Options, Page, Preparation, ReadStore,
+    Record, Review, Statistics, StorageError, database::Writer,
 };
 use std::{
     collections::VecDeque,
@@ -25,12 +25,36 @@ pub enum PendingState {
 }
 struct Pending {
     ticket: Ticket,
-    record: Arc<Record>,
+    record: Retained,
     state: PendingState,
+}
+#[derive(Clone)]
+enum Retained {
+    Record(Arc<Record>),
+    Preparation(Arc<Preparation>),
+}
+impl Retained {
+    fn record(&self) -> Option<&Record> {
+        match self {
+            Self::Record(record) => Some(record.as_ref()),
+            Self::Preparation(preparation) => preparation.prepared_record(),
+        }
+    }
+    fn recover(&self) -> Result<Arc<Record>, StorageError> {
+        match self {
+            Self::Record(record) => Ok(Arc::clone(record)),
+            Self::Preparation(preparation) => preparation.prepare(),
+        }
+    }
 }
 #[derive(Debug)]
 pub struct RejectedRecord {
     pub record: Record,
+    pub error: StorageError,
+}
+#[derive(Debug)]
+pub struct RejectedPreparation {
+    pub preparation: Arc<Preparation>,
     pub error: StorageError,
 }
 #[derive(Debug, Clone)]
@@ -73,7 +97,7 @@ enum Job {
     Reconfigure(Options),
     Save {
         ticket: Ticket,
-        record: Arc<Record>,
+        record: Retained,
     },
     History {
         request_id: RequestId,
@@ -109,6 +133,7 @@ impl Job {
 pub struct FlushReport {
     pub acknowledged_during_flush: usize,
     pub unsaved: Vec<Arc<Record>>,
+    pub unprepared: Vec<Arc<Preparation>>,
     pub worker_stopped: bool,
 }
 
@@ -169,16 +194,61 @@ impl Store {
         let ticket = self.id();
         self.pending.push_back(Pending {
             ticket,
-            record: Arc::new(record),
+            record: Retained::Record(Arc::new(record)),
             state: PendingState::Queued,
         });
         self.dispatch();
         Ok(ticket)
     }
+    /// Retains an opaque privacy-filtered draft immediately, then performs all
+    /// diagnostic budgeting and validation on the same bounded storage worker.
+    pub fn submit_preparation(
+        &mut self,
+        preparation: Arc<Preparation>,
+    ) -> Result<Ticket, Box<RejectedPreparation>> {
+        let error = if self.read_only {
+            Some(StorageError::new(
+                ErrorKind::ReadOnly,
+                "history worker is read-only; result was not submitted",
+            ))
+        } else if self.pending.len() >= self.pending_limit {
+            Some(StorageError::new(
+                ErrorKind::Capacity,
+                "pending result capacity reached; current result is unsaved and can be exported",
+            ))
+        } else {
+            None
+        };
+        if let Some(error) = error {
+            return Err(Box::new(RejectedPreparation { preparation, error }));
+        }
+        let ticket = self.id();
+        self.pending.push_back(Pending {
+            ticket,
+            record: Retained::Preparation(preparation),
+            state: PendingState::Queued,
+        });
+        self.dispatch();
+        Ok(ticket)
+    }
+    /// Prepared records only; unfinished drafts are included in pending_count()
+    /// and pending_states(), and can be materialized by an explicit export.
     pub fn pending(&self) -> impl Iterator<Item = (Ticket, &Record, &PendingState)> {
         self.pending
             .iter()
-            .map(|pending| (pending.ticket, pending.record.as_ref(), &pending.state))
+            .filter_map(|pending| Some((pending.ticket, pending.record.record()?, &pending.state)))
+    }
+    pub fn pending_states(&self) -> impl Iterator<Item = (Ticket, &PendingState)> {
+        self.pending
+            .iter()
+            .map(|pending| (pending.ticket, &pending.state))
+    }
+    /// Explicit recovery work may finish drafts even when SQLite is unavailable.
+    pub fn recovery_records(&self) -> Result<Vec<Arc<Record>>, StorageError> {
+        self.pending
+            .iter()
+            .map(|pending| pending.record.recover())
+            .collect()
     }
     pub fn pending_count(&self) -> usize {
         self.pending.len()
@@ -316,13 +386,21 @@ impl Store {
                     .min(Duration::from_millis(5)),
             );
         }
+        let mut unsaved = Vec::new();
+        let mut unprepared = Vec::new();
+        for pending in &self.pending {
+            match &pending.record {
+                Retained::Record(record) => unsaved.push(Arc::clone(record)),
+                Retained::Preparation(preparation) => match preparation.prepared_arc() {
+                    Some(record) => unsaved.push(Arc::clone(record)),
+                    None => unprepared.push(Arc::clone(preparation)),
+                },
+            }
+        }
         FlushReport {
             acknowledged_during_flush: before - self.pending.len(),
-            unsaved: self
-                .pending
-                .iter()
-                .map(|pending| Arc::clone(&pending.record))
-                .collect(),
+            unsaved,
+            unprepared,
             worker_stopped: self.join.as_ref().is_none_or(JoinHandle::is_finished),
         }
     }
@@ -359,7 +437,7 @@ impl Store {
             }
             match jobs.try_send(Job::Save {
                 ticket: pending.ticket,
-                record: Arc::clone(&pending.record),
+                record: pending.record.clone(),
             }) {
                 Ok(()) => pending.state = PendingState::InFlight,
                 Err(TrySendError::Full(_)) => break,
@@ -421,13 +499,16 @@ impl Access {
         }
         Ok(())
     }
-    fn save(&mut self, record: &Record) -> Result<BestOutcome, StorageError> {
+    fn save(&mut self, record: &Retained) -> Result<BestOutcome, StorageError> {
         match self {
             Self::Read(_) => Err(StorageError::new(
                 ErrorKind::ReadOnly,
                 "history worker is read-only; no result was saved",
             )),
-            Self::Write(writer) => writer.save(record),
+            Self::Write(writer) => match record {
+                Retained::Record(record) => writer.save(record),
+                Retained::Preparation(preparation) => writer.save_preparation(preparation),
+            },
         }
     }
 }
@@ -476,6 +557,22 @@ fn worker(mut options: Options, jobs: Receiver<Job>, replies: SyncSender<Event>,
             }
             continue;
         }
+        // Prepare even if opening the database failed. The frontend retains the
+        // same validated record for explicit recovery and retries in that case.
+        if let Job::Save {
+            ticket,
+            record: Retained::Preparation(preparation),
+        } = &job
+            && let Err(error) = preparation.prepare()
+        {
+            if !notify(Event::Unsaved {
+                ticket: *ticket,
+                error,
+            }) {
+                return;
+            }
+            continue;
+        }
         if writer.is_none() {
             match Access::open(&options) {
                 Ok(reopened) => {
@@ -506,7 +603,7 @@ fn worker(mut options: Options, jobs: Receiver<Job>, replies: SyncSender<Event>,
             Job::Save { ticket, record } => match writer.save(&record) {
                 Ok(best) => Event::Saved {
                     ticket,
-                    id: record.id().into(),
+                    id: record.record().expect("validated saved record").id().into(),
                     best,
                 },
                 Err(error) => Event::Unsaved { ticket, error },

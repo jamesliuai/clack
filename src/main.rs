@@ -7,7 +7,7 @@ use clack::{
 use clap::{CommandFactory, Parser};
 use std::{
     fs,
-    io::{self, Write},
+    io::{self, BufWriter, Write},
     panic::{self, AssertUnwindSafe},
     path::Path,
     process::ExitCode,
@@ -216,6 +216,12 @@ fn command_line(
                         if id.starts_with('.') || clack::content::BUNDLED_PACK_IDS.contains(&id) {
                             continue;
                         }
+                        let directory = entry.path();
+                        if !directory.join("words.txt").is_file()
+                            || !directory.join("metadata.json").is_file()
+                        {
+                            continue;
+                        }
                         packs.push(
                             clack::sample::load_pack(id, paths)
                                 .map_err(Failure::runtime)?
@@ -381,13 +387,17 @@ fn command_line(
             )?;
             let format = ExportFormat::parse(&args.format)?;
             if let Some(path) = &args.output {
-                let mut file = private_output(path).map_err(|_| {
+                let mut file = BufWriter::new(private_output(path).map_err(|_| {
                     Failure::runtime("cannot create export file; choose a new writable path")
-                })?;
+                })?);
                 let result = store
                     .export_to(&mut file, format, &filter, args.include_text)
                     .map_err(Failure::from)
-                    .and_then(|count| file.sync_all().map(|()| count).map_err(Failure::from));
+                    .and_then(|count| {
+                        file.flush()?;
+                        file.get_ref().sync_all()?;
+                        Ok(count)
+                    });
                 drop(file);
                 match result {
                     Ok(count) => {
@@ -507,14 +517,7 @@ fn current_profile(
     paths: &Paths,
     store: &ReadStore,
 ) -> Result<String, Failure> {
-    if config.test.mode == clack::engine::Mode::Quote && config.test.quote_id.is_none() {
-        return Err(Failure::argument(
-            "quote current profile needs --quote-id; use --profile all or an explicit profile key otherwise",
-        ));
-    }
-    let mut prepared = Samples::prepare(cli, config, paths).map_err(Failure::argument)?;
-    let sample = prepared.next(config).map_err(Failure::argument)?;
-    let mut spec = sample.engine.spec().clone();
+    let mut spec = Samples::profile_spec(cli, config, paths).map_err(Failure::argument)?;
     if config.practice.pace == "personal_best" {
         let best=store.best(&spec.profile_key())?.ok_or_else(||Failure::argument("personal_best pace has no matching saved best; choose a fixed --pace or an explicit --profile key"))?;
         spec.pace_wpm = Some(best.wpm());
@@ -528,10 +531,11 @@ fn import_language(
     paths: &Paths,
 ) -> Result<(clack::content::PackMetadata, bool), Failure> {
     fn read(path: &Path, limit: usize) -> Result<Vec<u8>, Failure> {
-        let file = fs::File::open(path)
-            .map_err(|_| Failure::argument("cannot read language pack words.txt/metadata.json"))?;
-        clack::sample::read_bounded(file, limit)
-            .map_err(|error| Failure::argument(error.to_string()))
+        clack::sample::read_source_file(path, limit).map_err(|_| {
+            Failure::argument(
+                "cannot read bounded regular language pack words.txt/metadata.json files",
+            )
+        })
     }
     let words = read(&source.join("words.txt"), clack::content::MAX_PACK_BYTES)?;
     let metadata = read(&source.join("metadata.json"), 64 * 1024)?;

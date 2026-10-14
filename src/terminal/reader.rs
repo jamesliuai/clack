@@ -90,6 +90,17 @@ pub struct EventReceiver {
     shared: Arc<Shared>,
 }
 
+// Closing the queue must also happen while the input owner unwinds. Otherwise
+// the render thread can remain parked forever after an unexpected reader panic.
+struct WorkerClosure(Arc<Shared>);
+
+impl Drop for WorkerClosure {
+    fn drop(&mut self) {
+        self.0.closed.store(true, Ordering::Release);
+        self.0.notify.unpark();
+    }
+}
+
 impl EventReceiver {
     /// Current bounded queue occupancy, including control acknowledgements.
     pub fn len(&self) -> usize {
@@ -251,12 +262,17 @@ impl Reader {
         let worker = thread::Builder::new()
             .name("clack-input".into())
             .spawn(move || {
-                let waker = match event::poll_waker() {
+                let _closure = WorkerClosure(Arc::clone(&worker_shared));
+                let initialized_input = (|| {
+                    let waker = event::poll_waker()?;
+                    #[cfg(unix)]
+                    event::set_legacy_mouse_input(false)?;
+                    Ok(waker)
+                })();
+                let waker = match initialized_input {
                     Ok(waker) => waker,
                     Err(error) => {
                         let _ = initialized.send(Err(error));
-                        worker_shared.closed.store(true, Ordering::Release);
-                        worker_shared.notify.unpark();
                         return;
                     }
                 };
@@ -276,8 +292,6 @@ impl Reader {
                         state.close_epoch(state.epoch, overloaded);
                     }
                 }
-                worker_shared.closed.store(true, Ordering::Release);
-                worker_shared.notify.unpark();
             })?;
         match ready.recv() {
             Ok(Ok(waker)) => Ok(Self {
@@ -768,6 +782,22 @@ mod tests {
             received_us: sequence,
             kind,
         }
+    }
+
+    #[test]
+    fn reader_unwind_closes_the_event_queue() {
+        let shared = shared();
+        let worker_shared = Arc::clone(&shared);
+        let worker = thread::spawn(move || {
+            let _closure = WorkerClosure(worker_shared);
+            panic!("intentional input worker failure");
+        });
+        assert!(worker.join().is_err());
+        let receiver = EventReceiver { shared };
+        assert!(matches!(
+            receiver.try_recv(),
+            Err(TryRecvError::Disconnected)
+        ));
     }
 
     #[test]

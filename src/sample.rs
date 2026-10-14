@@ -3,28 +3,44 @@ use crate::{
     cli::Cli,
     config::{Config, Paths},
     content::{
-        self, Generator, InputPolicy, LanguagePack, Modifiers, PreparedText, QuoteLength, Quotes,
-        SplitMix64,
+        self, Generator, InputPolicy, LanguagePack, Modifiers, QuoteLength, Quotes, SplitMix64,
     },
-    engine::{Engine, Mode, Policy},
+    engine::{Engine, Mode, Policy, TestSpec},
 };
 use std::{
-    fs::File,
+    fs::{self, OpenOptions},
     io::{self, Read},
-    path::PathBuf,
+    path::{Path, PathBuf},
     sync::Arc,
 };
 
 #[derive(Clone)]
 pub struct Samples {
     pack: Option<Arc<LanguagePack>>,
-    custom: Option<PreparedText>,
+    custom: Option<Arc<CustomSource>>,
+    custom_policy: InputPolicy,
+    normalize_exact: bool,
     random: SplitMix64,
     first_seed: Option<u64>,
     explicit_seed: bool,
     last_quote: Option<String>,
-    original: Option<Vec<u8>>,
+    original: Option<Arc<[u8]>>,
     source_file: Option<PathBuf>,
+}
+
+struct CustomSource {
+    text: String,
+    content_hash: String,
+}
+impl CustomSource {
+    fn prepare(bytes: &[u8], policy: InputPolicy, normalize_exact: bool) -> Result<Self, String> {
+        let text = content::normalize_custom(bytes, policy, normalize_exact)
+            .map_err(|error| error.to_string())?;
+        Ok(Self {
+            content_hash: content::content_hash(text.as_bytes()),
+            text,
+        })
+    }
 }
 pub struct Sample {
     pub engine: Engine,
@@ -32,6 +48,75 @@ pub struct Sample {
     pub generator: Option<Generator>,
 }
 impl Samples {
+    /// Resolve the exact source identity without generating a passage or engine.
+    pub fn profile_spec(cli: &Cli, config: &Config, paths: &Paths) -> Result<TestSpec, String> {
+        let mut spec = config.test_spec();
+        spec.seed = cli.seed.unwrap_or_default();
+        spec.explicit_seed = cli.seed.is_some();
+        match config.test.mode {
+            Mode::Time | Mode::Words => {
+                let pack = load_pack(&config.test.language, paths)?;
+                spec.source_id = pack.metadata.id.clone();
+                spec.source_revision = pack.metadata.revision.clone();
+                spec.content_hash = pack.metadata.content_hash.clone();
+                spec.approved_content =
+                    content::BUNDLED_PACK_IDS.contains(&pack.metadata.id.as_str());
+                spec.generator_version = content::GENERATOR_VERSION;
+            }
+            Mode::Quote => {
+                let id = config.test.quote_id.as_deref().ok_or(
+                    "quote current profile needs --quote-id; use --profile all or an explicit profile key otherwise",
+                )?;
+                let quote = Quotes::bundled()
+                    .map_err(|error| error.to_string())?
+                    .get(id)
+                    .map_err(|error| error.to_string())?;
+                spec.source_id = quote.id.clone();
+                spec.source_revision = quote.revision.clone();
+                spec.content_hash = quote.content_hash.clone();
+                spec.approved_content = true;
+            }
+            Mode::Custom | Mode::Code => {
+                let bytes = if let Some(text) = &cli.text {
+                    text.as_bytes().to_vec()
+                } else if let Some(path) = cli.file.as_ref().or(config.test.file.as_ref()) {
+                    read_source_file(path, content::MAX_CUSTOM_BYTES)
+                        .map_err(custom_source_error)?
+                } else if config.test.mode == Mode::Code {
+                    include_bytes!("../data/code-sample.rs.txt").to_vec()
+                } else {
+                    return Err("custom current profile needs --file, --text, or test.file; use --profile all or an explicit profile key otherwise".into());
+                };
+                let policy = if spec.policy == Policy::Exact {
+                    InputPolicy::Exact
+                } else {
+                    InputPolicy::Prose
+                };
+                let text = content::normalize_custom(&bytes, policy, config.test.normalize_exact)
+                    .map_err(|error| error.to_string())?;
+                spec.source_id = if config.test.mode == Mode::Code {
+                    "code"
+                } else {
+                    "custom"
+                }
+                .into();
+                spec.source_revision = "1".into();
+                spec.content_hash = content::content_hash(text.as_bytes());
+                spec.approved_content = config.test.mode == Mode::Code
+                    && cli.text.is_none()
+                    && cli.file.is_none()
+                    && config.test.file.is_none();
+            }
+            Mode::Zen => {
+                spec.source_id = "zen".into();
+                spec.source_revision = "1".into();
+                spec.approved_content = false;
+            }
+        }
+        spec.validate()?;
+        Ok(spec)
+    }
+
     pub fn prepare(cli: &Cli, config: &Config, paths: &Paths) -> Result<Self, String> {
         let random = matches!(config.test.mode, Mode::Time | Mode::Words);
         let pack = if random {
@@ -53,12 +138,9 @@ impl Samples {
             )
         } else if let Some(file) = cli.file.as_ref().or(config.test.file.as_ref()) {
             if matches!(config.test.mode, Mode::Custom | Mode::Code) {
-                let file = File::open(file).map_err(|error| {
-                    format!("cannot open custom source ({}): {error}", error.kind())
-                })?;
                 Some(
-                    read_bounded(file, content::MAX_CUSTOM_BYTES)
-                        .map_err(|error| format!("cannot read custom source: {error}"))?,
+                    read_source_file(file, content::MAX_CUSTOM_BYTES)
+                        .map_err(custom_source_error)?,
                 )
             } else {
                 None
@@ -67,10 +149,11 @@ impl Samples {
             None
         };
         let custom = if let Some(bytes) = &bytes {
-            Some(
-                content::prepare_custom(bytes, policy, config.test.normalize_exact)
-                    .map_err(|error| error.to_string())?,
-            )
+            Some(Arc::new(CustomSource::prepare(
+                bytes,
+                policy,
+                config.test.normalize_exact,
+            )?))
         } else {
             None
         };
@@ -87,11 +170,13 @@ impl Samples {
         Ok(Self {
             pack,
             custom,
+            custom_policy: policy,
+            normalize_exact: config.test.normalize_exact,
             random: SplitMix64::new(seed),
             first_seed: Some(seed),
             explicit_seed: cli.seed.is_some(),
             last_quote: None,
-            original: bytes,
+            original: bytes.map(Arc::from),
             source_file: config.test.file.clone(),
         })
     }
@@ -164,10 +249,17 @@ impl Samples {
                 prepared.text
             }
             Mode::Custom | Mode::Code => {
-                let prepared = if let Some(custom) = &self.custom {
-                    custom.clone()
-                } else {
-                    content::code_preset().map_err(|error| error.to_string())?
+                let preset;
+                let prepared = match &self.custom {
+                    Some(custom) => custom.as_ref(),
+                    None => {
+                        preset = CustomSource::prepare(
+                            include_bytes!("../data/code-sample.rs.txt"),
+                            InputPolicy::Exact,
+                            false,
+                        )?;
+                        &preset
+                    }
                 };
                 spec.source_id = if config.test.mode == Mode::Code {
                     "code".into()
@@ -175,9 +267,9 @@ impl Samples {
                     "custom".into()
                 };
                 spec.source_revision = "1".into();
-                spec.content_hash = prepared.content_hash;
+                spec.content_hash = prepared.content_hash.clone();
                 spec.approved_content = self.custom.is_none();
-                prepared.text
+                prepared.text.clone()
             }
             Mode::Zen => {
                 spec.source_id = "zen".into();
@@ -247,20 +339,23 @@ impl Samples {
     }
     pub fn reconfigure(&mut self, config: &Config, paths: &Paths) -> Result<(), String> {
         let pack = if matches!(config.test.mode, Mode::Time | Mode::Words) {
-            Some(load_pack(&config.test.language, paths)?)
+            match &self.pack {
+                Some(pack) if pack.metadata.id == config.test.language => Some(Arc::clone(pack)),
+                _ => Some(load_pack(&config.test.language, paths)?),
+            }
         } else {
             self.pack.clone()
         };
-        let original = if config.test.file != self.source_file {
+        let source_changed = config.test.file != self.source_file;
+        let original = if source_changed {
             config
                 .test
                 .file
                 .as_ref()
                 .map(|path| {
-                    let file = File::open(path)
-                        .map_err(|error| format!("cannot open custom source: {}", error.kind()))?;
-                    read_bounded(file, content::MAX_CUSTOM_BYTES)
-                        .map_err(|error| format!("cannot read custom source: {error}"))
+                    read_source_file(path, content::MAX_CUSTOM_BYTES)
+                        .map(Arc::<[u8]>::from)
+                        .map_err(custom_source_error)
                 })
                 .transpose()?
         } else {
@@ -271,13 +366,19 @@ impl Samples {
         } else {
             InputPolicy::Prose
         };
-        let custom = original
-            .as_ref()
-            .map(|bytes| {
-                content::prepare_custom(bytes, policy, config.test.normalize_exact)
-                    .map_err(|error| error.to_string())
-            })
-            .transpose()?;
+        let custom = if !source_changed
+            && self.custom_policy == policy
+            && self.normalize_exact == config.test.normalize_exact
+        {
+            self.custom.clone()
+        } else {
+            original
+                .as_ref()
+                .map(|bytes| {
+                    CustomSource::prepare(bytes, policy, config.test.normalize_exact).map(Arc::new)
+                })
+                .transpose()?
+        };
         if config.test.mode == Mode::Custom && custom.is_none() {
             return Err("custom mode needs a source file or initial --text/--stdin content".into());
         }
@@ -290,6 +391,8 @@ impl Samples {
         self.pack = pack;
         self.original = original;
         self.custom = custom;
+        self.custom_policy = policy;
+        self.normalize_exact = config.test.normalize_exact;
         self.source_file = config.test.file.clone();
         Ok(())
     }
@@ -310,14 +413,13 @@ impl Sample {
             self.text.push(' ');
             self.text.push_str(&next.text);
         }
+        self.engine.prepare_input();
         Ok(())
     }
 }
 pub fn load_pack(id: &str, paths: &Paths) -> Result<Arc<LanguagePack>, String> {
     if content::BUNDLED_PACK_IDS.contains(&id) {
-        return content::bundled_pack(id)
-            .map(|pack| Arc::new(pack.clone()))
-            .map_err(|error| error.to_string());
+        return content::shared_bundled_pack(id).map_err(|error| error.to_string());
     }
     if id.is_empty()
         || id.len() > 64
@@ -330,23 +432,53 @@ pub fn load_pack(id: &str, paths: &Paths) -> Result<Arc<LanguagePack>, String> {
         return Err("invalid language ID".into());
     }
     let directory = paths.languages.join(id);
-    let words = read_bounded(
-        File::open(directory.join("words.txt"))
-            .map_err(|_| "unknown language; use 'clack languages list'")?,
-        content::MAX_PACK_BYTES,
-    )
-    .map_err(|error| error.to_string())?;
-    let metadata = read_bounded(
-        File::open(directory.join("metadata.json")).map_err(|_| "language metadata is missing")?,
-        64 * 1024,
-    )
-    .map_err(|error| error.to_string())?;
+    let words = read_source_file(&directory.join("words.txt"), content::MAX_PACK_BYTES)
+        .map_err(|_| "unknown or invalid language; use 'clack languages list'")?;
+    let metadata = read_source_file(&directory.join("metadata.json"), 64 * 1024)
+        .map_err(|error| format!("cannot read language metadata: {error}"))?;
     let pack = LanguagePack::from_parts(&words, &metadata).map_err(|error| error.to_string())?;
     if pack.metadata.id != id {
         return Err("imported language directory and metadata ID disagree".into());
     }
     Ok(Arc::new(pack))
 }
+
+fn custom_source_error(error: io::Error) -> String {
+    match error.kind() {
+        io::ErrorKind::NotFound | io::ErrorKind::PermissionDenied => {
+            format!("cannot open custom source: {}", error.kind())
+        }
+        _ => format!("cannot read custom source: {error}"),
+    }
+}
+
+/// File sources are bounded regular files; streaming input is explicit via stdin.
+pub fn read_source_file(path: &Path, limit: usize) -> io::Result<Vec<u8>> {
+    if !fs::metadata(path)?.is_file() {
+        return Err(io::Error::new(
+            io::ErrorKind::InvalidInput,
+            "source must be a regular file",
+        ));
+    }
+    let mut options = OpenOptions::new();
+    options.read(true);
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::OpenOptionsExt;
+        // A source may change between metadata and open. Never block opening a
+        // replacement FIFO, then verify the opened descriptor before reading.
+        options.custom_flags(nix::libc::O_NONBLOCK);
+    }
+    let file = options.open(path)?;
+    if !file.metadata()?.is_file() {
+        return Err(io::Error::new(
+            io::ErrorKind::InvalidInput,
+            "source must be a regular file",
+        ));
+    }
+    read_bounded(file, limit)
+}
+
 pub fn read_bounded(reader: impl Read, limit: usize) -> io::Result<Vec<u8>> {
     let mut bytes = Vec::new();
     reader

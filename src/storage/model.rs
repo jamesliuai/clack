@@ -6,7 +6,10 @@ use serde::{Deserialize, Serialize};
 use std::{
     fmt,
     path::PathBuf,
-    sync::atomic::{AtomicU64, Ordering},
+    sync::{
+        Arc, Mutex, OnceLock,
+        atomic::{AtomicU64, Ordering},
+    },
     time::{Duration, SystemTime, UNIX_EPOCH},
 };
 use unicode_segmentation::UnicodeSegmentation;
@@ -54,7 +57,9 @@ impl StorageError {
             Some(ErrorCode::DatabaseBusy | ErrorCode::DatabaseLocked) => ErrorKind::Busy,
             Some(ErrorCode::ReadOnly) => ErrorKind::ReadOnly,
             Some(ErrorCode::DiskFull) => ErrorKind::Full,
-            Some(ErrorCode::DatabaseCorrupt | ErrorCode::NotADatabase) => ErrorKind::Corrupt,
+            Some(ErrorCode::DatabaseCorrupt | ErrorCode::NotADatabase | ErrorCode::TooBig) => {
+                ErrorKind::Corrupt
+            }
             _ => ErrorKind::Io,
         };
         Self::new(
@@ -209,6 +214,143 @@ pub struct Record {
     pub(crate) event_trace: Option<EventTrace>,
     pub(crate) word_summaries_omitted: u64,
 }
+
+/// Privacy-filtered result ownership for deferred preparation. Diagnostic
+/// budgeting, serialization checks, and validation run once on the storage
+/// worker. An explicit recovery export can complete the same preparation.
+#[derive(Debug)]
+pub struct Preparation {
+    draft: Mutex<Option<Record>>,
+    prepared: OnceLock<Result<Arc<Record>, StorageError>>,
+}
+impl Preparation {
+    fn new(mut record: Record) -> Result<Self, StorageError> {
+        let invalid = || {
+            StorageError::new(
+                ErrorKind::Invalid,
+                "result draft exceeds bounded pending storage capacity",
+            )
+        };
+        // Admission uses counts and byte lengths only. Display, score, hash and
+        // JSON validation still belong to the worker. Optional diagnostics must
+        // not retain an arbitrarily large unfinished record behind a stalled DB.
+        let mut fixed_bytes = std::mem::size_of::<Record>();
+        for value in [
+            record.id.as_str(),
+            record.snapshot.app_version.as_str(),
+            record.snapshot.profile_key.as_str(),
+            record.snapshot.spec.source_id.as_str(),
+            record.snapshot.spec.source_revision.as_str(),
+            record.snapshot.spec.content_hash.as_str(),
+            record.snapshot.reason.as_deref().unwrap_or_default(),
+            record
+                .snapshot
+                .spec
+                .practice_reason
+                .as_deref()
+                .unwrap_or_default(),
+        ] {
+            if value.len() > 256 {
+                return Err(invalid());
+            }
+            fixed_bytes = fixed_bytes.saturating_add(value.len());
+        }
+        if record.snapshot.samples.len() > crate::engine::SAMPLE_CAPACITY {
+            return Err(invalid());
+        }
+        record.snapshot.samples.shrink_to_fit();
+        fixed_bytes = fixed_bytes.saturating_add(
+            record
+                .snapshot
+                .samples
+                .len()
+                .saturating_mul(std::mem::size_of::<crate::engine::Sample>()),
+        );
+        if let Some(text) = &record.full_text {
+            if text.len() > content::MAX_CANONICAL_CUSTOM_BYTES {
+                return Err(invalid());
+            }
+            fixed_bytes = fixed_bytes.saturating_add(text.len());
+        }
+        if let Some(trace) = &mut record.event_trace {
+            if trace.events.len() > TRACE_EVENT_LIMIT {
+                return Err(invalid());
+            }
+            trace.events.shrink_to_fit();
+            fixed_bytes = fixed_bytes.saturating_add(
+                trace
+                    .events
+                    .len()
+                    .saturating_mul(std::mem::size_of::<TraceEvent>()),
+            );
+            for event in &trace.events {
+                let bytes = event.text.as_ref().map_or(0, String::len);
+                if bytes > TRACE_TEXT_BYTES {
+                    return Err(invalid());
+                }
+                fixed_bytes = fixed_bytes.saturating_add(bytes);
+            }
+        }
+        if fixed_bytes > MAX_RECORD_BYTES {
+            return Err(invalid());
+        }
+        let word_budget = WORD_DIAGNOSTIC_JSON_BYTES.min(MAX_RECORD_BYTES - fixed_bytes);
+        let original_words = record.snapshot.words.len();
+        let mut diagnostic_bytes = 0usize;
+        let mut retained_words = 0;
+        for word in record.snapshot.words.iter().take(WORD_SUMMARY_LIMIT) {
+            if word.token.len() > content::MAX_CANONICAL_CUSTOM_BYTES
+                || word.entered.len() > content::MAX_CANONICAL_CUSTOM_BYTES
+            {
+                break;
+            }
+            let bytes = std::mem::size_of::<crate::engine::WordSummary>()
+                .saturating_add(word.token.len())
+                .saturating_add(word.entered.len());
+            if bytes > word_budget.saturating_sub(diagnostic_bytes) {
+                break;
+            }
+            diagnostic_bytes += bytes;
+            retained_words += 1;
+        }
+        record.word_summaries_omitted = original_words.saturating_sub(retained_words) as u64;
+        record.snapshot.words.truncate(retained_words);
+        if record.snapshot.words.capacity() != retained_words {
+            record.snapshot.words.shrink_to_fit();
+        }
+        Ok(Self {
+            draft: Mutex::new(Some(record)),
+            prepared: OnceLock::new(),
+        })
+    }
+    /// Completes preparation once, retaining the same immutable record and ID
+    /// for retries and recovery. This is a worker or explicit-export operation.
+    pub fn prepare(&self) -> Result<Arc<Record>, StorageError> {
+        self.prepared
+            .get_or_init(|| {
+                let record = self
+                    .draft
+                    .lock()
+                    .map_err(|_| {
+                        StorageError::new(ErrorKind::Unavailable, "result preparation stopped")
+                    })?
+                    .take()
+                    .ok_or_else(|| {
+                        StorageError::new(ErrorKind::Unavailable, "result preparation stopped")
+                    })?;
+                record.finish_preparation().map(Arc::new)
+            })
+            .clone()
+    }
+    /// Returns only completed, validated records without waiting for work.
+    pub fn prepared_record(&self) -> Option<&Record> {
+        self.prepared_arc().map(AsRef::as_ref)
+    }
+    pub(crate) fn prepared_arc(&self) -> Option<&Arc<Record>> {
+        self.prepared.get()?.as_ref().ok()
+    }
+}
+
 impl Record {
     pub fn prepare(
         snapshot: ResultSnapshot,
@@ -219,25 +361,25 @@ impl Record {
         if !privacy.save_results {
             return Ok(None);
         }
-        let millis = SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .map_err(|_| {
-                StorageError::new(
-                    ErrorKind::Invalid,
-                    "system UTC time precedes the Unix epoch",
-                )
-            })?
-            .as_millis();
-        let millis = i64::try_from(millis).map_err(|_| {
-            StorageError::new(
-                ErrorKind::Invalid,
-                "system UTC time is outside the supported range",
-            )
-        })?;
-        Self::prepare_at(snapshot, privacy, full_target, trace, millis)
+        Self::prepare_at(snapshot, privacy, full_target, trace, utc_now()?)
+    }
+    /// Applies the privacy boundary before enqueueing. Expensive diagnostic
+    /// retention and validation are deferred until the worker consumes it.
+    pub fn prepare_async(
+        snapshot: ResultSnapshot,
+        privacy: Persistence,
+        full_target: Option<String>,
+        trace: Option<EventTrace>,
+    ) -> Result<Option<Preparation>, StorageError> {
+        if !privacy.save_results {
+            return Ok(None);
+        }
+        Self::draft_at(snapshot, privacy, full_target, trace, utc_now()?)
+            .map(Preparation::new)
+            .transpose()
     }
     pub fn prepare_at(
-        mut snapshot: ResultSnapshot,
+        snapshot: ResultSnapshot,
         privacy: Persistence,
         full_target: Option<&str>,
         trace: Option<EventTrace>,
@@ -245,6 +387,30 @@ impl Record {
     ) -> Result<Option<Self>, StorageError> {
         if !privacy.save_results {
             return Ok(None);
+        }
+        Self::draft_at(
+            snapshot,
+            privacy,
+            if privacy.store_custom_text {
+                full_target.map(str::to_owned)
+            } else {
+                None
+            },
+            trace,
+            created_at_utc_ms,
+        )
+        .map(Self::finish_preparation)
+        .transpose()
+    }
+    fn draft_at(
+        mut snapshot: ResultSnapshot,
+        privacy: Persistence,
+        full_target: Option<String>,
+        trace: Option<EventTrace>,
+        created_at_utc_ms: i64,
+    ) -> Option<Self> {
+        if !privacy.save_results {
+            return None;
         }
         if matches!(snapshot.spec.mode, Mode::Custom | Mode::Code | Mode::Zen)
             && !snapshot.spec.approved_content
@@ -267,10 +433,8 @@ impl Record {
                 word.entered.clear();
             }
         }
-        let mut words = std::mem::take(&mut snapshot.words);
-        let original_words = words.len();
         let full_text = if privacy.store_custom_text {
-            full_target.map(str::to_owned)
+            full_target
         } else {
             None
         };
@@ -279,9 +443,6 @@ impl Record {
         } else {
             None
         };
-        let text_scope = full_text
-            .as_deref()
-            .map(|text| TextScope::for_text(&snapshot, text));
         static NEXT: AtomicU64 = AtomicU64::new(0);
         let nanos = SystemTime::now()
             .duration_since(UNIX_EPOCH)
@@ -293,21 +454,29 @@ impl Record {
             NEXT.fetch_add(1, Ordering::Relaxed),
             snapshot.profile_key
         );
-        let mut result = Self {
+        Some(Self {
             record_version: EXPORT_VERSION,
             id: content::content_hash(nonce.as_bytes()),
             created_at_utc_ms,
             snapshot,
             full_text,
-            text_scope,
+            text_scope: None,
             event_trace,
             word_summaries_omitted: 0,
-        };
+        })
+    }
+    fn finish_preparation(mut self) -> Result<Self, StorageError> {
+        self.text_scope = self
+            .full_text
+            .as_deref()
+            .map(|text| TextScope::for_text(&self.snapshot, text));
+        let mut words = std::mem::take(&mut self.snapshot.words);
+        let original_words = words.len();
         // Optional diagnostics must not make an otherwise valid summary
         // unsavable. Reserve space for the largest possible omission count,
         // then retain a prefix within both the diagnostic and whole-record
         // budgets. The public omission count makes this truncation explicit.
-        let fixed_bytes = bounded_json_len(&result, MAX_RECORD_BYTES)?;
+        let fixed_bytes = bounded_json_len(&self, MAX_RECORD_BYTES)?;
         let word_budget = WORD_DIAGNOSTIC_JSON_BYTES.min(
             MAX_RECORD_BYTES
                 .saturating_sub(fixed_bytes)
@@ -331,11 +500,13 @@ impl Record {
             diagnostic_bytes += size + 1;
             retained_words += 1;
         }
-        result.word_summaries_omitted = original_words.saturating_sub(retained_words) as u64;
+        self.word_summaries_omitted = self
+            .word_summaries_omitted
+            .saturating_add(original_words.saturating_sub(retained_words) as u64);
         words.truncate(retained_words);
-        result.snapshot.words = words;
-        result.validate()?;
-        Ok(Some(result))
+        self.snapshot.words = words;
+        self.validate()?;
+        Ok(self)
     }
     pub fn id(&self) -> &str {
         &self.id
@@ -494,6 +665,24 @@ impl Record {
         Ok(())
     }
 }
+fn utc_now() -> Result<i64, StorageError> {
+    let millis = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map_err(|_| {
+            StorageError::new(
+                ErrorKind::Invalid,
+                "system UTC time precedes the Unix epoch",
+            )
+        })?
+        .as_millis();
+    i64::try_from(millis).map_err(|_| {
+        StorageError::new(
+            ErrorKind::Invalid,
+            "system UTC time is outside the supported range",
+        )
+    })
+}
+
 fn valid_entered_text(text: &str) -> bool {
     text.chars()
         .all(|character| content::validate_input_scalar(character).is_ok())
@@ -718,4 +907,153 @@ pub(crate) fn count_values(counts: &Counts) -> [u64; 9] {
         counts.final_extra,
         counts.final_missed,
     ]
+}
+
+#[cfg(test)]
+mod preparation_tests {
+    use super::*;
+    use crate::engine::{Engine, Metrics, Sample, TestSpec, WordSummary};
+
+    fn draft() -> Record {
+        Record::draft_at(
+            Engine::new(TestSpec::default(), "cat").unwrap().snapshot(),
+            Persistence {
+                store_event_trace: true,
+                ..Persistence::default()
+            },
+            None,
+            None,
+            0,
+        )
+        .unwrap()
+    }
+
+    #[test]
+    fn draft_admission_rejects_oversized_fixed_data_before_worker_validation() {
+        let mut record = draft();
+        record.snapshot.app_version = "a".repeat(257);
+        assert_eq!(
+            Preparation::new(record).unwrap_err().kind,
+            ErrorKind::Invalid
+        );
+
+        let mut record = draft();
+        record.snapshot.reason = Some("a".repeat(257));
+        assert!(Preparation::new(record).is_err());
+
+        let mut record = draft();
+        record.full_text = Some("a".repeat(content::MAX_CANONICAL_CUSTOM_BYTES + 1));
+        assert!(Preparation::new(record).is_err());
+
+        let mut record = draft();
+        record.snapshot.samples = vec![
+            Sample {
+                bucket_index: 0,
+                duration_us: 1,
+                counts: Counts::default(),
+                attempts: 0,
+                errors: 0,
+                metrics: Metrics::default(),
+            };
+            crate::engine::SAMPLE_CAPACITY + 1
+        ];
+        assert!(Preparation::new(record).is_err());
+
+        let event = TraceEvent {
+            received_us: 0,
+            sequence: 0,
+            kind: TraceKind::Text,
+            text: Some("a".repeat(TRACE_TEXT_BYTES)),
+        };
+        let mut record = draft();
+        record.event_trace = Some(EventTrace {
+            events: vec![event.clone(); TRACE_EVENT_LIMIT + 1],
+            events_total: TRACE_EVENT_LIMIT as u64 + 1,
+            truncated: false,
+        });
+        assert!(Preparation::new(record).is_err());
+
+        let mut record = draft();
+        record.event_trace = Some(EventTrace {
+            events: vec![TraceEvent {
+                text: Some("a".repeat(TRACE_TEXT_BYTES + 1)),
+                ..event
+            }],
+            events_total: 1,
+            truncated: false,
+        });
+        assert!(Preparation::new(record).is_err());
+    }
+
+    #[test]
+    fn admitted_word_diagnostics_have_a_bounded_prefix_and_conserve_omissions() {
+        let mut record = draft();
+        let original_words = 4_000;
+        record.snapshot.words = vec![
+            WordSummary {
+                token: "\"".repeat(4_096),
+                entered: "\"".repeat(4_096),
+                expected_units: 4_096,
+                ..WordSummary::default()
+            };
+            original_words
+        ];
+        let preparation = Preparation::new(record).unwrap();
+        let initially_retained;
+        {
+            let draft = preparation.draft.lock().unwrap();
+            let draft = draft.as_ref().unwrap();
+            initially_retained = draft.snapshot.words.len();
+            assert!(initially_retained < original_words);
+            assert!(draft.snapshot.words.capacity() <= WORD_SUMMARY_LIMIT);
+            let raw_bytes: usize = draft
+                .snapshot
+                .words
+                .iter()
+                .map(|word| {
+                    std::mem::size_of::<WordSummary>() + word.token.len() + word.entered.len()
+                })
+                .sum();
+            assert!(raw_bytes <= WORD_DIAGNOSTIC_JSON_BYTES);
+            assert_eq!(
+                draft.word_summaries_omitted as usize + initially_retained,
+                original_words
+            );
+        }
+        let prepared = preparation.prepare().unwrap();
+        assert!(
+            prepared.snapshot.words.len() < initially_retained,
+            "worker must also enforce JSON escaping costs"
+        );
+        assert_eq!(
+            prepared.word_summaries_omitted as usize + prepared.snapshot.words.len(),
+            original_words
+        );
+        assert!(Arc::ptr_eq(&prepared, &preparation.prepare().unwrap()));
+    }
+
+    #[test]
+    fn word_count_and_unused_diagnostic_capacity_are_trimmed_before_enqueue() {
+        let mut record = draft();
+        let original_words = WORD_SUMMARY_LIMIT + 7;
+        record.snapshot.words = vec![
+            WordSummary {
+                token: "a".into(),
+                ..WordSummary::default()
+            };
+            original_words
+        ];
+        let preparation = Preparation::new(record).unwrap();
+        let retained = preparation.draft.lock().unwrap();
+        let retained = retained.as_ref().unwrap();
+        assert_eq!(retained.snapshot.words.len(), WORD_SUMMARY_LIMIT);
+        assert_eq!(retained.word_summaries_omitted, 7);
+        assert!(retained.snapshot.words.capacity() <= WORD_SUMMARY_LIMIT);
+
+        let mut record = draft();
+        record.snapshot.words.reserve(WORD_SUMMARY_LIMIT / 2);
+        let preparation = Preparation::new(record).unwrap();
+        let draft = preparation.draft.lock().unwrap();
+        assert_eq!(draft.as_ref().unwrap().snapshot.words.capacity(), 0);
+    }
 }

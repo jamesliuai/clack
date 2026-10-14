@@ -11,4 +11,6 @@ pub use database::{ReadStore, Review, ReviewContent};
 pub use dates::{format_utc_millis, parse_utc_bound};
 pub use export::{ExportFormat, export_records};
 pub use model::*;
-pub use worker::{Event, FlushReport, PendingState, RejectedRecord, RequestId, Store, Ticket};
+pub use worker::{
+    Event, FlushReport, PendingState, RejectedPreparation, RejectedRecord, RequestId, Store, Ticket,
+};

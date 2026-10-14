@@ -205,7 +205,7 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
 name = "clack-crossterm"
-version = "0.30.0"
+version = "0.30.1"
 dependencies = [
  "async-std",
  "base64",
