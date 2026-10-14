@@ -17,7 +17,7 @@ preferences. Scores from the two implementations should not be compared as
 though their rules were identical.
 
 ```sh
-cargo install clack-typing --version 1.0.0 --locked
+cargo install clack-typing --version 1.0.1 --locked
 ```
 
 The [README](../README.md#keyboard-controls) covers the new controls. In

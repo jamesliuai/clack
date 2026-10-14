@@ -46,7 +46,7 @@ produces ordered errors. Clack disables ambiguous legacy X10 mouse parsing with
 the fork retains enabled parsing by default for other consumers. A stray private
 reply prefix followed by a nonnumeric key no longer consumes that key.
 
-These changes are prepared as 0.30.1. Consumers using `set_legacy_mouse_input`
+Version 0.30.1 includes these changes. Consumers using `set_legacy_mouse_input`
 must select that version; the published 0.30.0 does not expose this API.
 
 Unmatched terminal replies are coalesced to their latest state by reply type,
