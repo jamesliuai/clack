@@ -77,6 +77,9 @@ prepared release now uses application 1.0.1, terminal fork 0.30.1, and backend
 normalized Cargo packages are built together by `scripts/verify_crates.py`,
 using Cargo's temporary registry before publication. CI also runs the TTY and
 MIO parser unit suites. A source push does not publish these versions to crates.io.
+Cross-platform CI also exposed host-dependent build-tool labels in the license
+inventory. Target-filtered metadata now determines native normal/build reachability,
+with a regression that excludes unrelated host and development dependencies.
 
 Release tests also cover source build inputs, path-remapping flags, measurement
 exclusion, archive integrity and installer behavior. Native PTY checks and compute

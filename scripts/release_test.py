@@ -25,6 +25,30 @@ import verify_release
 
 
 class ReleaseTests(unittest.TestCase):
+    def test_native_license_graphs_exclude_host_only_and_development_dependencies(self):
+        targets = ("x86_64-pc-windows-msvc", "aarch64-apple-darwin")
+        packages = [{"id": name, "name": name, "version": "1.0.0"}
+                    for name in ("app", "sha2", "cpufeatures", "libc", "dev")]
+        def metadata(*arguments):
+            self.assertIn("--filter-platform", arguments)
+            target = arguments[-1]
+            def dependency(name, kind=None):
+                return {"pkg": name, "dep_kinds": [{"kind": kind}]}
+            nodes = [
+                {"id": "app", "deps": [dependency("sha2", "build"), dependency("dev", "dev")]},
+                {"id": "sha2", "deps": [dependency("cpufeatures")]},
+                {"id": "cpufeatures", "deps": [dependency("libc")] if target == targets[1] else []},
+                {"id": "libc", "deps": []},
+                {"id": "dev", "deps": [dependency("libc")]},
+            ]
+            return json.dumps({"packages": packages, "resolve": {"root": "app", "nodes": nodes}})
+        with mock.patch.object(licenses, "TARGETS", targets), mock.patch.object(licenses, "cargo", metadata):
+            graphs = licenses.native_graphs()
+        self.assertEqual(graphs[("sha2", "1.0.0")], list(targets))
+        self.assertEqual(graphs[("cpufeatures", "1.0.0")], list(targets))
+        self.assertEqual(graphs[("libc", "1.0.0")], [targets[1]])
+        self.assertNotIn(("dev", "1.0.0"), graphs)
+
     def test_distribution_excludes_local_measurements_but_preserves_user_docs(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

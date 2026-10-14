@@ -9,7 +9,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import re
 import shutil
 import subprocess
 import tempfile
@@ -55,14 +54,26 @@ def cargo(*args: str) -> str:
 def native_graphs() -> dict[tuple[str, str], list[str]]:
     graphs: dict[tuple[str, str], list[str]] = {}
     for target in TARGETS:
-        tree = cargo("tree", "--locked", "--offline", "--target", target,
-                     "--edges", "normal,build", "--prefix", "none", "--format", "{p}")
-        for line in tree.splitlines():
-            match = re.match(r"^([A-Za-z0-9_-]+) v([^ ]+)", line)
-            if match:
-                key = (match.group(1), match.group(2))
-                if target not in graphs.setdefault(key, []):
-                    graphs[key].append(target)
+        # Metadata filtering evaluates the native target's dependency conditions.
+        # `cargo tree --target` instead retains the current host for build tools,
+        # making e.g. sha2 -> cpufeatures -> libc labels differ on macOS/Linux.
+        metadata = json.loads(cargo("metadata", "--locked", "--offline",
+                                    "--format-version", "1", "--filter-platform", target))
+        packages = {package["id"]: package for package in metadata["packages"]}
+        nodes = {node["id"]: node for node in metadata["resolve"]["nodes"]}
+        pending = [metadata["resolve"]["root"]]
+        visited = set()
+        while pending:
+            package_id = pending.pop()
+            if package_id in visited:
+                continue
+            visited.add(package_id)
+            package = packages[package_id]
+            key = (package["name"], package["version"])
+            graphs.setdefault(key, []).append(target)
+            pending.extend(dependency["pkg"] for dependency in nodes[package_id]["deps"]
+                           if any(kind["kind"] in (None, "build")
+                                  for kind in dependency["dep_kinds"]))
     return graphs
 
 
@@ -125,7 +136,7 @@ def generate(destination: Path) -> dict:
             "scope_note": None if selected_targets else "Locked development or other-target dependency; not in the native release graphs.",
         })
     report = {"schema_version": 1, "cargo_lock_sha256": sha((ROOT / "Cargo.lock").read_bytes()),
-              "scope": "All locked dependencies; target membership is normal/build edges for the five OS/architecture configurations including both Windows MSVC and GNU ABIs, and may include build-only tools.",
+              "scope": "All locked dependencies; target membership follows target-filtered normal/build edges for the six listed native configurations, including Windows MSVC and GNU ABIs, and may include build-only tools.",
               "targets": list(TARGETS), "packages": packages}
     (destination / "inventory.json").write_text(json.dumps(report, ensure_ascii=True, indent=2) + "\n")
     return report

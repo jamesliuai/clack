@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "cargo_lock_sha256": "10218145f4d12f9d5b3e4bf63c2b57ef1d7a0af2ba29befbe575f6d4b36bb7b8",
-  "scope": "All locked dependencies; target membership is normal/build edges for the five OS/architecture configurations including both Windows MSVC and GNU ABIs, and may include build-only tools.",
+  "scope": "All locked dependencies; target membership follows target-filtered normal/build edges for the six listed native configurations, including Windows MSVC and GNU ABIs, and may include build-only tools.",
   "targets": [
     "x86_64-unknown-linux-gnu",
     "aarch64-unknown-linux-gnu",
@@ -531,12 +531,8 @@
       "registry_checksum": null,
       "repository": "https://github.com/jamesliuai/clack",
       "native_release_targets": [
-        "aarch64-apple-darwin",
-        "aarch64-unknown-linux-gnu",
-        "x86_64-apple-darwin",
         "x86_64-pc-windows-gnu",
-        "x86_64-pc-windows-msvc",
-        "x86_64-unknown-linux-gnu"
+        "x86_64-pc-windows-msvc"
       ],
       "license_notices": [
         {
@@ -2044,8 +2040,6 @@
         "aarch64-apple-darwin",
         "aarch64-unknown-linux-gnu",
         "x86_64-apple-darwin",
-        "x86_64-pc-windows-gnu",
-        "x86_64-pc-windows-msvc",
         "x86_64-unknown-linux-gnu"
       ],
       "license_notices": [
