@@ -112,9 +112,12 @@ impl Fixture {
         .unwrap()
     }
     fn save(&self, records: Vec<Record>) {
-        let mut worker =
-            Store::start_after_frame(Options::new(self.paths.database.clone()), thread::current())
-                .unwrap();
+        let mut options = Options::new(self.paths.database.clone());
+        // These fixtures test completed records through independent CLI processes.
+        // Delete journaling avoids racing a detached worker's final WAL checkpoint;
+        // storage and product tests cover the production WAL lifecycle separately.
+        options.journal = storage::JournalMode::Delete;
+        let mut worker = Store::start_after_frame(options, thread::current()).unwrap();
         for record in records {
             worker.submit(record).unwrap();
         }
@@ -667,7 +670,12 @@ fn buffered_json_and_jsonl_files_match_stdout_for_nonempty_history() {
     f.save(vec![record]);
     for format in ["json", "jsonl"] {
         let expected = f.run(&["export", "--format", format, "--profile", "all"]);
-        assert!(expected.status.success());
+        assert!(
+            expected.status.success(),
+            "stdout export failed for {format}: status={:?}, stderr={}",
+            expected.status.code(),
+            String::from_utf8_lossy(&expected.stderr)
+        );
         let path = f.directory.path().join(format!("results.{format}"));
         let output = f.run(&[
             "export",
@@ -678,7 +686,12 @@ fn buffered_json_and_jsonl_files_match_stdout_for_nonempty_history() {
             "--output",
             path.to_str().unwrap(),
         ]);
-        assert!(output.status.success());
+        assert!(
+            output.status.success(),
+            "file export failed for {format}: status={:?}, stderr={}",
+            output.status.code(),
+            String::from_utf8_lossy(&output.stderr)
+        );
         assert!(output.stdout.is_empty());
         assert_eq!(fs::read(path).unwrap(), expected.stdout);
     }

@@ -80,6 +80,10 @@ MIO parser unit suites. A source push does not publish these versions to crates.
 Cross-platform CI also exposed host-dependent build-tool labels in the license
 inventory. Target-filtered metadata now determines native normal/build reachability,
 with a regression that excludes unrelated host and development dependencies.
+CLI fixture setup uses delete journaling so independent subprocess reads do not
+race a detached worker's final WAL checkpoint. Export failures report their exit
+status and diagnostic; production WAL behavior remains covered in storage and
+PTY product workflows.
 
 Release tests also cover source build inputs, path-remapping flags, measurement
 exclusion, archive integrity and installer behavior. Native PTY checks and compute
