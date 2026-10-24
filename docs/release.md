@@ -1,6 +1,6 @@
 # Release construction and validation
 
-Application version 1.1.0 targets stable Rust with MSRV 1.88. The checked-in
+Application version 1.1.1 targets stable Rust with MSRV 1.88. The checked-in
 lockfile is mandatory. Default release settings use thin LTO, one codegen unit,
 symbol stripping and unwind panics so the terminal guard can restore state.
 The core application forbids unsafe code. A narrow Windows-only private-file
@@ -71,13 +71,13 @@ cargo publish -p clack-typing
 
 Skip unchanged support versions already in the registry. A published version
 cannot be overwritten: bump changed support versions and their exact dependency
-requirements together. Version 1.1.0 uses `clack-crossterm` 0.30.1,
+requirements together. Version 1.1.1 uses `clack-crossterm` 0.30.1,
 `clack-ratatui-crossterm` 0.2.1, and unchanged `clack-private-fs` 1.0.0.
 The 0.30.1 terminal fork supplies `set_legacy_mouse_input`; the published 0.30.0
 fork cannot build this application. Publish the changed terminal crates in the
 order above before performing the application-only package/publish checks.
 Check `cargo package -p clack-typing --list` and verify a registry install in a
-temporary directory with `cargo install clack-typing --version 1.1.0 --locked --root PATH`.
+temporary directory with `cargo install clack-typing --version 1.1.1 --locked --root PATH`.
 
 ## Archive reproducibility
 

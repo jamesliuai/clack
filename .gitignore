@@ -4,6 +4,7 @@
 *.db-shm
 *.db-wal
 /artifacts/
+/output/
 __pycache__/
 *.pyc
 

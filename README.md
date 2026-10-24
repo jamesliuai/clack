@@ -14,6 +14,10 @@ or runtime network connection required.
 
 [Install](#install) · [Usage](docs/usage.md) · [Settings](docs/settings.md) · [Contributing](CONTRIBUTING.md)
 
+![Clack typing test in Catppuccin Mocha, showing live speed, accuracy, and the typing caret](https://raw.githubusercontent.com/jamesliuai/clack/main/docs/images/typing-mocha.png)
+
+*Catppuccin Mocha, with live speed and accuracy enabled.*
+
 ## Install
 
 With Rust 1.88 or newer and a platform C compiler installed:
@@ -77,6 +81,16 @@ Use `clack --help` for all options. On Unix, pipe custom text with
 - **Type beyond ASCII.** Extended grapheme clusters, canonical prose accents,
   and literal tabs and newlines in exact text. See the
   [terminal matrix](docs/terminal-matrix.md) for composition and display limits.
+
+## A look inside
+
+| Rosé Pine Dawn | Live theme previews |
+| --- | --- |
+| ![Clack's typing screen in the light Rosé Pine Dawn theme](https://raw.githubusercontent.com/jamesliuai/clack/main/docs/images/typing-rose-pine-dawn.png) | ![Searchable theme picker with palette swatches and a live Rosé Pine preview](https://raw.githubusercontent.com/jamesliuai/clack/main/docs/images/theme-picker.png) |
+
+| Detailed result review | Exact code practice |
+| --- | --- |
+| ![Result review in Tokyo Night, showing speed history, accuracy, consistency, and a corrected mistake](https://raw.githubusercontent.com/jamesliuai/clack/main/docs/images/result-review.png) | ![Rust code practice in Gruvbox Dark, with indentation and visible newline markers](https://raw.githubusercontent.com/jamesliuai/clack/main/docs/images/code-practice.png) |
 
 ## Keyboard controls
 

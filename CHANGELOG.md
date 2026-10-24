@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 1.1.1 — 2026-10-24
+
+- Show Clack's typing screen, light and dark themes, live theme previews,
+  result review, and exact code practice in high-resolution README screenshots.
+- Keep local screenshot review artifacts out of source control and Cargo packages.
+
 ## 1.1.0 — 2026-10-23
 
 - Add 16 themes adapted from classic palettes: Nord, Dracula, Gruvbox Dark and

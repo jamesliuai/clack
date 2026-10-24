@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "cargo_lock_sha256": "d7857971b50bc3c3a96cc5a6c20c09464617fdedcaf8a395d7827e6031932fb4",
+  "cargo_lock_sha256": "3527fca120cccaec890e182c8d39bd05ce20988a28c5e345e378e26ef885ac9a",
   "scope": "All locked dependencies; target membership follows target-filtered normal/build edges for the six listed native configurations, including Windows MSVC and GNU ABIs, and may include build-only tools.",
   "targets": [
     "x86_64-unknown-linux-gnu",
