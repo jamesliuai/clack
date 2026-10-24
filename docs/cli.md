@@ -162,9 +162,21 @@ clack config validate
 clack languages list --json
 clack languages import ./my-pack --json
 clack themes list
+clack themes show nord dracula
+clack themes show --json
 clack doctor --json
 clack doctor --probe --json
 ```
+
+`themes list` prints configuration names one per line, or a JSON array. `themes
+show` prints each theme's label and description, followed by a sample in its own
+colors at the detected color depth. Piped output stays plain unless `--color
+always` is given. Automatic color respects `NO_COLOR`; `--color never` disables
+color everywhere.
+With `--json`, it describes every role's authored color, xterm-256 entry, and
+16-color stand-in, plus the palette's credit. `--theme NAME` selects a theme for
+one session without changing the configuration; shell completions list the
+names. See [themes](themes.md) for the catalog and color-depth rules.
 
 `config show` displays saved/default values, while `--resolved` includes invoked
 preset and CLI overrides. It does not write them. Explicit invalid configs fail

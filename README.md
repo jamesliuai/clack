@@ -66,7 +66,10 @@ Use `clack --help` for all options. On Unix, pipe custom text with
 - **Practice your way.** Timed words, fixed word counts, quotes, custom prose,
   exact/code passages, and target-free Zen.
 - **Keep your focus.** A compact prompt, steady caret, configurable focus and
-  status display, themes, and keyboard-driven settings.
+  status display, and keyboard-driven settings.
+- **Make it yours.** 21 [themes](docs/themes.md), including Nord, Dracula,
+  Gruvbox, Solarized, Catppuccin, Tokyo Night, Rosé Pine and more, with a live
+  preview as you browse. They adapt to 24-bit, 256-color and 16-color terminals.
 - **Change a test quickly.** Choose time or words, common presets or custom
   lengths, source files, punctuation, and numbers from test setup.
 - **Learn from results.** Local history, statistics, personal best comparisons,
@@ -99,7 +102,7 @@ The command palette offers alternatives when a terminal intercepts a function ke
 clack config path
 clack config show --resolved
 clack config validate
-clack themes list
+clack themes show
 clack history --profile all --json
 clack stats --profile current --json
 clack export --format csv --output new-results.csv
@@ -117,7 +120,7 @@ Nothing is uploaded. See [storage and privacy](docs/storage.md) for the full con
 ## Documentation and help
 
 - [Usage guide](docs/usage.md) and [CLI reference](docs/cli.md)
-- [Settings and presets](docs/settings.md)
+- [Settings and presets](docs/settings.md) and [themes](docs/themes.md)
 - [Scoring specification](SPEC.md#7-scoring-specification)
 - [Terminal compatibility and troubleshooting](docs/terminal-matrix.md)
 - [Content provenance](docs/content.md) and [dependency review](docs/dependency-review.md)

@@ -982,6 +982,77 @@ fn doctor_reports_observed_limits_without_terminal_or_protocol_claims() {
 }
 
 #[test]
+fn theme_commands_list_and_preview_every_shipped_palette() {
+    let f = Fixture::new();
+    let names = f.json(&["themes", "list", "--json"]);
+    let names: Vec<&str> = names
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|name| name.as_str().unwrap())
+        .collect();
+    assert_eq!(names, clack::ui::THEMES);
+    let listed = f.run(&["themes", "list"]);
+    assert_eq!(
+        String::from_utf8(listed.stdout).unwrap(),
+        clack::ui::THEMES
+            .iter()
+            .map(|name| format!("{name}\n"))
+            .collect::<String>(),
+        "the plain list stays one name per line"
+    );
+
+    // Piped output follows NO_COLOR; every theme still identifies itself.
+    let shown = f.run(&["themes", "show"]);
+    assert!(shown.status.success());
+    let text = String::from_utf8(shown.stdout).unwrap();
+    assert!(!text.contains('\x1b'), "{text:?}");
+    for spec in clack::ui::ThemeSpec::all() {
+        assert!(
+            text.contains(&format!("{} — {}", spec.label, spec.description)),
+            "{}",
+            spec.name
+        );
+    }
+    let painted = f.run(&["--color", "always", "themes", "show", "nord", "light"]);
+    assert!(painted.status.success());
+    let text = String::from_utf8(painted.stdout).unwrap();
+    assert_eq!(text.lines().count(), 4, "identity and sample per theme");
+    assert!(text.contains("\x1b[") && text.contains("the quick br"));
+    assert!(
+        text.ends_with("\x1b[0m\n"),
+        "styles are reset after samples"
+    );
+    let plain = f.run(&["--color", "never", "themes", "show", "nord"]);
+    assert!(!plain.stdout.contains(&27));
+
+    let described = f.json(&["themes", "show", "nord", "--json"]);
+    assert_eq!(described.as_array().unwrap().len(), 1);
+    assert_eq!(described[0]["name"], "nord");
+    assert_eq!(described[0]["colors"]["background"]["rgb"], "#2E3440");
+    assert_eq!(described[0]["credit"]["project"], "Nord");
+
+    for args in [
+        vec!["themes", "show", "not_a_theme"],
+        vec!["--theme", "not_a_theme", "config", "show"],
+    ] {
+        let output = f.run(&args);
+        assert_eq!(output.status.code(), Some(2), "{args:?}");
+        assert!(output.stdout.is_empty());
+    }
+    let resolved = f.json(&[
+        "--theme",
+        "rose_pine_dawn",
+        "config",
+        "show",
+        "--resolved",
+        "--json",
+    ]);
+    assert_eq!(resolved["appearance"]["theme"], "rose_pine_dawn");
+    assert!(!f.paths.data.exists());
+}
+
+#[test]
 #[cfg(unix)]
 fn closed_output_streams_return_handled_exit_codes_without_panicking() {
     use std::os::{fd::OwnedFd, unix::net::UnixStream};

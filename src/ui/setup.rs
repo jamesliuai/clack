@@ -469,7 +469,7 @@ pub fn render(frame: &mut Frame, setup: &Setup, appearance: &Appearance, message
             width,
             format!("{prefix}{content}"),
             if selected {
-                theme.accent.add_modifier(Modifier::BOLD)
+                theme.selected.add_modifier(Modifier::BOLD)
             } else {
                 theme.muted
             },

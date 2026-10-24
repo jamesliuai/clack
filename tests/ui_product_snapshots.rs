@@ -378,6 +378,57 @@ fn every_theme_degrades_without_unsupported_color_sequences_and_keeps_error_cues
     }
 }
 
+/// Every shipped role at every color depth, so palette and derived-fallback
+/// changes are reviewed like any other visible output.
+#[test]
+fn theme_fallback_table_matches_reviewed_golden() {
+    use clack::ui::{ColorDepth, Palette, ThemeSpec};
+    use std::fmt::Write;
+    let name = |color: Option<Color>| match color {
+        Some(Color::Rgb(r, g, b)) => format!("#{r:02X}{g:02X}{b:02X}"),
+        Some(Color::Indexed(index)) => index.to_string(),
+        Some(color) => format!("{color:?}"),
+        None => "-".into(),
+    };
+    let mut output = String::from("Theme roles: 24-bit · xterm-256 · 16-color\n");
+    for spec in ThemeSpec::all() {
+        writeln!(
+            output,
+            "\n[{}] {} · {}",
+            spec.name,
+            spec.label,
+            spec.variant.name()
+        )
+        .unwrap();
+        let [truecolor, indexed, basic] = [
+            ColorDepth::TrueColor,
+            ColorDepth::Ansi256,
+            ColorDepth::Ansi16,
+        ]
+        .map(|depth| spec.colors(depth));
+        for (role, label) in Palette::ROLES.iter().enumerate() {
+            writeln!(
+                output,
+                "  {label:<10} {:>8} {:>8}  {}",
+                name(truecolor[role]),
+                name(indexed[role]),
+                name(basic[role])
+            )
+            .unwrap();
+        }
+    }
+    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/snapshots/themes.txt");
+    if std::env::var_os("CLACK_UPDATE_SNAPSHOTS").is_some() {
+        std::fs::write(&path, &output).unwrap();
+    }
+    assert_eq!(
+        std::fs::read_to_string(&path).unwrap(),
+        output,
+        "{}",
+        path.display()
+    );
+}
+
 #[test]
 fn every_overlay_survives_zero_or_unsafe_geometry() {
     let config = Config::default();

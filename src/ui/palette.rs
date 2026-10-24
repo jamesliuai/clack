@@ -1,5 +1,5 @@
 //! Searchable command and setting presentation; definitions come from the registry.
-use super::{Appearance, ColorDepth, Geometry, Theme, line};
+use super::{Appearance, ColorDepth, Geometry, Theme, ThemeSpec, Variant, line};
 use crate::{
     config::Config,
     settings::{CommandAction, REGISTRY, Setting},
@@ -189,7 +189,8 @@ impl Palette {
             search: "save named preset".into(),
             kind: EntryKind::SavePreset,
         });
-        for name in super::THEMES {
+        for spec in ThemeSpec::all() {
+            let name = spec.name;
             self.entries.push(Entry {
                 label: format!(
                     "Theme {}{name}",
@@ -205,11 +206,13 @@ impl Palette {
                     }
                 ),
                 value: String::new(),
-                help:
-                    "Arrow keys preview; Enter saves this theme; Esc restores the previous theme."
-                        .into(),
-                search: format!("theme {name}"),
-                kind: EntryKind::Theme((*name).into()),
+                help: format!("{} — {}", spec.label, spec.description),
+                search: format!(
+                    "theme {name} {} {}",
+                    spec.label.to_lowercase(),
+                    spec.variant.name()
+                ),
+                kind: EntryKind::Theme(name.into()),
             });
         }
         for name in &config.workflow.favorite_packs {
@@ -358,12 +361,41 @@ fn display_value(value: &toml::Value) -> String {
     }
 }
 
+const SWATCH: u16 = 8;
+/// A theme's own background, text, accent and caret (or pace) colors, drawn
+/// at the end of its row so entries can be compared before previewing them.
+fn swatch(frame: &mut Frame, right: u16, y: u16, name: &str, depth: ColorDepth) {
+    let Some(spec) = ThemeSpec::find(name).filter(|spec| spec.variant != Variant::Terminal) else {
+        return;
+    };
+    let [background, _, text, _, _, accent, caret, _, _, pace] = spec.colors(depth);
+    let chips = [
+        background,
+        text,
+        accent,
+        if caret == accent { pace } else { caret },
+    ];
+    if right < SWATCH || y >= frame.area().height || right > frame.area().width {
+        return;
+    }
+    for (chip, color) in chips.into_iter().enumerate() {
+        // Monochrome output has no colors to show.
+        let Some(color) = color else { return };
+        for cell in 0..2 {
+            frame.buffer_mut()[(right - SWATCH + chip as u16 * 2 + cell, y)]
+                .set_symbol(" ")
+                .set_bg(color);
+        }
+    }
+}
+
 pub fn render(frame: &mut Frame, palette: &Palette, appearance: &Appearance) {
     if let Some(setup) = &palette.setup {
         super::setup::render(frame, setup, appearance, palette.message.as_deref());
         return;
     }
-    let theme = Theme::from_preferences(appearance, ColorDepth::detect(appearance.color));
+    let depth = ColorDepth::detect(appearance.color);
+    let theme = Theme::from_preferences(appearance, depth);
     let area = frame.area();
     frame.buffer_mut().set_style(area, theme.background);
     let Some(geometry) = Geometry::new(area, appearance) else {
@@ -409,6 +441,7 @@ pub fn render(frame: &mut Frame, palette: &Palette, appearance: &Appearance) {
             .position(|value| value == &editor.value)
             .unwrap_or(0);
         let first = selected.saturating_sub(3);
+        let choosing_theme = matches!(&editor.purpose, EditPurpose::Setting(setting) if setting.path == "appearance.theme");
         for (offset, (index, choice)) in editor
             .choices
             .iter()
@@ -417,18 +450,24 @@ pub fn render(frame: &mut Frame, palette: &Palette, appearance: &Appearance) {
             .take(7.min(usize::from(area.height.saturating_sub(10))))
             .enumerate()
         {
+            let row = y + 4 + offset as u16;
+            let text = format!("{} {choice}", if index == selected { ">" } else { " " });
+            let used = unicode_width::UnicodeWidthStr::width(text.as_str());
             line(
                 frame,
                 x,
-                y + 4 + offset as u16,
+                row,
                 width,
-                format!("{} {choice}", if index == selected { ">" } else { " " }),
+                text,
                 if index == selected {
-                    theme.accent
+                    theme.selected
                 } else {
                     theme.muted
                 },
             );
+            if choosing_theme && used + 2 + usize::from(SWATCH) <= usize::from(width) {
+                swatch(frame, x + width, row, choice, depth);
+            }
         }
         line(
             frame,
@@ -468,23 +507,35 @@ pub fn render(frame: &mut Frame, palette: &Palette, appearance: &Appearance) {
     for (offset, index) in matches.iter().skip(first).take(visible.max(1)).enumerate() {
         let entry = &palette.entries[*index];
         let selected = first + offset == palette.selected;
+        let row = y + 2 + offset as u16;
+        let text = format!(
+            "{} {}{}",
+            if selected { ">" } else { " " },
+            entry.label,
+            if entry.value.is_empty() {
+                String::new()
+            } else {
+                format!(" · {}", entry.value)
+            }
+        );
+        let used = unicode_width::UnicodeWidthStr::width(text.as_str());
         line(
             frame,
             x,
-            y + 2 + offset as u16,
+            row,
             width,
-            format!(
-                "{} {}{}",
-                if selected { ">" } else { " " },
-                entry.label,
-                if entry.value.is_empty() {
-                    String::new()
-                } else {
-                    format!(" · {}", entry.value)
-                }
-            ),
-            if selected { theme.accent } else { theme.muted },
+            text,
+            if selected {
+                theme.selected
+            } else {
+                theme.muted
+            },
         );
+        if let EntryKind::Theme(name) = &entry.kind
+            && used + 2 + usize::from(SWATCH) <= usize::from(width)
+        {
+            swatch(frame, x + width, row, name, depth);
+        }
     }
     let help = palette
         .message
@@ -497,7 +548,15 @@ pub fn render(frame: &mut Frame, palette: &Palette, appearance: &Appearance) {
         x,
         area.height - 2,
         width,
-        "enter select  ↑↓ move  esc close",
+        // Selecting a theme entry is already a live preview.
+        if palette
+            .selected_entry()
+            .is_some_and(|entry| matches!(entry.kind, EntryKind::Theme(_)))
+        {
+            "enter save  ↑↓ preview  esc undo"
+        } else {
+            "enter select  ↑↓ move  esc close"
+        },
         theme.muted,
     );
     frame.set_cursor_position((

@@ -440,7 +440,7 @@ pub fn render(frame: &mut Frame, review: &Review, appearance: &Appearance) {
                     appearance.ascii_markers
                 )
             ),
-            theme.correct,
+            theme.accent,
         ),
         (
             format!(

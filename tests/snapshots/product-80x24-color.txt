@@ -5,19 +5,19 @@ Style legend: A=accent m=muted F=foreground 0=monochrome d=dim U=underlined
     > theme
 style     F FFFFF
 
-      Theme · terminal
-style       mmmmm m mmmmmmmm
-      Favorite themes · []
-style       mmmmmmmm mmmmmm m mm
-      Theme terminal
+      Theme one_dark
 style       mmmmm mmmmmmmm
-      Theme dark
-style       mmmmm mmmm
-      Theme light
-style       mmmmm mmmmm
-      Theme warm
-style       mmmmm mmmm
-    > Theme high_contrast
+      Theme synthwave
+style       mmmmm mmmmmmmmm
+      Theme night_owl
+style       mmmmm mmmmmmmmm
+      Theme solarized_light
+style       mmmmm mmmmmmmmmmmmmmm
+      Theme catppuccin_latte
+style       mmmmm mmmmmmmmmmmmmmmm
+      Theme rose_pine_dawn
+style       mmmmm mmmmmmmmmmmmmm
+    > Theme gruvbox_light
 style     A AAAAA AAAAAAAAAAAAA
 
 
@@ -29,10 +29,10 @@ style     A AAAAA AAAAAAAAAAAAA
 
 
 
-    Arrow keys preview; Enter saves this theme; Esc restores the previous th
-style     mmmmm mmmm mmmmmmmm mmmmm mmmmm mmmm mmmmmm mmm mmmmmmmm mmm mmmmmmmm mm
-    enter select  ↑↓ move  esc close
-style     mmmmm mmmmmm  mm mmmm  mmm mmmmm
+    Gruvbox Light — retro groove on faded paper
+style     mmmmmmm mmmmm m mmmmm mmmmmm mm mmmmm mmmmm
+    enter save  ↑↓ preview  esc undo
+style     mmmmm mmmm  mm mmmmmmm  mmm mmmm
 
 [palette-no-matches] 80x24 cursor=Some((30, 2))
 
@@ -110,6 +110,10 @@ style       mmmmm
 style     A AAAA
       high_contrast
 style       mmmmmmmmmmmmm
+      nord
+style       mmmm
+      dracula
+style       mmmmmmm
 
 
 
@@ -118,10 +122,8 @@ style       mmmmmmmmmmmmm
 
 
 
-
-
-    Terminal-inherited or shipped independent theme.
-style     mmmmmmmmmmmmmmmmmm mm mmmmmmm mmmmmmmmmmm mmmmmm
+    Terminal-inherited colors or a shipped palette; ↑↓ previews it live.
+style     mmmmmmmmmmmmmmmmmm mmmmmm mm m mmmmmmm mmmmmmmm mm mmmmmmmm mm mmmmm
     enter apply  ↑↓ choices  esc cancel
 style     mmmmm mmmmm  mm mmmmmmm  mmm mmmmmm
 
@@ -136,7 +138,7 @@ style     FFFF FFF F FFF FFFF F FFFFF FFFFFFFF
 style     mmmmm m mmmmm mmm m mmmmmmmm mmm mmmmm mmmmmmm
 
     wpm  █▅▃▅▅▆▆▆
-style     FFF  FFFFFFFF
+style     AAA  AAAAAAAA
     raw  █▇▇▇████
 style     mmm  mmmmmmmm
     err  ███▁▁▁▁▁

@@ -117,6 +117,7 @@ fn cli_enumerations_cannot_drift_from_the_shared_registry() {
         ("difficulty", "rules.difficulty"),
         ("backspace", "rules.backspace"),
         ("stop_on_error", "rules.stop_on_error"),
+        ("theme", "appearance.theme"),
         ("focus", "appearance.focus"),
         ("alignment", "appearance.alignment"),
         ("caret", "appearance.caret"),

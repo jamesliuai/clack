@@ -96,7 +96,9 @@ def choose(process: PtyProcess, value: str) -> None:
 def close_commands(process: PtyProcess) -> None:
     old_epoch = latest_frame(process)["epoch"]
     process.send(ESC)
-    wait_for(process, lambda: not screen_has(process, "enter select") and not screen_has(process, "enter apply") and latest_frame(process)["epoch"] > old_epoch, "closed command palette and ordered new input epoch")
+    # A selected theme entry shows its own preview hint instead of "enter select".
+    open_hints = ("enter select", "enter save", "enter apply")
+    wait_for(process, lambda: not any(screen_has(process, hint) for hint in open_hints) and latest_frame(process)["epoch"] > old_epoch, "closed command palette and ordered new input epoch")
 
 
 def quit_cleanly(process: PtyProcess) -> None:
@@ -125,10 +127,10 @@ def case_palette_aborts_active_and_compact_selection_stays_visible(ctx: Context)
         wait_for(p, lambda: frame_state(p) == "results", "opening commands aborts the active test")
         before = counts(p)["attempts_total"]
         query(p, "theme")
-        for _ in range(12):
+        for _ in range(30):
             p.send(DOWN)
             pause(p, 0.015)
-        seen(p, "> Theme high_contrast")
+        seen(p, "> Theme gruvbox_light")
         check(counts(p)["attempts_total"] == before, "palette search entered scoring")
         close_commands(p)
         check(frame_state(p) == "ready", "leaving an aborted-test palette did not prepare a new test")

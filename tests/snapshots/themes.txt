@@ -1,0 +1,253 @@
+Theme roles: 24-bit · xterm-256 · 16-color
+
+[terminal] Terminal · terminal
+  background    Reset    Reset  Reset
+  surface       Reset    Reset  Reset
+  text          Reset    Reset  Reset
+  subtext    DarkGray DarkGray  DarkGray
+  muted      DarkGray DarkGray  DarkGray
+  accent        Reset    Reset  Reset
+  caret         Reset    Reset  Reset
+  error           Red      Red  Red
+  extra       Magenta  Magenta  Magenta
+  pace           Cyan     Cyan  Cyan
+
+[dark] Dark · dark
+  background  #171A1E      234  Black
+  surface     #252A30      235  Black
+  text        #DCDFE1      253  White
+  subtext     #7D878C      102  DarkGray
+  muted       #68727A      242  DarkGray
+  accent      #9EBFCC      110  Cyan
+  caret       #9EBFCC      110  Cyan
+  error       #E8737A      174  Red
+  extra       #B5525C      131  Magenta
+  pace        #C9A96E      179  Yellow
+
+[light] Light · light
+  background  #F8F7F2      230  White
+  surface     #E9E7DE      254  White
+  text        #262D33      235  Black
+  subtext     #7A8289      244  DarkGray
+  muted       #868D93      245  DarkGray
+  accent      #37658C       24  Blue
+  caret       #37658C       24  Blue
+  error       #C0392B      160  Red
+  extra       #8E2C3E       88  Magenta
+  pace        #8A5A9E       97  Cyan
+
+[warm] Warm · dark
+  background  #221D1B      235  Black
+  surface     #322A26      236  Black
+  text        #E3D5C1      187  White
+  subtext     #8F8170      244  DarkGray
+  muted       #7D705F      243  DarkGray
+  accent      #E1AE61      179  Yellow
+  caret       #E1AE61      179  Yellow
+  error       #E2725B      173  Red
+  extra       #B0503E      131  Magenta
+  pace        #9DB58A      144  Green
+
+[high_contrast] High contrast · dark
+  background    Black    Black  Black
+  surface       Black    Black  Black
+  text          White    White  White
+  subtext        Gray     Gray  Gray
+  muted          Gray     Gray  Gray
+  accent       Yellow   Yellow  Yellow
+  caret        Yellow   Yellow  Yellow
+  error      LightRed LightRed  LightRed
+  extra      LightMagenta LightMagenta  LightMagenta
+  pace       LightCyan LightCyan  LightCyan
+
+[nord] Nord · dark
+  background  #2E3440      236  Black
+  surface     #434C5E      239  Black
+  text        #ECEFF4      255  White
+  subtext     #7B88A1      103  DarkGray
+  muted       #6B778E      243  DarkGray
+  accent      #88C0D0      110  Cyan
+  caret       #88C0D0      110  Cyan
+  error       #BF616A      131  Red
+  extra       #D08770      173  Yellow
+  pace        #B48EAD      139  LightMagenta
+
+[dracula] Dracula · dark
+  background  #282A36      235  Black
+  surface     #44475A      238  Black
+  text        #F8F8F2      231  White
+  subtext     #6272A4       67  DarkGray
+  muted       #6272A4       67  DarkGray
+  accent      #BD93F9      141  LightMagenta
+  caret       #FF79C6      212  LightMagenta
+  error       #FF5555      203  Red
+  extra       #FFB86C      215  Yellow
+  pace        #8BE9FD      117  Cyan
+
+[gruvbox_dark] Gruvbox Dark · dark
+  background  #282828      235  Black
+  surface     #3C3836      237  Black
+  text        #EBDBB2      223  White
+  subtext     #928374      102  DarkGray
+  muted       #7C6F64      243  DarkGray
+  accent      #FABD2F      214  Yellow
+  caret       #FE8019      208  Yellow
+  error       #FB4934      203  Red
+  extra       #CC241D      160  Magenta
+  pace        #8EC07C      107  Cyan
+
+[solarized_dark] Solarized Dark · dark
+  background  #002B36      234  Black
+  surface     #073642      235  Black
+  text        #EEE8D5      187  White
+  subtext     #839496      244  DarkGray
+  muted       #586E75      242  DarkGray
+  accent      #B58900      136  Yellow
+  caret       #268BD2       33  Blue
+  error       #DC322F      160  Red
+  extra       #CB4B16      166  LightRed
+  pace        #2AA198       37  Cyan
+
+[catppuccin_mocha] Catppuccin Mocha · dark
+  background  #1E1E2E      234  Black
+  surface     #313244      236  Black
+  text        #CDD6F4      189  White
+  subtext     #7F849C      103  DarkGray
+  muted       #6C7086      243  DarkGray
+  accent      #CBA6F7      183  LightMagenta
+  caret       #F5E0DC      254  White
+  error       #F38BA8      211  Red
+  extra       #FAB387      216  Yellow
+  pace        #89B4FA      111  LightBlue
+
+[tokyo_night] Tokyo Night · dark
+  background  #1A1B26      234  Black
+  surface     #24283B      235  Black
+  text        #C0CAF5      153  White
+  subtext     #787C99      244  DarkGray
+  muted       #565F89       60  DarkGray
+  accent      #7AA2F7       75  LightBlue
+  caret       #BB9AF7      147  LightMagenta
+  error       #F7768E      204  Red
+  extra       #FF9E64      215  Yellow
+  pace        #9ECE6A      114  Green
+
+[rose_pine] Rosé Pine · dark
+  background  #191724      234  Black
+  surface     #403D52      238  Black
+  text        #E0DEF4      189  White
+  subtext     #908CAA      103  DarkGray
+  muted       #6E6A86       60  DarkGray
+  accent      #EBBCBA      217  LightMagenta
+  caret       #F6C177      215  Yellow
+  error       #EB6F92      204  Red
+  extra       #B4637A      132  Magenta
+  pace        #9CCFD8      116  Cyan
+
+[everforest] Everforest · dark
+  background  #2D353B      236  Black
+  surface     #3D484D      238  Black
+  text        #D3C6AA      251  White
+  subtext     #859289      245  DarkGray
+  muted       #7A8478      244  DarkGray
+  accent      #A7C080      143  Green
+  caret       #DBBC7F      180  Yellow
+  error       #E67E80      174  Red
+  extra       #E69875      209  Magenta
+  pace        #7FBBB3      109  Cyan
+
+[kanagawa] Kanagawa · dark
+  background  #1F1F28      234  Black
+  surface     #2D4F67      239  Black
+  text        #DCD7BA      187  White
+  subtext     #727169      242  DarkGray
+  muted       #727169      242  DarkGray
+  accent      #7E9CD8      110  LightBlue
+  caret       #E6C384      186  Yellow
+  error       #E46876      167  Red
+  extra       #C34043      160  Magenta
+  pace        #98BB6C      143  Green
+
+[one_dark] One Dark · dark
+  background  #282C34      236  Black
+  surface     #3E4451      238  Black
+  text        #D7DAE0      253  White
+  subtext     #828997      245  DarkGray
+  muted       #636D83      242  DarkGray
+  accent      #61AFEF       75  LightBlue
+  caret       #528BFF       69  LightBlue
+  error       #E06C75      167  Red
+  extra       #BE5046      131  Magenta
+  pace        #C678DD      176  LightMagenta
+
+[synthwave] SynthWave '84 · dark
+  background  #262335      235  Black
+  surface     #34294F      236  Black
+  text        #FFFFFF      231  White
+  subtext     #848BBD      103  DarkGray
+  muted       #848BBD      103  DarkGray
+  accent      #FF7EDB      212  LightMagenta
+  caret       #36F9F6       51  LightCyan
+  error       #FE4450      203  Red
+  extra       #F97E72      210  LightRed
+  pace        #FEDE5D      221  Yellow
+
+[night_owl] Night Owl · dark
+  background  #011627      233  Black
+  surface     #1D3B53      237  Black
+  text        #D6DEEB      253  White
+  subtext     #637777      243  DarkGray
+  muted       #5F7E97       67  DarkGray
+  accent      #82AAFF      111  LightBlue
+  caret       #7FDBCA      116  LightCyan
+  error       #EF5350      203  Red
+  extra       #F78C6C      209  Yellow
+  pace        #C792EA      176  LightMagenta
+
+[solarized_light] Solarized Light · light
+  background  #FDF6E3      230  White
+  surface     #EEE8D5      187  White
+  text        #073642      235  Black
+  subtext     #657B83      243  DarkGray
+  muted       #839496      246  DarkGray
+  accent      #268BD2       32  Blue
+  caret       #CB4B16      166  LightRed
+  error       #DC322F      160  Red
+  extra       #D33682      125  Magenta
+  pace        #2AA198       37  Cyan
+
+[catppuccin_latte] Catppuccin Latte · light
+  background  #EFF1F5      255  White
+  surface     #CCD0DA      252  White
+  text        #4C4F69      239  Black
+  subtext     #7C7F93      244  DarkGray
+  muted       #8C8FA1      246  DarkGray
+  accent      #8839EF       93  Magenta
+  caret       #8839EF       93  Magenta
+  error       #D20F39      160  Red
+  extra       #FE640B      202  Yellow
+  pace        #1E66F5       27  Blue
+
+[rose_pine_dawn] Rosé Pine Dawn · light
+  background  #FAF4ED      255  White
+  surface     #DFDAD9      253  White
+  text        #464261      238  Black
+  subtext     #797593      243  DarkGray
+  muted       #9893A5      246  DarkGray
+  accent      #286983       24  Blue
+  caret       #286983       24  Blue
+  error       #B4637A      132  Red
+  extra       #D7827E      174  Magenta
+  pace        #56949F       66  Cyan
+
+[gruvbox_light] Gruvbox Light · light
+  background  #FBF1C7      230  White
+  surface     #EBDBB2      223  White
+  text        #3C3836      237  Black
+  subtext     #7C6F64      243  DarkGray
+  muted       #928374      102  DarkGray
+  accent      #AF3A03      130  Yellow
+  caret       #B57614      136  Yellow
+  error       #9D0006      124  Red
+  extra       #CC241D      160  Magenta
+  pace        #427B58       29  Cyan

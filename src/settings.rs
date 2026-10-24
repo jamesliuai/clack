@@ -223,7 +223,7 @@ pub const REGISTRY: &[Setting] = &[
         Kind::Choice(crate::ui::THEMES),
         true,
         false,
-        "Terminal-inherited or shipped independent theme."
+        "Terminal-inherited colors or a shipped palette; ↑↓ previews it live."
     ),
     setting!(
         "appearance.focus",

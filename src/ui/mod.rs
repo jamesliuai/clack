@@ -3,6 +3,7 @@ pub(crate) mod live;
 pub mod palette;
 pub mod panel;
 mod preferences;
+pub mod preview;
 pub mod review;
 pub mod setup;
 mod theme;
@@ -15,7 +16,8 @@ use crate::engine::{Engine, Integrity, Metrics, Mode, Outcome, ResultSnapshot, S
 use ratatui::{
     Frame,
     layout::Rect,
-    style::Style,
+    style::{Modifier, Style},
+    text::{Line, Span},
     widgets::{Paragraph, Wrap},
 };
 
@@ -53,6 +55,15 @@ pub fn line(frame: &mut Frame, x: u16, y: u16, width: u16, text: impl Into<Strin
     if y < frame.area().height && x < frame.area().width {
         frame.render_widget(
             Paragraph::new(text.into()).style(style),
+            Rect::new(x, y, width.min(frame.area().width - x), 1),
+        );
+    }
+}
+/// One row of differently styled parts over a common base style.
+pub fn spans(frame: &mut Frame, x: u16, y: u16, width: u16, parts: Vec<Span<'_>>, style: Style) {
+    if y < frame.area().height && x < frame.area().width {
+        frame.render_widget(
+            Paragraph::new(Line::from(parts)).style(style),
             Rect::new(x, y, width.min(frame.area().width - x), 1),
         );
     }
@@ -178,7 +189,7 @@ pub fn render(
             geometry.status_y,
             geometry.text.width,
             labels.join(""),
-            theme.muted,
+            theme.status,
         );
     }
     if ready
@@ -281,29 +292,21 @@ fn render_results(
     let x = geometry.text.x;
     let y = geometry.text.y.saturating_sub(1);
     let width = geometry.text.width;
-    if result.spec.mode == Mode::Zen {
-        line(
-            frame,
-            x,
-            y,
-            width,
-            format!("{} wpm output", metric(metrics.raw_wpm, 0)),
-            theme.correct,
-        );
+    let figure = theme.accent.add_modifier(Modifier::BOLD);
+    let headline = if result.spec.mode == Mode::Zen {
+        vec![
+            Span::styled(metric(metrics.raw_wpm, 0), figure),
+            Span::styled(" wpm output", theme.muted),
+        ]
     } else {
-        line(
-            frame,
-            x,
-            y,
-            width,
-            format!(
-                "{} wpm       {}% accuracy",
-                metric(metrics.wpm, 0),
-                metric(metrics.accuracy, 1)
-            ),
-            theme.correct,
-        );
-    }
+        vec![
+            Span::styled(metric(metrics.wpm, 0), figure),
+            Span::styled(" wpm       ", theme.muted),
+            Span::styled(format!("{}%", metric(metrics.accuracy, 1)), figure),
+            Span::styled(" accuracy", theme.muted),
+        ]
+    };
+    spans(frame, x, y, width, headline, theme.background);
     line(
         frame,
         x,

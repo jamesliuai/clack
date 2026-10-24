@@ -5,15 +5,15 @@ Style legend: A=accent m=muted F=foreground 0=monochrome d=dim U=underlined
     > theme
 style     0 00000
 
-      Theme warm
-style       00000 0000
-    > Theme high_contrast
+      Theme rose_pine_dawn
+style       00000 00000000000000
+    > Theme gruvbox_light
 style     0 00000 0000000000000
 
-    Arrow keys preview; Enter saves
-style     00000 0000 00000000 00000 00000
-    enter select  ↑↓ move  esc close
-style     00000 000000  00 0000  000 00000
+    Gruvbox Light — retro groove on
+style     0000000 00000 0 00000 000000 00
+    enter save  ↑↓ preview  esc undo
+style     00000 0000  00 0000000  000 0000
 
 [palette-no-matches] 40x10 cursor=Some((30, 2))
 
@@ -54,8 +54,8 @@ style     00000
 style     0 0000
 
 
-    Terminal-inherited or shipped in
-style     000000000000000000 00 0000000 00
+    Terminal-inherited colors or a s
+style     000000000000000000 000000 00 0 0
     enter apply  ↑↓ choices  esc can
 style     00000 00000  00 0000000  000 000
 

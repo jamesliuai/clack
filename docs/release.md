@@ -1,6 +1,6 @@
 # Release construction and validation
 
-Application version 1.0.1 targets stable Rust with MSRV 1.88. The checked-in
+Application version 1.1.0 targets stable Rust with MSRV 1.88. The checked-in
 lockfile is mandatory. Default release settings use thin LTO, one codegen unit,
 symbol stripping and unwind panics so the terminal guard can restore state.
 The core application forbids unsafe code. A narrow Windows-only private-file
@@ -71,13 +71,13 @@ cargo publish -p clack-typing
 
 Skip unchanged support versions already in the registry. A published version
 cannot be overwritten: bump changed support versions and their exact dependency
-requirements together. Version 1.0.1 uses `clack-crossterm` 0.30.1,
+requirements together. Version 1.1.0 uses `clack-crossterm` 0.30.1,
 `clack-ratatui-crossterm` 0.2.1, and unchanged `clack-private-fs` 1.0.0.
 The 0.30.1 terminal fork supplies `set_legacy_mouse_input`; the published 0.30.0
 fork cannot build this application. Publish the changed terminal crates in the
 order above before performing the application-only package/publish checks.
 Check `cargo package -p clack-typing --list` and verify a registry install in a
-temporary directory with `cargo install clack-typing --version 1.0.1 --locked --root PATH`.
+temporary directory with `cargo install clack-typing --version 1.1.0 --locked --root PATH`.
 
 ## Archive reproducibility
 
@@ -163,9 +163,10 @@ lifecycle and product workflows. GitHub-hosted runner names follow the
 Actions are pinned to full commit IDs, credentials are not retained, and workflow
 permissions are read-only. Dependency updates are proposed separately.
 
-The workflow is a reviewable validation definition; it is not evidence that a
-remote job ran. No tag, remote repository, uploaded release or publication is
-created by this work. Actual local build and test outcomes are recorded in
+The workflow defines validation; confirm that its jobs succeeded for the release
+commit before publication. Create the release tag, upload the verified archives,
+and publish the Cargo package explicitly after the checks pass. Actual local
+build and test outcomes are recorded in
 `dist/release-validation.json` when produced. This attestation is outside the
 archives so their hashes cannot become self-referential. A locally produced
 foreign executable is identified as cross-compiled; its header/checksum do not

@@ -144,7 +144,11 @@ pub fn render(frame: &mut Frame, history: &History, appearance: &Appearance) {
                 metric(result.metrics.accuracy, 1),
                 result.outcome
             ),
-            if selected { theme.accent } else { theme.muted },
+            if selected {
+                theme.selected
+            } else {
+                theme.muted
+            },
         );
     }
     if history.page.results.is_empty() {

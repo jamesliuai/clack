@@ -64,6 +64,10 @@ The generator rejects unreviewed licenses and dependency sources.
 
 Do not copy Monkeytype code, themes, logos, or text collections. New bundled
 content needs documented provenance and compatible terms in [docs/content.md](docs/content.md).
+New themes take their colors from the palette's own upstream project, under
+compatible terms recorded in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+[docs/themes.md](docs/themes.md#adding-a-theme) describes the readability tests,
+the snapshot to review, and how to regenerate the gallery.
 
 ## Documentation and releases
 

@@ -2,6 +2,24 @@
 
 ## Unreleased
 
+## 1.1.0 — 2026-10-23
+
+- Add 16 themes adapted from classic palettes: Nord, Dracula, Gruvbox Dark and
+  Light, Solarized Dark and Light, Catppuccin Mocha and Latte, Tokyo Night, Rosé
+  Pine and Rosé Pine Dawn, Everforest, Kanagawa, One Dark, SynthWave '84, and
+  Night Owl. See [themes](docs/themes.md).
+- Give every theme ten color roles. Wrong and extra letters, the caret, the pace
+  caret and selected rows now follow the theme instead of fixed terminal colors.
+  The live timer, result figures and the review speed chart use its accent.
+  Designed palettes no longer dim text still to be typed in 24-bit or 256-color
+  output.
+- Choose 256-color fallbacks by perceptual distance, and test every theme's
+  contrast at 24-bit and 256-color depth.
+- Show swatches, descriptions and a preview hint for themes in commands. Add
+  `clack themes show` and shell completion for `--theme`.
+- Detect 24-bit color in Windows Terminal and in terminals whose `TERM` always
+  supports it.
+
 ## 1.0.1 — 2026-10-13
 
 - Reduce memory use for untyped words, long passages, and repeated source preparation;

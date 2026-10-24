@@ -1,5 +1,5 @@
 use clack::{
-    cli::{Cli, Command, ConfigCommand, LanguageCommand},
+    cli::{Cli, Command, ConfigCommand, LanguageCommand, ThemeCommand},
     config::{Config, Paths},
     sample::Samples,
     storage::{self, ExportFormat, Filter, Page, ReadStore},
@@ -242,13 +242,50 @@ fn command_line(
                 }
             }
         }
-        Command::Themes { .. } => {
+        Command::Themes {
+            command: ThemeCommand::List,
+        } => {
             if cli.json {
                 write_json(&clack::ui::THEMES)?;
             } else {
                 for theme in clack::ui::THEMES {
                     write_text(&format!("{theme}\n"))?;
                 }
+            }
+        }
+        Command::Themes {
+            command: ThemeCommand::Show { names },
+        } => {
+            use clack::ui::{ColorDepth, ColorPolicy, ThemeSpec, preview};
+            let specs: Vec<&ThemeSpec> = if names.is_empty() {
+                ThemeSpec::all().iter().collect()
+            } else {
+                names
+                    .iter()
+                    .filter_map(|name| ThemeSpec::find(name))
+                    .collect()
+            };
+            if cli.json {
+                write_json(
+                    &specs
+                        .iter()
+                        .map(|spec| preview::describe(spec))
+                        .collect::<Vec<_>>(),
+                )?;
+            } else {
+                // Automatic color follows the destination, like other command output.
+                let depth = if config.appearance.color == ColorPolicy::Auto
+                    && !io::IsTerminal::is_terminal(&io::stdout())
+                {
+                    ColorDepth::Monochrome
+                } else {
+                    ColorDepth::detect(config.appearance.color)
+                };
+                let text: String = specs
+                    .iter()
+                    .map(|spec| preview::entry(spec, &config.appearance, depth))
+                    .collect();
+                write_text(&text)?;
             }
         }
         Command::Doctor { probe } => {

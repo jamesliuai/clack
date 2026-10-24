@@ -83,7 +83,12 @@ pub struct Cli {
     pub minimum_accuracy: Option<f64>,
     #[arg(long,num_args=0..=1,default_missing_value="true",require_equals=true)]
     pub blind: Option<bool>,
-    #[arg(long)]
+    #[arg(
+        long,
+        value_parser = clap::builder::PossibleValuesParser::new(crate::ui::THEMES.iter().copied()),
+        hide_possible_values = true,
+        help = "Color theme for this session; see `clack themes list`"
+    )]
     pub theme: Option<String>,
     #[arg(long,value_parser=["auto","always","off"])]
     pub focus: Option<String>,
@@ -229,6 +234,12 @@ pub enum LanguageCommand {
 #[derive(Debug, Subcommand)]
 pub enum ThemeCommand {
     List,
+    /// Preview themes with sample text in their own colors
+    Show {
+        /// Themes to show; all when omitted
+        #[arg(value_parser = clap::builder::PossibleValuesParser::new(crate::ui::THEMES.iter().copied()), hide_possible_values = true)]
+        names: Vec<String>,
+    },
 }
 
 impl Cli {

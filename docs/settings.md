@@ -108,7 +108,7 @@ serialized leaf is registered and that CLI choice lists match registry choices.
 | Group | Settings and supported values |
 |---|---|
 | Test | `mode`: time/words/quote/custom/code/zen; `seconds`:1–3600; `words`:1–10000; stable `language`; independent `punctuation`/`numbers`; `policy`:prose/exact; `normalize_exact`; `completion`:confirm/auto; `quote_length`:short/medium/long/extended; optional `quote_id`/`file`. |
-| Display | `theme`:terminal/dark/light/warm/high_contrast; `focus`:auto/always/off; `width`:auto or40–120; `alignment`:center/top; `lines`:1–5; `line_spacing`:0/1; `caret`:bar/block/underline; `tab_stop`:1–16; `color`:auto/always/never; independent error underline, typed bold, and ASCII markers. |
+| Display | `theme`: one of the 21 [shipped themes](themes.md), such as terminal, dark, light, warm, high_contrast, nord or catppuccin_mocha; `focus`:auto/always/off; `width`:auto or40–120; `alignment`:center/top; `lines`:1–5; `line_spacing`:0/1; `caret`:bar/block/underline; `tab_stop`:1–16; `color`:auto/always/never; independent error underline, typed bold, and ASCII markers. |
 | Status | Independent `progress`, `wpm`, `accuracy`; `speed_unit`:wpm/cpm. Full focus hides all secondary status. |
 | Rules | `difficulty`:normal/expert/master; `backspace`:mistakes/current/full/none; `stop_on_error`:off/letter/word; `blind`; optional positive `minimum_wpm`≤1000 and `minimum_accuracy`≤100. |
 | Practice | `pace`:off/personal_best or a string containing fixed1–1000WPM; `auto_indent` for exact input; `selection`:missed/slow. Practice selection does not change the specified25-word or slow-quartile algorithms. |

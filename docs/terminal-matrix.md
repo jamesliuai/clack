@@ -237,7 +237,10 @@ cannot restore hidden typing controls.
 
 The default theme inherits the terminal background and foreground. The shipped
 explicit themes select RGB, indexed 256-color, or ANSI 16-color roles according to
-the chosen color policy and environment. `NO_COLOR` suppresses color unless the
+the chosen color policy and environment. 24-bit color requires `COLORTERM=truecolor`
+or `24bit`, a `-direct` or known 24-bit `TERM` (kitty, Ghostty, Alacritty, WezTerm,
+foot), or Windows Terminal outside screen/tmux; otherwise a `256color` `TERM`
+selects indexed color. See [themes](themes.md#color-depth). `NO_COLOR` suppresses color unless the
 user explicitly chooses `--color always`; underline/reverse/bold cues retain
 errors and active position without color. `appearance.ascii_markers` substitutes
 simple markers when whitespace/continuation glyphs are unavailable. The app does
