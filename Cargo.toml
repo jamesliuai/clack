@@ -46,7 +46,7 @@ unicode-width = "0.2"
 csv = "1.4"
 
 [target.'cfg(unix)'.dependencies]
-signal-hook = "0.3"
+signal-hook = "0.4"
 nix = { version = "0.30", features = ["signal", "term", "fs", "process"] }
 
 [target.'cfg(windows)'.dependencies]
