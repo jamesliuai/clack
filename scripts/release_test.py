@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import contextlib
+import hashlib
 import io
 import json
 import os
@@ -25,6 +26,33 @@ import verify_release
 
 
 class ReleaseTests(unittest.TestCase):
+    def test_source_identity_uses_the_same_order_with_case_insensitive_paths(self):
+        # Exercise Windows-style ordering on Unix too, where Path normally hides
+        # this difference. The subclass still reads ordinary temporary files.
+        class CaseInsensitivePath(type(self.root)):
+            def __lt__(self, other):
+                return tuple(part.lower() for part in self.parts) < tuple(part.lower() for part in other.parts)
+
+        root = self.root / "identity"
+        files = {"Cargo.lock": b"lock", "Cargo.toml": b"manifest", "build.rs": b"build",
+                 "data/words.txt": b"words", "src/Z.rs": b"upper", "src/a.rs": b"lower",
+                 "src/nested/file.rs": b"nested", "src/nested.rs": b"module"}
+        expected = hashlib.sha256()
+        ordered = sorted(files, key=lambda name: tuple(name.split("/")))
+        for name in ordered:
+            path = root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(files[name])
+            expected.update(name.encode() + b"\0")
+            expected.update(hashlib.sha256(files[name]).digest())
+        for path_type in (type(root), CaseInsensitivePath):
+            candidate = path_type(root)
+            with self.subTest(path_type=path_type), mock.patch.object(package, "ROOT", candidate):
+                self.assertEqual(package.source_identity(), expected.hexdigest())
+                self.assertEqual(package.source_identity(candidate), expected.hexdigest())
+                self.assertEqual([path.relative_to(candidate).as_posix()
+                                  for path in package.source_inputs(candidate)], ordered)
+
     def test_native_license_graphs_exclude_host_only_and_development_dependencies(self):
         targets = ("x86_64-pc-windows-msvc", "aarch64-apple-darwin")
         packages = [{"id": name, "name": name, "version": "1.0.0"}

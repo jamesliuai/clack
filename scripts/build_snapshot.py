@@ -10,7 +10,7 @@ import platform
 import shutil
 import subprocess
 
-from package import ROOT, files_under, source_identity
+from package import ROOT, source_identity, source_inputs
 
 
 def main():
@@ -37,11 +37,8 @@ def main():
     else:
         command += ['--example', 'kernel_bench', '--example', 'render_bench']
     before = source_identity()
-    paths = [ROOT / 'Cargo.toml', ROOT / 'Cargo.lock']
-    for directory in ('src', 'data', 'vendor'):
-        paths.extend(files_under(ROOT / directory))
     inputs = [{'path': str(path.relative_to(ROOT)), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
-              for path in sorted(paths)]
+              for path in source_inputs(ROOT)]
     subprocess.run(command, cwd=ROOT, env=environment, check=True)
     if source_identity() != before:
         raise SystemExit('Source changed during build; no immutable snapshot was published.')

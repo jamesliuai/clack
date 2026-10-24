@@ -59,13 +59,20 @@ def files_under(directory: Path, *, distribution: bool = False) -> list[Path]:
     return files
 
 
-def source_identity() -> str:
-    digest = hashlib.sha256()
-    paths = [ROOT / "Cargo.toml", ROOT / "Cargo.lock", ROOT / "build.rs"]
+def source_inputs(root: Path) -> list[Path]:
+    paths = [root / "Cargo.toml", root / "Cargo.lock", root / "build.rs"]
     for directory in ("src", "data", "vendor"):
-        paths.extend(files_under(ROOT / directory))
-    for path in sorted(paths):
-        digest.update(path.relative_to(ROOT).as_posix().encode() + b"\0")
+        paths.extend(files_under(root / directory))
+    # Native Windows paths compare case-insensitively. Hash the same relative,
+    # case-sensitive component order on every host, preserving Unix identities.
+    return sorted(paths, key=lambda path: path.relative_to(root).parts)
+
+
+def source_identity(root: Path | None = None) -> str:
+    root = ROOT if root is None else root
+    digest = hashlib.sha256()
+    for path in source_inputs(root):
+        digest.update(path.relative_to(root).as_posix().encode() + b"\0")
         digest.update(hashlib.sha256(path.read_bytes()).digest())
     return digest.hexdigest()
 

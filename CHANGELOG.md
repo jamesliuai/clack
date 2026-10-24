@@ -19,6 +19,7 @@
   `clack themes show` and shell completion for `--theme`.
 - Detect 24-bit color in Windows Terminal and in terminals whose `TERM` always
   supports it.
+- Keep release source fingerprints identical across Windows and Unix path ordering.
 
 ## 1.0.1 — 2026-10-13
 

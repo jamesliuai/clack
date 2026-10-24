@@ -134,14 +134,7 @@ def verify(archive: Path) -> dict:
                     raise ValueError("source release lacks " + filename)
             if sha((root / "Cargo.lock").read_bytes()) != manifest["cargo_lock_sha256"]:
                 raise ValueError("source lockfile checksum mismatch")
-            digest = hashlib.sha256()
-            sources = [root / "Cargo.toml", root / "Cargo.lock", root / "build.rs"]
-            for name in ("src", "data", "vendor"):
-                sources.extend(package.files_under(root / name))
-            for source in sorted(sources):
-                digest.update(source.relative_to(root).as_posix().encode() + b"\0")
-                digest.update(hashlib.sha256(source.read_bytes()).digest())
-            result["source_identity_sha256"] = digest.hexdigest()
+            result["source_identity_sha256"] = package.source_identity(root)
             result["original_manifest_and_vendor_patch"] = "pass"
             return result
         target = manifest["target"]
